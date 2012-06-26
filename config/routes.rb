@@ -1,5 +1,12 @@
 Tix::Application.routes.draw do
+
   root :to => "main#index"
+
+  scope '/api' do
+    resources :seating_charts
+    resources :seats
+  end
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

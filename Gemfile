@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.6'
 
 group :assets do
-  gem 'less-rails',   '~> 2.2.1'
+  gem 'sass'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'haml_coffee_assets'
   gem 'execjs'

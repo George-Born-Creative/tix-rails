@@ -1,0 +1,2 @@
+module SeatingChartsHelper
+end

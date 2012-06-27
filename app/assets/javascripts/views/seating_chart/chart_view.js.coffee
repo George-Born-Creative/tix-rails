@@ -7,7 +7,7 @@ class Tix.Views.ChartView extends Backbone.View
     this.model.bind('change', this.render, this);
     @paper = Raphael('canvas', 403, 800)
     @render()
-    Tix.dispatcher.on 'seat:click', -> console.log 'Seat Clicked'
+    @respondToSeatClick()
     
   render: ->
     @drawSingleSeats()   
@@ -31,24 +31,34 @@ class Tix.Views.ChartView extends Backbone.View
       seats.push seat
       
     seats
-      .click(this.seatClick)
+      .click(this.dispatchSeatClick)
       .data
         'origFill': '#aaa'
       .attr
         fill: '#aaa'
         'stroke-width': 0
         'stroke': 0
-      .hover ->
-        $('body').css('cursor', 'pointer')
-        this.attr
-          fill: '#ccc'
-      , ->
-        $('body').css('cursor', 'auto')
-        this.attr
-          fill: this.data('origFill')
+      .hover @seatMouseover, @seatMouseout
+      
+  seatMouseover: ->
+    $('body').css('cursor', 'pointer')
+    this.attr
+      fill: '#ccc'
+    
+  seatMouseOut: ->
+    $('body').css('cursor', 'auto')
+    this.attr
+      fill: this.data('origFill')
+          
+  respondToSeatClick: ->
+    Tix.dispatcher.on 'seat:click', (element)->
+      element
+        .attr
+          fill: '#39f'
+        .unhover @seatMouseover, @seatMouseout
         
-  seatClick: (e) ->
-    console.log this.data('label')
-    Tix.dispatcher.trigger 'seat:click', this.data('label')
+      
+  dispatchSeatClick: (e) ->
+    Tix.dispatcher.trigger 'seat:click', this
     
   drawPolySeats: ->

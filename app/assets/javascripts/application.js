@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require tabs
 //= require underscore
 //= require backbone
 //= require raphael.min

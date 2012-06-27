@@ -36,6 +36,7 @@ gem 'thin'
 
 ## accessories 
 # gem 'phony' # formatting phone number
+gem 'nokogiri'
 
 ## views / front end
 gem 'rabl'
@@ -43,6 +44,8 @@ gem 'yajl-ruby'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'backbone-on-rails'
+gem 'skeleton-rails'
+
 # gem 'country_select'
 # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'

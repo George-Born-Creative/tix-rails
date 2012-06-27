@@ -2,13 +2,19 @@
 <html>
 <head>
   <title>Tix</title>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <%= yield %>
+<%= javascript_include_tag "application" %>
 
+<script type="text/javascript">
+$(function(){
+  Tix.init({chart: <%= SeatingChart.first.to_json(:include => :single_seats).html_safe %>});
+});
+</script>
 </body>
 </html>

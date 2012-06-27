@@ -1,22 +1,22 @@
 body
-  background
-    color:  black
-    font-family: Helvetica
-  
+  background:
+    color:  #fff - #212
+  font-family: Helvetica
+    
 .container
-  width: 940px
-  margin: 0 auto
-  padding: 10px 0
-  display: block
-  border-left: 1px solid black
-  border-right: 1px solid black
+  border-left: 1px solid #aaa
+  border-right: 1px solid #aaa
+  background-color: white
       
 #wrap
-  background:  url(/images/jj-chart-bg.png) no-repeat 0 0
+  background:
+    //image: url(/images/jj-chart-bg.png) 
+    color: #123
+    repeat: no-repeat
+    position: 0 0
   width:  403px
   height:  755px
   border: 1px solid #ccc
-  margin: 0 auto
   
 #canvas
   width:  100%
@@ -44,3 +44,13 @@ ul#selected_seats
     &.active
       background-color:  #7b3f2c
       color:  white
+      
+ul.stacked_list
+  li
+    list-style:  none
+    display:  block
+    width:  100%
+    background-color:  #aaa
+    padding:  0
+    color:  white
+    padding:  10px 4px

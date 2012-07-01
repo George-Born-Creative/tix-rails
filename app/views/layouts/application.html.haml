@@ -8,9 +8,58 @@
       <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
       
   %body
+    .container
+      #header.columns.sixteen
+    
+        #logo.columns.nine.alpha
+        
+        #social_links.columns.six.omega
+          Twitter   |   Facebook   |   FAQ   |   Contact    |   Directions  
+          <br/>
+          <br/>
+          <br/>
+          
+          .small 227 Maple Ave E Vienna, VA 22180   |   <a href='#'>thebros@jamminjava.com</a>
+  
+      #mid.columns.sixteen
+      
+        .columns.four.alpha#sidenav
+          %ul
+            %li{:href => "http://jamminjava.com/home/events/list"} Calendar
+            %li{:href => "http://jamminjava.com/home/lobbybar"} The Lobby Bar
+            %li{:href => "http://jamminjava.com/home/kids-events/list"} Kids Shows
+            %li{:href => "http://jamminjava.com/home/main/private-events"} Private Events
+            %li{:href => "http://jamminjava.com/home/main/cafe"} Food/Drink
+            %li{:href => "http://themusicschoolonline.com", :target => "_blank"} Music Lessons
+            %li{:href => "http://jamminjava.com/home/main/store"} Store
+            %li{:href => "http://jamminjava.com/home/main/about"} About
+            %li{:href => "http://thewhiskeyannapolis.com"} The Whiskey
+            / <a href="http://jamminjava.com/home/main/sponsorship">Sponsorship</a>
+          %br/
+          %form#exampleForm{"accept-charset" => "UTF-8", :action => "http://app.icontact.com/icp/signup.php", :method => "post", :name => "exampleForm", :onsubmit => "return verifyRequired();"}/
+            
+            
+        .columns.eight
+          =image_tag '/images/jj-marah.jpg', :height => '200px', width: '100%'
+        .columns.four.omega
+          
+          %h5 Monday July 2 7:30PM
+          %h5 $10
+
+          %h4 Jammin Java’s Mid-Atlantic Band Battle 7
+
+          %ul
+            %li 5:30 - The new lobby bar opens
+            %li 6:30 - Doors
+            
+          %a.button Buy Tickets »
+      
+
+        
+  
     = yield
     = javascript_include_tag "application"
     :javascript
       $(function(){
-        Tix.init({chart: #{SeatingChart.first.to_json(:include => :single_seats).html_safe } });
+        Tix.init({even: #{Event.first.to_json}, chart: #{SeatingChart.first.to_json(:include => [:single_seats, :area_seats]).html_safe } });
       });

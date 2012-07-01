@@ -4,7 +4,6 @@ class CreateSingleSeats < ActiveRecord::Migration
       t.string :label
       t.decimal :x, :null => false, :default => 0.0
       t.decimal :y, :null => false, :default => 0.0
-      
     end
   end
 end

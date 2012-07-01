@@ -16,6 +16,8 @@
 //= require underscore
 //= require backbone
 //= require raphael.min
+//= require hamlcoffee
+
 //
 //= require .//tix
 //
@@ -24,4 +26,5 @@
 //= require_tree .//collections
 //= require_tree .//views
 //= require_tree .//routers
+
 

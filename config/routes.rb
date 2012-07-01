@@ -5,6 +5,8 @@ Tix::Application.routes.draw do
   scope '/api' do
     resources :seating_charts
     resources :seats
+    resources :events
+    
   end
   
 

@@ -1,17 +1,36 @@
 .container
 
 
-          
   .row
-    .seven.columns
+    .eight.columns
+      %h3 1. Choose your seats
+      %hr/
       #wrap
         .clear
         #canvas
-    .five.columns
-      #seat_chooser
-        %h1 Jammin Java
-        %h2 Seat Chart
+    
+    %span
+    .four.columns
+      %h3 2. Confirm
+      %hr/
+      -# BACKBONE VIEW
+      #seat_chooser 
       
-        %ul.stacked_list
-          -10.times do
-            %li Choose a seat
+    .four.columns.right
+      %h3 3. Checkout
+    
+      %hr/
+
+      -# BACKBONE VIEW
+      #checkout
+        %span
+          %h4
+            Total
+            %span{:style => 'float:right'}
+              .total $0.00
+        
+  
+        %a.button Cash
+        %a.button Card
+        %a.button Paypal
+    

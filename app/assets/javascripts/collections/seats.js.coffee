@@ -12,8 +12,10 @@ class Tix.Collections.Seats extends Backbone.Collection
     @_total += parseFloat this.last().get('price')
   
   removeFromTotal: ->
-    if ( this.length > 1 )
-      @_total -= parseFloat 
+    self = this
+    if ( this.length >= 1 )
+      console.log self
+      @_total -= parseFloat self.last().get('price')
     else
       @_total = 0.00
     

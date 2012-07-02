@@ -6,6 +6,6 @@ class Tix.Views.MidView extends Backbone.View
   }
   
   showBody: ->
-    $('#body').slideToggle()
+    Tix.router.navigate '/buy/123', {trigger: true}
     
   initialize: ()->

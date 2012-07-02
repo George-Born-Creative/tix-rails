@@ -72,7 +72,6 @@ class Tix.Views.ChartView extends Backbone.View
   
   drawAreaSeats: ->
     self = this
-    # console.log this.paper
     seats = @paper.set()
     areaSeats = @model.attributes.area_seats
     

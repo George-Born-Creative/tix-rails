@@ -1,4 +1,4 @@
-class Tix.Views.App extends Backbone.View
+class Tix.Views.AppView extends Backbone.View
   el: $('body')
   
   initialize: ()->

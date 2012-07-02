@@ -17,7 +17,7 @@ window.Tix =
     
     this.currentShow = new Tix.Models.Show(data.show)
     
-    router = new Tix.Routers.MainRouter()
+    this.router = new Tix.Routers.MainRouter()
     Backbone.history.start()
     
     

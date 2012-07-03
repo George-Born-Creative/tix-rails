@@ -44,14 +44,14 @@ seating_chart_data = SVGParser.new('./public/svg/jjchart.svg')
 area_seats = seating_chart_data.area_seats
 single_seats = seating_chart_data.single_seats
 
-area_seats.each do |c|
+single_seats.each do |c|
   a = Area.new
   a.x = c[:x]
   a.y = c[:y]
   chart.areas << a
 end
 
-single_seats.each do |c|
+area_seats.each do |c|
   a = Area.new
   a.polypath = c[:poly]
   chart.areas << a

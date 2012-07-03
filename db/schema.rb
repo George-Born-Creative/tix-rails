@@ -11,42 +11,47 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701164215) do
+ActiveRecord::Schema.define(:version => 20120703143018) do
 
-  create_table "area_seats", :force => true do |t|
-    t.string  "polypath"
+  create_table "areas", :force => true do |t|
     t.string  "label"
-    t.decimal "default_price"
-    t.integer "seating_chart_id"
+    t.string  "polypath"
+    t.decimal "x"
+    t.decimal "y"
+    t.integer "stack_order", :default => 0
+    t.integer "chart_id"
+    t.string  "type"
   end
 
-  create_table "events", :force => true do |t|
-    t.string   "title"
-    t.string   "headline"
-    t.text     "supporting_act"
-    t.string   "image_uri"
-    t.string   "image_thumb_uri"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.integer  "seating_chart_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.text     "body"
-  end
-
-  create_table "seating_charts", :force => true do |t|
+  create_table "charts", :force => true do |t|
     t.string   "name"
     t.string   "background_image_url"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
 
-  create_table "single_seats", :force => true do |t|
-    t.string  "label"
-    t.decimal "x"
-    t.decimal "y"
-    t.integer "seating_chart_id"
-    t.decimal "default_price"
+  create_table "events", :force => true do |t|
+    t.string   "title"
+    t.string   "headline"
+    t.text     "supporting_act"
+    t.text     "body"
+    t.string   "image_uri"
+    t.string   "image_thumb_uri"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.integer  "chart_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
+
+  create_table "tickets", :force => true do |t|
+    t.decimal  "price"
+    t.string   "state",      :default => "open", :null => false
+    t.integer  "event_id"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "tickets", ["state"], :name => "index_tickets_on_state"
 
 end

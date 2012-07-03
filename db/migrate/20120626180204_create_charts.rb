@@ -1,10 +1,13 @@
-class CreateSeatingCharts < ActiveRecord::Migration
+class CreateCharts < ActiveRecord::Migration
   def change
-    create_table :seating_charts do |t|
+    create_table :charts do |t|
       t.string :name
       t.string :background_image_url
 
       t.timestamps
+      
     end
   end
 end
+
+

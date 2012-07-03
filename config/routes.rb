@@ -3,10 +3,7 @@ Tix::Application.routes.draw do
   root :to => "main#index"
 
   scope '/api' do
-    resources :seating_charts
-    resources :seats
     resources :events
-    
   end
   
 

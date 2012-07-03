@@ -1,6 +1,9 @@
 class Event < ActiveRecord::Base
-  attr_accessible :ends_at, :headline, :body, :image_thumb_uri, :image_uri, :seating_chart_id, :starts_at, :supporting_act, :title
+  attr_accessible :title, :headline, :supporting_act, :body, :image_uri, :image_thumb_uri, :starts_at, :ends_at
   
-  #has_one :seating_chart_template
+  belongs_to :chart
   
 end
+
+
+    

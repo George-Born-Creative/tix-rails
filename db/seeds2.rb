@@ -3,15 +3,57 @@ require 'json'
 require './lib/svg_parser'
 require 'date'
 
+SeatingChart.delete_all
+SingleSeat.delete_all
+
+# Parse SVG
+seating_chart_data = SVGParser.new('./public/svg/jjchart.svg')
+
+area_seats = seating_chart_data.area_seats
+single_seats = seating_chart_data.single_seats
 
 #### 
-#### Event
+#### Seating Chart 
+#### 
+chart = SeatingChart.new
+chart.background_image_url = '/images/jj-chart-bg.png'
+
+i=0
+single_seats.each do |c|
+  i+=1
+  seat = SingleSeat.new
+  seat.x = c[:x]
+  seat.y = c[:y]
+  seat.label = "Seat A#{i}"
+  seat.default_price = 25.00
+  chart.single_seats << seat
+end 
+
+area_seats.each do |c|
+  i+=1
+  seat = AreaSeat.new
+  seat.polypath = c[:poly]
+  seat.label = "Seat GA#{i}"
+  seat.qty = 100
+  seat.default_price = 15.00
+  chart.area_seats << seat
+end 
+
+chart.save!
+
+
+#### 
+#### Events
 ####
+
+# :ends_at, :title :headline, :body, :image_thumb_uri, :image_uri, :seating_chart_id, :starts_at, :supporting_act
 
 Event.delete_all
 eve = Event.create
+
 eve.starts_at = DateTime.now + 10 #days
-eve.ends_at = DateTime.now + 12 #days
+eve.starts_at = DateTime.now + 12 #days
+
 eve.title = "Jammin Java’s Mid-Atlantic Band Battle 7"
 eve.image_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/JamminJavaMid-AtlanticBandBattle7.jpg'
 eve.image_thumb_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/JamminJavaMid-AtlanticBandBattle7_thumb.jpg'
@@ -31,33 +73,3 @@ eve.body =   <<-eos
 
 eos
 eve.save!
-
-
-#### 
-#### Chart & Areas
-####
-
-chart = Chart.new
-chart.background_image_url = '/images/jj-chart-bg.png'
-
-seating_chart_data = SVGParser.new('./public/svg/jjchart.svg')
-area_seats = seating_chart_data.area_seats
-single_seats = seating_chart_data.single_seats
-
-area_seats.each do |c|
-  a = Area.new
-  a.x = c[:x]
-  a.y = c[:y]
-  chart.areas << a
-end
-
-single_seats.each do |c|
-  a = Area.new
-  a.polypath = c[:poly]
-  chart.areas << a
-end
-
-eve.chart = chart
-eve.save!
-
-

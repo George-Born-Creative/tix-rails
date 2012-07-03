@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120703143018) do
     t.decimal  "price"
     t.string   "state",      :default => "open", :null => false
     t.integer  "event_id"
+    t.integer  "area_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
   end

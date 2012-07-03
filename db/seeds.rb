@@ -59,5 +59,26 @@ end
 
 eve.chart = chart
 eve.save!
+ 
+#### ###########
+#### TICKETS ###
+#### ###########
+# Create one ticket for each single seat
+# and 100 tickets for each area seat.
+# Later this will be configurable by Area
 
-
+eve.chart.areas.each do |area| 
+  if area.type == :ticket
+    t = Ticket.new :price => 15.00
+    t.event = eve
+    t.area = area
+    t.save!
+  elsif area.type == :area
+    100.times do
+      t = Ticket.new :price => 10.00
+      t.event = eve
+      t.area = area
+      t.save!
+    end
+  end
+end

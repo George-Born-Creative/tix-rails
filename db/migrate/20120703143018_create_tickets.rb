@@ -5,6 +5,7 @@ class CreateTickets < ActiveRecord::Migration
       t.decimal :price
       t.string :state, :null => false, :default => 'open'
       t.references :event
+      t.references :area
       
       t.timestamps
     end

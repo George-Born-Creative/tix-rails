@@ -17,7 +17,7 @@
 //= require backbone
 //= require raphael.min
 //= require hamlcoffee
-
+//= require_tree ../templates
 //
 //= require .//tix
 //

@@ -1,0 +1,14 @@
+.row
+  .columns.three.alpha
+
+    %h3
+      %a(href='#/event/' + @id)
+        %img{:src=>@image_thumb_uri, :width=>'125' }=
+        
+  .columns.nine.omega
+    -if @headline
+      =@headline
+    %h4
+      %a(href='#/event/' + @id)=@title
+    =@starts_at
+  %hr/

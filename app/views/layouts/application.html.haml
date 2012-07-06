@@ -12,7 +12,7 @@
       #header.columns.sixteen
     
         #logo.columns.nine.alpha
-        
+          
         #social_links.columns.six.omega
           Twitter   |   Facebook   |   FAQ   |   Contact    |   Directions  
           <br/>
@@ -21,6 +21,7 @@
           
           .small 227 Maple Ave E Vienna, VA 22180   |   <a href='#'>thebros@jamminjava.com</a>
   
+      -# BACKBONE
       #mid.columns.sixteen
       
         .columns.four.alpha#sidenav
@@ -37,29 +38,19 @@
             / <a href="http://jamminjava.com/home/main/sponsorship">Sponsorship</a>
           %br/
           %form#exampleForm{"accept-charset" => "UTF-8", :action => "http://app.icontact.com/icp/signup.php", :method => "post", :name => "exampleForm", :onsubmit => "return verifyRequired();"}/
-            
-            
-        .columns.eight
-          =image_tag '/images/jj-marah.jpg', :height => '200px', width: '100%'
-        .columns.four.omega
           
-          %h5 Monday July 2 7:30PM
-          %h5 $10
-
-          %h4 Jammin Java’s Mid-Atlantic Band Battle 7
-
-          %ul
-            %li 5:30 - The new lobby bar opens
-            %li 6:30 - Doors
+        -# BACKBONE
+        .columns.twelve.alpha
+          #events_list
             
-          %a.button Buy Tickets »
-      
-
+      .clear
+      .row
+        #event_detail
         
   
     = yield
     = javascript_include_tag "application"
     :javascript
       $(function(){
-        Tix.init({even: #{Event.first.to_json}, chart: #{SeatingChart.first.to_json(:include => [:single_seats, :area_seats]).html_safe } });
+        Tix.init( {events: #{ render('events/events', :object => @events, :format => :json) }}  );
       });

@@ -3,13 +3,17 @@ require 'json'
 require './lib/svg_parser'
 require 'date'
 
+Event.delete_all
+Ticket.delete_all
+Area.delete_all
+Chart.delete_all
+
 
 #### 
 #### Event
 ####
 
-Event.delete_all
-eve = Event.create
+eve = Event.new
 eve.starts_at = DateTime.now + 10 #days
 eve.ends_at = DateTime.now + 12 #days
 eve.title = "Jammin Java’s Mid-Atlantic Band Battle 7"
@@ -68,17 +72,103 @@ eve.save!
 # Later this will be configurable by Area
 
 eve.chart.areas.each do |area| 
-  if area.type == :ticket
+  if area.type == :single
     t = Ticket.new :price => 15.00
-    t.event = eve
     t.area = area
-    t.save!
+    t.state = ( rand(3) == 0 ) ? 'closed' : 'open' # randomly close 1/3 tickets
+    eve.tickets << t
   elsif area.type == :area
     100.times do
       t = Ticket.new :price => 10.00
-      t.event = eve
       t.area = area
-      t.save!
+      t.state = ( rand(3) == 0 ) ? 'closed' : 'open' # randomly close 1/3 tickets
+      eve.tickets << t
     end
   end
 end
+
+eve.save!
+
+
+#### ###########
+#### EVENTS ###
+#### ###########
+
+eve = Event.new
+eve.starts_at = DateTime.parse('7th July 2012 10:00:00 PM')
+eve.ends_at = DateTime.parse('8th July 2012 12:00:00 AM')
+eve.title = "Super Bob"
+eve.image_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/superbob-a_thumb.jpg'
+eve.image_thumb_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/superbob-a.jpg'
+eve.body =   <<-eos
+<p>"Going to a SUPER bob show is like getting on a f'ing roller coaster, they rock your ass off and you can't wait to get back on." -Whitney (On Air personality) DC 101</p>
+<p>SUPER bob is a four-piece high energy rock band based in the Washington DC area. Childhood friends Adam Smith (guitar) and Matt Santoro (vocals) formed the band, under the name "bob" in &lsquo;05 with the vision of bringing something fresh to a rock scene that seemed to have forgotten what rock n roll was really about. Soon after, they added Drew Recny (bass) and Chris Faircloth (drums). This band breathes rebellious authenticity back into music and reminds you that rock music is supposed to make you get up and not give a damn about being you.</p>
+<p>When you see SUPER bob live your senses will be overwhelmed by a borderline excess of stage presence and heart pounding sound. P.R.S sponsored guitarist Adam Smith brings a package of uniqueness, flare, and pure adrenaline that is rarely found in any one musician, while classically trained Drew Recny packs a clean, punchy bass style that is loaded with obvious talent and a technique that only comes with full dedication and commitment to his craft. Christopher Faircloth, a Spaun Drum Company sponsored drummer, brings an almost indescribable style to the table, one with high flying stick tricks, and hard pounding, ear deafening, strong beats. The proverbial icing on the SUPER bob cake is provided by Matt Santoro's vocals which can only be described as unabashedly his own. Full of ear catching melodies, unapologetic and blatantly honest lyrics, and a flow that is uncommon yet undeniably at home in rock, Santoro's songwriting couples with an unrivaled stage presence that caps off one of the best live bands you will ever get the chance to experience.</p>
+<p>SUPER bob's buzz was established with their eye catching live shows, non-stop hustle, and no excuses work ethic. Tattoos, colored hair, dread locks, and plenty of good old fashioned rock n roll grit distinguishes them from the undedicated and identifies them as the real deal in an industry riddled with fakers. After three years of hard work at gaining recognition, winning the loyalty of fans in their local scene, and growing a fan-base across the Mid-Atlantic, SUPER bob hooked up with Grammy nominated producer Garth "GGGarth" Richardson. They went to Vancouver BC to record their first full length record entitled "bbbob" and then hit the road for the next three years playing an average of 130 shows annually over a span of 19 states.</p>
+<p>"I have seen over 7,500 bands in the last fifteen years, and SUPER bob is one of the best. Never have I seen a band gain fans so quick and rock it on stage with such energy. They will woo grandmas to teenies" -Mick Minchow Owner/ Booking Agent/ Promoter - Ground Zero-Spartanburg SC</p>
+<p>
+<font color="#888888"> <a href="http://www.superbobmusic.com" target="_blank">Official Site</a> |  <a href="http://twitter.com/superbobmusic" target="_blank" title="SUPER bob Twitter page">Twitter</a> |    <a href="http://www.facebook.com/superbobmusic" target="_blank" title="View SUPER bob Facebook page">Facebook</a> |  <a href="http://click.linksynergy.com/fs-bin/stat?id=*FknwilNy5I&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=http%253A%252F%252Fitunes.apple.com%252Fus%252Fartist%252Fsuper-bob%252Fid382669827%253Fuo%253D4%2526partnerId%253D30" target="_blank" title="Listen to &ldquo;&rdquo; by SUPER bob">iTunes</a> |  <a href="http://www.youtube.com/user/SuperBobMusic" target="_blank" title="Watch video from SUPER bob">YouTube</a> </font></p>
+
+<p><br /><strong><span style="color: #ffffff;">CARRY THE ONE</span></strong><br />Carry the One combines multiple musical genres to create a sound both pleasing and unique... Funk, metal, rock, hip-hop, R&amp;B, jazz, progressive/math rock, reggae, pop-punk, and so on. They strive to create a live experience which is both energetic and entertaining.<br /><a href="http://www.twitter.com/CarrytheOneBand" target="_blank">Twitter</a> | <a href="http://www.facebook.com/carrytheonemusic" target="_blank">Facebook</a></p><br />
+<p><span style="color: #ffffff;"><strong>NINE DAYS GONE</strong></span><br />Frontman Joseph Keith, bass guitarist Eric Daniel, and drummer Luke P formed Nine Days Gone in 2009 The band writes and records all original material in the Washington DC area. The bands influences come from a variety of alternative/punk bands like Green Day, Sum 41, and Blink 182. Nine Days Gone started playing shows in the Fall of 2011, and since then they have gained popularity across the DC metro area. They have been privileged enough to be featured on multiple radio stations, open for major local acts, and work with renowned producer John Piette to record their second album "As It's Always Been".<br /><a href="http://www.ninedaysgone.com/" target="_blank">Official site</a> | <a href="http://www.twitter.com/NineDaysGone" target="_blank">Twitter</a> | <a href="http://www.facebook.com/#!/pages/Nine-Days-Gone/177583798985165?sk=wall&amp;filter=1" target="_blank">Facebook</a> | <a href="http://click.linksynergy.com/fs-bin/stat?id=*FknwilNy5I&amp;offerid=146261&amp;type=3&amp;subid=0&amp;tmpid=1826&amp;RD_PARM1=http%253A%252F%252Fitunes.apple.com%252Fus%252Fartist%252Fnine-days-gone%252Fid460460342%253Fuo%253D4%2526partnerId%253D30" target="_blank">Itunes</a> | <a href="http://www.ninedaysgone.com/img/youtube_logo.jpg" target="_blank">Youtube</a></p><br />
+<p>&nbsp;</p>
+
+eos
+eve.save!
+
+
+eve = Event.new
+eve.title = 'SOAR PRESENTS ILUVATAR'
+eve.starts_at = DateTime.parse('7th July 2012 7:00:00 PM')
+eve.ends_at = DateTime.parse('7th July 2012 10:00:00 PM')
+eve.image_thumb_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/Iluvatar-z_thumb.jpg'
+eve.image_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/Iluvatar-z.jpg'
+
+
+eve.body = <<-eos
+<p>A rare chance to see the progressive rock band Iluvatar performing new material from their upcoming release plus their classics from all 4 of their CDs!! The band has a renewed energy with a new lead vocalist.</p>
+<p>Perhaps no other American band is so adept at the vintage British progressive rock formula as the Baltimore, Maryland based band Iluvatar.  Named after a chacter in J.R.R. Tolkien's The Simarillion, Iluvatar has been thrilling audiences since 1992 with their song based art rock format featuring superb lyrics and excellent musicianship.  Iluvatar are Dennis Mullen (guitar), Jim Rezek (keyboards), Chris Mack (drums), Dean Morekas (bass) and Jeff Sirody (vocals).  We are delighted to bring this finest of American progressive bands to Jammin Java where they will be debuting their newest CD.</p>
+<p>The band is generally compared to the sounds of Rush, Kansas, Genesis, Marillion, etc. but developed their own sound many moons ago.</p>
+<p>Iluvatar began performing live in the Baltimore area in 1992 and quickly acquired a steadily-growing following of devoted fans. Though the primary focus of their live performances was on their original compositions, the band occasionally accented their sets with music from Genesis, Marillion, Pink Floyd, and Styx.</p>
+<p>Iluvatar's self-titled debut CD was released on Kinesis Records in November 1993 and quickly became the label's top-seller. Iluvatar soon began to receive international recognition for their work. Iluvatar re-entered the studio in March 1995 to record "Children", their second album for Kinesis . "Children" firmly established Iluvatar as one of the premier American bands in the 90's progressive movement. In 1997 the "Sideshow" CD, a collection of live tracks, alternate versions, and unreleased material was released. The latest studio CD "A Story Two Days Wide" was released in 1999. The band has continued to write and record since then and a new CD is due out soon.</p>
+eos
+eve.save!
+
+
+eve = Event.new
+eve.title = 'Randy Thompson Band'
+eve.headline = '+ Caitlin Schneiderman'
+eve.starts_at = DateTime.parse('8th July 2012 8:00:00 PM')
+eve.ends_at = DateTime.parse('7th July 2012 10:00:00 PM')
+eve.image_thumb_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/Randy_Thompson-a_thumb.jpg'
+eve.image_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/Randy_Thompson-a.jpg'
+
+
+eve.body = <<-eos
+<p>A rare chance to see the progressive rock band Iluvatar performing new material from their upcoming release plus their classics from all 4 of their CDs!! The band has a renewed energy with a new lead vocalist.</p>
+<p>Perhaps no other American band is so adept at the vintage British progressive rock formula as the Baltimore, Maryland based band Iluvatar.  Named after a chacter in J.R.R. Tolkien's The Simarillion, Iluvatar has been thrilling audiences since 1992 with their song based art rock format featuring superb lyrics and excellent musicianship.  Iluvatar are Dennis Mullen (guitar), Jim Rezek (keyboards), Chris Mack (drums), Dean Morekas (bass) and Jeff Sirody (vocals).  We are delighted to bring this finest of American progressive bands to Jammin Java where they will be debuting their newest CD.</p>
+<p>The band is generally compared to the sounds of Rush, Kansas, Genesis, Marillion, etc. but developed their own sound many moons ago.</p>
+<p>Iluvatar began performing live in the Baltimore area in 1992 and quickly acquired a steadily-growing following of devoted fans. Though the primary focus of their live performances was on their original compositions, the band occasionally accented their sets with music from Genesis, Marillion, Pink Floyd, and Styx.</p>
+<p>Iluvatar's self-titled debut CD was released on Kinesis Records in November 1993 and quickly became the label's top-seller. Iluvatar soon began to receive international recognition for their work. Iluvatar re-entered the studio in March 1995 to record "Children", their second album for Kinesis . "Children" firmly established Iluvatar as one of the premier American bands in the 90's progressive movement. In 1997 the "Sideshow" CD, a collection of live tracks, alternate versions, and unreleased material was released. The latest studio CD "A Story Two Days Wide" was released in 1999. The band has continued to write and record since then and a new CD is due out soon.</p>
+eos
+eve.save!
+
+eve = Event.new
+eve.title = 'Randy Thompson Band'
+eve.headline = '+ Final Voyage + WATSB + Merrin Karas + Swell Daze'
+eve.starts_at = DateTime.parse('9th July 2012 6:30:00 PM')
+eve.ends_at = DateTime.parse('9th July 2012 8:30:00 PM')
+eve.image_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/JJDoorGal-automatics_thumb.jpg'
+eve.image_thumb_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/Randy_Thompson-a.jpg'
+
+
+eve.body = <<-eos
+<p>A rare chance to see the progressive rock band Iluvatar performing new material from their upcoming release plus their classics from all 4 of their CDs!! The band has a renewed energy with a new lead vocalist.</p>
+<p>Perhaps no other American band is so adept at the vintage British progressive rock formula as the Baltimore, Maryland based band Iluvatar.  Named after a chacter in J.R.R. Tolkien's The Simarillion, Iluvatar has been thrilling audiences since 1992 with their song based art rock format featuring superb lyrics and excellent musicianship.  Iluvatar are Dennis Mullen (guitar), Jim Rezek (keyboards), Chris Mack (drums), Dean Morekas (bass) and Jeff Sirody (vocals).  We are delighted to bring this finest of American progressive bands to Jammin Java where they will be debuting their newest CD.</p>
+<p>The band is generally compared to the sounds of Rush, Kansas, Genesis, Marillion, etc. but developed their own sound many moons ago.</p>
+<p>Iluvatar began performing live in the Baltimore area in 1992 and quickly acquired a steadily-growing following of devoted fans. Though the primary focus of their live performances was on their original compositions, the band occasionally accented their sets with music from Genesis, Marillion, Pink Floyd, and Styx.</p>
+<p>Iluvatar's self-titled debut CD was released on Kinesis Records in November 1993 and quickly became the label's top-seller. Iluvatar soon began to receive international recognition for their work. Iluvatar re-entered the studio in March 1995 to record "Children", their second album for Kinesis . "Children" firmly established Iluvatar as one of the premier American bands in the 90's progressive movement. In 1997 the "Sideshow" CD, a collection of live tracks, alternate versions, and unreleased material was released. The latest studio CD "A Story Two Days Wide" was released in 1999. The band has continued to write and record since then and a new CD is due out soon.</p>
+eos
+eve.save!
+
+

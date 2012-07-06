@@ -25,8 +25,6 @@ class Tix.Views.ChartView extends Backbone.View
   setBackgroundImage: ->
     @$el.css
       'background-image': 'url(' + @model.attributes.background_image_url + ')'
-  
-
     
   drawSingleSeats: ->
     self = this

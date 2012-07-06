@@ -5,19 +5,15 @@ window.Tix =
   Routers: {}
   dispatcher: _.clone(Backbone.Events)
 
-  Log: {
-    i: (msg, obj)->
-      console.log '*****' + msg + '*****'
+  log: (msg, obj=null)->
+    console.log '***** ' + msg + ' *'
+    if obj != null
       console.log obj
-  }
+    console.log '*******************'
+    
   init: (data)->
-    this.chart = new Tix.Models.SeatingChart(data.chart)
-    this.cart = new Tix.Collections.Seats() # Seats added to cart
-    this.availableSeats = new Tix.Collections.Seats() # Seats available to be added
-    
-    this.currentShow = new Tix.Models.Show(data.show)
-    
-    this.router = new Tix.Routers.MainRouter()
+    this.events = new Tix.Collections.Events(data.events)
+    this.router = new Tix.Routers.MainRouter(this.events)
     Backbone.history.start()
     
     

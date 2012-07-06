@@ -2,4 +2,5 @@ class Tix.Views.AppView extends Backbone.View
   el: $('body')
   
   initialize: ()->
-    $('#body').hide()
+    $('#logo').click ->
+      Tix.router.navigate '#/'

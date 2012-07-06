@@ -1,0 +1,36 @@
+.row
+  .eight.columns
+    %h3 1. Choose your seats
+    %hr/
+    
+    -# BACKBONE VIEW
+    #event_detail_chart
+      #wrap
+        #canvas
+          Canvas
+
+  .four.columns
+    %h3 2. Confirm
+    %hr/
+    
+    -# BACKBONE VIEW
+    #event_detail_cart
+      
+  .four.columns.right
+    %h3 3. Checkout
+
+    %hr/
+    
+    -# BACKBONE VIEW
+    #event_detail_checkout
+      %span
+        %h4
+          Total
+          %span{:style => 'float:right'}
+            .total $0.00
+  
+
+      %a.button Cash
+      %a.button Card
+      %a.button Paypal
+

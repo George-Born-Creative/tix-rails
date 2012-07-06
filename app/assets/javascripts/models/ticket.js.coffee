@@ -1,12 +1,7 @@
-class Tix.Models.Seat extends Backbone.Model
-  # States: unavailable, available, in_cart
-  
-  defaults: {
-    state: 'available'
-  }
+class Tix.Models.Ticket extends Backbone.Model  
   
   initialize: ->        
-    _.bindAll this, 'setFormattedPrice'
+    #_.bindAll this,
   
   
   setFormattedPrice: ->

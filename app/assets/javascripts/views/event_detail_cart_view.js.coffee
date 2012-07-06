@@ -3,7 +3,7 @@ class Tix.Views.EventDetailCartView extends Backbone.View
   # this.collection is cartCollection
   
   initialize: ->
-    _.bindAll this, 'addToCart'
+    _.bindAll this, 'addToCart', 'removeFromCart'
     window.cart = this.collection
     @eventTicketsCollection = this.options.eventTicketsCollection
     
@@ -23,6 +23,7 @@ class Tix.Views.EventDetailCartView extends Backbone.View
     , this
         
     
+    Tix.dispatcher.on 'cart:remove', @removeFromCart
     
   
   addToCart: ->
@@ -30,3 +31,9 @@ class Tix.Views.EventDetailCartView extends Backbone.View
     # console.log cartItemView
     @$el.find('ul').prepend(cartItemView.render())
   
+  
+  removeFromCart: (args)->
+    ticket_id = args.ticket_id
+    ticket = this.collection.get(ticket_id)
+    ticket.set('state', 'open')
+    this.collection.remove(ticket)

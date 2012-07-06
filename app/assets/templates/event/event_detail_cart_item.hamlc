@@ -1,2 +1,4 @@
-%li
+.float.left
   ="Seat " + @id
+.close.align.right
+  %a(href='javascript:;') [x]

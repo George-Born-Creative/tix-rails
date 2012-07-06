@@ -19,8 +19,9 @@ class Tix.Routers.MainRouter extends Backbone.Router
     _.bindAll this, 'index'
     
   index: ->
-    @eventsView.$el.fadeIn('fast')
-    $('#sidenav').fadeIn('fast')
+    @eventsView.$el.show()
+    $('#sidenav').show()
+    $('#mid').fadeIn('fast')
 
   event_by_id: (id)->    
     @eventsView.$el.fadeOut('fast')

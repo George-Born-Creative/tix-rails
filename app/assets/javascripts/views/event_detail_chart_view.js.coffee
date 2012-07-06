@@ -5,10 +5,10 @@ class Tix.Views.EventDetailChartView extends Backbone.View
   initialize: ->
     # Tix.log 'Initialize Tix.Views.EventDetailChartView'
     # Tix.log 'ChartData ', this.options.chartData
-    
+        
     @chartData = this.options.chartData
     @eventTicketsCollection = this.options.eventTicketsCollection
-    window.e = @eventTicketsCollection
+    # window.e = @eventTicketsCollection
     @chartElements = {} # map of area_ids to Raphael elements
     @chartColors = 
       active: '#ffffff'
@@ -17,12 +17,17 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       
     window.Tix.chartColors = @chartColors # TODO: fix this. See this.areaHover/this.areaHoveroff
     
-    # Tix.log 'Events Ticket Collection', @eventTicketsCollection
-    
-    
     @paper = Raphael('canvas', '100%', 800)
     
+    self = this
     
+    Tix.dispatcher.on 'cart:remove', (options)->
+      ticket_id = options.ticket_id
+      ticket = self.eventTicketsCollection.get(ticket_id)
+      area_id = ticket.get('area_id')
+      self.enableArea(area_id)
+      #Tix.log 'Ticket from ChartView cart remove', ticket
+      
   render: ->
     self = this
     
@@ -70,7 +75,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     element = @chartElements[area_id]
     
     if element.data('status') == 'closed'
-      #console.log @chartElements
+      # console.log @chartElements
       element.data('status', 'open')
       element.data('area_id', area_id)
       
@@ -91,7 +96,6 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       fill: Tix.chartColors.hover
       
   areaHoveroff: (e)->
-    console.log this
     self = this
     this.attr
       opacity: 0.7

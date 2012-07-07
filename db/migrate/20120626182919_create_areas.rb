@@ -2,6 +2,7 @@ class CreateAreas < ActiveRecord::Migration
   def change
     create_table :areas do |t|
       t.string :label
+      t.string :label_section
       t.string :polypath
       t.decimal :x
       t.decimal :y

@@ -13,6 +13,7 @@ class Tix.Views.EventDetailCartItemView extends Backbone.View
     
   render: ->
     # Tix.log 'Tix.Views.EventDetailCartItemView html', @$el.html()
+    console.log @model
     @$el.html(@template(@model) )
 
   cancelTicket: ->

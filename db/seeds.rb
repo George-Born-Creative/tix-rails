@@ -52,12 +52,15 @@ single_seats.each do |c|
   a = Area.new
   a.x = c[:x]
   a.y = c[:y]
+  a.label_section = 'Table Seating'
+  
   chart.areas << a
 end
 
 area_seats.each do |c|
   a = Area.new
   a.polypath = c[:poly]
+  a.label_section = 'General Admission'
   chart.areas << a
 end
 
@@ -68,7 +71,7 @@ eve.save!
 #### TICKETS ###
 #### ###########
 # Create one ticket for each single seat
-# and 100 tickets for each area seat.
+# and 20 tickets for each area seat.
 # Later this will be configurable by Area
 
 eve.chart.areas.each do |area| 
@@ -78,7 +81,7 @@ eve.chart.areas.each do |area|
     t.state = ( rand(3) == 0 ) ? 'closed' : 'open' # randomly close 1/3 tickets
     eve.tickets << t
   elsif area.type == :area
-    100.times do
+    20.times do
       t = Ticket.new :price => 10.00
       t.area = area
       t.state = ( rand(3) == 0 ) ? 'closed' : 'open' # randomly close 1/3 tickets

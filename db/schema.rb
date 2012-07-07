@@ -15,10 +15,11 @@ ActiveRecord::Schema.define(:version => 20120703143018) do
 
   create_table "areas", :force => true do |t|
     t.string  "label"
+    t.string  "label_section"
     t.string  "polypath"
     t.decimal "x"
     t.decimal "y"
-    t.integer "stack_order", :default => 0
+    t.integer "stack_order",   :default => 0
     t.integer "chart_id"
     t.string  "type"
   end

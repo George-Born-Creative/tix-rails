@@ -16,7 +16,6 @@
 //= require underscore
 //= require backbone
 //= require raphael.min
-//= require raphael.tooltip
 //= require hamlcoffee
 //= require_tree ../templates
 //

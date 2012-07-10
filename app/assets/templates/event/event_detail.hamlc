@@ -1,5 +1,5 @@
 .row
-  .eight.columns
+  .seven.columns
     %h3 1. Choose your seats
     %hr/
     
@@ -9,7 +9,7 @@
         #canvas
           Canvas
 
-  .four.columns
+  .five.columns
     %h3 2. Confirm
     %hr/
     

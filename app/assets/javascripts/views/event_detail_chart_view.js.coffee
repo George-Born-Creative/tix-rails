@@ -1,13 +1,12 @@
 class Tix.Views.EventDetailChartView extends Backbone.View
 
+  # Should bind Rafaël.js Chart's state to Areas collection
+  
   template: JST['event/event_detail_chart']
   
   initialize: ->
     # Tix.log 'Initialize Tix.Views.EventDetailChartView'
     # Tix.log 'ChartData ', this.options.chartData
-        
-    @chartData = this.options.chartData
-    @eventTicketsCollection = this.options.eventTicketsCollection
     # window.e = @eventTicketsCollection
     @chartElements = {} # map of area_ids to Raphael elements
     @chartColors = 
@@ -21,15 +20,9 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     @paper = Raphael('canvas', '100%', 800)
     
     @setupTooltip()
-    
+    @setupCartRemove()
     self = this
     
-    Tix.dispatcher.on 'cart:remove', (options)->
-      ticket_id = options.ticket_id
-      ticket = self.eventTicketsCollection.get(ticket_id)
-      area_id = ticket.get('area_id')
-      self.enableArea(area_id)
-      #Tix.log 'Ticket from ChartView cart remove', ticket
       
   render: ->
     self = this
@@ -39,6 +32,14 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     @enableActiveAreas()
     @handleClicks()
   
+  setupCartRemove: ()->
+    self = this
+    Tix.cart.on 'remove', (ticket)->
+      area_id = ticket.get('area_id')
+      self.enableArea(area_id)
+      # Tix.log 'Ticket from ChartView cart remove', ticket
+      
+      
   setupTooltip: (displayText="Seat 80\nGENERAL ADMISSION\n$15.00")->
     @tooltip = @paper.set()
     rect = @paper.rect(0,0,140,50,5)
@@ -67,17 +68,17 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     Tix.tooltip = @tooltip
   
   handleClicks: ->
-    Tix.dispatcher.on 'area:click', (options)->
+    Tix.dispatcher.on 'area:click', (options) ->
       area_id = options.area_id
       # console.log @eventTicketsCollection
-      if 1 == @eventTicketsCollection.filterByAreaId(area_id).length
+      if 1 == Tix.tickets.filterByAreaId(area_id).length
         # No more tickets!
         @disableArea(area_id)
     , this
     
   enableActiveAreas: ->
     self = this
-    @eventTicketsCollection.forEach (tix, idx)->
+    Tix.tickets.forEach (tix, idx)->
 
       state = tix.get('state')
       if state == 'open'
@@ -167,17 +168,17 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     
   drawChart: ->
     self = this
-    _.each @chartData.areas, (area,idx)->
-      switch area.type
+    _.each Tix.areas.models, (area,idx)->
+      switch area.get('type')
         when 'single'
-          elem = self.paper.circle(area.x, area.y, 5)
+          elem = self.paper.circle(area.get('x'), area.get('y'), 5)
             .attr
               fill: @chartColors.inactive
               opacity: 0.5
               'stroke-width': 0
    
          when 'area'
-           elem = self.paper.path(area.polypath)
+           elem = self.paper.path(area.get('polypath'))
              .attr
                fill: @chartColors.inactive
                opacity: 0.5
@@ -190,4 +191,4 @@ class Tix.Views.EventDetailChartView extends Backbone.View
                
   setBackgroundImage: ->
     $('#wrap').css
-      'background-image': 'url(' + @chartData.background_image_url + ')'
+      'background-image': 'url(' + Tix.chart.get('background_image_url') + ')'

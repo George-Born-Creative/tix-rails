@@ -1,4 +1,15 @@
-.float.left
-  ="Seat " + @id
-.close.align.right
-  %a(href='javascript:;') [x]
+.ticketText.float.left
+  .columns.three.alpha.omega
+    %span.label = @.get 'label'
+    %br/
+    %span.area = @.get 'area_label'
+    
+  .columns.one.alpha.omega
+    %span.price= @.get 'formattedPrice'
+    %br/
+    .clock
+      5:00
+    
+  .columns.one.alpha.omega
+    .close.align.right
+      %a(href='javascript:;') [x]

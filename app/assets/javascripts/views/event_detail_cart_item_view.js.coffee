@@ -3,20 +3,22 @@ class Tix.Views.EventDetailCartItemView extends Backbone.View
   
   template: JST['event/event_detail_cart_item']
   
-  events: {
+  events:
     'click .close a': 'cancelTicket'
-  }
   
   initialize: ->
     _.bindAll this, 'render'
     this.model.bind 'change', @render
+    self = this
+    this.model.on 'tick', (d)->
+      self.$el.find('.clock').html(d.time)
     
   render: ->
     # Tix.log 'Tix.Views.EventDetailCartItemView html', @$el.html()
-    console.log @model
     @$el.html(@template(@model) )
 
   cancelTicket: ->
-    Tix.dispatcher.trigger 'cart:remove', {ticket_id: this.model.id}
+    # Tix.log 'Cancel ticket called for', this.model
+    Tix.cart.remove(this.model)
     
     this.remove()

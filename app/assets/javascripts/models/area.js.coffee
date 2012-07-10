@@ -1,2 +1,2 @@
-class Tix.Models.Show extends Backbone.Model
+class Tix.Models.Area extends Backbone.Model
   

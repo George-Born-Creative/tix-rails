@@ -1,6 +1,8 @@
 class Tix.Collections.Tickets extends Backbone.Collection
   model: Tix.Models.Ticket
   
+
+  
   filterByAreaId: (area_id)->
     area_id = area_id
     return  _.filter this.models, (item)->

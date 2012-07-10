@@ -11,20 +11,20 @@ class Tix.Views.EventDetailView extends Backbone.View
     
     
   render: ->    
-    @eventTicketsCollection = new Tix.Collections.Tickets( this.model.get('tickets') )    
-    @cartTicketsCollection = new Tix.Collections.Tickets()
+    @tickets = new Tix.Collections.Tickets( this.model.get('tickets') )    
+    @cart = new Tix.Collections.Cart() # Empty: represents cart
+    @chart = new Tix.Models.Chart( this.model.get('chart') )
+    @areas = new Tix.Collections.Areas(this.model.attributes.chart.areas )
     
-    @$el.html( @template( @model.attributes ))
+    data_hash = {tickets: @tickets, cart: @cart, chart: @chart, areas: @areas}
     
-    # Chart Areas implemented as regular Javascript Object
-    # as they will not have to interact with server.
-    # Tickets are wrapped with a BackBone collection because
-    # they will have to interact with server (lock, unlock, etc) 
+    _.extend Tix, data_hash    
     
-    chartData = this.model.get('chart')
-    
-    chartView = new Tix.Views.EventDetailChartView( chartData: chartData, eventTicketsCollection: @eventTicketsCollection)
+    @$el.html( @template( @model.attributes ) )
+        
+    chartView = new Tix.Views.EventDetailChartView(  )
     chartView.render()
-    cartView = new Tix.Views.EventDetailCartView( collection: @cartTicketsCollection, eventTicketsCollection: @eventTicketsCollection)
+    cartView = new Tix.Views.EventDetailCartView(  )
     cartView.render()
     
+    # Using Tix.(object) for now for conciseness. Maybe pass data_hash to views and let them access via this.options

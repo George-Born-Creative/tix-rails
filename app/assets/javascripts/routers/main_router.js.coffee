@@ -1,12 +1,14 @@
 class Tix.Routers.MainRouter extends Backbone.Router
   routes: 
     '': 'index'
-    'event/:id': 'event_by_id'
+    'event/:id': 'eventById'
   
   initialize: (events)->
     @events = events
     @eventsView = new Tix.Views.EventsListView( collection: @events)
     @appView = new Tix.Views.AppView()
+    
+    @setupPusher()
     
     _.bindAll this, 'index'
     
@@ -15,9 +17,12 @@ class Tix.Routers.MainRouter extends Backbone.Router
     $('#sidenav').show()
     $('#mid').fadeIn('fast')
 
-  event_by_id: (id)->    
+  eventById: (id)->    
     @eventsView.$el.fadeOut('fast')
     $('#sidenav').fadeOut('fast')
     event = new Tix.Models.Event({id: id})
     eventDetailView = new Tix.Views.EventDetailView(model: event)   
     
+  setupPusher: ->
+  
+  

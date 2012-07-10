@@ -14,6 +14,10 @@ window.Tix =
       console.log obj
     console.log '*******************'
     
+  utils: 
+    formatCurrency: (price)->
+      return '$' + parseFloat(price).toFixed(2).toString()
+    
   init: (data)->
     this.events = new Tix.Collections.Events(data.events)
     this.router = new Tix.Routers.MainRouter(this.events)

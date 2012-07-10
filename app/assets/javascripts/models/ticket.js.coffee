@@ -13,7 +13,7 @@ class Tix.Models.Ticket extends Backbone.Model
   
   formattedPrice: ->
     price = this.get('price')
-    return '$' + parseFloat(price).toFixed(2).toString()
+    return Tix.utils.formatCurrency(price) 
     
   startTimer: ->
     self = this

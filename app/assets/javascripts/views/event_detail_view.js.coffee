@@ -26,5 +26,7 @@ class Tix.Views.EventDetailView extends Backbone.View
     chartView.render()
     cartView = new Tix.Views.EventDetailCartView(  )
     cartView.render()
+    checkoutView = new Tix.Views.EventDetailCheckoutView(  )
+    checkoutView.render()
     
     # Using Tix.(object) for now for conciseness. Maybe pass data_hash to views and let them access via this.options

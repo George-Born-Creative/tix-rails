@@ -114,8 +114,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       element.data('area_id', area_id)
       element.data('seat_label', seat_label)
       element.data('area_label', area_label)
-      element.data('price', '$' + parseFloat(price).toFixed(2).toString())
-      
+      element.data('price', Tix.utils.formatCurrency(price))
       
       
       element.click @dispatchAreaClick

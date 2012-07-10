@@ -205,4 +205,4 @@ class Tix.Views.EventDetailChartView extends Backbone.View
                
   setBackgroundImage: ->
     $('#wrap').css
-      'background-image': 'url(' + Tix.chart.get('background_image_url') + ')'
+      'background-image': 'url(' + Tix.chart.get('background_image_url') + '?1)'

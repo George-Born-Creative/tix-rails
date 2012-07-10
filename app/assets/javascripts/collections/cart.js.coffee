@@ -3,7 +3,12 @@ class Tix.Collections.Cart extends Backbone.Collection
   
   initialize: ->
     this.bind 'add', @onAddToCart
+    this.bind 'remove', @onRemoveFromCart
     
-  onAddToCart: ->
-    ticket = this.last()
+    
+  onAddToCart: (ticket)->
     ticket.startTimer()
+
+    
+  onRemoveFromCart: (ticket)->
+    ticket.resetTimer()

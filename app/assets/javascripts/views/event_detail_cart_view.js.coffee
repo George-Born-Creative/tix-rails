@@ -23,9 +23,6 @@ class Tix.Views.EventDetailCartView extends Backbone.View
         # TODO: Fire event to let chart know to disable this area if no more tix left
     , this
         
-    
-    
-  
   onAddToCart: (args)->
     cartItemView = new Tix.Views.EventDetailCartItemView( model: Tix.cart.last() )
     @$el.find('ul').prepend(cartItemView.render())

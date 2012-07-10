@@ -2,9 +2,8 @@ class Tix.Models.Ticket extends Backbone.Model
   
   initialize: (timer=true)->
     _.bindAll this, 'startTimer'
-    @min = 5
-    @sec = 0
-    #_.bindAll this,
+    
+    @resetTimer()
     
   
   get: (attr) ->
@@ -14,6 +13,10 @@ class Tix.Models.Ticket extends Backbone.Model
   formattedPrice: ->
     price = this.get('price')
     return Tix.utils.formatCurrency(price) 
+    
+  resetTimer: ->
+    @min = 5
+    @sec = 0
     
   startTimer: ->
     self = this
@@ -29,11 +32,14 @@ class Tix.Models.Ticket extends Backbone.Model
     else
       @min = @min
     @sec = "0" + @sec  if parseInt( @sec) <= 9
-    time = (if @min <= 9 then "0" + @min else @min) + ":" + @sec + ""
+    # With leading zero on minutes
+    # time = (if @min <= 9 then "0" + @min else @min) + ":" + @sec + ""
+    time = @min + ":" + @sec + ""
+    
     if parseInt(@min) is 0 and parseInt(@sec) is 0
       @sec = "00"
       window.clearTimeout @timer
       this.trigger 'expire', {time: time}
     this.trigger 'tick', {time: time}
     
-    # TODO... fire 1 minute warning so UI can respond
+    # TODO... fire 1 minute warning event so UI can respond

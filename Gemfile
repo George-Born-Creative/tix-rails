@@ -48,6 +48,10 @@ gem 'skeleton-rails'
 
 # messaging
 gem 'pusher'
+
+# key value store
+gem 'redis'
+
 # gem 'country_select'
 # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'

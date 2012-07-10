@@ -71,7 +71,8 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     @tooltip.push(label)
     
     @tooltip.components = {rect, text, label}
-    
+    @tooltip.ox = 0
+    @tooltip.oy = 0
     @tooltip.hide()
     
     Tix.tooltip = @tooltip
@@ -108,7 +109,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       
   disableArea: (area_id)->
     self = this
-    Tix.tooltip.hide()
+    #Tix.tooltip.hide()
     element = @chartElements[area_id]
     if element.data('status') == 'open'
       element.data('status', 'closed')
@@ -144,6 +145,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
 
   areaHover: (e)->
     self = this
+    self.$window = $('window')
     this.attr
       opacity: 0.9
       fill: Tix.chartColors.hover
@@ -152,16 +154,28 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     
     
     this.mousemove (e)->
-      offset = if e.clientX > 450 then 170 else 0
+      
+      windowScrollTop = self.$window.scrollTop()
+      windowWidth = self.$window.width()
+      
+
+
       seat_label = this.data 'seat_label'
       seat_label = if seat_label == '' then '' else seat_label + "\n"
       area_label = this.data 'area_label'
       price = this.data 'price'
       
+      offLeft = e.pageX  -  $('#wrap').offset().left + 10
+      offTop  = e.pageY  - $('#wrap').offset().top - 50
+      
+      offLeft = if offLeft >= 240 then offLeft - 160 else offLeft
+      
+      # console.log [wo.left, wo.top, e.pageX, e.pageY, e.pageX-wo.left, e.pageY-wo.top]
       
       Tix.tooltip.attr
-        x: e.clientX - 200 - offset
-        y: e.clientY - 240
+        x: offLeft
+        y: offTop
+        
       Tix.tooltip.components.text.attr
         text: seat_label + area_label + "\n" + price
     Tix.tooltip.show().toFront()

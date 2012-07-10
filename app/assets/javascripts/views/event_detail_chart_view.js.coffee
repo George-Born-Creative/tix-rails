@@ -9,6 +9,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     # Tix.log 'ChartData ', this.options.chartData
     # window.e = @eventTicketsCollection
     self = this
+    
     @chartElements = {} # map of area_ids to Raphael elements
     @chartColors = 
       active: '#ffffff'
@@ -145,7 +146,6 @@ class Tix.Views.EventDetailChartView extends Backbone.View
 
   areaHover: (e)->
     self = this
-    self.$window = $('window')
     this.attr
       opacity: 0.9
       fill: Tix.chartColors.hover
@@ -155,11 +155,6 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     
     this.mousemove (e)->
       
-      windowScrollTop = self.$window.scrollTop()
-      windowWidth = self.$window.width()
-      
-
-
       seat_label = this.data 'seat_label'
       seat_label = if seat_label == '' then '' else seat_label + "\n"
       area_label = this.data 'area_label'
@@ -168,7 +163,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       offLeft = e.pageX  -  $('#wrap').offset().left + 10
       offTop  = e.pageY  - $('#wrap').offset().top - 50
       
-      offLeft = if offLeft >= 240 then offLeft - 160 else offLeft
+      offLeft = if offLeft >= 250 then offLeft - 160 else offLeft
       
       # console.log [wo.left, wo.top, e.pageX, e.pageY, e.pageX-wo.left, e.pageY-wo.top]
       

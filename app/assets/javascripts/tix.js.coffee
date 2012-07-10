@@ -31,9 +31,11 @@ window.Tix =
     init: ->
       @pusher = new Pusher('52fcd783b4f4c6cbf542')
       @respondToLockedTicket()
+      @initPusherLog()
       
-      #window.Pusher.log = (message)->
-      #  if (window.console && window.console.log) then window.console.log(message)
+    initPusherLog: ->
+      window.Pusher.log = (message)->
+        if (window.console && window.console.log) then window.console.log(message)
       
     lockTicket: (ticket_id)->
       $.post "/api/ticket_locks.json/new", { ticket_id: ticket_id }, (response)->

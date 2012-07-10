@@ -18,8 +18,8 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     Tix.tickets.bind 'change:status', (ticket)->
       new_status = ticket.get('status')
       area_id = ticket.get('area_id')
-      Tix.log 'Ticket changed: new status', new_status
-      Tix.log 'Ticket changed: new_status', new_status
+      # Tix.log 'Ticket changed: new status', new_status
+      # Tix.log 'Ticket changed: new_status', new_status
       
       @disableAreaIfNoTixLeft(area_id, false)
     , this

@@ -5,7 +5,7 @@ gem 'rails', '3.2.6'
 group :assets do
   gem 'sass'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'haml_coffee_assets'
+  gem 'haml_coffee_assets', '~> 1.1.3'
   gem 'execjs'
   gem 'therubyracer', :platform => :ruby
   gem 'uglifier', '>= 1.0.3'

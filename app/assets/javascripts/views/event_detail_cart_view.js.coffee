@@ -4,6 +4,7 @@ class Tix.Views.EventDetailCartView extends Backbone.View
   
   initialize: ->
     _.bindAll this, 'addToCart', 'removeFromCart'
+    
     window.cart = this.collection
     @eventTicketsCollection = this.options.eventTicketsCollection
     
@@ -15,7 +16,7 @@ class Tix.Views.EventDetailCartView extends Backbone.View
     Tix.dispatcher.on 'area:click', (args)->
       ticket = @eventTicketsCollection.filterByAreaId(args.area_id)[0]
       if !ticket
-        console.log 'no ticket left!' # shoudl not happen -- disable the button when inactive
+        console.log 'no ticket left!' # should not happen -- disable the button when inactive
       else
         this.collection.push ticket
         ticket.set('state', 'closed')

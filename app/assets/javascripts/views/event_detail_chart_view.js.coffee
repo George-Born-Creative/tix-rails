@@ -80,7 +80,6 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     @eventTicketsCollection.forEach (tix, idx)->
 
       state = tix.get('state')
-      console.log tix
       if state == 'open'
         area_id = tix.get('area_id')
         area_label = tix.get('area_label')
@@ -109,8 +108,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     element = @chartElements[area_id]
     
     if element.data('status') == 'closed'
-      console.log price
-      # console.log @chartElements
+
       element.data('status', 'open')
       element.data('area_id', area_id)
       element.data('seat_label', seat_label)

@@ -16,5 +16,6 @@
 
 .DS_Store
 .sass-cache
-*.rdb # redis persistence db
+*.rdb
 .env
+dump.rdb

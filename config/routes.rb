@@ -1,10 +1,15 @@
 Tix::Application.routes.draw do
 
+
   root :to => "main#index"
 
   scope '/api' do
     resources :events
+    get '/ticket_locks.json/new' => "ticket_locks#new"
+    
   end
+  
+  
   
 
   # The priority is based upon order of creation:

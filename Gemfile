@@ -24,7 +24,7 @@ group :test, :development do
   # gem 'shoulda-matchers'
   # gem 'rails-erd'
   # gem 'xml-simple' # for processing seed files
-  # gem 'foreman'
+  gem 'foreman'
   # gem 'chronic'
   # gem 'php-serialize'
   
@@ -51,6 +51,7 @@ gem 'pusher'
 
 # key value store
 gem 'redis'
+# gem 'redis-objects', :require => 'redis/objects'
 
 # gem 'country_select'
 # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

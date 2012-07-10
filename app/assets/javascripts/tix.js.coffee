@@ -21,15 +21,13 @@ window.Tix =
   init: (data)->
     this.events = new Tix.Collections.Events(data.events)
     this.router = new Tix.Routers.MainRouter(this.events)
-    
+    Tix.pusherAPIKey = data.pusherAPIKey
+    Tix.ExternalEvents.init()
     Backbone.history.start()
-  
-  config: 
-    PusherAPIKey: '52fcd783b4f4c6cbf542'
     
   ExternalEvents: 
     init: ->
-      @pusher = new Pusher('52fcd783b4f4c6cbf542')
+      @pusher = new Pusher(Tix.pusherAPIKey)
       @respondToLockedTicket()
       @initPusherLog()
       
@@ -56,5 +54,5 @@ window.Tix =
     
     
 $(document).ready ->
-  Tix.ExternalEvents.init()
+  
   # App is initialized via bootstrapped 

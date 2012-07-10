@@ -37,7 +37,7 @@ Tix::Application.configure do
   
   require 'pusher'
 
-  Pusher.app_id = '23617'
-  Pusher.key = '52fcd783b4f4c6cbf542'
-  Pusher.secret = 'a270ba1928723d316b31'
+  Pusher.app_id = ENV['PUSHER_APP_ID']
+  Pusher.key = ENV['PUSHER_KEY']
+  Pusher.secret = ENV['PUSHER_SECRET']
 end

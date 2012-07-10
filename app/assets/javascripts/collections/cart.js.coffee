@@ -8,6 +8,9 @@ class Tix.Collections.Cart extends Backbone.Collection
     
   onAddToCart: (ticket)->
     ticket.startTimer()
+    ticket_id = ticket.get('id')
+    
+    Tix.ExternalEvents.lockTicket(ticket_id)
 
     
   onRemoveFromCart: (ticket)->

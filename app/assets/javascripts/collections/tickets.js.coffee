@@ -8,6 +8,6 @@ class Tix.Collections.Tickets extends Backbone.Collection
     return  _.filter this.models, (item)->
       a = item.get 'area_id'
       b = area_id
-      is_open = ( item.get 'state' ) == 'open'
+      is_open = ( item.get 'status' ) == 'open'
       return ( a == b ) && is_open
       

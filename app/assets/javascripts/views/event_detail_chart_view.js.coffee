@@ -8,12 +8,21 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     # Tix.log 'Initialize Tix.Views.EventDetailChartView'
     # Tix.log 'ChartData ', this.options.chartData
     # window.e = @eventTicketsCollection
+    self = this
     @chartElements = {} # map of area_ids to Raphael elements
     @chartColors = 
       active: '#ffffff'
       hover: '#ffff00'
       inactive: '#666666'
       
+    Tix.tickets.bind 'change:status', (ticket)->
+      new_status = ticket.get('status')
+      area_id = ticket.get('area_id')
+      Tix.log 'Ticket changed: new status', new_status
+      Tix.log 'Ticket changed: new_status', new_status
+      
+      @disableAreaIfNoTixLeft(area_id, false)
+    , this
       
     window.Tix.chartColors = @chartColors # TODO: fix this. See this.areaHover/this.areaHoveroff
     
@@ -68,19 +77,25 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     Tix.tooltip = @tooltip
   
   handleClicks: ->
+    self = this
     Tix.dispatcher.on 'area:click', (options) ->
       area_id = options.area_id
-      # console.log @eventTicketsCollection
-      if 1 == Tix.tickets.filterByAreaId(area_id).length
-        # No more tickets!
-        @disableArea(area_id)
+      self.disableAreaIfNoTixLeft(area_id, true)
     , this
+    
+    
+  disableAreaIfNoTixLeft: (area_id, beforeRemoval=true)->    
+    numRemaining = if (beforeRemoval == true) then 1 else 0
+    if numRemaining == Tix.tickets.filterByAreaId(area_id).length
+      
+      # No more tickets!
+      @disableArea(area_id)
     
   enableActiveAreas: ->
     self = this
     Tix.tickets.forEach (tix, idx)->
 
-      state = tix.get('state')
+      state = tix.get('status')
       if state == 'open'
         area_id = tix.get('area_id')
         area_label = tix.get('area_label')
@@ -110,7 +125,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     
     if element.data('status') == 'closed'
 
-      element.data('status', 'open')
+      element.data('state', 'open')
       element.data('area_id', area_id)
       element.data('seat_label', seat_label)
       element.data('area_label', area_label)
@@ -164,7 +179,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
 
   dispatchAreaClick: ->
     Tix.dispatcher.trigger 'area:click', { area_id: this.data('area_id') }
-    
+
   drawChart: ->
     self = this
     _.each Tix.areas.models, (area,idx)->

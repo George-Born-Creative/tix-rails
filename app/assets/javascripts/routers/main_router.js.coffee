@@ -24,5 +24,5 @@ class Tix.Routers.MainRouter extends Backbone.Router
     eventDetailView = new Tix.Views.EventDetailView(model: event)   
     
   setupPusher: ->
-  
+
   

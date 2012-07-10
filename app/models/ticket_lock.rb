@@ -43,6 +43,7 @@ class TicketLock
   def save!
     key = "ticket:#{@ticket_id}:locked_by"
     value = @user_id
+    p = Pusher['tickets'].trigger('lock', { :ticket_id => self.ticket_id }) #TODO: Move this into a queue with a worker consuming it
     
     @r.set(key, value)
     @r.expire(key, EXPIRE_TIME)

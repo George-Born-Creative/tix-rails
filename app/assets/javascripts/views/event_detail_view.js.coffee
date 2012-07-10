@@ -6,8 +6,11 @@ class Tix.Views.EventDetailView extends Backbone.View
   
   initialize: ->
     _.bindAll this, 'render'
+    
     @model.bind 'change', @render, this
     @model.fetch()
+    
+    
     
     
   render: ->    

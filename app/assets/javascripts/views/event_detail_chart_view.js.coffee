@@ -227,7 +227,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     _.each Tix.areas.models, (area,idx)->
       switch area.get('type')
         when 'single'
-          elem = self.paper.circle(area.get('x'), area.get('y'), 7)
+          elem = self.paper.circle(area.get('x'), area.get('y'), 6)
             .attr
               fill: @chartColors.inactive
               opacity: 0.5
@@ -248,3 +248,4 @@ class Tix.Views.EventDetailChartView extends Backbone.View
   setBackgroundImage: ->
     $('#wrap').css
       'background-image': 'url(' + Tix.chart.get('background_image_url') + '?1)'
+      'background-position': '-1px 0'

@@ -5,8 +5,8 @@ class Ticket < ActiveRecord::Base
   
   attr_accessible :price, :state
   
-  attr_accessor :label, :area_label, :area_type
-  attr_accessor :s
+  attr_accessor :label, :area_label, :area_type, :service_charge
+  # attr_accessor :status
   
   def label
     "Seat #{self.id}"
@@ -18,6 +18,10 @@ class Ticket < ActiveRecord::Base
   
   def area_type
     self.area.type
+  end
+  
+  def service_charge
+    3.00
   end
   
   def status # dynamic property -- either state or locked

@@ -7,7 +7,7 @@
     #event_detail_chart
       #wrap
         #canvas
-          Canvas
+          
 
   .five.columns
     %h3 2. Confirm
@@ -15,6 +15,9 @@
     
     -# BACKBONE VIEW
     #event_detail_cart
+      .intro
+        %h5.light
+          Choose an available seat to reserve it! You'll have 5 minutes to complete your order.
       
   .four.columns.right
     %h3 3. Payment
@@ -23,17 +26,7 @@
     
     -# BACKBONE VIEW
     #event_detail_checkout
-      %span
-        %h4
-          Total
-          %span{:style => 'float:right'}
-            .total $0.00
-  
 
-      %a.button Credit »
-      %a.button Paypal »
-      %a.button 1-Click »
-      
 
     %hr/
     %h3 4. Ticket Delivery

@@ -12,6 +12,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     
     
     @chartElements = {} # map of area_ids to Raphael elements
+    # Tix.log 'ChartElements initialized', @chartElements
     @chartColors = 
       active: '#ffffff'
       hover: '#ffff00'
@@ -122,6 +123,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     self = this
     #Tix.tooltip.hide()
     element = @chartElements[area_id]
+    # console.log [@chartElements, area_id, @chartElements[area_id]]
     
     if element.data('status') == 'open'
       # Tix.log 'Disabling area', area_id

@@ -7,7 +7,6 @@ class Tix.Routers.MainRouter extends Backbone.Router
     @events = events
     @eventsView = new Tix.Views.EventsListView( collection: @events)
     @appView = new Tix.Views.AppView()
-        
     _.bindAll this, 'index'
     
   index: ->

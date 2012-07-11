@@ -19,7 +19,7 @@ class Tix.Views.SeatSelectionView extends Backbone.View
     _.bindAll this, 'template'
   
   removeItem: (e)->
-    console.log Tix.cart.length
+    # console.log Tix.cart.length
     Tix.cart.remove this.model
     self = this
     @$el.slideUp 'fast', ->

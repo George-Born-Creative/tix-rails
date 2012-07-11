@@ -18,6 +18,8 @@ class Tix.Views.EventDetailView extends Backbone.View
     
     data_hash = {tickets: @tickets, cart: @cart, chart: @chart, areas: @areas}
     
+    # Tix.log data_hash
+
     _.extend Tix, data_hash    
     
     @$el.html( @template( @model.attributes ) )

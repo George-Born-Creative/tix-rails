@@ -1,14 +1,10 @@
-.row
-  .columns.three.alpha
-
+.columns.eight.omega
+  .event-item{:style => "background-image: url(#{@image_uri}) "}
     %h3
       %a(href='#/event/' + @id)
-        %img{:src=>@image_thumb_uri, :width=>'125' }=
-        
-  .columns.nine.omega
-    -if @headline
-      =@headline
-    %h4
-      %a(href='#/event/' + @id)=@title
-    =@starts_at_formatted
-  %hr/
+    .info
+      .date=@starts_at_formatted
+      .title
+        %a(href='#/event/' + @id)=@title
+      -if @headline
+        .headline=@headline

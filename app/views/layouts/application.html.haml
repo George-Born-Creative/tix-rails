@@ -14,38 +14,20 @@
         #logo.columns.nine.alpha
           
         #social_links.columns.six.omega
-          Twitter   |   Facebook   |   FAQ   |   Contact    |   Directions  
-          <br/>
-          <br/>
-          <br/>
+          %p.align.right
+            Twitter   |   Facebook   |   FAQ   |   Contact    |   Directions  
+            <br/>
+            <br/>
+            <br/>
           
           .small 227 Maple Ave E Vienna, VA 22180   |   <a href='#'>thebros@jamminjava.com</a>
   
       -# BACKBONE
       #mid.columns.sixteen
-      
-        .columns.four.alpha#sidenav
-          %ul
-            %li{:href => "http://jamminjava.com/home/events/list"} Calendar
-            %li{:href => "http://jamminjava.com/home/lobbybar"} The Lobby Bar
-            %li{:href => "http://jamminjava.com/home/kids-events/list"} Kids Shows
-            %li{:href => "http://jamminjava.com/home/main/private-events"} Private Events
-            %li{:href => "http://jamminjava.com/home/main/cafe"} Food/Drink
-            %li{:href => "http://themusicschoolonline.com", :target => "_blank"} Music Lessons
-            %li{:href => "http://jamminjava.com/home/main/store"} Store
-            %li{:href => "http://jamminjava.com/home/main/about"} About
-            %li{:href => "http://thewhiskeyannapolis.com"} The Whiskey
-            / <a href="http://jamminjava.com/home/main/sponsorship">Sponsorship</a>
-          %br/
-          %form#exampleForm{"accept-charset" => "UTF-8", :action => "http://app.icontact.com/icp/signup.php", :method => "post", :name => "exampleForm", :onsubmit => "return verifyRequired();"}/
-          
-        -# BACKBONE
-        .columns.twelve.alpha
-          #events_list
-            
-      .clear
-      .row
-        #event_detail
+        #events_list
+      #event_detail
+        #wrap
+          #canvas
         
   
     = yield

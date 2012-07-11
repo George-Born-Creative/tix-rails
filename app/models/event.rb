@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   has_many :tickets
   
   def starts_at_formatted
-    self.created_at.to_formatted_s(:long_ordinal)
+    self.starts_at.to_formatted_s(:jammin_java)
   end
 end
 

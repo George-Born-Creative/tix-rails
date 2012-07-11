@@ -1,10 +1,14 @@
 class Tix.Views.EventListView extends Backbone.View
   tagName: 'div'
   
+  events:
+    'click': 'eventClick'
+  
   template: JST['event/event_list']
   
   render: ->
 
     @$el.html( @template( @model.attributes ))
 
-    
+  eventClick: ->
+    Tix.router.navigate '#/event/' + this.model.id

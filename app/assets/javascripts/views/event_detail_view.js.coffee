@@ -10,10 +10,7 @@ class Tix.Views.EventDetailView extends Backbone.View
     @model.bind 'change', @render, this
     @model.fetch()
     
-    
-    
-    
-  render: ->    
+  render: ->
     @tickets = new Tix.Collections.Tickets( this.model.get('tickets') )    
     @cart = new Tix.Collections.Cart() # Empty: represents cart
     @chart = new Tix.Models.Chart( this.model.get('chart') )

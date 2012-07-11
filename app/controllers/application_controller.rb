@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_event
   
   def set_event
-    @events = Event.all
+    @events = Event.order("starts_at ASC")
   end
 end

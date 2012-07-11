@@ -45,6 +45,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'backbone-on-rails'
 gem 'skeleton-rails'
+gem 'stamp'
 
 # messaging
 gem 'pusher'

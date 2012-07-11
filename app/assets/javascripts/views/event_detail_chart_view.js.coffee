@@ -10,6 +10,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     # window.e = @eventTicketsCollection
     self = this
     
+    
     @chartElements = {} # map of area_ids to Raphael elements
     @chartColors = 
       active: '#ffffff'

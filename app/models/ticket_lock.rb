@@ -21,6 +21,15 @@ class TicketLock
     end
   end
   
+  def destroy!
+    if is_locked?
+      destory_lock!
+      return true
+    else
+      return false
+    end
+  end
+  
   
   def is_locked?
     key = "ticket:#{@ticket_id}:locked_by"
@@ -39,6 +48,12 @@ class TicketLock
   
   
   protected
+  
+  def destory_lock!
+    key = "ticket:#{@ticket_id}:locked_by"
+    p = Pusher['tickets'].trigger('unlock', { :ticket_id => self.ticket_id }) #TODO: Move this into a queue with a worker consuming it
+    @r.del(key)
+  end
   
   def save!
     key = "ticket:#{@ticket_id}:locked_by"

@@ -15,3 +15,10 @@ class Tix.Collections.Cart extends Backbone.Collection
     
   onRemoveFromCart: (ticket)->
     ticket.resetTimer()
+    ticket_id = ticket.get('id')
+    
+    Tix.ExternalEvents.unlockTicket(ticket_id)
+    # Fire removed event external
+    
+    
+    

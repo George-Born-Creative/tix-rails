@@ -10,5 +10,5 @@
       =@headline
     %h4
       %a(href='#/event/' + @id)=@title
-    =@starts_at
+    =@starts_at_formatted
   %hr/

@@ -9,10 +9,9 @@ window.Tix =
 
 
   log: (msg, obj=null)->
-    console.log '***** ' + msg + ' *'
+    console.log 'Tix : ' + msg
     if obj != null
       console.log obj
-    console.log '*******************'
     
   utils: 
     formatCurrency: (price)->
@@ -29,6 +28,7 @@ window.Tix =
     init: ->
       @pusher = new Pusher(Tix.pusherAPIKey)
       @respondToLockedTicket()
+      @respondToUnlockedTicket()
       @initPusherLog()
       
     initPusherLog: ->
@@ -41,18 +41,43 @@ window.Tix =
           return
         else if response.status == 'error'
           Tix.log "Error locking ticket:" + response.error
+          
+    unlockTicket: (ticket_id)->
+      $.post "/api/ticket_locks.json/delete", { ticket_id: ticket_id }, (response)->
+        if response.status == 'ok'
+          return
+        else if response.status == 'error'
+          Tix.log "Error unlocking ticket:" + response.error
+          
+    
                  
     respondToLockedTicket: ->
-      # console.log 'respondToLockedTicket called'
       @channel = @pusher.subscribe 'tickets'
+      
+      # console.log 'respondToLockedTicket called'
       @channel.bind 'lock', (data)->
         ticket_id = data.ticket_id
-        ticket = Tix.tickets.get(ticket_id).set('status', 'locked')
+        ticket = Tix.tickets.get(ticket_id)
+        ticket.set('status', 'locked')
         # Tix.log 'Pusher received', 
         
         # console.log ticket
     
-    
+    respondToUnlockedTicket: ->      
+      @channel = @pusher.subscribe 'tickets'
+      
+      @channel.bind 'unlock', (data)->
+        window.d = data
+        ticket_id = data.ticket_id
+
+        ticket = Tix.tickets.get(ticket_id)
+
+        if ticket.get('status') == 'locked'
+          ticket.set('status', 'open')
+          # Tix.log 'unlocking ticket', ticket
+        else
+          # Tix.log 'ticket is not locked', ticket
+              
 $(document).ready ->
   
-  # App is initialized via bootstrapped 
+  # App is initialized via bootstrapped data in html

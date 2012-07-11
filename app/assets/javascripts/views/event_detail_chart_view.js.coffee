@@ -22,7 +22,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       # Tix.log 'Ticket changed: new status', new_status
       # Tix.log 'Ticket changed: new_status', new_status
       
-      @disableAreaIfNoTixLeft(area_id, false)
+      @updateArea(area_id, false)
     , this
       
     window.Tix.chartColors = @chartColors # TODO: fix this. See this.areaHover/this.areaHoveroff
@@ -47,6 +47,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     Tix.cart.on 'remove', (ticket)->
       area_id = ticket.get('area_id')
       self.enableArea(area_id)
+      
       # Tix.log 'Ticket from ChartView cart remove', ticket
       
       
@@ -82,16 +83,21 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     self = this
     Tix.dispatcher.on 'area:click', (options) ->
       area_id = options.area_id
-      self.disableAreaIfNoTixLeft(area_id, true)
+      self.updateArea(area_id, true)
     , this
     
     
-  disableAreaIfNoTixLeft: (area_id, beforeRemoval=true)->    
+  updateArea: (area_id, beforeRemoval=true)->
+    remaining = Tix.tickets.filterByAreaId(area_id).length
+    
+    Tix.log 'updateArea Tix.tickets(area)_id.length', remaining
+    
     numRemaining = if (beforeRemoval == true) then 1 else 0
     if numRemaining == Tix.tickets.filterByAreaId(area_id).length
-      
       # No more tickets!
       @disableArea(area_id)
+    else
+      @enableArea(area_id)
     
   enableActiveAreas: ->
     self = this
@@ -109,29 +115,51 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     , this
       
   disableArea: (area_id)->
+    
+    
+    
     self = this
     #Tix.tooltip.hide()
     element = @chartElements[area_id]
+    
     if element.data('status') == 'open'
+      # Tix.log 'Disabling area', area_id
+      
       element.data('status', 'closed')
-    element.unclick @dispatchAreaClick
-    element.unhover @areaHover, @areaHoveroff
+      element.unclick @dispatchAreaClick
+      Tix.tooltip.hide()
+      
+      _.each element.events, (ev,idx)->
+        ev.unbind()
+        Tix.log 'unbinding', ev.name
+        # eval('element.un' + ev.name + '()')
+      console.log element
+      
+      #element.unmouseover self.areaHover
+      #element.unmouseout self.areaHoveroff
+    
     
     element.attr
       fill: @chartColors.inactive
       opacity: 0.5
     
   enableArea: (area_id, area_label='', seat_label = '', price=0.00 )->
+    
     self = this
     element = @chartElements[area_id]
-    
+  
     if element.data('status') == 'closed'
-
-      element.data('state', 'open')
-      element.data('area_id', area_id)
-      element.data('seat_label', seat_label)
-      element.data('area_label', area_label)
-      element.data('price', Tix.utils.formatCurrency(price))
+      # Tix.log 'Enabling area', area_id
+      
+      element.data('status', 'open')
+      
+      if not element.data('initialized')
+        element.data('area_id', area_id)
+        element.data('seat_label', seat_label)
+        element.data('area_label', area_label)
+        element.data('price', Tix.utils.formatCurrency(price))
+        element.data('initialized', true)
+      
       
       
       element.click @dispatchAreaClick
@@ -140,21 +168,24 @@ class Tix.Views.EventDetailChartView extends Backbone.View
         .attr
           opacity: 0.7
           fill: @chartColors.active
-        .hover self.areaHover, self.areaHoveroff
-        
+      element.mouseover self.areaHover
+      element.mouseout self.areaHoveroff
+      
          
 
   areaHover: (e)->
+    
+    # if Tix.tooltip.timeout
+    #   clearTimeout Tix.tooltip.timeout
+    # Tix.tooltip.timeout = setTimeout('Tix.tooltip.hide()', 1000)
     self = this
     this.attr
       opacity: 0.9
       fill: Tix.chartColors.hover
       cursor: 'pointer'
     
-    
-    
     this.mousemove (e)->
-      
+      # console.log this
       seat_label = this.data 'seat_label'
       seat_label = if seat_label == '' then '' else seat_label + "\n"
       area_label = this.data 'area_label'
@@ -173,6 +204,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
         
       Tix.tooltip.components.text.attr
         text: seat_label + area_label + "\n" + price
+        
     Tix.tooltip.show().toFront()
     
       
@@ -194,7 +226,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
     _.each Tix.areas.models, (area,idx)->
       switch area.get('type')
         when 'single'
-          elem = self.paper.circle(area.get('x'), area.get('y'), 5)
+          elem = self.paper.circle(area.get('x'), area.get('y'), 7)
             .attr
               fill: @chartColors.inactive
               opacity: 0.5

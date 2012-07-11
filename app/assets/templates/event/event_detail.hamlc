@@ -17,7 +17,7 @@
     #event_detail_cart
       
   .four.columns.right
-    %h3 3. Checkout
+    %h3 3. Payment
 
     %hr/
     
@@ -34,3 +34,26 @@
       %a.button Card
       %a.button Paypal
 
+    %hr/
+    %h3 4. Ticket Delivery
+
+    %h4 Email
+    %input{:type => 'email', :placeholder => 'you@email.com' }
+    %input{:type => 'password', :placeholder => 'password' }
+    
+    %button.large Deliver via email »
+    
+    %h4 SMS
+    %input{:type => 'text', :placeholder => '(703) 255-1566 (us mobile only)' }
+    
+    %button.large Deliver via text »
+    
+    .clear
+    
+    Jammin' Java's ticketing is 100% digital.
+    Receive your tickets via email or SMS 
+    and present them at the door. In the event that
+    you cannot present your digital tickets, 
+    we accept a valid drivers license.
+      
+    

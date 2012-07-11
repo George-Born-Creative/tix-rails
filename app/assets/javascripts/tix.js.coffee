@@ -42,14 +42,14 @@ window.Tix =
       window.Pusher.log = (message)->
         if (window.console && window.console.log) then window.console.log(message)
       
-    lockTicket: (ticket_id)->
+    lockTicket: (ticket_id)-> # called from Cart collection
       $.post "/api/ticket_locks.json/new", { ticket_id: ticket_id }, (response)->
         if response.status == 'ok'
           return
         else if response.status == 'error'
           Tix.log "Error locking ticket:" + response.error
           
-    unlockTicket: (ticket_id)->
+    unlockTicket: (ticket_id)-> # called from Cart collection
       $.post "/api/ticket_locks.json/delete", { ticket_id: ticket_id }, (response)->
         if response.status == 'ok'
           return

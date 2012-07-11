@@ -15,8 +15,8 @@ class Tix.Models.Ticket extends Backbone.Model
     return Tix.utils.formatCurrency(price) 
     
   resetTimer: ->
-    @min = 0
-    @sec = 15
+    @min = 5
+    @sec = 0
     clearInterval @timer if @timer
     
   startTimer: ->

@@ -30,16 +30,16 @@
             .total $0.00
   
 
-      %a.button Cash
-      %a.button Card
-      %a.button Paypal
+      %a.button Credit »
+      %a.button Paypal »
+      %a.button 1-Click »
+      
 
     %hr/
     %h3 4. Ticket Delivery
 
     %h4 Email
     %input{:type => 'email', :placeholder => 'you@email.com' }
-    %input{:type => 'password', :placeholder => 'password' }
     
     %button.large Deliver via email »
     
@@ -50,8 +50,8 @@
     
     .clear
     
-    Jammin' Java's ticketing is 100% digital.
-    Receive your tickets via email or SMS 
+    Jammin' Java's ticketing is 100% paperless.
+    Receive your tickets via email or text message 
     and present them at the door. In the event that
     you cannot present your digital tickets, 
     we accept a valid drivers license.

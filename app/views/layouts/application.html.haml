@@ -55,5 +55,8 @@
     = javascript_include_tag "application"
     :javascript
       $(function(){
-        Tix.init( {events: #{ render('events/events', :object => @events, :format => :json) }, pusherAPIKey: "#{Pusher.key}"}  );
+        Tix.init( {
+          events: #{ render('events/events', :object => @events, :format => :json) },
+          pusherAPIKey: "#{Pusher.key}",
+          env: "#{ENV['RAILS_ENV']}"}  );
       });

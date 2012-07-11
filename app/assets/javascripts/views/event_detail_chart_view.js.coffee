@@ -90,7 +90,7 @@ class Tix.Views.EventDetailChartView extends Backbone.View
   updateArea: (area_id, beforeRemoval=true)->
     remaining = Tix.tickets.filterByAreaId(area_id).length
     
-    Tix.log 'updateArea Tix.tickets(area)_id.length', remaining
+    # Tix.log 'updateArea Tix.tickets(area)_id.length', remaining
     
     numRemaining = if (beforeRemoval == true) then 1 else 0
     if numRemaining == Tix.tickets.filterByAreaId(area_id).length
@@ -131,9 +131,9 @@ class Tix.Views.EventDetailChartView extends Backbone.View
       
       _.each element.events, (ev,idx)->
         ev.unbind()
-        Tix.log 'unbinding', ev.name
+        # Tix.log 'unbinding', ev.name
         # eval('element.un' + ev.name + '()')
-      console.log element
+      # console.log element
       
       #element.unmouseover self.areaHover
       #element.unmouseout self.areaHoveroff

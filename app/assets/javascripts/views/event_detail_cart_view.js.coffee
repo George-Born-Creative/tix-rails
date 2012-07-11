@@ -30,9 +30,9 @@ class Tix.Views.EventDetailCartView extends Backbone.View
     #TODO: Pusher
   
   onRemoveFromCart: (args)->
-    console.log args
     #TODO: Pusher
     @updateTotal(args, -1)
+    $.post('/')
     
   updateTotal: (item, op=1)-> # Expects either 1 or -1
     last_price = item.get('price')

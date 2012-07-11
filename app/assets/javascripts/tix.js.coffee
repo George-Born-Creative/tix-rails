@@ -5,13 +5,14 @@ window.Tix =
   Routers: {}
   dispatcher: _.clone(Backbone.Events)
 
-  
+  log: (msg, obj)->
+    return; # stub function is default
 
-
-  log: (msg, obj=null)->
-    console.log 'Tix : ' + msg
-    if obj != null
-      console.log obj
+  initTixLogger: ->
+    Tix.log = (msg, obj=null)->
+      console.log 'Tix : ' + msg
+      if obj != null
+        console.log obj
     
   utils: 
     formatCurrency: (price)->
@@ -22,14 +23,20 @@ window.Tix =
     this.router = new Tix.Routers.MainRouter(this.events)
     Tix.pusherAPIKey = data.pusherAPIKey
     Tix.ExternalEvents.init()
+    if data.env == 'development'
+      Tix.initLoggers()
+      
     Backbone.history.start()
+    
+  initLoggers: ->
+    Tix.ExternalEvents.initPusherLog()
+    Tix.initTixLogger()
     
   ExternalEvents: 
     init: ->
       @pusher = new Pusher(Tix.pusherAPIKey)
       @respondToLockedTicket()
       @respondToUnlockedTicket()
-      @initPusherLog()
       
     initPusherLog: ->
       window.Pusher.log = (message)->

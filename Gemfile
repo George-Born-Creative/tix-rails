@@ -46,6 +46,7 @@ gem 'haml-rails'
 gem 'backbone-on-rails'
 gem 'skeleton-rails'
 gem 'stamp'
+gem "backbone-support"
 
 # messaging
 gem 'pusher'

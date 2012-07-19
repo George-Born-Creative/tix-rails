@@ -5,7 +5,7 @@ class Ticket < ActiveRecord::Base
   
   attr_accessible :price, :state
   
-  attr_accessor :label, :area_label, :area_type, :service_charge
+  attr_accessor :label, :area_label, :area_type, :service_charge, :event_id, :event_title
   # attr_accessor :status
   
   def label
@@ -33,5 +33,13 @@ class Ticket < ActiveRecord::Base
       status = self.state
     end
     status
+  end
+  
+  def event_id
+    self.event.id
+  end
+  
+  def event_title
+    Event.find(self.event.id).title
   end
 end

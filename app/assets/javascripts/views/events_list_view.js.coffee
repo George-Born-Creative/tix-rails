@@ -1,20 +1,21 @@
 class Tix.Views.EventsListView extends Backbone.View
-  el: $('#events_list')
+  
+  className: 'events_list'
   
   initialize: ->
     
     _.bindAll this, 'setupEventListViews'
-    
-    this.setupEventListViews()
-  
-          
-  render: ->
 
+  render: ->
+    @setupEventListViews()
+    @
+    
 
   setupEventListViews: ->
     self = this
     _.each this.collection.models, (item, idx)->
+
       eventView = new Tix.Views.EventListView(model: item)
       renderedEventView = eventView.render()
-      #console.log renderedEventView
-      $(self.el).append(renderedEventView)
+      
+      $(self.el).append(renderedEventView.$el)

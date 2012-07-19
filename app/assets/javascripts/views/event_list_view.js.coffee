@@ -7,8 +7,12 @@ class Tix.Views.EventListView extends Backbone.View
   template: JST['event/event_list']
   
   render: ->
-
     @$el.html( @template( @model.attributes ))
+    @
+  
+  leave: ->
+    this.off()
+    this.remove()
 
   eventClick: ->
     Tix.router.navigate '#/event/' + this.model.id

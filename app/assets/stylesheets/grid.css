@@ -1,0 +1,233 @@
+/*
+* Adapted from Skeleton
+* www.getskeleton.com
+*/
+
+
+/* Table of Contents
+==================================================
+    #Base 960 Grid
+    #Tablet (Portrait)
+    #Mobile (Portrait)
+    #Mobile (Landscape)
+    #Clearing */
+
+
+
+/* #Base 960 Grid
+================================================== */
+
+
+    .container                                  { position: relative; width: 960px; margin: 0 auto; padding: 0; }
+    .col, .col                           { float: left; display: inline; margin-left: 10px; margin-right: 10px; }
+    .row                                        { margin-bottom: 20px; }
+
+    /* Nested Column Classes */
+    .col.alpha, .col.alpha               { margin-left: 0; }
+    .col.omega, .col.omega               { margin-right: 0; }
+
+    /* Base Grid */
+    .container .g1.col                      { width: 40px;  }
+    .container .g2.col                     { width: 100px; }
+    .container .g3.col                   { width: 160px; }
+    .container .g4.col                    { width: 220px; }
+    .container .g5.col                    { width: 280px; }
+    .container .g6.col                     { width: 340px; }
+    .container .g7.col                   { width: 400px; }
+    .container .g8.col                   { width: 460px; }
+    .container .g9.col                    { width: 520px; }
+    .container .g10.col                     { width: 580px; }
+    .container .g11.col                  { width: 640px; }
+    .container .g12.col                  { width: 700px; }
+    .container .g13.col                { width: 760px; }
+    .container .g14.col                { width: 820px; }
+    .container .g15.col                 { width: 880px; }
+    .container .g16.col                 { width: 940px; }
+
+    .container .one-third.col                { width: 300px; }
+    .container .one-thirds.col               { width: 620px; }
+
+    /* Offsets */
+    .container .prefix-g1                   { padding-left: 60px;  }
+    .container .prefix-g2                   { padding-left: 120px; }
+    .container .prefix-g3                 { padding-left: 180px; }
+    .container .prefix-g4                  { padding-left: 240px; }
+    .container .prefix-g5                  { padding-left: 300px; }
+    .container .prefix-g6                   { padding-left: 360px; }
+    .container .prefix-g7                 { padding-left: 420px; }
+    .container .prefix-g8                 { padding-left: 480px; }
+    .container .prefix-g9                  { padding-left: 540px; }
+    .container .prefix-g10                   { padding-left: 600px; }
+    .container .prefix-g11                { padding-left: 660px; }
+    .container .prefix-g12                { padding-left: 720px; }
+    .container .prefix-g13              { padding-left: 780px; }
+    .container .prefix-g14              { padding-left: 840px; }
+    .container .prefix-g15               { padding-left: 900px; }
+
+
+
+/* #Tablet (Portrait)
+================================================== */
+
+    /* Note: Design for a width of 768px */
+
+    @media only screen and (min-width: 768px) and (max-width: 959px) {
+        .container                                  { width: 768px; }
+        .container .col,
+        .container .col                         { margin-left: 10px; margin-right: 10px;  }
+        .col.alpha, .col.alpha               { margin-left: 0; margin-right: 10px; }
+        .col.omega, .col.omega               { margin-right: 0; margin-left: 10px; }
+
+        .container .g1.col                      { width: 28px; }
+        .container .g2.col                     { width: 76px; }
+        .container .g3.col                   { width: 124px; }
+        .container .g4.col                    { width: 172px; }
+        .container .g5.col                    { width: 220px; }
+        .container .g6.col                     { width: 268px; }
+        .container .g7.col                   { width: 316px; }
+        .container .g8.col                   { width: 364px; }
+        .container .g9.col                    { width: 412px; }
+        .container .g10.col                     { width: 460px; }
+        .container .g11.col                  { width: 508px; }
+        .container .g12.col                  { width: 556px; }
+        .container .g13.col                { width: 604px; }
+        .container .g14.col                { width: 652px; }
+        .container .g15.col                 { width: 700px; }
+        .container .g16.col                 { width: 748px; }
+
+        .container .g1-third.col                { width: 236px; }
+        .container .g2-thirds.col               { width: 492px; }
+
+        /* Offsets */
+        .container .prefix-g1                   { padding-left: 48px; }
+        .container .prefix-g2                   { padding-left: 96px; }
+        .container .prefix-g3                 { padding-left: 144px; }
+        .container .prefix-g4                  { padding-left: 192px; }
+        .container .prefix-g5                  { padding-left: 240px; }
+        .container .prefix-g6                   { padding-left: 288px; }
+        .container .prefix-g7                 { padding-left: 336px; }
+        .container .prefix-g8                 { padding-left: 348px; }
+        .container .prefix-g9                  { padding-left: 432px; }
+        .container .prefix-g10                   { padding-left: 480px; }
+        .container .prefix-g11                { padding-left: 528px; }
+        .container .prefix-g12                { padding-left: 576px; }
+        .container .prefix-g13              { padding-left: 624px; }
+        .container .prefix-g14              { padding-left: 672px; }
+        .container .prefix-g15               { padding-left: 720px; }
+    }
+
+
+/*  #Mobile (Portrait)
+================================================== */
+
+    /* Note: Design for a width of 320px */
+
+    @media only screen and (max-width: 767px) {
+        .container { width: 300px; }
+        .col, .col { margin: 0; }
+
+        .container .g1.col,
+        .container .g2.col,
+        .container .g3.col,
+        .container .g4.col,
+        .container .g5.col,
+        .container .g6.col,
+        .container .g7.col,
+        .container .g8.col,
+        .container .g9.col,
+        .container .g10.col,
+        .container .g11.col,
+        .container .g12.col,
+        .container .g13.col,
+        .container .g14.col,
+        .container .g15.col,
+        .container .g16.col,
+        .container .one-third.col,
+        .container .two-thirds.col  { width: 300px; }
+
+
+        /* Offsets */
+        .container .prefix-g1,
+        .container .prefix-g2,
+        .container .prefix-g3,
+        .container .prefix-g4,
+        .container .prefix-g5,
+        .container .prefix-g6,
+        .container .prefix-g7,
+        .container .prefix-g8,
+        .container .prefix-g9,
+        .container .prefix-g10,
+        .container .prefix-g11,
+        .container .prefix-g12,
+        .container .prefix-g13,
+        .container .prefix-g14,
+        .container .prefix-g15 { padding-left: 0; }
+
+    }
+
+
+/* #Mobile (Landscape)
+================================================== */
+
+    /* Note: Design for a width of 480px */
+
+    @media only screen and (min-width: 480px) and (max-width: 767px) {
+        .container { width: 420px; }
+        .col, .col { margin: 0; }
+
+        .container .g1.col,
+        .container .g2.col,
+        .container .g3.col,
+        .container .g4.col,
+        .container .g5.col,
+        .container .g6.col,
+        .container .g7.col,
+        .container .g8.col,
+        .container .g9.col,
+        .container .g10.col,
+        .container .g11.col,
+        .container .g12.col,
+        .container .g13.col,
+        .container .g14.col,
+        .container .g15.col,
+        .container .g16.col,
+        .container .one-third.col,
+        .container .two-thirds.col { width: 420px; }
+    }
+
+
+/* #Clearing
+================================================== */
+
+    /* Self Clearing Goodness */
+    .container:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
+
+    /* Use clearfix class on parent to clear nested cols,
+    or wrap each row of cols in a <div class="row"> */
+    .clearfix:before,
+    .clearfix:after,
+    .row:before,
+    .row:after {
+      content: '\0020';
+      display: block;
+      overflow: hidden;
+      visibility: hidden;
+      width: 0;
+      height: 0; }
+    .row:after,
+    .clearfix:after {
+      clear: both; }
+    .row,
+    .clearfix {
+      zoom: 1; }
+
+    /* You can also use a <br class="clear" /> to clear cols */
+    .clear {
+      clear: both;
+      display: block;
+      overflow: hidden;
+      visibility: hidden;
+      width: 0;
+      hg8: 0;
+    }
+

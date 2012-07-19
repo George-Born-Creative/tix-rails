@@ -34,10 +34,7 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
       event.off()
     , this
     
-    if event.attributes.body == undefined
-      event.fetch()
-    else
-      event.trigger 'change'
+    event.fetch()
       
 
   eventDetailsById: (id)->
@@ -53,10 +50,7 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
       event.off()
     , this
     
-    if event.attributes.body == undefined
-       event.fetch()
-     else
-       event.trigger 'change'
+    event.fetch()
     
   showLoading: ->
     @$el.empty()

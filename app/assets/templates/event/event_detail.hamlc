@@ -1,52 +1,36 @@
-.row
-  .seven.columns
-    %h3 1. Choose your seats
-    %hr/
-    
-    -# BACKBONE VIEW
-    #event_detail_chart
-      #wrap
-        #canvas
-          
+.col.g7.alpha
+  %img{:src => @.get('image_uri'), :width => '100%' }
 
-  .five.columns
-    %h3 2. Confirm
-    %hr/
+.col.g9.omega
+  %h1=@.get('title')
+  %h3=@.get('headline')
+  
+  %h5=@.get('starts_at_formatted')
     
-    -# BACKBONE VIEW
-    #event_detail_cart
-      .intro
-        %h5.light
-          Choose an available seat to reserve it! You'll have 5 minutes to complete your order.
-      
-  .four.columns.right
-    %h3 3. Payment
-
-    %hr/
-    
-    -# BACKBONE VIEW
-    #event_detail_checkout
-
-
-    %hr/
-    %h3 4. Ticket Delivery
-
-    %h4 Email
-    %input{:type => 'email', :placeholder => 'you@email.com' }
-    
-    %button.large Deliver via email »
-    
-    %h4 SMS
-    %input{:type => 'text', :placeholder => '(703) 255-1566 (us mobile only)' }
-    
-    %button.large Deliver via text »
-    
-    .clear
-    
-    Jammin' Java's ticketing is 100% paperless.
-    Receive your tickets via email or text message 
-    and present them at the door. In the event that
-    you cannot present your digital tickets, 
-    we accept a valid drivers license.
+  .infobar
+  
+    .times.box.g5.col
+      6:30 - The new Lobby Bar <br/>
+      7:30 - Doors <br/>
+      8:30 - Passafire <br/>
+      .small * After The Show - Lobby Bar stays open!
       
     
+    .prices.box.g2.col.omega
+      $12 advance <br/>
+      $15 day of
+
+    
+    .buy.box.g2.col.omega
+      %a.button{:href => ('/#/tickets/' + @.get('id')) } Buy Tix »
+    
+  .clear
+    
+  %div{:contenteditable => true}
+    !=@.get('body')
+  
+  =@.get('supporting_act')
+  
+  
+.clear
+

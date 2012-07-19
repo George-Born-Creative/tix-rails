@@ -1,0 +1,18 @@
+.ticketText.float.left
+  .columns.three.alpha.omega
+    %span.event_title= @ticket.escape 'event_title'
+    %br/
+    %span.label= @ticket.escape 'label'
+    %br/
+    %span.area= @ticket.escape 'area_label'
+    
+  .columns.one.alpha.omega
+    %span.price= @ticket.escape 'formattedPrice'
+    %br/
+    .clock
+      &nbsp;
+    
+  .columns.one.alpha.omega
+    .close.align.right
+      %a(href='javascript:;') [x]
+.clear

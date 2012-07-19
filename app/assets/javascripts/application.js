@@ -15,12 +15,15 @@
 //= require tabs
 //= require underscore
 //= require backbone
+//= require backbone-support
+//= require backbone.localStorage
 //= require raphael.min
 //= require hamlcoffee
 //= require_tree ../templates
 //
 //= require .//tix
 //
+//= require_tree .//lib
 // require_tree ../templates/
 //= require_tree .//models
 //= require_tree .//collections

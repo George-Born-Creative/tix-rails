@@ -28,13 +28,18 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
     event = @events.get(id)
     self = this
     
-    event.on 'change', ->
-      view = new Tix.Views.EventTicketsCompositeView( model: event )      
-      self.swap view
-      event.off()
-    , this
     
-    event.fetch()
+    # Delegates to jqXHR
+    # http://backbonejs.org/#Model-fetch
+    
+    event.fetch({
+      success: ->
+        view = new Tix.Views.EventTicketsCompositeView( model: event )      
+        self.swap( view)
+        event.off()
+    })
+    
+    
       
 
   eventDetailsById: (id)->
@@ -42,15 +47,16 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
     event = @events.get(id)
     self = this
     
-    event.on 'change', ->      
-      self.hideLoading()
-
-      view = new Tix.Views.EventDetailView( model: event )
-      self.swap view
-      event.off()
-    , this
+    # Delegates to jqXHR
+    # http://backbonejs.org/#Model-fetch
     
-    event.fetch()
+    event.fetch({
+      success: ->
+        self.hideLoading()
+        view = new Tix.Views.EventDetailView( model: event )
+        self.swap( view)
+    })
+      
     
   showLoading: ->
     @$el.empty()

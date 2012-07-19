@@ -54,7 +54,7 @@ def generate_tickets(eve, chart)
       t.state = ( rand(3) == 0 ) ? 'closed' : 'open' # randomly close 1/3 tickets
       eve.tickets << t
     elsif area.type == :area
-      20.times do
+      50.times do
         t = Ticket.new :price => 10.00
         t.area = area
         t.state = ( rand(3) == 0 ) ? 'closed' : 'open' # randomly close 1/3 tickets
@@ -192,7 +192,7 @@ eve.save!
 #############
 
 eve = Event.new
-eve.title = 'Mama\'s Black Sheep + Christine Havrilla'
+eve.title = 'Mamas Black Sheep + Christine Havrilla'
 eve.starts_at = DateTime.parse('19th July 2012 7:30:00 PM')
 eve.ends_at = DateTime.parse('19th July 2012 9:30:00 PM')
 eve.image_uri = 'http://jamminjava.com/ee-assets/gallery/artists/adult-artists/MamasBlackSheep+Christine_Havrilla_-z.jpg'

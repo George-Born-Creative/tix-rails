@@ -1,5 +1,5 @@
 class TicketLock
-  attr_accessor :user_id, :ticket_id
+  attr_accessor :user_id, :ticket_id, :event_id, :key
   
   EXPIRE_TIME = 5 * 60 # 5 minutes
   
@@ -8,7 +8,8 @@ class TicketLock
     args = args[0]
     @user_id = args[:user_id]
     @ticket_id = args[:ticket_id]
-
+    @event_id = Ticket.find(@ticket_id).event_id
+    
     @r = REDIS
   end  
   
@@ -32,8 +33,7 @@ class TicketLock
   
   
   def is_locked?
-    key = "ticket:#{@ticket_id}:locked_by"
-    result = @r.get(key)
+    result = @r.get(self.key)
         
     if result == nil
       return false 
@@ -46,22 +46,24 @@ class TicketLock
     !is_locked?
   end
   
+  def key
+    "ticket:#{@ticket_id}:event:#{@event_id}:locked_by"
+  end
+  
   
   protected
   
   def destory_lock!
-    key = "ticket:#{@ticket_id}:locked_by"
-    p = Pusher['tickets'].trigger('unlock', { :ticket_id => self.ticket_id }) #TODO: Move this into a queue with a worker consuming it
-    @r.del(key)
+    p = Pusher['tickets'].trigger('unlock', { :ticket_id => self.ticket_id, :event_id => self.event_id }) #TODO: Move this into a queue with a worker consuming it
+    @r.del(self.key)
   end
   
   def save!
-    key = "ticket:#{@ticket_id}:locked_by"
     value = @user_id
-    p = Pusher['tickets'].trigger('lock', { :ticket_id => self.ticket_id }) #TODO: Move this into a queue with a worker consuming it
+    p = Pusher['tickets'].trigger('lock', { :ticket_id => self.ticket_id, :event_id => self.event_id }) #TODO: Move this into a queue with a worker consuming it
     
-    @r.set(key, value)
-    @r.expire(key, EXPIRE_TIME)
+    @r.set(self.key, value)
+    @r.expire(self.key, EXPIRE_TIME)
     # puts "Saved #{key}=#{value} expiring in #{EXPIRE_TIME}" 
   end
   

@@ -9,10 +9,17 @@ class Tix.Views.EventTicketsCompositeView extends Support.CompositeView
         
     
   render: (e)->
+    @renderDetailMini()
     @renderChart()
     @renderCart()
     @renderCheckout()
     @
+    
+  renderDetailMini: ->
+    @eventDetailMiniView = new Tix.Views.EventDetailMiniView(model: @model )
+    @renderChild @eventDetailMiniView  
+    $('#modules').append @eventDetailMiniView.el
+    
 
   renderCart: ->
     @eventCartView = new Tix.Views.EventCartView(currentEvent: @model ) 

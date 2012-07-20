@@ -1,11 +1,11 @@
 .col.g7.alpha
-  %img{:src => @.get('image_uri'), :width => '100%' }
+  %img{:src => @get('image_uri'), :width => '100%' }
 
 .col.g9.omega
-  %h1=@.get('title')
-  %h3=@.get('headline')
+  %h1=@escape('title')
+  %h3=@escape('headline')
   
-  %h5=@.get('starts_at_formatted')
+  %h5=@escape('starts_at_formatted')
     
   .infobar
   
@@ -22,14 +22,14 @@
 
     
     .buy.box.g2.col.omega
-      %a.button{:href => ('/#/tickets/' + @.get('id')) } Buy Tix »
+      %a.button{:href => ('/#/tickets/' + @escape('id')) } Buy Tix »
     
   .clear
     
   %div{:contenteditable => true}
-    !=@.get('body')
+    !=@get('body')
   
-  =@.get('supporting_act')
+  =@escape('supporting_act')
   
   
 .clear

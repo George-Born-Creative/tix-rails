@@ -6,4 +6,5 @@ class Tix.Views.EventDetailMiniView extends Backbone.View
     @$el.addClass('col g16')
     
   render: ->
-    @$el.html( @template( { event: @model } ) )
+    html = @template( { event: @model } )
+    @$el.html( html)

@@ -1,5 +1,6 @@
 .col.g7.alpha
   %img{:src => @get('image_uri'), :width => '100%' }
+  %img{:src => '/images/interface/social.png'}
 
 .col.g9.omega
   %h1=@escape('title')
@@ -9,7 +10,7 @@
     
   .infobar
   
-    .times.box.g5.col
+    .times.box.g4.col
       6:30 - The new Lobby Bar <br/>
       7:30 - Doors <br/>
       8:30 - Passafire <br/>
@@ -21,8 +22,8 @@
       $15 day of
 
     
-    .buy.box.g2.col.omega
-      %a.button{:href => ('/#/tickets/' + @escape('id')) } Buy Tix »
+    .buy.box.g3.col.omega
+      %a.button.buy_tix{:href => ('/#/tickets/' + @escape('id')) } Buy Tix »
     
   .clear
     

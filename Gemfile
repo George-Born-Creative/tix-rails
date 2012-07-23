@@ -55,6 +55,8 @@ gem 'pusher'
 gem 'redis'
 # gem 'redis-objects', :require => 'redis/objects'
 
+gem 'postmark-rails', '>= 0.4.1'
+
 # gem 'country_select'
 # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'
@@ -66,7 +68,9 @@ gem 'redis'
 # gem "friendly_id", "~> 4.0.1" # slugs 
 # gem 'attr_encrypted'
 # gem 'state_machine', :git => 'git://github.com/pluginaweek/state_machine.git', :require => 'state_machine/core'
-
+gem 'paperclip', :require => 'paperclip'
+gem 'aws-sdk'
+gem 'aws-s3'
 
 # seed 
 # gem 'forgery' 

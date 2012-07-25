@@ -26,6 +26,18 @@ class Tix.Views.EventCartView extends Backbone.View
   render: ->
     @
     
+  leave: ->
+    @removeTicketViews
+    this.remove()
+    _.each _.values(@ticketViewById), (view)->
+      view.leave() if view.leave
+      view.remove() if view.remove
+        
+      
+    
+  removeTicketViews: ->
+    
+    
   onAddToCart: (ticket)->
     @appendTicketView(ticket)
     
@@ -33,6 +45,7 @@ class Tix.Views.EventCartView extends Backbone.View
     
   appendTicketView: (ticket)->
     cartItemView = new Tix.Views.EventCartItemView( model: ticket )
+    
     id = ticket.get('id')
     @ticketViewById[id] = cartItemView
     @$el.prepend(cartItemView.render().el)

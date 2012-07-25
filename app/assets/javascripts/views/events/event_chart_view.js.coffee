@@ -290,7 +290,7 @@ class Tix.Views.EventChartView extends Backbone.View
     Tix.tooltip.currentHoverAreaId = 0
     
     Tix.tooltip.resetText = (ticket)->
-      console.log ['ticket in resetText', ticket]
+      # console.log ['ticket in resetText', ticket]
       area_id = ticket.get 'area_id'
       data = 
         seat_label: ticket.get('label')

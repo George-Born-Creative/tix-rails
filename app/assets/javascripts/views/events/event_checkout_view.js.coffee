@@ -1,7 +1,7 @@
 class Tix.Views.EventCheckoutView extends Backbone.View
   
   template: JST['event/event_checkout']
-  
+      
   initialize: ->
     self = this
     @$el.addClass('col g5')
@@ -18,6 +18,7 @@ class Tix.Views.EventCheckoutView extends Backbone.View
     @data  = Tix.cart.formattedTotals()    
     @render()
       
-  render:->    
+  render:->
     @$el.html( @template( @data )) 
+    
     

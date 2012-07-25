@@ -15,7 +15,7 @@ window.Tix =
       console.log 'Tix : ' + msg
       if obj != null
         console.log obj
-    
+            
   utils: 
     formatCurrency: (price)->
       return '$' + parseFloat(price).toFixed(2).toString()
@@ -25,7 +25,12 @@ window.Tix =
     this.router = new Tix.Routers.MainRouter(data.events)
   
     Tix.pusherAPIKey = data.pusherAPIKey
+    
     Tix.ExternalEvents.init()
+    Tix.OrderProcessor.init()
+    Tix.Editables.init()
+    
+    
     if data.env == 'development'
       
       Tix.initLoggers()

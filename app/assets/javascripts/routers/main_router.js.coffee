@@ -4,21 +4,34 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
     @$el = @el = $('#modules')
     
     @events = new Tix.Collections.Events( events_data )    
+    @artists = new Tix.Collections.Artists()
     
-    @appView = new Tix.Views.AppView()
     
     Tix.tickets = {}
     Tix.cart = new Tix.Collections.Cart()
     
-    _.bindAll this, 'index', 'ticketsById', 'eventDetailsById'
+    @appView = new Tix.Views.AppView()
+    
+    _.bindAll this, 'index', 'eventsList', 'ticketsById', 'eventDetailsById', 'artistDetailsById'
   
   routes: 
     '': 'index'
+    'event': 'eventsList'
     'event/:id': 'eventDetailsById'
+    'event/:id/edit': 'eventEditById'
     'tickets/:id': 'ticketsById'
+    'artists': 'artistsList'
+    'artists/:id': 'artistDetailsById'
+    'artist/:id': 'artistDetailsById'
+    'checkout': 'checkout'
     
-  
+    
   index: ->
+    @showLoading()
+    view = new Tix.Views.HomeView()
+    @swap view
+  
+  eventsList: ->
     @showLoading()
     view = new Tix.Views.EventsListView( collection: @events)
     @swap view
@@ -57,7 +70,49 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
         self.swap( view)
     })
       
+      
+  eventEditById: (id)->
+    @showLoading()
+    event = @events.get(id)
+    self = this
+    event.fetch({
+      success: ->
+        self.hideLoading()
+        view = new Tix.Views.EventEditView( model: event )
+        self.swap( view)
+    })
+        
+  artistsList: ->
+    @showLoading()
     
+    self = this
+    @artists.fetch({
+    success: ->
+      view = new Tix.Views.ArtistsListView( collection: self.artists )
+      self.swap( view)
+    })
+    
+    
+    
+  artistDetailsById: (id)->
+    @showLoading()
+    self = this
+    artist = new Tix.Models.Artist({id: id})
+    
+    artist.fetch({
+      success: ->
+        view = new Tix.Views.ArtistDetailiew( model: artist )
+        self.swap( view)
+    })
+  
+  
+  checkout: ->
+    console.log 'checkout route'
+    @showLoading()
+    self = this
+    view = new Tix.Views.CheckoutView()
+    self.swap( view)
+  
   showLoading: ->
     @$el.empty()
     $('<img>')
@@ -68,5 +123,7 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
         
   hideLoading: ->
     @$el.empty()
+    
+    
     
     

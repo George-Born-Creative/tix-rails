@@ -16,8 +16,11 @@
 //= require underscore
 //= require backbone
 //= require backbone-support
-//= require backbone.localStorage
+// require backbone.localStorage
+//= require quicksilver
 //= require raphael.min
+//= require jquery.livesearch
+
 //= require hamlcoffee
 //= require_tree ../templates
 //

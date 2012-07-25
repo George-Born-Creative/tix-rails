@@ -3,6 +3,8 @@ class Ticket < ActiveRecord::Base
   belongs_to :event
   belongs_to :area
   
+  belongs_to :order
+  
   attr_accessible :price, :state
   
   attr_accessor :label, :area_label, :area_type, :service_charge, :event_id, :event_title

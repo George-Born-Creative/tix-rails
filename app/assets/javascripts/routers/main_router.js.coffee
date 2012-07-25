@@ -24,7 +24,20 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
     'artists/:id': 'artistDetailsById'
     'artist/:id': 'artistDetailsById'
     'checkout': 'checkout'
+    # Pages
+    'lobby_bar': 'lobbyBar'
+    'contact': 'contact'
     
+    
+  lobbyBar: ->
+    @showLoading()
+    view = new Tix.Views.PageView('page/lobby_bar')
+    @swap view
+    
+  contact: ->
+    @showLoading()
+    view = new Tix.Views.PageView('page/contact')
+    @swap view
     
   index: ->
     @showLoading()
@@ -107,7 +120,6 @@ class Tix.Routers.MainRouter extends Support.SwappingRouter
   
   
   checkout: ->
-    console.log 'checkout route'
     @showLoading()
     self = this
     view = new Tix.Views.CheckoutView()

@@ -1,0 +1,20 @@
+.col.g10.offset-by-two
+  %p
+    %img{:border => "0", :src => "http://jamminjava.com/images/lobby_header.png"}/
+  %p
+    %img{:height => "300", :src => "http://jamminjava.com/images/lobby_rotate/rotate.php", :width => "700"}/
+  %img{:border => "0", :src => "http://jamminjava.com/images/letter.png"}/
+  %p
+    To reserve The Lobby Bar for FREE for your small gathering between 12 noon and 4pm during the week, email
+    %a{:href => "mailto:daniel@jamminjava.com"} Daniel
+    .
+    Planning to come early for a show and have dinner in The Lobby Bar? Here's our
+    %a{:href => "/home/main/cafe"} menu
+  %p
+    %img{:border => "0", :src => "http://jamminjava.com/images/lobby_upcoming.png"}/
+ 
+  %p
+    %img{:border => "0", :src => "http://jamminjava.com/images/insta_header.png"}/
+  %p
+    / SnapWidget
+    %iframe{:frameborder => "0", :scrolling => "no", :src => "http://snapwidget.com/in/?h=ampsb2JieWJhcnxpbnwxMjV8NXw0fHxub3wxMA==", :style => "border: none; overflow: hidden; width: 675px; height: 540px;"}

@@ -1,0 +1,98 @@
+.g5.col
+  %h1 Contact
+  Jammin’ Java<br/>
+  227 Maple Ave E<br/>
+  Vienna, VA 22180<br/>
+  Phone: 703.255.1566<br/>
+  Fax: 703.255.6718<br/>
+
+  Booking /
+  %a{:href => "mailto:daniel@jamminjava.com"} daniel@jamminjava.com
+  %br/
+  Private Events /
+  %a{:href => "mailto:parties@jamminjava.com"} parties@jamminjava.com
+  %br/
+  Cafe /
+  %a{:href => "mailto:jonathan@jamminjava.com"} jonathan@jamminjava.com
+  %br/
+  Lessons /
+  %a{:href => "mailto:jjmusicschool@gmail.com"} jjmusicschool@gmail.com
+  %br/
+  Website/Marketing /
+  %a{:href => "mailto:mei@jamminjava.com"} mei@jamminjava.com
+  %br/
+  Website by
+  %a{:href => "http://bandsbyluke.com"} bandsbyluke.com
+  %p
+  %strong Interested in working at Jammin’ Java?
+  Fill out an application online!
+.g5.col
+  %h1 Hours
+  Monday 9:00am - 12:00am <br/>
+  Tuesday 9:00am - 12:00am <br/>
+  Wednesday 9:00am - 12:00am <br/>
+  Thursday 9:00am - 12:00am <br/>
+  Friday 9:00am - 2:00am <br/>
+  Saturday 9:00am - 2:00am <br/>
+  Sunday 9:00am - 12:00am <br/>
+  
+  %h1 Map 
+  %iframe{:frameborder => "0", :height => "300", :width => '200', :marginheight => "0", :marginwidth => "0", :scrolling => "no", :src => "http://maps.google.com/maps?f=q&hl=en&geocode=&q=jammin+java+vienna,+va&sll=37.0625,-95.677068&sspn=42.089199,61.523437&ie=UTF8&cid=38904109,-77261017,13169642949291732125&s=AARTsJpmkyGeVulsjtr1ZuhujKTjw-2nRQ&ll=38.914144,-77.256804&spn=0.020035,0.025749&z=14&iwloc=A&output=embed", :width => "250"}
+  %br/
+  %small
+    %a{:href => "http://maps.google.com/maps?f=q&hl=en&geocode=&q=jammin+java+vienna,+va&sll=37.0625,-95.677068&sspn=42.089199,61.523437&ie=UTF8&cid=38904109,-77261017,13169642949291732125&ll=38.914144,-77.256804&spn=0.020035,0.025749&z=14&iwloc=A&source=embed", :style => "color:#0000FF;text-align:left"} View Larger Map
+
+.g5.col
+  %h1 Directions
+
+  %h4 From I-495 Capital Beltway: 
+  %ol
+    %li In Virginia, coming from the North, take exit 46A, coming from the South take the same exit 46A Route 123, South towards Tysons Corner / Vienna. Go 2 miles. 
+    %li Jammin’ Java is on the left, just past the Outback restaurant.
+
+  %h4 From I-66: 
+  %ol
+    %li While on I-66, take the Nutley St. North exit towards Vienna. This is also the exit for the Vienna Metro station. 
+    %li Merge onto Nutley St. 
+    %li Go 1.2 miles and turn right onto Maple Ave. (Rt. 123). 
+    %li Go through 4 traffic lights. 
+    %li Jammin’ Java is on the right, in the Glyndon Shopping Center.
+
+  %h4 COMING FROM WASHINGTON, DC - we’re really not that far!
+
+  %h5 Take Route 66 West   
+  
+  %ul
+    %li Exit to the right a    t Exit 62A - Nutley Street towards Vienna 
+    %li Merge on to Nutley Street 
+    %li Continue on Nutley Street for 1.2 miles until reaching Maple Avenue East (Route 123) 
+    %li Turn right on Maple Avenue East 
+    %li Jammin’ Java will be on your right at 227 Maple Avenue East 
+    %li We are located in the Glyndon Plaza shopping center.
+
+  %h5 COMING VIA METRO FROM WASHINGTON, DC
+  %ul
+    %li Take the Orange line to Vienna. 
+    %li Cabs are sitting out front.
+    %li OR 
+    %li Take the Fairfax Connector Bus #403 to the Maple Avenue & Beulah Road Stop. 
+    %li Jammin’ Java is .3 miles Southwest of the bus stop.
+
+  %p *Please note: the Vienna Metro Station is 2.5 miles from Jammin’ Java. The Fairfax Connector Bus #463 requires exact change - the fare is $1.50 with a SmarTrip card or $1.70 with cash. The LAST BUS ARRIVES at Maple Avenue & Beulah Road at 7:11 PM.  THERE IS NO LATE BUS SERVICE.  Taxis are available from the Vienna Metro Station, but it can be difficult to obtain a taxi back to the Metro without prior arrangements.
+
+  %p
+    %strong Red Top Cab<br/>
+    Vienna, VA 22180 <br/>
+    (703) 934-4444<br/>
+
+  %p 
+    %strong Vienna Cab Company <br/>
+    Vienna, VA 22180 <br/>
+    (703) 938-7272<br/>
+
+
+
+
+
+  
+

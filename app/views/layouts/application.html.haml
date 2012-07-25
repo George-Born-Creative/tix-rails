@@ -16,7 +16,15 @@
           
         .info.columns.seven.omega
           .align.right
-            Twitter   |   Facebook   |   FAQ   |   Contact    |   Directions  
+            =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
+            |
+            =link_to 'Facebook', 'http://www.facebook.com/pages/Vienna-VA/Jammin-Java/55704731656?ref=s', :target => '_blank'
+            |
+            =link_to 'FAQ', 'http://jamminjava.com/home/main/faq', :target => '_blank'
+            |
+            =link_to 'Contact', 'http://jamminjava.com/home/main/contact', :target => '_blank'
+            |
+            =link_to 'Directions', 'http://jamminjava.com/home/main/contact', :target => '_blank'
             <br/>
             <br/>
             %strong
@@ -33,16 +41,15 @@
       #nav
         %ul 
           %li=link_to 'Calendar', '/#/event', :class => 'highlighted'
-          %li=link_to 'Artists', '/#/artists', :class => 'highlighted'
-        
+          %li=link_to 'Artists', '/#/artists', :class => 'highlighted'        
           %li=link_to 'Home', '/#/'
+          %li=link_to 'Kids Shows', '/#/'
           %li=link_to 'Private Events', '/#/'
-          %li=link_to 'Lobby Bar', '/#/'
-          %li=link_to 'Whiskey', '/#/'
+          %li=link_to 'Lobby Bar', '/#/lobby_bar'
           %li=link_to 'Store', '/#/'
-          %li=link_to 'Music Lessons', '/#/'
-          %li=link_to 'The Whiskey', '/#/'
-          %li=link_to 'Contact Us', '/#/'
+          %li=link_to 'Music Lessons', 'http://themusicschoolonline.com/', :target => '_blank'
+          %li=link_to 'The Whiskey', 'http://thewhiskeyannapolis.com/', :target => '_blank'
+          %li=link_to 'Contact Us', '/#/contact'
           
           
       #modules

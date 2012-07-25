@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120703143018) do
+ActiveRecord::Schema.define(:version => 20120723174226) do
 
   create_table "areas", :force => true do |t|
     t.string  "label"
@@ -22,6 +22,27 @@ ActiveRecord::Schema.define(:version => 20120703143018) do
     t.integer "stack_order",   :default => 0
     t.integer "chart_id"
     t.string  "type"
+  end
+
+  create_table "artists", :force => true do |t|
+    t.string   "name"
+    t.text     "body"
+    t.text     "description"
+    t.string   "url"
+    t.string   "myspace_url"
+    t.string   "facebook_url"
+    t.string   "audio_sample_url"
+    t.string   "video_url"
+    t.string   "twitter"
+    t.string   "youtube1"
+    t.string   "youtube2"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.decimal  "id_old"
   end
 
   create_table "charts", :force => true do |t|
@@ -36,14 +57,28 @@ ActiveRecord::Schema.define(:version => 20120703143018) do
     t.string   "headline"
     t.text     "supporting_act"
     t.text     "body"
-    t.string   "image_uri"
-    t.string   "image_thumb_uri"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.integer  "chart_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "headliner_id"
+    t.integer  "secondary_headliner_id"
+    t.string   "supporting_act_1"
+    t.string   "supporting_act_2"
+    t.string   "supporting_act_3"
+    t.text     "info"
+    t.text     "set_times"
+    t.string   "price_freeform"
   end
+
+  create_table "orders", :force => true do |t|
+    t.string   "status",     :default => "pending", :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "orders", ["status"], :name => "index_orders_on_status"
 
   create_table "tickets", :force => true do |t|
     t.decimal  "price"
@@ -52,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120703143018) do
     t.integer  "area_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "order_id"
   end
 
   add_index "tickets", ["state"], :name => "index_tickets_on_state"

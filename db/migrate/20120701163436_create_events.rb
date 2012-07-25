@@ -14,6 +14,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :ends_at
       
       t.references :chart
+      
 
       t.timestamps
     end

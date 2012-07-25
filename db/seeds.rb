@@ -3,12 +3,11 @@ require 'json'
 require './lib/svg_parser'
 require 'date'
 
-#Event.delete_all
-#Artist.delete_all
-#Ticket.delete_all
-#Area.delete_all
-#Chart.delete_all
-
+Event.delete_all
+Artist.delete_all
+Ticket.delete_all
+Area.delete_all
+Chart.delete_all
 Order.delete_all
 
 
@@ -91,6 +90,7 @@ def seed_events_and_artists()
   end
 end
 
+seed_events_and_artists
 
 #### ###########
 #### ORDERS ###

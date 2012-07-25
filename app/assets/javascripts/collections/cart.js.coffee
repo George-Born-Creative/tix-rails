@@ -52,7 +52,7 @@ class Tix.Collections.Cart extends Backbone.Collection
 
     @totals.subtotal += price * op
     @totals.serviceChargeTotal += service_charge * op
-    @totals.total = @totals.subtotal + @totals.subtotal
+    @totals.total = @totals.subtotal + @totals.serviceChargeTotal
     # console.log [@totals]
     
 

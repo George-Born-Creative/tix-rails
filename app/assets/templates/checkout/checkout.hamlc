@@ -1,0 +1,142 @@
+-if @tickets.length == 0
+  .g16.col
+    %h1 Your cart is empty!
+    %h3
+      Try browsing our 
+      %a{:href => '#/event' } calendar
+      or checking out our
+      %a{:href => '#/artists' } artists
+      
+    %a.button.medium{:href => '#/event'} Calendar »
+    %a.button.medium{:href => '#/artists'} Artists »
+          
+-else
+ 
+  .col.g6
+    %h1 Read 
+    %h3 before you buy!
+    %h4 Note on General Admission 
+    The GA section is a 
+    %strong seated and 
+    %strong standing-room
+    section. Chairs are not guaranteed and are offered
+    on a first-come-first-serve basis.
+    %br/
+  
+  
+    %h4 Ticket Delivery and Checkin
+    Your tickets will be delivered by email
+    as an attached PDF. Just show the door person
+    your smartphone to be scanned in. You can also print
+    out your ticket, but we prefer the digital method to save
+    trees. If you forget your ticket, our box office can find
+    them with a valid driver's license and the credit 
+    card used to purchase the ticket. 
+    %br/
+
+
+
+  .col.g4
+    &nbsp;
+    .cart_view
+  
+
+  .col.g4.offset-by-one
+    %h1 Sign in
+    
+  
+    %h4 What is your email address?
+  
+    %input.full{:type => 'text', :name => 'user_type', :placeholder => 'My email is...' }
+    
+    .clear
+    %input{ :type => 'radio', :name => 'user_type' }
+    No, I am a new customer
+    <br/>
+    %input{ :type => 'radio', :name => 'user_type' }
+    Yes, I have a password 
+    %input.full{:type => 'password', :name => 'user_type', :placeholder => 'Password' }
+    
+    %hr/
+    
+    %h1 Sign Up
+    
+    %h4 Create a password
+    %input.full{:type => 'password', :name => 'user_type', :placeholder => 'Password' }
+        
+
+    %h4 Your Name
+    .col.g2.alpha
+      %input.half{:type => 'text',  :placeholder => 'First' }
+
+    .col.g2.omega
+      %input.half{:type => 'text', :placeholder => 'Last' }
+    
+    %hr/
+    
+  
+    %h2 Payment
+    
+    %h4 Method
+    .clear
+    %input{ :type => 'radio', :name => 'payment_method' }
+    Visa
+    <br/>
+    %input{ :type => 'radio', :name => 'payment_method'  }
+    Amex
+    <br/>
+    %input{ :type => 'radio', :name => 'payment_method' }
+    MasterCard
+    <br/>
+    %input{ :type => 'radio', :name => 'payment_method' }
+    PayPal
+    <br/>
+    %input{ :type => 'radio', :name => 'payment_method' }
+    Discover
+    .clear
+    
+    
+    Details
+    %h4 Card Number
+    %input.half{:type => 'text',  :placeholder => 'Card No' }
+    
+    %h4 Security Code (CVV)
+    %input.half{:type => 'text',  :placeholder => 'CVV' }
+    
+    
+    %h4 Name on Card
+    .col.g2.alpha
+      %input.half{:type => 'text',  :placeholder => 'First' }
+  
+    .col.g2.omega
+      %input.half{:type => 'text', :placeholder => 'Last' }
+  
+    %h4 Billing Address
+    
+    %input.full{:type => 'text', :placeholder => 'Phone' }
+    %input.full{:type => 'text', :placeholder => 'Address 1' }
+    %input.full{:type => 'text', :placeholder => 'Address 2' }
+
+    .col.g2.alpha
+      %input.half{:type => 'text', :placeholder => 'City' }
+    .col.g2.omega
+      %input.half{:type => 'text', :placeholder => 'State' }
+      
+    .col.g2.alpha
+      %input.half{:type => 'text', :placeholder => 'Zip' }
+    .col.g2.omega
+      %input.half{:type => 'text', :placeholder => 'Country' }
+  
+    %hr/
+    
+    %h2 Ticket Delivery
+  
+    %h3 Your tickets have been delivered via email.
+  
+    %h4 Want 'em by text message too?
+  
+    %input.full{:type => 'text', :placeholder => '(703) 555 1212' }
+    %button Send Tickets Via SMS »
+      
+      
+        

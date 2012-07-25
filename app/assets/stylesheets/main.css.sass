@@ -1,3 +1,12 @@
+@import "compass/css3/transition"
+
+@mixin red-button
+  font-size: 2em
+  padding: 15px 10px
+  width: 80%
+  background-color: maroon
+  color: white
+
 body
   background: #000 url(/images/jj-bg.jpg) top center no-repeat
   font-family: helvetica, arial, sans-serif
@@ -8,15 +17,29 @@ strong
   
 a, a:link, a:active, a:visited
   color: white
+  text-decoration: none
   
+a:hover
+  color: maroon
+  
+a.button.large
+  @include red-button
+a.button.medium
+  font-size: 1.7em
+a.button.small
+  font-size: 1.3em
+
+  
+.hide
+  display: none
 h1, h2, h3, h4, h5
   color: white
-  font-family: Helvetica
-  font-weight: bold
+  font-family: "atrament-web", Helvetica
+  font-weight: normal
   letter-spacing: -1px
-a:hover
-  color: #990000
-    
+  text-transform: uppercase
+  
+  
 .container
   background-color: rgba(0,0,0,.7)
 
@@ -167,6 +190,9 @@ ul.stacked_list, #event_detail_cart ul
     background-color: black
     display: block
     position: relative
+    @include transition( padding-top 0.1s)
+    @include transition( top 0.1s)
+      
     top: 140px
     .title
       font-weight: bold
@@ -175,5 +201,111 @@ ul.stacked_list, #event_detail_cart ul
       color: #ddd
     .date
       color:  #ccc
+      
+    
+  &:hover
+    .info
+      top: 100px
+      @include transition( padding-top 0.1s)
+      @include transition( top 0.1s)
+      
 .light
   color:  #ccc
+  
+  
+  
+.event_details
+  .infobar
+    display: inline-block
+    background-color: rgba(255,255,255,.1)
+    padding: 20px 0
+    margin: 10px 0
+    color: white
+    .times
+      font-size: 1.2em
+    .prices
+      h4
+        font-size: 2.5em
+    
+    
+
+    .buy
+    
+  .feature-img
+    border: 3px solid rgba(255,255,255,.5)
+    margin-left: 10px
+      
+  a.button.buy_tix, 
+    @include red-button
+    
+.event_chart
+
+ul.event_cart
+  li
+    list-style:  none
+    display:  block
+    background-color:  rgba(100,200,255,.5)
+    border-radius: 5px
+    padding:  0
+    color:  white
+    padding:  10px 4px
+    // height: 51px
+    font-size: 1em
+
+    .ticketText
+    .area
+      text-transform: uppercase
+      color: #ccc
+      font-size: .7em
+
+    .label
+      font-weight: bold
+    .price
+      font-weight: bold
+
+    .close
+      font-size: 10px//1.0em
+    a
+      text-decoration: none
+      font-size: 2.0em
+      margin-top: 5px
+      display: block
+      opacity: .3
+      &:hover
+        color: white
+        opacity: 1
+    .clock
+    color: #ccc
+
+
+.artists_list
+
+  input.search
+    font-size: 3em
+
+  .artist
+    border-bottom: 1px solid white
+    padding: 20px 20px
+    display: inline-block
+    border-radius: 10px
+    font-size: 1.5em
+        
+    &:hover
+    
+      color: black
+      background-color: rgba(255,255,255,.5)
+      cursor: pointer
+      & a
+        color: maroon
+      
+a.button
+  color: black
+
+a
+
+.loading
+  text-align:  center
+  margin:  0 auto
+
+#main 
+  border:  5px solid red

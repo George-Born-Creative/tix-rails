@@ -1,4 +1,4 @@
-.col.g5.omega
+.col.one-third
   .event-item{:style => "background-image: url(#{@image_uri}) "}
     %h3
       %a(href='#/event/' + @id)

@@ -1,0 +1,37 @@
+@import "compass/css3/transition"
+
+#nav
+  border-bottom: 1px solid rgba(255,255,255,.1)
+  margin-bottom: 20px
+  height: 3em
+  padding-left: 10px
+  ul  
+    
+    li
+      list-style:  none
+      display:  inline
+      a
+        font-family: "atrament-web"
+        text-transform:  uppercase
+        text-decoration: none
+        font-size:  1.4em
+        padding: 5px 10px
+        margin-right: .4em
+        background-color: rgba(255,255,255,.5)
+        border-radius: 5px
+        @include transition( font-size 0.1s)
+        
+        &:hover
+          color: maroon
+          @include transition( padding 0.1s)
+          padding-top: 10px
+          padding-bottom: 10px
+          
+      .highlighted
+        color: #111
+        background-color: rgba(255,255,255,.8)
+
+.loading
+  margin-left: 400px
+  margin-top: 200px
+      

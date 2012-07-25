@@ -1,17 +1,21 @@
 .clear
 
-.col.g2
+.col.g3
   %img{:src => @event.get('image_uri'), :width => '100%' }
   
-.col.g5
-  %h3= @event.escape('title')
-  %h5=@event.escape('headline')
 .col.g4
+  %h3= @event.escape('title')
+  %h5= @event.escape('headline')
   =@event.escape('starts_at_formatted')
+  %h4=@event.get('price_freeform')
+  
+.col.g4
+  !=@event.get('set_times')
+
   =@event.escape('supporting_act')
 .col.g4
   %h4
-    //%a{:href=>'/'} « Back to all shows
+    // %a{:href=>'/'} « Back to all shows
   %img{:src => '/images/interface/social_mini.png'}
   
 %hr/

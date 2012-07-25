@@ -1,0 +1,27 @@
+.g6.col
+  %img{:src => @event.get('image_uri') }
+  
+.g10.col
+  %h1.e=@event.get('title')
+  
+  %h4 Starts At
+  .e=@event.get('starts_at')
+  .e=@event.get('starts_at_formatted')
+  
+  
+  %h4 Ends At
+  .e=@event.get('ends_at')
+  
+  %h4 Headline
+  .e!=@event.get('headline')
+  
+  %h4 Info
+  .e!=@event.get('info')
+  
+  %h4 Price Freeform
+  .e=@event.get('price_freeform')
+  
+  %h4 Set Times
+  .e!=@event.get('set_times')
+  
+  .e!=@event.get('body')

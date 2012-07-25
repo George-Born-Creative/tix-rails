@@ -1,0 +1,8 @@
+.col.g8.offset-by-four{:Style => 'height: 500px'}
+  %br/
+  %br/
+  %br/
+  %br/
+  %div{:style => 'text-align: center'}
+    %h3 This page is under construction. 
+    %h5 Please check back soon.

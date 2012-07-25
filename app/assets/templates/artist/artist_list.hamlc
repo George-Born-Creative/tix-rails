@@ -1,0 +1,10 @@
+.col.g9.offset-by-four
+  .artist
+    .col.g2.alpha
+      %a{:href => '/#/artists/' + @artist.get('id') }
+        %img{:src => @artist.get 'photo_thumb', :width=>'100%'}
+    .col.g6.omega
+      %strong
+        %a.artist_name{:href => '/#/artists/' + @artist.get('id') }=@artist.escape 'name'
+
+.clear

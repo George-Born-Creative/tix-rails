@@ -1,29 +1,28 @@
 .col.g7.alpha
-  %img{:src => @get('image_uri'), :width => '100%' }
+  %img.feature-img{:src => @get('image_uri'), :width => '100%' }
   %img{:src => '/images/interface/social.png'}
 
 .col.g9.omega
   %h1=@escape('title')
   %h3=@escape('headline')
   
-  %h5=@escape('starts_at_formatted')
+  %h3=@escape('starts_at_formatted')
     
   .infobar
   
-    .times.box.g4.col
-      6:30 - The new Lobby Bar <br/>
-      7:30 - Doors <br/>
-      8:30 - Passafire <br/>
+    .times.box.g5.col.alpha
+      !=@get('set_times')
       .small * After The Show - Lobby Bar stays open!
       
     
-    .prices.box.g2.col.omega
-      $12 advance <br/>
-      $15 day of
-
     
-    .buy.box.g3.col.omega
+    .buy.box.g4.padded.col.omega
       %a.button.buy_tix{:href => ('/#/tickets/' + @escape('id')) } Buy Tix »
+    
+    
+      .prices      
+        %h4=@get('price_freeform')
+
     
   .clear
     

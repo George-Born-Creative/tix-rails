@@ -1,0 +1,46 @@
+.col.g6
+  %img{:src=> @artist.get('photo') }
+  
+  -if @artist.get('url')
+    %h4 
+      %a{:href => @artist.get('url')} Artist Website
+  
+  -if @artist.get('facebook_url')
+    %h4 
+      %a{:href => @artist.get('facebook_url')} Facebook
+      
+  -if @artist.get('twitter')
+    %h4 
+      %a{:href => @artist.get('twitter')} Twitter
+
+  -if @artist.get('myspace')
+    %h4 
+      %a{:href => @artist.get('myspace')} MySpace
+
+
+  -if @artist.get('audio_sample_url')
+    %h4 
+      %a{:href => @artist.get('audio_sample_url')} Audio Sample URL
+
+
+  -if @artist.get('video_url')
+    %h4 
+      %a{:href => @artist.get('video_url')} Artist Videos  
+  
+  =@artist.get('youtube1')
+  =@artist.get('youtube2')
+  
+.col.g10
+  %h2=@artist.get('name')
+  
+  %hr/
+  %h4= 'All shows by this artist'
+  
+
+  -for headline_events in @artist.get('headlining')
+    %a.button.small{:href => '#/event/' + headline_events.id }=headline_events.title 
+
+  %hr/
+  
+  %h4 Artist Bio
+  !=@artist.get('body')  

@@ -1,24 +1,22 @@
 %span
   .clear
   .columns.two.left.alpha
-    %h5 subtotal
+    %h4 subtotal
   .columns.two.right.omega.subtotal
-    %h5=@subtotal
+    %h4=@subtotal
   
   .clear
   .columns.two.left.alpha 
-    %h5 svc charge
+    %h4 svc charge
   .columns.two.right.omega.service_charge_total
-    %h5=@serviceChargeTotal
+    %h4=@serviceChargeTotal
   
   .clear
   .columns.two.left.alpha 
-    %h4 Total
+    %h3 Total
   .columns.two.right.omega.total
-    %h4=@total
+    %h3=@total
 
 .clear
 
-%a.button Credit »
-%a.button Paypal »
-%a.button 1-Click »
+%a.button.checkout.large{:href => '#/checkout'} Checkout »

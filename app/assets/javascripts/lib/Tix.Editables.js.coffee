@@ -1,0 +1,2 @@
+Tix.Editables = 
+  init: ->

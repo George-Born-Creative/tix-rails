@@ -1,0 +1,54 @@
+!!! 5
+%html
+  %head
+    %title Jammin' Java Newsletter
+  %body
+    %table{:style => 'font-family: Helvetica; font-size: 14px; background-color: #444; color: white; margin:0; padding:0; width:100% !important; line-height: 100%'}
+      %tr
+        %td{:align =>'center' }
+        
+          %table{:width => '630', :style => 'background-color: white; color: black'}
+            %tr
+              %td
+              
+                %table{:width => '100%', :align => 'center', :style => 'background-color: black'}
+                  %tr
+                    %td{:align => "center"}
+                      %img{:src => '/images/jj-logo.png'}
+                      
+                  
+                  -@events.each do |event|
+                    %table{:align => 'center', :style => 'padding: 10px 0; border-top: 1px solid #eee'}
+                  
+                      %tr
+                        %td
+                          %a{:href => '/#/event/306'}
+                            %img{:src => event.headliner.photo( :medium).gsub(/\+/, '%2B'), :width => 200, :style => 'border: 10px solid #ddd' }
+        
+                        %td{:valign => 'top'}
+                          %span{:style => 'color: #666'}=event.starts_at_formatted
+                          %br/
+                          %a{:href => '/#/event/306', :style => 'font-size: 1.5em; line-height: 1.5em; font-weight: bold; color: maroon; text-decoration: none'}
+                            =event.title
+                          %br/
+                          %br/
+                          
+                          = raw truncate( strip_tags( event.headliner.body), :length => 250, :omission => '...' )
+                          
+                        
+                          %div{:style => 'font-size: .9em' }
+                            %br/
+                            %a{:href => '/#/event/306', :style => 'color: maroon; text-decoration: none'}
+                              Read More »
+                            |
+                            %a{:href => '/#/tickets/306', :style => 'color: maroon; text-decoration: none'}
+                              Buy Tix »
+                            |
+                            %a{:href => '#', :style => 'color: maroon; text-decoration: none'}
+                              Tweet »
+                            |
+                            %a{:href => '#', :style => 'color: maroon; text-decoration: none'}
+                              Facebook »
+                            |
+                            %a{:href => '#', :style => 'color: maroon; text-decoration: none'}
+                              Pinterest »

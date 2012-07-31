@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731142317) do
+ActiveRecord::Schema.define(:version => 20120731152350) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "subdomain",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "accounts", ["subdomain"], :name => "index_accounts_on_subdomain", :unique => true
 
   create_table "areas", :force => true do |t|
     t.string  "label"
@@ -36,20 +44,22 @@ ActiveRecord::Schema.define(:version => 20120731142317) do
     t.string   "twitter"
     t.string   "youtube1"
     t.string   "youtube2"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.decimal  "id_old"
+    t.integer  "account_id",         :default => 0, :null => false
   end
 
   create_table "charts", :force => true do |t|
     t.string   "name"
     t.string   "background_image_url"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.integer  "account_id",           :default => 0, :null => false
   end
 
   create_table "events", :force => true do |t|
@@ -60,8 +70,8 @@ ActiveRecord::Schema.define(:version => 20120731142317) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.integer  "chart_id"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "headliner_id"
     t.integer  "secondary_headliner_id"
     t.string   "supporting_act_1"
@@ -70,12 +80,14 @@ ActiveRecord::Schema.define(:version => 20120731142317) do
     t.text     "info"
     t.text     "set_times"
     t.string   "price_freeform"
+    t.integer  "account_id",             :default => 0, :null => false
   end
 
   create_table "orders", :force => true do |t|
     t.string   "status",     :default => "pending", :null => false
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
+    t.integer  "account_id", :default => 0,         :null => false
   end
 
   add_index "orders", ["status"], :name => "index_orders_on_status"
@@ -88,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20120731142317) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.integer  "order_id"
+    t.integer  "account_id", :default => 0,      :null => false
   end
 
   add_index "tickets", ["state"], :name => "index_tickets_on_state"
@@ -105,6 +118,12 @@ ActiveRecord::Schema.define(:version => 20120731142317) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "account_id",             :default => 0,  :null => false
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "salutation"
+    t.string   "title"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

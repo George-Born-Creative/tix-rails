@@ -4,6 +4,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :area
   
   belongs_to :order
+  belongs_to :account
   
   attr_accessible :price, :state
   

@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   belongs_to :chart
   has_many :tickets
   
+  belongs_to :account
   belongs_to :headliner, :class_name => 'Artist'
   belongs_to :second_headliner, :class_name => 'Artist'
   

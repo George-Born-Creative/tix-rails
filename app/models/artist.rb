@@ -7,6 +7,7 @@ class Artist < ActiveRecord::Base
   has_many :headliners, :class_name => 'Events'
   has_many :secondary_headliners, :class_name => 'Events'
   
+  belongs_to :account
   
   has_attached_file :photo,
     :storage => :s3,

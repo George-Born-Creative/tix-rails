@@ -2,6 +2,7 @@ class Area < ActiveRecord::Base
   attr_accessible :x, :y, :polypath, :label, :label_section, :stack_order
   attr_accessor :type
   
+  
   belongs_to :chart
   has_many :tickets
   

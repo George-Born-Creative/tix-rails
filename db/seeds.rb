@@ -9,7 +9,22 @@ Ticket.delete_all
 Area.delete_all
 Chart.delete_all
 Order.delete_all
+User.delete_all
+Account.delete_all
 
+# This document
+# Account
+# User
+# Charts and Areas
+# Events (Calls charts + counts)
+#
+#
+#
+
+#### 
+#### Account
+####
+Account.create(:subdomain => 'jamminjava')
 
 #### 
 #### Chart & Areas

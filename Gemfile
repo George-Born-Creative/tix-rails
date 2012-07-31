@@ -59,6 +59,9 @@ gem 'redis'
 
 gem 'postmark-rails', '>= 0.4.1'
 
+gem 'devise'
+#gem 'cancan'
+
 # gem 'country_select'
 # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'

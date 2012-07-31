@@ -1,0 +1,23 @@
+
+
+.columns.sixteen
+  
+  %h1 Charts
+
+  %table
+    %thead
+      %td 
+      %td First Name
+      %td Last Name
+      %td Action
+      
+      
+    -@charts.each do |chart|
+      %tr
+        %td
+          %img{:src => chart.background_image_url, :width => '50px'}
+        %td $2,212.00
+        %td $26.00
+        %td
+          %a.button{:href => edit_chart_path(chart)} Edit »
+        /%td=link_to 'User password', new_user_password_path + '?user_email=' + u.email

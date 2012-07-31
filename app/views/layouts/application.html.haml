@@ -8,13 +8,13 @@
       //<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
     <script type="text/javascript" src="//use.typekit.net/lmc2sec.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    =raw '<!-- current subdomain ' + @current_account.subdomain + '-->'
   %body
     .container
       #header.columns.sixteen
     
         =render 'shared/header'
         
-  
           
     .container
       #nav
@@ -29,7 +29,6 @@
           %li=link_to 'Music Lessons', 'http://themusicschoolonline.com/', :target => '_blank'
           %li=link_to 'The Whiskey', 'http://thewhiskeyannapolis.com/', :target => '_blank'
           %li=link_to 'Contact Us', '/#/contact'
-          
           
       #modules
         .event_chart

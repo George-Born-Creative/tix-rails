@@ -6,5 +6,6 @@ class Chart < ActiveRecord::Base
   has_many :events
   
   
+  
 end
 

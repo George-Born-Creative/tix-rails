@@ -1,0 +1,26 @@
+.columns.sixteen
+  
+  %h1 Customers
+
+  %table
+    %thead
+      %td 
+      %td First Name
+      %td Last Name
+      %td Yearly sales
+      %td Account Balance
+      %td Action
+      
+      
+    -@current_account.users.each do |u|
+      %tr
+        %td
+          %img{:src => u.gravatar_url}
+      
+        %td{:valign => 'middle' }= u.first_name
+        %td= u.last_name
+        %td $2,212.00
+        %td $26.00
+        %td
+          %a.button{:href => edit_user_path(u)} Edit »
+        /%td=link_to 'User password', new_user_password_path + '?user_email=' + u.email 

@@ -14,10 +14,12 @@ class JJWebsiteParser
   OUTPUT_FILE = 'artists.yml'
 
 
-  def initialize
+  def initialize(account_subdomain)
     puts '### Initializing...'
     
     @events = []
+    
+    @account = Account.find_by_subdomain(account_subdomain)
   end
   
   def process!
@@ -63,7 +65,7 @@ class JJWebsiteParser
     
     puts "CREATING EVENT #{new_event.title}"
     
-    return Event.create!( new_event.marshal_dump )
+    return @account.events.create!( new_event.marshal_dump )
         
     
     
@@ -71,7 +73,7 @@ class JJWebsiteParser
   
   def fetch_and_create_artist(jj_artist_id)
     id = jj_artist_id
-    existing_artist = Artist.find_by_id_old(jj_artist_id)
+    existing_artist = @account.artists.find_by_id_old(jj_artist_id)
     
     unless existing_artist.nil?
       puts "EXISTING ARTIST #{existing_artist.name}"
@@ -105,7 +107,7 @@ class JJWebsiteParser
    
     new_artist = strip_whitespace( new_artist )
     
-    a = Artist.new( new_artist.marshal_dump )
+    a = @account.artists.new( new_artist.marshal_dump )
      unless img_url.empty?
         file = open(img_url)
         filename = File.basename(img_url)

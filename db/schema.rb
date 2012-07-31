@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731152350) do
+ActiveRecord::Schema.define(:version => 20120731152751) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(:version => 20120731152350) do
   add_index "tickets", ["state"], :name => "index_tickets_on_state"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",         :null => false
+    t.string   "encrypted_password",     :default => "",         :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -116,17 +116,19 @@ ActiveRecord::Schema.define(:version => 20120731152350) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.integer  "account_id",             :default => 0,  :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.integer  "account_id",             :default => 0,          :null => false
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
     t.string   "salutation"
     t.string   "title"
+    t.string   "role",                   :default => "customer"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["role"], :name => "index_users_on_role"
 
 end

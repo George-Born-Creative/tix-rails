@@ -14,5 +14,6 @@ class User < ActiveRecord::Base
   belongs_to :account
   
   
+  ROLES = %w[owner manager employee customer]
   
 end

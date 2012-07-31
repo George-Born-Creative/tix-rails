@@ -5,7 +5,6 @@ class Tix.Models.Ticket extends Backbone.Model
     
     @resetTimer()
     
-  
   get: (attr) ->
     return this[attr]() if (typeof this[attr] == 'function')
     return Backbone.Model.prototype.get.call(this, attr)

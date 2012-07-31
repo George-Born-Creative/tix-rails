@@ -5,7 +5,7 @@ class Tix.Views.CheckoutView extends Backbone.View
     @eventCartView = new Tix.Views.EventCartView(currentEvent: @model ) 
     cartHTML = @eventCartView.render().el
     
-  
+    
   leave: ->
     @eventCartView.leave()
     @remove()

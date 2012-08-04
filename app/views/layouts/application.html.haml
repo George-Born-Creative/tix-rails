@@ -15,9 +15,8 @@
     
         =render 'shared/header'
         
-          
     .container
-      #nav
+      .nav
         %ul 
           %li=link_to 'Calendar', '/#/event', :class => 'highlighted'
           %li=link_to 'Artists', '/#/artists', :class => 'highlighted'        
@@ -27,27 +26,13 @@
           %li=link_to 'Lobby Bar', '/#/lobby_bar'
           %li=link_to 'Store', '/#/'
           %li=link_to 'Music Lessons', 'http://themusicschoolonline.com/', :target => '_blank'
-          %li=link_to 'The Whiskey', 'http://thewhiskeyannapolis.com/', :target => '_blank'
           %li=link_to 'Contact Us', '/#/contact'
           
       #modules
         .event_chart
         .event_cart
         .event_checkout
-        
-        -# .events_list.g16.col
-        -#   
-        -# .event_details.g16.col
-        -# 
-        -# .event_tickets
-        -#   .event_chart.g7.col{:style => 'height: 500px'}
-        -#     #wrap 
-        -#       #canvas
-        -#   
-        -#   .event_cart.g4.col
-        -#     
-        -#   .events_list.g5.col
-        
+  
     
   
     = yield

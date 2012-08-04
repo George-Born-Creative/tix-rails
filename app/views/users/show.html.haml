@@ -1,0 +1,24 @@
+.col.g6
+  %img{:src => @user.gravatar_url, :width => '300px'}
+  
+.col.g10
+  %h1{:contenteditable => true}= @user.full_name
+
+  .col.g5.alpha
+    .rpfole
+      %p{:contenteditable => true}=@user.email
+      %p{:contenteditable => true}=@user.role.to_s.titleize
+  
+    .addresses
+      409 Colesville Manor Dr.
+      %br/
+      Silver Spring, MD 20904
+  
+  .col.g5.omega
+    %ul
+      %li=link_to @user.first_name + '\'s Tickets »', '#', :class => 'button medium'
+      %li=link_to @user.first_name + '\'s Orders »', '#', :class => 'button medium'
+      %li=link_to @user.first_name + '\'s Addresses »', '#', :class => 'button medium'
+      %li=link_to @user.first_name + '\'s Wallet »', '#', :class => 'button medium'
+      
+      

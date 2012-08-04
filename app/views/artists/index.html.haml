@@ -1,0 +1,49 @@
+%h1 Artists
+
+.stats
+  .col.g4
+    %h1=@artists.count
+    %h4 Number of Artists
+
+  .col.g4
+    %h1=@artists.count
+    %h4 Number of Artists
+    
+  .col.g4
+    %h1=@artists.count
+    %h4 Number of Artists
+  
+  
+  .col.g4
+    %h1=@artists.count
+    %h4 Number of Artists
+    
+.clear{:style => 'height: 30px'}
+    
+%table
+  %thead
+    %th
+    %th Event name
+    %th 
+    %th
+    %th
+    %th
+    %th Actions
+    
+    
+    
+  -@artists.each do |artist|
+    %tr
+      %td
+        %img{:src => artist.photo( :thumb )}
+    
+      %td=artist.name
+      %td=link_to 'Twitter', artist.twitter
+      %td=link_to 'Facebook', artist.facebook_url
+      %td=link_to 'Video', artist.video_url
+      %td=link_to 'Website', artist.url
+      
+      %td
+        %a.button.small Edit »
+      
+      

@@ -1,0 +1,10 @@
+%h1 Tickets
+
+%table
+  %thead
+    %tr
+    %tr
+  -@tickets.each do |ticket|
+    %tr
+      %td=ticket.event.title
+      %td='$' + ticket.price.to_s

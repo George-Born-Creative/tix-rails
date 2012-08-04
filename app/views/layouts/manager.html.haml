@@ -15,17 +15,18 @@
     
       .columns.sixteen.alpha.omega
 
-        #nav
+        .nav.manager
           %ul{:style => 'font-size: 1.5em'} 
             %li=link_to 'Dash', "/manager", :class => 'highlighted'
-            %li=link_to 'Customers', '/manager/users'
+            %li=link_to 'Customers', '/manager/customers'
             %li=link_to 'Events', '/manager/events'
             %li=link_to 'Artists', '/manager/artists'
-            %li=link_to 'Tickets', '/manager/artists'
+            %li=link_to 'Orders', '/manager/orders'
             %li=link_to 'Charts', '/manager/charts'
+            %li=link_to 'Newsletter', '/manager/newsletter'
             %li=link_to 'Users', '/manager/users'
-            %li=link_to 'Settings', '/manager/settings'
-            %li=link_to 'Account', '/manager/account'
+            %li=link_to 'Tickets', '/manager/settings'
+            %li=link_to 'Account', '/manager/accounts'
         
   
   

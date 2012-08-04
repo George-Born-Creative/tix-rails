@@ -2,13 +2,12 @@
 
 .columns.sixteen
   
-  %h1 Charts
+  %h1 Chart Templates
 
   %table
     %thead
       %td 
       %td First Name
-      %td Last Name
       %td Action
       
       
@@ -16,7 +15,7 @@
       %tr
         %td
           %img{:src => chart.background_image_url, :width => '50px'}
-        %td $2,212.00
+        %td= chart.label
         %td $26.00
         %td
           %a.button{:href => edit_chart_path(chart)} Edit »

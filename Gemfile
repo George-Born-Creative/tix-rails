@@ -18,7 +18,7 @@ end
 group :test, :development do 
   gem 'sqlite3'
   
-  # gem 'rspec-rails', "~> 2.6" 
+  gem 'rspec-rails', "~> 2.6" 
   # gem 'cucumber'
   # gem "factory_girl_rails", "~> 3.0"
   # gem 'shoulda-matchers'

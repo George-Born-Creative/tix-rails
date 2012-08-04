@@ -1,0 +1,47 @@
+%h1 Events
+
+.stats
+  .col.g4
+    %h1=@events.count
+    %h4 Number of Events
+
+  .col.g4
+    %h1=@events.count
+    %h4 Number of Events
+    
+  .col.g4
+    %h1=@events.count
+    %h4 Number of Events
+  
+  
+  .col.g4
+    %h1=@events.count
+    %h4 Number of Events
+    
+.clear{:style => 'height: 30px'}
+    
+%table
+  %thead
+    %th Event name
+    %th Headliner
+    %th S 1
+    %th S 2
+    %th S 3
+    %th Tickets
+    %th Actions
+    
+    
+  -@events.each do |event|
+    %tr
+      %td=event.title
+      -unless event.headliner.nil?
+        %td=event.headliner.name  
+      %td=event.supporting_act_1
+      %td=event.supporting_act_2
+      %td=event.supporting_act_3
+      %td=event.tickets.count
+      %td
+        %a.button Action
+      
+      
+      %td=event.tickets.count

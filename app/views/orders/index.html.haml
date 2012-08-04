@@ -1,0 +1,55 @@
+%h1 Orders
+
+.stats
+  .col.g4
+    %h1=number_to_currency Order.total
+    %h4 Order Total
+
+  .col.g4
+    %h1= @current_account.orders.count
+    %h4 # Orders
+
+  .col.g4
+    %h1=Order.total_tickets
+    %h4 Number of tickets sold
+    
+  .col.g4
+    %h1= @current_account.orders.count
+    %h4 Average Order Size
+
+.clear{:style => 'height: 30px'}
+
+%table
+  %thead
+    %th ID
+    %th Created
+    %th Total
+    %th Customer
+    %th Num tickets
+
+
+
+
+  -@orders.each do |order|
+    %tr
+      %td='#' + order.id.to_s
+      %td=order.created_at.to_s :short_ordinal
+      
+      %td= number_to_currency( order.total)
+      %td= order.user.full_name
+      %td= order.tickets.count
+      %td
+        %ul
+          -order.tickets.each do |ticket|
+            %li.small=ticket.area.label_section
+      
+    
+      %td
+        %a.button.small Refund »
+        
+      %td
+        %a.button.small{:href => '/manager/settings'} Download Tix »
+        
+        
+
+

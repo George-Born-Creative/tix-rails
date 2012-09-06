@@ -1,0 +1,26 @@
+= simple_form_for @ticket_template, :multipart => true do |f|
+  .widget
+  
+    = f.error_notification
+
+
+    .row
+      .span3
+        = f.input :label
+        
+        = f.input :meta
+    
+        %p
+          = f.button :submit, :class => 'btn btn-large btn-primary'
+          
+
+
+      .span3
+        = f.input :file
+    
+
+      .span3.last
+        =image_tag @ticket_template.file :medium
+
+
+  .clear

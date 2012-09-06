@@ -1,117 +1,83 @@
-
 .columns.sixteen
 
-  .m-controlbar
-    %ul 
-      %li=link_to 'Today', "#", :class => 'highlighted button'
-
-      %li=link_to 'This Week', '#', :class => 'button'
-      %li=link_to 'This Month', '#', :class => 'button'
-      %li=link_to 'This Year', '#', :class => 'button'
-  
-      %li
-        %input{:type => 'text', :placeholder => '1/1/2012'}
-      %li
-        %input{:type => 'text', :placeholder => '1/1/2012'}
     
 .clear
-
-.columns.sixteen
-  .columns.twelve.alpha
-  
-    .stats
-      .columns.four.alpha
-        %h4 Orders
-        %h1{:style => 'font-size: 70px' } 4600
-
-      .columns.four
-        %h4 Sales
-        %h1{:style => 'font-size: 70px' } $320,256
-
-      .columns.four.omega
-        %h4 Tickets
-        %h1{:style => 'font-size: 70px' } 145,600
-      
-      .clear{:style => 'height: 20px' }
-      
-      
-      .columns.four.alpha
-        %h4 new Customers
-        %h1{:style => 'font-size: 70px' } 3,459
-      
-      
-      .columns.four
-        %h4 Checkins
-        %h1{:style => 'font-size: 70px' } 143
-      
-      .columns.four.omega
-        %h4 Unique Website Hits
-        %h1{:style => 'font-size: 70px' } 143
-        
-        
-        
-      .clear{:style => 'height: 20px' }
-    
-      
-      .columns.four.alpha
-        %h4 Average Order Amount
-        %h1{:style => 'font-size: 70px' } $46.65
-        
-        
-      .columns.four
-        %h4 Best Day Ever
-        %h1{:style => 'font-size: 70px' } $490,343
+.row
+  .span9
+    .widget
+      .widget-header
+        %h3 Live Stats
+      .widget-content
+        -3.times do 
+          .span2
+            %h4 Average Order Amount
+            %h3 $46.65
 
 
-      .columns.four.omega
-        %h4 Average Order Amount
-        %h1{:style => 'font-size: 70px' } 3/2/30
-        
-        
-    .clear{:style => 'height: 20px' }
-  
-    .columns.four.alpha
-    
-      %h3 Top Shows 
-      %ul
-        -5.times do
-          %li= @current_account.random(:event).title
-          
-    .columns.four
+          .span2
+            %h4 Best Day Ever
+            %h3$490,343
 
-      %h3 Top Artists
-      %ul
-        -5.times do
-          %li= @current_account.random(:artist).name
-          
-    
-    
-    .columns.four.omega
-
-      %h3 Top Seats
-      %ul
-        %li General Admission
-        %li General Admission
-        %li General Admission
-        %li Bar - BAR-1
-        %li VIP - V22
-        %li Seated - A3
-        
-    
+          .span2
+            %h4 Average Order Amount
+            %h3 32/30
     
 
-  .columns.four.omega
-    %h3 Order Stream
-    %ul
-      -10.times do |i|
-        %li{:style => "color:  ##{( 0xffffff - (i * 0x111111)).to_s(16) }"}
-          %strong Shaun Robinson
-          =%w(grabbed got bought purchased copped)[rand(6)]
-          %strong
-            =rand(10)+1
-          tickets
-          to 
-          %strong=@current_account.random(:event).title
+    .row
+      .span3
+        .widget
+          .widget-header
+            %h3 Top Shows 
+          .widget-content
+
+            %ul
+              -5.times do
+                %li= @current_account.random(:event).title
+      .span3
+        .widget
+          .widget-header
+            %h3 Top Artists
+          .widget-content
+
+            %ul
+              -5.times do
+                -art = @current_account.random(:artist)
+                %li= link_to art.name, art
+
+      .span3.last
+        .widget
+          .widget-header
+            %h3 Top Seats
+          .widget-content
+            %ul
+              %li General Admission
+              %li General Admission
+              %li General Admission
+              %li Bar - BAR-1
+              %li VIP - V22
+              %li Seated - A3
+
+
+
+
+
+  .span3
+    .widget
+      .widget-header
+        %h3 Order Stream
+      .widget-content
+        %ul
+          -10.times do |i|
+            %li{:style => "color:  ##{( 0x000000 + (i * 0x111111)).to_s(16) }"}
+              %strong Shaun Robinson
+              =%w(grabbed got bought purchased copped)[rand(6)]
+              %strong
+                =rand(10)+1
+              tickets
+              to 
+              %strong=@current_account.random(:event).title
+
+
 
 
 

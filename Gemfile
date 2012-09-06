@@ -27,6 +27,7 @@ group :test, :development do
   gem 'foreman'
   # gem 'chronic'
   # gem 'php-serialize'
+  gem 'resque_spec'
   
 end
 
@@ -49,6 +50,9 @@ gem 'stamp'
 gem "backbone-support"
 gem 'sass-rails' # if running rails 3.1 or greater
 gem 'compass-rails'
+gem 'simple_form'
+gem 'phone', :git => 'https://github.com/carr/phone.git'
+# gem 'country_select'
 
 # messaging
 gem 'pusher'
@@ -62,8 +66,7 @@ gem 'postmark-rails', '>= 0.4.1'
 gem 'devise'
 #gem 'cancan'
 
-# gem 'country_select'
-# gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'
 # gem 'jquery-noty-rails', :git => 'git@github.com:env/jquery-noty-rails.git', :require => 'jquery-noty-rails'
 
@@ -72,13 +75,31 @@ gem 'devise'
 # gem 'awesome_nested_set'
 # gem "friendly_id", "~> 4.0.1" # slugs 
 # gem 'attr_encrypted'
-# gem 'state_machine', :git => 'git://github.com/pluginaweek/state_machine.git', :require => 'state_machine/core'
+gem 'state_machine', :require => 'state_machine'
 gem 'paperclip', :require => 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1.3.4'
 gem 'aws-s3'
 
 # seed 
 # gem 'forgery' 
 
+gem 'delayed_job_active_record'
+gem "delayed_job_web"
 
 
+gem 'annotate', ">=2.5.0"
+# gem 'resque', "~> 1.22.0"
+# gem 'resque', :git => 'https://github.com/defunkt/resque.git', :require => 'resque/server'
+# gem "resque-enqueue-logger", "~> 0.0.6"
+
+gem 'fastercsv'
+
+gem 'table-for', :git => 'https://github.com/hunterae/table-for.git'
+gem 'kaminari'
+# gem "ransack" add this later for advanced searching
+gem "squeel"
+gem 'jquery-datatables-rails'
+gem 'jquery-ui-rails'
+gem 'ckeditor'
+gem 'prawn'
+gem 'less'

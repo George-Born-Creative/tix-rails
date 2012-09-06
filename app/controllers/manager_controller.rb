@@ -1,5 +1,8 @@
 class ManagerController < ApplicationController
-  def index
+  def index     
+   
+  end
+  def settings
     
   end
 

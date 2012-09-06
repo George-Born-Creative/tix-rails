@@ -3,7 +3,7 @@ class ChartsController < ApplicationController
   # GET /charts
   # GET /charts.json
   def index
-    @charts = @current_account.charts.all
+    @charts = @current_account.charts.order('created_at desc').all
     @chart = @current_account.charts.first
     respond_with @charts
   end

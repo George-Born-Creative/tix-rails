@@ -35,8 +35,8 @@ Tix::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
-  require 'pusher'
-
+  require 'pusher'  
+    
   Pusher.app_id = ENV['PUSHER_APP_ID']
   Pusher.key = ENV['PUSHER_KEY']
   Pusher.secret = ENV['PUSHER_SECRET']

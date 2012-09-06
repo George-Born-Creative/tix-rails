@@ -1,0 +1,21 @@
+%p#notice= notice
+
+.row
+  .span2
+    %h1=@ticket_template.label
+    %p
+      = @ticket_template.meta
+      
+    = link_to 'Edit', edit_ticket_template_path(@ticket_template)
+    \|
+    = link_to 'Back', ticket_templates_path
+
+      
+  .span4
+    =image_tag @ticket_template.file :medium
+    
+  .span5.last
+    =image_tag @ticket_template.file, :width => '500'
+
+
+.clear

@@ -1,0 +1,40 @@
+-sections = ['General Admission', 'VIP', 'Standing', 'Bar']
+-times = ['Presale', 'Day Of']
+
+.row
+  -sections.each do |section|
+    .span3
+      .well
+        .span3
+          %h3=section
+        .span6.last
+          %form
+            :plain
+
+              <div class="chart-section-colorpicker input-append color" data-color="rgb(255, 146, 180)" data-color-format="rgb">
+                <input type="text" class="span1" value="" readonly>
+                <span class="add-on">
+                  <i style="background-color: rgb(255, 146, 180)"></i>
+                </span>
+              </div>
+            .clear
+    
+    
+        .clear
+        -times.each do |time|
+          .span4
+            %h5=time
+            .row
+              .span1
+                .input-prepend
+                  /.add-on $
+                  %input.span2{:type => 'text', :style => 'width: 50px; float: left', :value => '$10'}
+              .span1
+                .input-prepend
+                  /.add-on $
+                  %input.span2{:type => 'text', :style => 'width: 50px; float: left', :value => '$3'}
+
+  
+  
+              .clear
+        .clear

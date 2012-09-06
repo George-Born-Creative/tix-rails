@@ -1,0 +1,48 @@
+!!!
+%html
+  %head
+    %title Jammin' Java
+    = stylesheet_link_tag    "application", :media => "all"
+    = csrf_meta_tags
+    -unless ENV['RAILS_ENV'] == 'production'
+      //<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <script type="text/javascript" src="//use.typekit.net/lmc2sec.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    =raw '<!-- current subdomain ' + @current_account.subdomain + '-->'
+  %body
+    .container
+      #header.columns.sixteen
+    
+      .columns.sixteen.alpha.omega
+
+        .nav.manager
+          %ul{:style => 'font-size: 1.5em'} 
+            %li=link_to 'Dash', "/manager", :class => 'highlighted'
+            %li=link_to 'Customers', '/manager/customers'
+            %li=link_to 'Events', '/manager/events'
+            %li=link_to 'Artists', '/manager/artists'
+            %li=link_to 'Orders', '/manager/orders'
+            %li=link_to 'Charts', '/manager/charts'
+            %li=link_to 'Newsletter', '/manager/newsletter'
+            %li=link_to 'Users', '/manager/users'
+            %li=link_to 'Tickets', '/manager/settings'
+            %li=link_to 'Account', '/manager/accounts'
+        
+  
+      .notice
+        =flash[:notice]
+      .error
+        =flash[:error]
+        
+      = yield
+        
+    
+    <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript"></script>
+    
+    :javascript
+      $(function(){
+        Tix.init( {
+          events: #{ render('events/events', :object => @events, :format => :json) },
+          pusherAPIKey: "#{Pusher.key}",
+          env: "#{ENV['RAILS_ENV']}"}  );
+      });

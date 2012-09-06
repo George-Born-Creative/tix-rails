@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
      "login"
     elsif request.fullpath.slice(0,8) == '/manager'
       "manager"
+    elsif request.fullpath.slice(0,6) == '/admin'
+      "admin"
     else
      "application"
     end  

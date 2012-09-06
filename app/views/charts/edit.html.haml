@@ -1,25 +1,9 @@
-.col.g7
-  %img{:src => @chart.background_image_url}
 
-.col.g9
-  %h1=@chart.label
-  %hr/
-  
-  
-  -sections = ['General Admission', 'VIP', 'Standing', 'Bar']
-  -times = ['Presale', 'Day Of']
-  
-  -sections.each do |section|
-    .col.g4
-      %h3=section
-      -times.each do |time|
-        .col.g2.alpha
-          %h5=time
-          <br/>
-          %input{:type => 'text', :style => 'width: 50px; float: left', :value => '$10'}
-          %input{:type => 'text', :style => 'width: 50px; float: left', :value => '$3'}
-
-  .clear
+.row
+  %h1 Edit Chart
+  = link_to '« Back', charts_path
   
   %hr/
-  * <strong>Day-of Pricing</strong> starts at <strong>midnight day of show</strong>
+  %br/
+  = render 'form'
+

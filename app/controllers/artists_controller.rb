@@ -1,31 +1,45 @@
 class ArtistsController < ApplicationController
-  respond_to :json
+  respond_to :json, :html
 
   def index
-    @artists = Artist.all
-
-    respond_with @artists
+    respond_to do |format|
+      format.json {
+        render json: ArtistDatatable.new(view_context, @current_account.id)
+      }
+      format.html {
+        @artists = @current_account.artists.where{ (name =~ my{"%#{params[:search]}%"} )}
+                      .page(params[:page])
+                      .per(10)
+      }
+    end
+    
+    # respond_with @artists
   end
 
+
   def show
-    @artist = Artist.find(params[:id])
+    @artist = @current_account.artists.find(params[:id])
 
     respond_with @artist
   end
   
   def new
-    @artist = Artist.new
-
+    @artist = @current_account.artists.new
+    
     respond_with @artist
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def edit
-    @artist = Artist.find(params[:id])
+    @artist = @current_account.artists.find(params[:id])
   end
 
   def create
-    @artist = Artist.new(params[:artist])
-
+    @artist = @current_account.artists.new(params[:artist])
+    
     respond_to do |format|
       if @artist.save
         format.json { render json: @artist, status: :created, location: @artist }
@@ -36,11 +50,12 @@ class ArtistsController < ApplicationController
   end
 
   def update
-    @artist = Artist.find(params[:id])
+    @artist = @current_account.artists.find(params[:id])
 
     respond_to do |format|
+      # params[:artist_id] = @current_account.id
       if @artist.update_attributes(params[:artist])
-        format.html { redirect_to @artist, notice: 'Seating chart was successfully updated.' }
+        format.html { redirect_to @artist, notice: 'Artist was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -52,7 +67,7 @@ class ArtistsController < ApplicationController
   # DELETE /artists/1
   # DELETE /artists/1.json
   def destroy
-    @artist = Artist.find(params[:id])
+    @artist = @current_account.artists.find(params[:id])
     @artist.destroy
 
     respond_to do |format|

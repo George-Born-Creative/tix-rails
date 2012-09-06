@@ -1,0 +1,100 @@
+=simple_form_for @artist, :multipart => true do |f|
+  .span8
+    .widget
+      .widget-header
+        %i.icon-pushpin
+        %h3 Edit Artist
+      
+      .widget-content
+    
+      
+        .row
+          .span8
+            .control-group
+              %label.control-label
+              .controls
+                =f.input :name, :input_html => { :style => 'width: 100%; font-size: 30px; height: 40px'}
+                
+      
+        .row
+          .span7
+            .control-group
+              %label.control-label
+              .controls
+                =f.input :body, :as => :ckeditor, :input_html => { :style => 'width: 100%'}
+          
+    .widget
+      .widget-header
+        %h3 Artist Twitter
+      .widget-content
+        -unless @artist.twitter && !@artist.twitter.empty?
+          .alert.alert-danger
+            Enter the artist's twitter handle or URL on the right to see his feed
+        -else
+          -3.times do
+            .tweet
+              %strong= "@#{@artist.twitter.split('/').pop}"
+              %br/
+              artist tweet here
+      
+    
+  .span4
+    .widget.widget-plain
+      .widget-content
+      
+        =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
+      
+        =link_to '+ New Artist', new_artist_path, :class => 'btn btn-large btn-support-contact btn'
+      
+      
+    .widget.widget-box
+      .widget-header
+        %h3 Photo
+        
+      .widget-content
+      
+        -if @artist.photo?
+          =image_tag @artist.photo
+        -else
+          No photo on file for this artist.
+          
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :photo, :as => :file, :input_html => { :style => 'width: 100%'}
+
+    .widget.widget-box
+      .widget-header
+        %h3 Meta
+      .widget-content
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :facebook_url, :input_html => { :style => 'width: 100%'}
+
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :myspace_url, :input_html => { :style => 'width: 100%'}
+
+
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :twitter, :input_html => { :style => 'width: 100%'}
+      
+
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :audio_sample_url, :input_html => { :style => 'width: 100%'}
+
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :youtube1, :input_html => { :style => 'width: 100%'}
+
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :youtube2, :input_html => { :style => 'width: 100%'}

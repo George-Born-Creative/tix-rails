@@ -1,0 +1,120 @@
+.row
+  .span12
+    .widget.big-stats-container
+      .widget-content
+        #big_stats.cf
+          .stat
+            %h4 Total Tickets Sold
+            %span.value 150
+
+          .stat
+            %h4 Total Tickets Available For Sale
+            %span.value 4
+
+          .stat
+            %h4 Sold Tickets Checked in
+            %span.value 15
+
+          .stat
+            %h4 Sold Tickets Not Yet Checked in
+            %span.value= 150-15
+            
+.row
+  =simple_form_for @event, :multipart => true do |f|
+    .span8
+      .widget
+        .widget-header
+          %i.icon-pushpin
+          %h3 Edit Event
+      
+        .widget-content
+    
+      
+          .row
+            .span8
+              .control-group
+                %label.control-label
+                .controls
+                  =f.input :title, :input_html => { :style => 'width: 100%; font-size: 30px; height: 40px'}
+                
+      
+          .row
+            .span7
+              .control-group
+                %label.control-label
+                .controls
+                  =f.input :body, :as => :ckeditor, :input_html => { :style => 'width: 100%'}
+          
+      .widget
+        .widget-header
+          %h3 Seating Chart
+        .widget-content
+          =render 'charts/pricing'
+        
+        
+          -if @current_account.charts.first.thumbnail?
+            =image_tag @current_account.charts.first.thumbnail
+        
+          -if @current_account.charts.first.svg_file_serialized?
+            =@current_account.charts.first.svg_file_serialized.html_safe
+        
+    
+    .span4
+      .widget.widget-plain
+        .widget-content
+
+          =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
+
+          =link_to '+ New Event', new_event_path, :class => 'btn btn-large btn-support-contact btn'
+
+
+       
+      
+      
+     
+      .widget.widget-box
+        .widget-header
+          %h3 Artists
+        
+        .widget-content
+      
+          %p Headliner
+          =select("event", "headliner", @artist_options, {:include_blank => true})
+        
+          %p Secondary
+          =select("event", "headliner", @artist_options, {:include_blank => true})
+        
+          %p Supporting Acts
+          =select("event", "supporting_act_1", @artist_options, {:include_blank => true})
+          =select("event", "supporting_act_2", @artist_options, {:include_blank => true})
+          =select("event", "supporting_act_3", @artist_options, {:include_blank => true})
+        
+        
+        
+      .widget.widget-box
+        .widget-header
+          %h3 Times
+        
+        .widget-content
+      
+          %p Announce At
+          %input{:type => 'text'}
+        
+          %p On Sale
+          %input{:type => 'text'}
+        
+          %p Starts At
+          %input{:type => 'text'}
+        
+          %p Off Sale
+          %input{:type => 'text', :disabled => 'disabled', :value => '2 hours after start'}
+        
+          %p Remove from site at
+          %input{:type => 'text'}
+        
+        
+          =#f.input :starts_at        
+          =#f.input :ends_at        
+        
+
+   

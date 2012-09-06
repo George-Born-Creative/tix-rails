@@ -1,0 +1,11 @@
+.col.one-third
+  %h2 1. Upload a CSV file
+  =simple_form_for @customer_import, :html => { :multipart => true } do |f|
+    =f.file_field :data
+    =f.submit 'Upload'
+  
+.col.one-third
+  %h2 2. Map Fields
+
+.col.one-third
+  %h2 3. Import...

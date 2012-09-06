@@ -1,11 +1,34 @@
 Tix::Application.routes.draw do
 
+  resources :sections
 
   devise_for :users
 
   root :to => "main#index"
   
-  get '/newsletter' => 'newsletter#index'
+  
+  scope '/manager' do
+    match '/', :controller => :manager, :action => :index
+    
+    resources :customer_imports
+    
+    resources :users
+    resources :events
+    resources :artists
+    resources :orders
+    resources :charts
+    resources :accounts
+    resources :tickets
+    resources :ticket_templates
+    resources :newsletters
+    resources :pages
+    resources :reports
+    
+    
+    get '/customers' => 'users#index'
+    get '/newsletter' => 'newsletter#index'    
+    match '/:action', :controller => :manager
+  end
 
   scope '/api' do
     resources :events
@@ -20,17 +43,18 @@ Tix::Application.routes.draw do
     post '/ticket_locks.json/delete' => "ticket_locks#destroy"
   end
   
-  scope '/manager' do
-    match '/', :controller => :manager, :action => :index
-    
-    resources :users
-    resources :events
-    resources :artists
-    resources :orders
-    resources :charts
-    
-    match '/:action', :controller => :manager
+  
+  
+  scope '/admin' do
+    match '/', :controller => :admin, :action => :index
+    resources :accounts  
   end
+  
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
+  
+  # mount Resque::Server.new, :at => "/resque"
+  
+  mount Ckeditor::Engine => "/ckeditor"
   
   
 end

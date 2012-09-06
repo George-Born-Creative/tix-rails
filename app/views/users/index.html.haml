@@ -1,30 +1,57 @@
-.columns.sixteen
-  
-  %h1=@label
+.row
+  .span12
+    .widget.big-stats-container
+      .widget-content
+        #big_stats.cf
+          .stat
+            %h4 Number of Customers
+            %span.value=@current_account.users.with_role( :customer).count
 
-  %table
-    %thead
-      %td 
-      %td First Name
-      %td Last Name
-      %td Yearly sales
-      %td Account Balance
-      %td Role
+          .stat
+            %h4 Logged in Now
+            %span.value 24
+
+          .stat
+            %h4 Logged in 30 days
+            %span.value 2400
+
+          .stat
+            %h4 Trending Zip
+            %span.value 20904
+
+.row
+  
+  .span8
+    %h1 Customer Relationship Manager
+    
+  .span8.last
+    =link_to 'Import Customers as CSV', new_customer_import_path, :class => "button"
+
+  .widget.widget-table.action-table
+    %table#customers.table.table-striped.table-bordered.display{:data => {:source => users_url(format: 'json') }}
+
+      %thead
+        %td 
+        %td First Name
+        %td Last Name
+        %td Yearly sales
+        %td Account Balance
+        %td Role
       
-      %td Action
+        %td Action
       
       
-    -@users.each do |u|
-      %tr
-        %td
-          %a{:href => user_path(u)}
-          %img{:src => u.gravatar_url}
+      -@users.each do |u|
+        %tr
+          %td
+            %a{:href => user_path(u)}
+            %img{:src => u.gravatar_url}
       
-        %td{:valign => 'middle' }= u.first_name
-        %td= u.last_name
-        %td $2,212.00
-        %td $26.00
-        %td= u.role.to_s.titleize
-        %td
-          %a.button{:href => user_path(u)} Edit »
-        /%td=link_to 'User password', new_user_password_path + '?user_email=' + u.email 
+          %td{:valign => 'middle' }= u.first_name
+          %td= u.last_name
+          %td $2,212.00
+          %td= number_to_currency u.balance
+          %td= u.role.to_s.titleize
+          %td
+            %a.button{:href => user_path(u)} Edit »
+          /%td=link_to 'User password', new_user_password_path + '?user_email=' + u.email 

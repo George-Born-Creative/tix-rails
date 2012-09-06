@@ -1,0 +1,36 @@
+!!!
+%html
+  %head
+    %title Jammin' Java
+    = stylesheet_link_tag    "application", :media => "all"
+    = csrf_meta_tags
+    -unless ENV['RAILS_ENV'] == 'production'
+      //<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <script type="text/javascript" src="//use.typekit.net/lmc2sec.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    =raw '<!-- current subdomain ' + @current_account.subdomain + '-->'
+  %body
+    .container
+      #header.columns.sixteen
+    
+      .columns.sixteen.alpha.omega
+
+        .nav.manager
+          %ul{:style => 'font-size: 1.5em'} 
+            %li=link_to 'Dash', "/admin", :class => 'highlighted'
+            %li=link_to 'Accounts', '/admin/accounts', :class => 'highlighted'
+
+  
+  
+      = yield
+        
+    
+    <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript"></script>
+    
+    :javascript
+      $(function(){
+        Tix.init( {
+          events: #{ render('events/events', :object => @events, :format => :json) },
+          pusherAPIKey: "#{Pusher.key}",
+          env: "#{ENV['RAILS_ENV']}"}  );
+      });

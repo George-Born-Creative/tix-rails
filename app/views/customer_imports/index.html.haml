@@ -1,0 +1,19 @@
+%h1 Import Customers
+%p Have customer data stored in another system? Use our template 
+
+=link_to 'Import Customer CSV File', new_customer_import_path, :class => 'button'
+
+-unless @customer_imports.nil? || @customer_imports.empty?
+  %h2 Pending Imports...
+  
+  %table
+    %thead
+      %tr
+        %th Date Time
+        %th CSV File
+        %th State
+    -@customer_imports.each do |customer_import|
+      %tr
+        %td=customer_import.created_at
+        %td=link_to File.basename(customer_import.data.url).downcase, customer_import.data.url
+        %td=customer_import.state unless customer_import.state.nil?

@@ -1,0 +1,42 @@
+.row
+  .span1
+    &nbsp
+  .span10
+    .row
+      .span3
+        %h1
+          =@ticket_templates.count
+          Ticket Templates
+      .span5
+        = link_to '+ New Ticket template', new_ticket_template_path, :class => 'btn btn-large'
+    
+    %br/
+
+    .row
+      .span8
+        .alert
+          %h2
+            %strong Ticket Templates
+            allow you upload custom artwork onto 
+            the PDF tickets that customers receive.
+            These will be rotated in a cycle on digital 
+            tickets.
+  
+    %hr/
+
+    .row
+      .span12
+        -@ticket_templates.each do |ticket_template|
+          .clear
+          .row
+            .span4
+              %h2= ticket_template.label
+              %p=ticket_template.meta
+            .span4
+              = link_to (image_tag ticket_template.file :medium, :width => "100%"), ticket_template
+            .span4.last
+              %p= button_to 'Destroy', ticket_template, :confirm => 'Are you sure?', :method => :delete, :class => 'btn'
+              %p= link_to 'Edit', edit_ticket_template_path(ticket_template), :class => 'btn'
+          
+          
+

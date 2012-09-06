@@ -8,7 +8,7 @@ class TicketLock
     args = args[0]
     @user_id = args[:user_id]
     @ticket_id = args[:ticket_id]
-    @event_id = Ticket.find(@ticket_id).event_id
+    @event_id = Ticket.find(@ticket_id).event.id
     
     @r = REDIS
   end  

@@ -20,7 +20,6 @@
 //= require quicksilver
 //= require raphael.min
 //= require jquery.livesearch
-
 //= require hamlcoffee
 //= require_tree ../templates
 //

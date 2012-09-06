@@ -1,13 +1,22 @@
 class UsersController < ApplicationController
+  respond_to :html, :json
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-
+    
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
+      
+      format.json {
+        render json: CustomerDatatable.new(view_context, @current_account.id)
+      }
+      format.html {
+        @users = @current_account.users.with_role(:customer)
+                      .where{ (first_name =~ my{"%#{params[:search]}%"} )}
+                      .page(params[:page])
+                      .per(10)
+      }
     end
+      
   end
 
   # GET /users/1

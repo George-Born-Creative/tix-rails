@@ -1,4 +1,4 @@
-.col.g6
+.col.g9
   %img{:src=> @artist.get('photo') }
   
   -if @artist.get('url')

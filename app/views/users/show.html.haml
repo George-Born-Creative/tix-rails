@@ -1,24 +1,54 @@
-.col.g6
-  %img{:src => @user.gravatar_url, :width => '300px'}
+.row
+  .span4
+    %img{:src => @user.gravatar_url, :width => '300px'}
   
-.col.g10
-  %h1{:contenteditable => true}= @user.full_name
+  .span8
+    .row
+      %h1= @user.full_name
 
-  .col.g5.alpha
-    .rpfole
-      %p{:contenteditable => true}=@user.email
-      %p{:contenteditable => true}=@user.role.to_s.titleize
+      .span4
+        .rpfole
+          %p=@user.email
+          %p=@user.role.to_s.titleize
   
-    .addresses
-      409 Colesville Manor Dr.
-      %br/
-      Silver Spring, MD 20904
-  
-  .col.g5.omega
-    %ul
-      %li=link_to @user.first_name + '\'s Tickets »', '#', :class => 'button medium'
-      %li=link_to @user.first_name + '\'s Orders »', '#', :class => 'button medium'
-      %li=link_to @user.first_name + '\'s Addresses »', '#', :class => 'button medium'
-      %li=link_to @user.first_name + '\'s Wallet »', '#', :class => 'button medium'
+
+      .span4
+        .widget
+          .widget-header
+            %h3="#{@user.first_name}'s Orders + Tickets"
+          .widget-content
+            -if @user.orders.empty?
+              %em
+                =@user.first_name
+                hasn't placed an order yet.
+            -else
+              -@user.orders.each do |order|
+                =order
+                
+      
+        .widget
+          .widget-header
+            %h3="#{@user.first_name}'s Addresses"
+          .widget-content
+            -if @user.addresses.empty?
+              %em
+                =@user.first_name
+                doesn't have any addresses saved
+            -else
+              %ul
+              -@user.addresses.each do |address|
+                %li=link_to address.address, '#'
+                
+        .widget
+          .widget-header
+            %h3="#{@user.first_name}'s Saved Payment Options"
+          .widget-content
+            %em
+              =@user.first_name
+              doesn't have any payment options saved
+
+                
+                
+          
       
       

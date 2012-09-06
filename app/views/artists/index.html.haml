@@ -1,49 +1,70 @@
-%h1 Artists
-
-.stats
-  .col.g4
-    %h1=@artists.count
-    %h4 Number of Artists
-
-  .col.g4
-    %h1=@artists.count
-    %h4 Number of Artists
+.row
+  .span1
+    %h1 Artists
+  .span6.last
+    =link_to '+ New Artist', new_artist_path, :class => 'btn btn-large'#, :method => :post
     
-  .col.g4
-    %h1=@artists.count
-    %h4 Number of Artists
+%br/
+
+
+.row
+  .span12
+    .widget.big-stats-container
+      .widget-content
+        #big_stats.cf
+          .stat
+            %h4 Number of Artists
+            %span.value=@current_account.artists.count
+
+          .stat
+            %h4 Artists with Active Events
+            %span.value=@artists.count
   
+          .stat
+            %h4 Number of Artists
+            %span.value=@artists.count
+
+          .stat
+            %h4 Number of Artists
+            %span.value=@artists.count
+            
+            
   
-  .col.g4
-    %h1=@artists.count
-    %h4 Number of Artists
-    
 .clear{:style => 'height: 30px'}
     
-%table
-  %thead
-    %th
-    %th Event name
-    %th 
-    %th
-    %th
-    %th
-    %th Actions
     
+.hide
+  =form_tag artists_path, :method => 'get' do
+    .col.g8
+      &nbsp;
+      = paginate @artists, :params => {:controller => 'artists', :action => 'index'}, :window => 5
     
-    
-  -@artists.each do |artist|
-    %tr
-      %td
-        %img{:src => artist.photo( :thumb )}
-    
-      %td=artist.name
-      %td=link_to 'Twitter', artist.twitter
-      %td=link_to 'Facebook', artist.facebook_url
-      %td=link_to 'Video', artist.video_url
-      %td=link_to 'Website', artist.url
+    .col.g4
+      =text_field_tag :search, params[:search]
+
+    .col.g4
+      =submit_tag "Search", :name => nil
+
+.widget.widget-table.action-table
+  %table#artists.table.table-striped.table-bordered.display{:data => {:source => artists_url(format: 'json') }}
+    %thead
+      %th
+      %th Artist name
+      %th Facebook
+      %th Twitter
+      %th MySpace
+      %th Website
+      %th Actions
       
-      %td
-        %a.button.small Edit »
-      
-      
+    
+    -@artists.each do |artist|
+      %tr
+        %td
+          %img{:src => artist.photo( :thumb )}
+    
+        %td=artist.name
+        %td=link_to('Facebook', artist.facebook_url) if artist.facebook_url
+        %td=link_to('Twitter', artist.twitter) if artist.twitter
+        %td=link_to('Myspace', artist.myspace_url) if artist.myspace_url
+        %td=link_to('Web', artist.url) if artist.url
+        %td=button_to('Edit', artist)

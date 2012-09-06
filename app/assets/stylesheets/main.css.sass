@@ -1,16 +1,34 @@
 @import "compass/css3/transition"
 
+$primary: maroon 
+$alpha: white
+$omega: black
+$tertiary: #39f
+$logo: url(/images/jj-logo.png)
+$background: url(/images/jj-bg.jpg)
+
+
+// $primary: maroon 
+// $alpha: w
+// $omega: white
+// $tertiary: #39f
+// $logo: url(http://jamminjava.s3.amazonaws.com/images/logos/logo_gray.png)
+// $background: url()
+
+$background: url()
+
+
 @mixin red-button
-  font-size: 2em
+  font-size: 1.7em
   padding: 15px 10px
   width: 80%
-  background-color: maroon
-  color: white
+  background-color: $primary
+  color: $alpha
 
 body
-  background: #000 url(/images/jj-bg.jpg) top center no-repeat
+  background: $omega $background top center no-repeat
   font-family: helvetica, arial, sans-serif
-  color: white
+  color: $alpha
 
 .button
   font-family: 'atrament-web'
@@ -19,18 +37,25 @@ strong
   color: inherit
   
 a, a:link, a:active, a:visited
-  color: white
+  color: $alpha
   text-decoration: none
   
-a:hover
-  color: maroon
+a:visited
+  color: $alpha
   
+  
+a:hover
+  color: $primary
+
+a.button
+  font-size: 1.3em
+
 a.button.large
   @include red-button
 a.button.medium
-  font-size: 1.7em
+  font-size: 1.6em
 a.button.small
-  font-size: 1.3em
+  font-size: 0.7em
 
 table
   font-size: 1.3em
@@ -46,11 +71,12 @@ table
   td
     padding: 10px
     vertical-align: middle
+    border: 1px solid transparentize( $alpha, .8)
   
 .hide
   display: none
 h1, h2, h3, h4, h5
-  color: white
+  color: $alpha
   font-family: "atrament-web", Helvetica
   font-weight: normal
   letter-spacing: -1px
@@ -58,8 +84,7 @@ h1, h2, h3, h4, h5
   
   
 .container
-  background-color: rgba(0,0,0,.7)
-
+  background-color: transparentize($omega, .3)
   
 #header
   
@@ -68,7 +93,7 @@ h1, h2, h3, h4, h5
   
   #logo
     margin-top: 20px
-    background: url(/images/jj-logo.png) no-repeat
+    background: $logo no-repeat
     height: 100px
   #social_links
     padding-top: 20px
@@ -82,7 +107,7 @@ h1, h2, h3, h4, h5
   
 #wrap
   background:
-    color: rgba(255,255,255,.5)
+    color: transparentize($alpha, .5)
     repeat: no-repeat
     position: 0 0
   width:  100%
@@ -127,7 +152,7 @@ h1, h2, h3, h4, h5
 
 .small
   font-size: .8em
-  color: #888
+  color: $alpha / 2
 
 ul#selected_seats
   margin: 0
@@ -150,16 +175,16 @@ ul#selected_seats
     
     &.active
       background-color:  #7b3f2c
-      color:  white
+      color:  $alpha
       
 ul.stacked_list, #event_detail_cart ul
   li
     list-style:  none
     display:  block
-    background-color:  rgba(100,200,255,.5)
+    background-color:  transparentize($tertiary, .5) 
     border-radius: 5px
     padding:  0
-    color:  white
+    color:  $alpha
     padding:  10px 4px
     height: 40px
     font-size: 15px
@@ -182,7 +207,7 @@ ul.stacked_list, #event_detail_cart ul
       display: block
       opacity: .3
       &:hover
-        color: white
+        color: $alpha
         opacity: 1
   .clock
     color: #ccc
@@ -237,7 +262,7 @@ ul.stacked_list, #event_detail_cart ul
     background-color: rgba(255,255,255,.1)
     padding: 20px 0
     margin: 10px 0
-    color: white
+    color: $alpha
     .times
       font-size: 1.2em
     .prices
@@ -264,7 +289,7 @@ ul.event_cart
     background-color:  rgba(100,200,255,.5)
     border-radius: 5px
     padding:  0
-    color:  white
+    color:  $alpha
     padding:  10px 4px
     // height: 51px
     font-size: 1em
@@ -289,7 +314,7 @@ ul.event_cart
       display: block
       opacity: .3
       &:hover
-        color: white
+        color: $alpha
         opacity: 1
     .clock
     color: #ccc
@@ -301,19 +326,18 @@ ul.event_cart
     font-size: 3em
 
   .artist
-    border-bottom: 1px solid white
-    padding: 20px 20px
+    border-bottom: 1px solid $alpha
     display: inline-block
     border-radius: 10px
-    font-size: 1.5em
+    font-size: 1.1em
         
     &:hover
     
-      color: black
-      background-color: rgba(255,255,255,.5)
-      cursor: pointer
+      color: $omega
+      background-color: transparentize($alpha, .5)
+      cursor: pointer !important
       & a
-        color: maroon
+        color: $primary
       
 a.button
   color: black
@@ -328,9 +352,11 @@ a
   border:  5px solid red
   
 .m-controlbar
-  background-color: white
-  background-color: rgba(255,255,255,.2)
+  background-color: $alpha
+  background-color: rgba(255,255,255,.1)
   padding: 20px 5px 0
+  border-radius: 5px
+  
     
   li  
     list-style:  none
@@ -342,6 +368,13 @@ a
     
   input[type=text]
     display:  inline
-    font-size: 1.5em
+    font-size: 1.1em
+    
+.stats
+  & > div
+    border-radius: 5px
+    background-color: rgba(255,255,255,.1)
+    h1, h2, h3, h4, h5
+      padding: 5px
     
     

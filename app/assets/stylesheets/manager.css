@@ -5,6 +5,8 @@
 //*= require bootstrap/base-admin.css
 //*= require bootstrap/base-admin-responsive.css
 //= require ../lib/bootstrap/colorpicker/css/colorpicker
+//= require ../lib/bootstrap/datepicker/css/datepicker
+//= require ../lib/bootstrap/timepicker/css/timepicker
 //*= require bootstrap/pages/dashboard.css
 //*= require bootstrap/pages/reports.css
 //*= require bootstrap/pages/faq.css
@@ -13,4 +15,7 @@
 //*= require jquery.ui.theme
 //*= require dataTables/src/demo_table_jui
 //*= require dataTables/jquery.dataTables
-//*= require mgr
+
+//*= require manager/global
+//*= require_tree ./manager/
+

@@ -19,6 +19,7 @@
 #  height        :decimal(, )
 #  transform     :string(255)
 #  points        :string(255)
+#  max_tickets   :integer          default(1), not null
 #
 
 require 'spec_helper'

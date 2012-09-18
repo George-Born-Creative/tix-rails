@@ -1,3 +1,7 @@
+=content_for :javascript do
+  :javascript
+    TixMgr.startEventEditRouter()
+  
 .row
   .span12
     .widget.big-stats-container
@@ -8,17 +12,19 @@
             %span.value 150
 
           .stat
-            %h4 Total Tickets Available For Sale
-            %span.value 4
-
-          .stat
-            %h4 Sold Tickets Checked in
-            %span.value 15
-
-          .stat
             %h4 Sold Tickets Not Yet Checked in
             %span.value= 150-15
+
+          .stat
+            %h4 Min Ticket Price
+            %span.value
+              =number_to_currency @event.current_prices_arr.min
+
+          .stat
+            %h4 Max ticket Price
+            %span.value=number_to_currency @event.current_prices_arr.max
             
+
 .row
   =simple_form_for @event, :multipart => true do |f|
     .span8
@@ -49,14 +55,29 @@
         .widget-header
           %h3 Seating Chart
         .widget-content
-          =render 'charts/pricing'
+          -if @event.chart
+            %h3 Edit
+            =link_to @event.chart.name, edit_chart_path(@event.chart)
+   
+            %h3 Pricing
+            .row
+              -@event.chart.sections.seatable.each do |section|
+                .span3
+                  .well
+                    %h3=section.label
+                    %h5 Day Of
+                    =section.dayof_price
+            
+                    %h5 Presale
+                    =section.presale_price
+            
+          -else 
+            No Seating Chart Yet.
+            %h3 Chart Templates
+            %ul
+            -@current_account.charts.masters.each do |chart|
+              %li=link_to chart.name, "/manager/charts/#{chart.id.to_s}/clone_for_event/#{@event.id}", :method => :post
         
-        
-          -if @current_account.charts.first.thumbnail?
-            =image_tag @current_account.charts.first.thumbnail
-        
-          -if @current_account.charts.first.svg_file_serialized?
-            =@current_account.charts.first.svg_file_serialized.html_safe
         
     
     .span4
@@ -79,15 +100,15 @@
         .widget-content
       
           %p Headliner
-          =select("event", "headliner", @artist_options, {:include_blank => true})
+          =select("event", "headliner", '', {:include_blank => true})
         
           %p Secondary
-          =select("event", "headliner", @artist_options, {:include_blank => true})
+          =select("event", "headliner", '', {:include_blank => true})
         
           %p Supporting Acts
-          =select("event", "supporting_act_1", @artist_options, {:include_blank => true})
-          =select("event", "supporting_act_2", @artist_options, {:include_blank => true})
-          =select("event", "supporting_act_3", @artist_options, {:include_blank => true})
+          =select("event", "supporting_act_1", '', {:include_blank => true})
+          =select("event", "supporting_act_2", '', {:include_blank => true})
+          =select("event", "supporting_act_3", '', {:include_blank => true})
         
         
         
@@ -97,8 +118,37 @@
         
         .widget-content
       
-          %p Announce At
-          %input{:type => 'text'}
+          %p 
+            %strong Announce At
+            =@event.announce_at
+          %p
+            %strong On Sale At
+            =@event.on_sale_at
+            
+          %p
+            %strong Starts At
+            =@event.starts_at
+          %p
+            %strong Off Sale At
+            =@event.off_sale_at
+            
+          %p
+            %strong Remove At
+            =@event.remove_at
+          
+          
+          -['Announce At', 'On Sale', 'Starts At', 'Off Sale', 'Remove At'].each do |label|
+            %p=label
+            .datetime
+              .input-append.time.timepicker.bootstrap-timepicker-component{}
+                %input.span1.timepicker.input-small{:type => 'text'}
+                %span.add-on
+                  .i.icon-time
+
+              .input-append.date.datepicker{:data => {:date=>"12-02-2012", 'date-format' => "mm-dd-yyyy" }}
+                %input.span1{:size=>"16", :type=>"text", :value=>"12-02-2012"}
+                %span.add-on
+                  %i.icon-th            
         
           %p On Sale
           %input{:type => 'text'}
@@ -112,9 +162,7 @@
           %p Remove from site at
           %input{:type => 'text'}
         
-        
           =#f.input :starts_at        
           =#f.input :ends_at        
         
 
-   

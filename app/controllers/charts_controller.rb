@@ -3,8 +3,7 @@ class ChartsController < ApplicationController
   # GET /charts
   # GET /charts.json
   def index
-    @charts = @current_account.charts.order('created_at desc').all
-    @chart = @current_account.charts.first
+    @charts = @current_account.charts.order('created_at desc')
     respond_with @charts
   end
 
@@ -73,6 +72,30 @@ class ChartsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to charts_url }
       format.json { head :no_content }
+    end
+  end
+  
+  # GET /charts/:id/clone_for_event/:event_id
+  def clone_for_event
+    @old_chart = Chart.find( params[:id] )
+    @event = Event.find( params[:event_id] )
+    
+    if @event && @event.chart.nil?
+      @chart = @old_chart.dup :except => :master, :include => [:sections => [:dayof_price, :presale_price, :areas]]
+      @chart.name = @event.name + ' chart ' + @old_chart.name
+      @event.chart = @chart
+    end
+
+    
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to @event, notice: 'Event seating chart was successfully cloned.' }
+        format.json { render json: @event, status: :created, location: @chart }
+      else
+        format.html {  }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+        
     end
   end
 end

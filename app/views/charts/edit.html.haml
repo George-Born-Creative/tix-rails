@@ -1,9 +1,16 @@
-
 .row
-  %h1 Edit Chart
-  = link_to '« Back', charts_path
+  .span6
+    %h1 Chart Name
+  .span6
+    -if @chart.event
+      =link_to @chart.event.title, @chart.event
+.row
   
-  %hr/
-  %br/
   = render 'form'
 
+=content_for :javascript do
+  :javascript
+    chart = #{ render('charts/chart', :object => @chart, :format => :json) }
+    TixMgr.startChartRouter({chart: chart});
+    
+    

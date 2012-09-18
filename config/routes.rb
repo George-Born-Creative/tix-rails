@@ -1,6 +1,5 @@
 Tix::Application.routes.draw do
 
-  resources :sections
 
   devise_for :users
 
@@ -17,12 +16,17 @@ Tix::Application.routes.draw do
     resources :artists
     resources :orders
     resources :charts
+    post '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'
+    
     resources :accounts
     resources :tickets
     resources :ticket_templates
     resources :newsletters
     resources :pages
     resources :reports
+    resources :prices
+    resources :sections
+    resources :areas
     
     
     get '/customers' => 'users#index'

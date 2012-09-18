@@ -13,29 +13,60 @@
     %br/
 
     .row
-      .span8
+      .span7
         .alert
-          %h2
-            %strong Chart Templates
+          %h2 Chart Masters
+          %h3 
+            Masters are templates. For each event, you'll "clone" 
+            one of the masters, creating a dedicated seating chart   
+            just for that event.
             
   
     %hr/
 
     .row
       .span12
-        -@charts.each do |chart|
-          .clear
-          .row
+        .row
+      
+            
+          -@charts.masters.each do |chart|
+
             .span4
-              %h2= chart.name
-            .span4
-              -if chart.thumbnail?
-                = link_to (image_tag chart.thumbnail :medium, :width => "100%"), chart
-              -else
-                
-            .span4.last
-              %p= button_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn'
-              %p= link_to 'Edit', edit_chart_path(chart), :class => 'btn'
-          
+              .well
+                .row
+                  .span4
+                    %h3=chart.name
+                  .span4
+                    Last updated
+                    =chart.updated_at.to_formatted_s :default
+                  .span4
+                    = link_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn', :style => 'float: left'
+                    = link_to 'Edit', edit_chart_path(chart), :class => 'btn'
           
 
+        .row
+          .span7
+            .alert
+              %h2 Chart Slaves
+              %h3 
+                Slaves are clones of Masters, but belong to Event. 
+                They have special rules that enforce the integrity 
+                of the ticket system. For example, once a ticket is 
+                sold against a Chart's Areas, those areas may not be changed.
+
+
+      -@charts.slaves.each do |chart|
+
+        .span4
+          .well
+            .row
+              .span4
+                %h3=chart.name
+                %strong Event:
+                =link_to chart.event.title, chart.event
+              .span4
+                Updated 
+                %strong= distance_of_time_in_words_to_now(chart.updated_at) + 'ago'
+              .span4
+                = link_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn', :style => 'float: left'
+                = link_to 'Edit', edit_chart_path(chart), :class => 'btn'

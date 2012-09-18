@@ -17,7 +17,7 @@ end
 
 group :test, :development do 
   gem 'sqlite3'
-  
+  gem 'railroady' # uml generation (http://railroady.prestonlee.com/)
   gem 'rspec-rails', "~> 2.6" 
   # gem 'cucumber'
   # gem "factory_girl_rails", "~> 3.0"
@@ -103,3 +103,4 @@ gem 'jquery-ui-rails'
 gem 'ckeditor'
 gem 'prawn'
 gem 'less'
+gem 'deep_cloneable'

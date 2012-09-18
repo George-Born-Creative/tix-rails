@@ -18,20 +18,31 @@
 #  thumbnail_file_size    :integer
 #  thumbnail_updated_at   :datetime
 #  svg_file_serialized    :text
+#  width                  :decimal(, )
+#  height                 :decimal(, )
+#  background_color       :string(255)
 #
 
 require 'open-uri'
 class Chart < ActiveRecord::Base
-  attr_accessible :label, :name, :background_image_url, :svg_file, :thumbnail,
-                  :width, :height
+  attr_accessible :label, :name, :svg_file, :thumbnail,
+                  :width, :height, :background_color
 
   alias_attribute :name, :label
   
+  before_save :set_default_background_color
+  DEFAULT_BACKGROUND_COLOR = '#000000'
   belongs_to :account
   has_many :sections, :dependent => :destroy
-  has_many :events
+  
+  has_one :event
   
   after_save :serialize_chart
+  
+  scope :masters, :conditions => { :master => true }
+  scope :slaves, :conditions => { :master => false }
+  
+  
   
   
   
@@ -81,6 +92,14 @@ class Chart < ActiveRecord::Base
     str
   end
   
+
+  
+  private
+  def set_default_background_color
+    if self.background_color.nil?
+      self.background_color = DEFAULT_BACKGROUND_COLOR
+    end
+  end
   
 end
 

@@ -1,10 +1,35 @@
-%h1 Tickets
 
-%table
-  %thead
-    %tr
-    %tr
-  -@tickets.each do |ticket|
-    %tr
-      %td=ticket.event.title
-      %td='$' + ticket.price.to_s
+.span12
+  %h1 Tickets
+  
+  %table.table.table-striped.table-bordered.table-hover{:width => "100%"}
+    %thead
+      %th Event
+      %th Seat
+      %th Section
+      %th Base
+      %th Service
+      %th Total
+      %th Section
+    %tbody
+      -@tickets.each do |ticket|
+        %tr
+          %td=link_to ticket.event.name, event_path(ticket.event)
+          %td=link_to( 'Seat', edit_chart_path(ticket.area.section.chart) + '/#/area/' + ticket.area.id.to_s ) if ticket.area
+          %td=link_to( ticket.area.section.label, edit_chart_path(ticket.area.section.chart) + '/#/section/' + ticket.area.section.id.to_s) if ticket.area
+          %td=number_to_currency ticket.base_price.to_s
+          %td=number_to_currency ticket.service_charge.to_s
+          %td=number_to_currency ticket.total_price.to_s
+          %td=link_to 'Show', ticket_path(ticket)
+      
+      
+      
+          -#        :event_id,
+          -#        :area_id,
+          -#        :seat_name,
+          -#        :section_name,
+          -#        :base_price,
+          -#        :service_charge,
+          -#        :status,
+          -#        :area_label,
+          -#        :section_label

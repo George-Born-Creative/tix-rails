@@ -14,14 +14,16 @@
 #
 
 class Order < ActiveRecord::Base
-  before_save :calc_and_save_totals
+  # before_save :calc_and_save_totals
   
-  attr_accessible :total, :service_charge, :tax
+  attr_accessible :total, :service_charge, :tax, :account, :user
   
   has_many :tickets
   belongs_to :user
   belongs_to :account
   
+  validates_presence_of :user
+  validates_presence_of :account
 
   def self.total
     self.all.each.reduce(0) do |memo, order|
@@ -36,15 +38,30 @@ class Order < ActiveRecord::Base
     end
   end
   
+  
+  def total_base_price
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.base_price}
+  end
+  
+  def total_service_charge
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.service_charge}
+  end
+  
+  def total
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total}
+  end
+  
   private
   
-  def calc_and_save_totals #before_savee
-    return unless self.tickets
-    total = 0.0
-    total = self.tickets.reduce(0) do |memo, ticket|
-      memo += ticket.price
-    end
-    self.total = total
-  end
+  # def calc_and_save_totals #before_savee
+  #   return unless self.tickets
+  #   total = 0.0
+  #   total = self.tickets.reduce(0) do |memo, ticket|
+  #     memo += ticket.price
+  #   end
+  #   self.total = total
+  # end
+  
+  
 
 end

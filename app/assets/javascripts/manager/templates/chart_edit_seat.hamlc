@@ -1,0 +1,12 @@
+.widget
+  .widget-header
+    %h3 Seat Setup
+  .widget-content
+
+    %label Seat ID
+    =@area.id
+    %label Seat Label
+    %input{:type => 'text', :value => @area.label, :data => {:type => 'field', :fieldname => 'label' }}
+
+    %label # Tickets for Seat
+    %input{:type => 'text', :value => @area.max_tickets, :data => {:type => 'field', :fieldname => 'max_tickets' }}

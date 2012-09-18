@@ -1,0 +1,57 @@
+.widget
+  .widget-header
+    %h3 Section Setup
+  .widget-content
+    .row
+      .span4
+        %h5 Section Name
+      .span3
+        %input{:type => "text", 'data-type' => 'field', 'data-fieldname' => 'label', :value => @section.label}
+      
+        %h5 Color
+      
+        .chart-section-colorpicker.input-append.color{"data-color" => @section.color, "data-color-format" => "hex"}
+          %input.span2{:readonly => "", :type => "text", :value => @section.color}
+            %span.add-on
+              %i{:style => "background-color: " + @section.color}
+        .clear
+  
+          
+        -_.each @section.prices, (price)->
+  
+  
+          %h5=price.label
+          .row
+            .span1
+              .input-prepend
+                / .add-on $
+                %input{:style => "width: 50px; float: left", :type => "text", :value => parseFloat(price.base).toFixed(2)}
+            .span1
+              .input-prepend
+                / .add-on $
+                %input{:style => "width: 50px; float: left", :type => "text", :value => parseFloat(price.service).toFixed(2)}
+          .clear
+      .clear
+      
+      
+-#.widget
+-#  .widget-header
+-#    %h3 Price groups
+-#  .widget-content
+-#    -if !@section.prices
+-#      %a.btn.btn
+-#        + Create a price group
+-#      .clear
+-#      .row
+-#        .span4
+-#          %input{:type => "text", :placeholder => 10.00}
+-#        .span1
+-#          .input-prepend
+-#            / .add-on $
+-#            %input{:style => "width: 50px; float: left", :type => "text", :value => 0.00}
+-#        .span1
+-#          .input-prepend
+-#            / .add-on $
+-#            %input{:style => "width: 50px; float: left", :type => "text", :value => 0.00}
+-#  
+  

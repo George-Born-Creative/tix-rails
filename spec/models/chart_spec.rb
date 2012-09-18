@@ -18,6 +18,9 @@
 #  thumbnail_file_size    :integer
 #  thumbnail_updated_at   :datetime
 #  svg_file_serialized    :text
+#  width                  :decimal(, )
+#  height                 :decimal(, )
+#  background_color       :string(255)
 #
 
 

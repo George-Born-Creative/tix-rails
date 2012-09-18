@@ -7,14 +7,19 @@
 // require bootstrap/jquery.flot.resize
 //= require ../lib/jquery.svg/jquery.svg.js
 //= require ../lib/jquery.svg/jquery.svgdom.js
+//= require raphael.min
 //= require underscore
 //= require backbone
 //= require backbone-support
+//= require hamlcoffee
 //= require bootstrap/bootstrap
 //= require bootstrap/base
 //= require ../lib/bootstrap/colorpicker/js/bootstrap-colorpicker
+//= require ../lib/bootstrap/datepicker/js/bootstrap-datepicker
+//= require ../lib/bootstrap/timepicker/js/bootstrap-timepicker
 // require bootstrap/charts/area
 // require bootstrap/charts/donut
+
 //= require dataTables/jquery.dataTables
 //= require ckeditor/init
 //= require_tree ./manager/templates

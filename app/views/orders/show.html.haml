@@ -1,0 +1,40 @@
+
+.span6.offset3
+  .well{:style => 'background-color: white'}
+    %h1
+      =' Order #' + @order.id.to_s
+      %p
+        placed by
+        =link_to @order.user.full_name, user_path(@order.user)
+        %strong=distance_of_time_in_words_to_now( @order.created_at, true)
+        ago
+    
+        %h2 Tickets
+        %table.table.table-striped
+          %thead
+            %th Ticket
+            %th Event
+            %th Section
+            %th Seat
+            %th Base Price
+            %th Service Price
+            %th Total Price
+      
+          -@order.tickets.each do |ticket|
+            %tr
+              %td=link_to 'View Ticket', ticket_path(ticket)
+              %td=link_to ticket.event.name, event_path(ticket.event)
+              %td=link_to ticket.area.section.label, event_path(ticket.event)
+              %td=link_to "#{ticket.area.label}", event_path(ticket.event)
+              %td=link_to number_to_currency ticket.base_price
+              %td=link_to number_to_currency ticket.service_charge
+              %td=link_to number_to_currency ticket.total_price
+          
+          %tfooter
+            %td
+            %td
+            %td
+            %td=number_to_currency @order.total_base_price
+            %td=number_to_currency @order.total_service_charge
+            %td=number_to_currency @order.total
+        

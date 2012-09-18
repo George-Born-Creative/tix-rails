@@ -1,93 +1,47 @@
-= simple_form_for @chart, :multipart => true do |f|
 
-  = f.error_notification
+
+
+
+
+.span6
 
 
   .row
-    .span10
-      = f.input :name, :input_html => {:class => 'input-lrg'}
-    .span2
-      = f.button :submit, :class => 'btn btn-large btn-primary'
+    .widget
+      .widget-header
+        %h3
+          Chart
+      .widget-content
+        #chart_container
+  
+    .clear
 
-
-        
-  .row
-    -# LEFT CONTROLS COLUMN
-    .span6
-      -times = ['Presale', 'Day Of']
-
+    -#THUMBNAIL
+    
+    
+.span6
+  .widget
+    .widget-header
+      %h3 Chart Properties
+    .widget-content
       .row
-        -@chart.sections.where('seatable = ?', true).each do |section|
-          .span3
-            .well
-              .span3
-                %input.input-large{:type => "text", :value => section.label} 
-              .span6.last
-                %form
-                  :plain
-
-                    <div class="chart-section-colorpicker input-append color" data-color="rgb(255, 146, 180)" data-color-format="rgb">
-                      <input type="text" class="span1" value="" readonly>
-                      <span class="add-on">
-                        <i style="background-color: rgb(255, 146, 180)"></i>
-                      </span>
-                    </div>
-                  .clear
-
-
-              .clear
-              -times.each do |time|
-                .span4
-                  %h5=time
-                  .row
-                    .span1
-                      .input-prepend
-                        /.add-on $
-                        %input{:type => 'text', :style => 'width: 50px; float: left', :value => '$10'}
-                    .span1
-                      .input-prepend
-                        /.add-on $
-                        %input{:type => 'text', :style => 'width: 50px; float: left', :value => '$3'}
-
-
-
-                    .clear
-              .clear
-              =link_to "#{section.areas.count} Seats »", '#'
-              .well
-              
-                -section.areas.each do |area|
-                  .row
-                    .span1
-                      -if area.type == "circle"
-                        %input.span1{:type => 'text', :disabled => 'disabled', :value => 1}
-                      -if area.type == "polygon"
-                        %input.span1{:type => 'text', :value => 100 }
-                    
-                    .span1
-                      %input.input-small{:type => "text", :placeholder => 'seat name'}
-             
-
+        #chart_properties
+  .row
     .span3
-
-
-      -if @chart.svg_file?
-        -# %embed{:src => @chart.svg_file, :type => "image/svg+xml"}
-        -if @chart.svg_file_serialized
-          =@chart.svg_file_serialized.html_safe
-        
-
-
-      -if @chart.thumbnail?
-        =image_tag @chart.thumbnail :medium
-      -else
-        =image_tag 'http://placehold.it/360x270'
-      
+      #col2
+        .widget
+          .widget-header
+            %h3 Step 1
+          .widget-content
+            Click on a seat to begin.
     .span3
-      
-        
-      =f.input :svg_file
-      =f.input :thumbnail
-      
+      #col3
+        &nbsp;
 
-  .clear
+
+
+
+
+  
+
+.clear

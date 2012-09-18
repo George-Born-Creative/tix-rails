@@ -16,26 +16,26 @@
 #  cy            :decimal(, )
 #  r             :decimal(, )
 #  width         :decimal(, )
-#  height        :string(255)
-#  decimal       :string(255)
+#  height        :decimal(, )
 #  transform     :string(255)
 #  points        :string(255)
+#  max_tickets   :integer          default(1), not null
 #
 
 class Area < ActiveRecord::Base
+  self.inheritance_column = :area_type
+  
   attr_accessible :x, :y, :polypath, :label, :stack_order,
                   :cx, :cy, :r, :width, :height, :points, :transform,
-                  :type#, :fill
+                  :type, :max_tickets #, :fill
   
   belongs_to :section
+  has_many :tickets
   
   validates_inclusion_of :type, :in => %w( circle rect polygon text )
+  # validates_presence_of :label
   
-  # has_many :tickets
-  
-  # :single :area :invalid
-  
-  self.inheritance_column = :area_type
+  private
 
     
 end

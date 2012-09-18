@@ -1,6 +1,6 @@
 !!!
 %html{:lang => "en"}
-  %head
+  %head    
     %meta{:charset => "utf-8"}
       %title Dashboard - Base Admin
       %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}
@@ -201,3 +201,5 @@
     :javascript
       $(function(){ TixMgr.init(); });
     
+    =yield :javascript
+      

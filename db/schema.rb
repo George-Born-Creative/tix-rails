@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906164703) do
+ActiveRecord::Schema.define(:version => 20120918012421) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120906164703) do
     t.decimal "height"
     t.string  "transform"
     t.string  "points"
+    t.integer "max_tickets",   :default => 1, :null => false
   end
 
   add_index "areas", ["section_id"], :name => "index_areas_on_section_id"
@@ -87,9 +88,9 @@ ActiveRecord::Schema.define(:version => 20120906164703) do
   create_table "charts", :force => true do |t|
     t.string   "name"
     t.string   "background_image_url"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.integer  "account_id",             :default => 0, :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "account_id",             :default => 0,     :null => false
     t.string   "label"
     t.string   "svg_file_file_name"
     t.string   "svg_file_content_type"
@@ -102,6 +103,8 @@ ActiveRecord::Schema.define(:version => 20120906164703) do
     t.text     "svg_file_serialized"
     t.decimal  "width"
     t.decimal  "height"
+    t.string   "background_color"
+    t.boolean  "master",                 :default => false
   end
 
   create_table "ckeditor_assets", :force => true do |t|
@@ -169,6 +172,10 @@ ActiveRecord::Schema.define(:version => 20120906164703) do
     t.string   "chart"
     t.integer  "artist_id_old"
     t.string   "cat"
+    t.datetime "announce_at"
+    t.datetime "on_sale_at"
+    t.datetime "off_sale_at"
+    t.datetime "remove_at"
   end
 
   create_table "orders", :force => true do |t|
@@ -209,6 +216,16 @@ ActiveRecord::Schema.define(:version => 20120906164703) do
 
   add_index "phones", ["number"], :name => "index_phones_on_number"
 
+  create_table "prices", :force => true do |t|
+    t.string   "label"
+    t.decimal  "base",       :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "service",    :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "tax",        :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.integer  "account_id"
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+  end
+
   create_table "sections", :force => true do |t|
     t.string   "label"
     t.decimal  "default_base_price",     :precision => 8, :scale => 2, :default => 0.0,   :null => false
@@ -217,6 +234,9 @@ ActiveRecord::Schema.define(:version => 20120906164703) do
     t.datetime "created_at",                                                              :null => false
     t.datetime "updated_at",                                                              :null => false
     t.boolean  "seatable",                                             :default => false, :null => false
+    t.string   "color"
+    t.integer  "dayof_price_id"
+    t.integer  "presale_price_id"
   end
 
   create_table "ticket_templates", :force => true do |t|

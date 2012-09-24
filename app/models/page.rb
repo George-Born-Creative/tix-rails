@@ -16,6 +16,7 @@ class Page < ActiveRecord::Base
   attr_accessible :body, :slug, :title
   belongs_to :account
   belongs_to :parent, :class_name => 'Page'
+  belongs_to :sidebar
   has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
   
   validates_uniqueness_of :slug, :scope => :account_id

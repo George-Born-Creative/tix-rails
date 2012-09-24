@@ -24,6 +24,10 @@
 #  chart                  :string(255)
 #  artist_id_old          :integer
 #  cat                    :string(255)
+#  announce_at            :datetime
+#  on_sale_at             :datetime
+#  off_sale_at            :datetime
+#  remove_at              :datetime
 #
 
 

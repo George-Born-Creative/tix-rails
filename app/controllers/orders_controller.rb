@@ -61,4 +61,13 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def tickets
+    @tickets = Order.find(params[:id]).tickets
+    
+    respond_to do |format|
+      format.html { }
+      format.json { }
+    end
+  end
 end

@@ -1,0 +1,37 @@
+!!!
+%html{:lang => "en"}
+  %head    
+    %meta{:charset => "utf-8"}
+      %title Checkin
+      %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}
+      %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}
+      / Le HTML5 shim, for IE6-8 support of HTML5 elements
+      /[if lt IE 9]
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      
+      :css
+        body {
+          color: white;
+          padding: 0;
+          margin: 0;
+        }
+        
+        .area {
+          width: 100%;
+          background-color: #111;
+          margin: 0;
+          padding: 400px 0;
+          text-align: center;
+        }
+        .area.ok {
+          background-color: green;
+        }
+        .area.error {
+          background-color: red;
+        }
+        
+        
+        
+  %body
+    .container  
+      =yield

@@ -8,7 +8,6 @@
 #  service    :decimal(8, 2)    default(0.0), not null
 #  tax        :decimal(8, 2)    default(0.0), not null
 #  account_id :integer
-#  section_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

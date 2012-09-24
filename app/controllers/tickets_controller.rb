@@ -60,4 +60,21 @@ class TicketsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def check_in
+    
+    @ticket = Ticket.find(params[:id])
+    
+    @success = @ticket.check_in!
+    
+    respond_to do |format|
+      if @success
+        format.html { render :layout => 'checkin' }
+        format.json { }
+      else
+        format.html { render :layout => 'checkin'}
+        format.json { }
+      end
+    end
+  end
 end

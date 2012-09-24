@@ -1,40 +1,53 @@
-
-.span6.offset3
+.span7.offset2
   .well{:style => 'background-color: white'}
-    %h1
-      =' Order #' + @order.id.to_s
-      %p
-        placed by
-        =link_to @order.user.full_name, user_path(@order.user)
-        %strong=distance_of_time_in_words_to_now( @order.created_at, true)
-        ago
+  
+    %h1=' Order #' + @order.id.to_s
+    %p
+      placed by
+      =link_to @order.user.full_name, user_path(@order.user)
+      %strong=distance_of_time_in_words_to_now( @order.created_at, true)
+      ago
+
+    %hr/
     
+    .row
+      .span1
         %h2 Tickets
-        %table.table.table-striped
-          %thead
-            %th Ticket
-            %th Event
-            %th Section
-            %th Seat
-            %th Base Price
-            %th Service Price
-            %th Total Price
+      .span2.offset1{:style => 'position: relative; float: right'}
+        =link_to 'Tickets<i class="icon icon-tags"></i>'.html_safe, "/manager/orders/#{@order.id}/tickets", :class => 'btn btn-large'
       
-          -@order.tickets.each do |ticket|
-            %tr
-              %td=link_to 'View Ticket', ticket_path(ticket)
-              %td=link_to ticket.event.name, event_path(ticket.event)
-              %td=link_to ticket.area.section.label, event_path(ticket.event)
-              %td=link_to "#{ticket.area.label}", event_path(ticket.event)
-              %td=link_to number_to_currency ticket.base_price
-              %td=link_to number_to_currency ticket.service_charge
-              %td=link_to number_to_currency ticket.total_price
-          
-          %tfooter
-            %td
-            %td
-            %td
-            %td=number_to_currency @order.total_base_price
-            %td=number_to_currency @order.total_service_charge
-            %td=number_to_currency @order.total
-        
+    %hr/
+    
+    %table.table.table-striped
+      %thead
+        %th Event
+        %th Section
+        %th Seat
+        %th Base Price
+        %th Service Price
+        %th Total Price
+        %th Checked In
+  
+      -@order.tickets.each do |ticket|
+        %tr
+          %td=link_to ticket.event.name, event_path(ticket.event)
+          %td=link_to ticket.area.section.label, event_path(ticket.event)
+          %td=link_to "#{ticket.area.label}", event_path(ticket.event)
+          %td=link_to number_to_currency ticket.base_price
+          %td=link_to number_to_currency ticket.service_charge
+          %td=link_to number_to_currency ticket.total_price
+          %td
+            %a{:href => ticket_path(ticket) + '/checkin'}
+              -if ticket.checked_in
+                %i.icon-ok
+              -else
+                %i.icon-remove
+      
+      %tfooter
+        %td
+        %td
+        %td
+        %td=number_to_currency @order.total_base_price
+        %td=number_to_currency @order.total_service_charge
+        %td=number_to_currency @order.total
+        %td= "#{@order.tickets.checked_in.count} / #{@order.tickets.count}"

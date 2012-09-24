@@ -1,0 +1,9 @@
+-if @success
+  .area.ok
+    %h1.response Checked In
+-else
+  .area.error
+    %h1.response Error
+    %p 
+      Ticket already checked in at 
+      =@ticket.checked_in_at

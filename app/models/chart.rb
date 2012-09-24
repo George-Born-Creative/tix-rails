@@ -21,6 +21,7 @@
 #  width                  :decimal(, )
 #  height                 :decimal(, )
 #  background_color       :string(255)
+#  master                 :boolean          default(FALSE)
 #
 
 require 'open-uri'

@@ -18,6 +18,7 @@ class Order < ActiveRecord::Base
   
   attr_accessible :total, :service_charge, :tax, :account, :user
   
+  
   has_many :tickets
   belongs_to :user
   belongs_to :account

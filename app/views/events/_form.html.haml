@@ -9,11 +9,11 @@
         #big_stats.cf
           .stat
             %h4 Total Tickets Sold
-            %span.value 150
+            %span.value=@event.tickets.count
 
           .stat
-            %h4 Sold Tickets Not Yet Checked in
-            %span.value= 150-15
+            %h4 Sold Tickets Checked in
+            %span.value=@event.tickets.checked_in.count
 
           .stat
             %h4 Min Ticket Price

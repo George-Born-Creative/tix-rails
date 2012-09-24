@@ -1,3 +1,14 @@
+-#  state          :string(255)      default("open"), not null
+-#  event_id       :integer
+-#  area_id        :integer
+-#  created_at     :datetime         not null
+-#  updated_at     :datetime         not null
+-#  order_id       :integer
+-#  account_id     :integer          default(0), not null
+-#  base_price     :decimal(, )
+-#  service_charge :decimal(, )
+-#  area_label     :string(255)
+-#  section_label  :string(255)
 
 .span12
   %h1 Tickets
@@ -11,6 +22,7 @@
       %th Service
       %th Total
       %th Section
+      
     %tbody
       -@tickets.each do |ticket|
         %tr
@@ -21,6 +33,8 @@
           %td=number_to_currency ticket.service_charge.to_s
           %td=number_to_currency ticket.total_price.to_s
           %td=link_to 'Show', ticket_path(ticket)
+      
+      
       
       
       

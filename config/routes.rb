@@ -1,9 +1,17 @@
 Tix::Application.routes.draw do
 
 
+  resources :widget_placements
+
+  resources :sidebars
+
+  resources :widgets
+
   devise_for :users
 
   root :to => "main#index"
+  resources :tickets
+  get '/tickets/:id/checkin' => 'tickets#check_in'
   
   
   scope '/manager' do
@@ -15,11 +23,11 @@ Tix::Application.routes.draw do
     resources :events
     resources :artists
     resources :orders
+    get '/orders/:id/tickets' => 'orders#tickets'
     resources :charts
     post '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'
     
     resources :accounts
-    resources :tickets
     resources :ticket_templates
     resources :newsletters
     resources :pages

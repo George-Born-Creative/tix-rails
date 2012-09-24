@@ -21,6 +21,10 @@ class Ticket < ActiveRecord::Base
   
   TICKET_TIME_OUT = 5.minutes
   
+  
+  delegate :user, :to => :order
+  
+  
   belongs_to :event
   belongs_to :area
   belongs_to :order
@@ -35,16 +39,23 @@ class Ticket < ActiveRecord::Base
                   :service_charge,
                   :status,
                   :area_label,
-                  :section_label
+                  :section_label,
+                  :checked_in,
+                  :checked_in_at
   
   
   validates_presence_of :event
   validates_presence_of :order
   validates_presence_of :area
   
+  
   alias_attribute :total, :total_price
 
   before_save :save_price
+  
+  scope :checked_in, lambda {{
+    :conditions => ['checked_in = ?', true]
+  }}
   
   def save_price
     self.price = self.area.section.current_price
@@ -57,6 +68,26 @@ class Ticket < ActiveRecord::Base
     self.base_price + self.service_charge
   end
   
-
+  def check_in! # Ticket.find(1).check_in    
+    if self.checked_in?
+      return false
+    else
+      if save_checkin
+        return true
+      else
+        return false
+      end
+    end
+  end
+  
+  def checked_in?
+   self.checked_in
+  end
+  
+  private
+  
+  def save_checkin
+    self.update_attributes(:checked_in => true, :checked_in_at => Time.now )
+  end
   
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918012421) do
+ActiveRecord::Schema.define(:version => 20120923143637) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20120918012421) do
     t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.decimal  "sidebar_id"
   end
 
   create_table "phones", :force => true do |t|
@@ -239,6 +240,14 @@ ActiveRecord::Schema.define(:version => 20120918012421) do
     t.integer  "presale_price_id"
   end
 
+  create_table "sidebars", :force => true do |t|
+    t.string   "slug"
+    t.string   "title"
+    t.integer  "account_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "ticket_templates", :force => true do |t|
     t.string   "label"
     t.string   "meta"
@@ -265,6 +274,9 @@ ActiveRecord::Schema.define(:version => 20120918012421) do
     t.decimal  "service_charge"
     t.string   "area_label"
     t.string   "section_label"
+    t.boolean  "checked_in",     :default => false,  :null => false
+    t.datetime "checked_in_at"
+    t.string   "status"
   end
 
   add_index "tickets", ["state"], :name => "index_tickets_on_state"
@@ -297,5 +309,23 @@ ActiveRecord::Schema.define(:version => 20120918012421) do
   add_index "users", ["last_name"], :name => "index_users_on_last_name"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role"], :name => "index_users_on_role"
+
+  create_table "widget_placements", :force => true do |t|
+    t.integer  "sidebar_id"
+    t.integer  "widget_id"
+    t.integer  "account_id"
+    t.integer  "index"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "widgets", :force => true do |t|
+    t.string   "slug"
+    t.string   "title"
+    t.integer  "account_id"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

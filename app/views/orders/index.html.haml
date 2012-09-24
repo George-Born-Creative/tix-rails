@@ -1,62 +1,64 @@
-%h1 Orders
 
 
-.row
-  .span12
-    .widget.big-stats-container
-      .widget-content
-        #big_stats.cf
-          .stat
-            %h4 Number of Orders
-            %span.value=@current_account.orders.count
+-# .row
+-#   .span12
+-#     .widget.big-stats-container
+-#       .widget-content
+-#         #big_stats.cf
+-#           .stat
+-#             %h4 Number of Orders
+-#             %span.value=@current_account.orders.count
+-# 
+-#           .stat
+-#             %h4 # Orders
+-#             %span.value=@orders.count
+-# 
+-#           .stat
+-#             %h4 Number of tickets sold
+-#             %span.value=@orders.count
+-# 
+-#           .stat
+-#             %h4 Average Order Size
+-#             %span.value=@orders.count
 
-          .stat
-            %h4 # Orders
-            %span.value=@orders.count
+.span8.offset1
+  
 
-          .stat
-            %h4 Number of tickets sold
-            %span.value=@orders.count
+  .clear{:style => 'height: 30px'}
+  %h1 Orders
+  %hr/
 
-          .stat
-            %h4 Average Order Size
-            %span.value=@orders.count
-    
+  .widget.widget-table.action-table
+    %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
 
-.clear{:style => 'height: 30px'}
-
-.widget.widget-table.action-table
-  %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
-
-    %thead
-      %th ID
-      %th Created
-      %th Total
-      %th Customer
-      %th Num tickets
+      %thead
+        %th ID
+        %th Created
+        %th Total
+        %th Customer
+        %th Num tickets
 
 
 
-
-    -@orders.each do |order|
-      %tr
-        %td='#' + order.id.to_s
-        %td=order.created_at.to_s :short_ordinal
+      -@orders.each do |order|
+        %tr
+          %td='#' + order.id.to_s
+          %td=order.created_at.to_s :short_ordinal
       
-        %td= number_to_currency( order.total)
-        %td= order.user.full_name
-        %td= order.tickets.count
-        %td
-          %ul
-            -order.tickets.each do |ticket|
-              %li.small=ticket.area.label_section
+          %td= number_to_currency( order.total)
+          %td= order.user.full_name
+          %td= order.tickets.count
+          %td
+            %ul
+              -order.tickets.each do |ticket|
+                %li.small=ticket.area.section.label
       
     
-        %td
-          %a.button.small Refund »
+          %td
+            %a.btn.btn-large.button.small Refund »
         
-        %td
-          %a.button.small{:href => order_path(order)} View
+          %td
+            %a.btn.btn-primary.btn-large{:href => order_path(order)} View
         
         
 

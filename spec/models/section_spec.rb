@@ -11,6 +11,8 @@
 #  updated_at             :datetime         not null
 #  seatable               :boolean          default(FALSE), not null
 #  color                  :string(255)
+#  dayof_price_id         :integer
+#  presale_price_id       :integer
 #
 
 require 'spec_helper'

@@ -1,0 +1,2 @@
+module WidgetPlacementsHelper
+end

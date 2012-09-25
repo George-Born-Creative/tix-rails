@@ -1,0 +1,19 @@
+-content_for :content do
+  =render :file => 'shared/_cms_shortcuts'
+  -if content_for? :listing
+    .row
+      .span9.offset2
+        =yield :listing
+        
+  -if content_for? :narrow
+    .row
+      .span9.offset2
+        .well
+          =yield :narrow
+  -if content_for? :centered_sidebar
+    .row
+      .span3.offset4
+        .well
+          =yield :centered_sidebar
+  =yield
+=render :template => 'layouts/manager'

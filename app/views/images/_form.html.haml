@@ -1,0 +1,24 @@
+
+.row
+  .span5
+    =image_tag( @image.file(:original), :style => 'float: right' )
+  .span7
+    = simple_form_for(@image) do |f|
+      = f.error_notification
+
+      .form-inputs
+        = f.input :title
+        = f.input :caption
+        = f.input :file
+        = f.input :tag_list, :input_html => {"data-pre" => @image.tags_hash.to_json}
+      .form-actions
+        = f.button :submit
+ 
+    
+
+=content_for :javascript do
+  :javascript
+    $(function(){
+      new TixMgr.Routers.ImagesRouter()
+      Backbone.history.start()
+    });

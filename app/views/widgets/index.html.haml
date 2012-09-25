@@ -1,0 +1,27 @@
+-content_for :listing do
+  %h1 Widgets
+
+  %table.table
+    %tr
+      %th Slug
+      %th Title
+      %th
+      %th
+      %th
+
+    - @widgets.each do |widget|
+      %tr
+        %td
+        %td= widget.title 
+        %td= link_to 'Show', widget, :class => 'btn btn-info'
+        %td= link_to 'Edit', edit_widget_path(widget), :class => 'btn btn-success'
+        %td= link_to 'Destroy', widget, :confirm => 'Are you sure?', :method => :delete, :class => 'btn-danger btn'
+
+  %br
+
+  = link_to 'New Widget', new_widget_path, :class => 'btn btn-primary btn-large'
+
+
+-#######
+
+

@@ -7,6 +7,7 @@
 // require bootstrap/jquery.flot.resize
 //= require ../lib/jquery.svg/jquery.svg.js
 //= require ../lib/jquery.svg/jquery.svgdom.js
+//= require ../lib/tokeninput/src/jquery.tokeninput.js
 //= require raphael.min
 //= require underscore
 //= require backbone

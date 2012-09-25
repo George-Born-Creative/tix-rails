@@ -66,3 +66,7 @@
                 -else
                   =link_to 'Checkin »', "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin", :target => '_blank'
 
+
+  -if show_artwork == true
+    =image_tag TicketTemplate.random.file, :width => "100%"
+

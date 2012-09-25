@@ -1,0 +1,24 @@
+-content_for :listing do
+  %h1 Sidebars
+
+  %table.table
+    %tr
+      %th Title
+      %th Slug
+      %th # Widgets
+      %th
+      %th
+      %th
+
+
+    - @sidebars.each do |sidebar|
+      %tr
+        %td= sidebar.title
+        %td= sidebar.slug
+        %td= sidebar.widgets.count
+        %td= link_to 'Show', sidebar, :class => 'btn btn-info'
+        %td= link_to 'Edit', edit_sidebar_path(sidebar), :class => 'btn btn-success'
+        %td= link_to 'Destroy', sidebar, :confirm => 'Are you sure?', :method => :delete, :class => 'btn-danger btn'
+
+  %br
+

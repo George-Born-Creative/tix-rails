@@ -1,23 +1,24 @@
-%h1 Listing pages
+-content_for :listing do
+  %h1 Pages
 
-%table
-  %tr
-    %th Slug
-    %th Title
-    %th Body
-    %th
-    %th
-    %th
-
-  - @pages.each do |page|
+  %table.table
     %tr
-      %td= page.slug
-      %td= page.title
-      %td= page.body
-      %td= link_to 'Show', page
-      %td= link_to 'Edit', edit_page_path(page)
-      %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
+      %th Slug
+      %th Title
+      %th Body
+      %th Sidebar
+      %th
+      %th
 
-%br
+    - @pages.each do |page|
+      %tr
+        %td= page.slug
+        %td= page.title
+        %td= truncate( strip_tags(page.body) )
+        %td= page.sidebar.title if page.sidebar
+  
+        %td= link_to 'Show', page, :class => 'btn btn-info'
+        %td= link_to 'Edit', edit_page_path(page), :class => 'btn btn-success'
+        %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :class => 'btn btn-danger', :method => :delete
 
-= link_to 'New Page', new_page_path
+  %br

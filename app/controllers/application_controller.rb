@@ -31,6 +31,19 @@ class ApplicationController < ActionController::Base
     end  
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+  
+  #if ENV['RAILS_ENV'] == 'development'
+  #  render :text => E
+  #end
+  
+  #private
+
+  #def render_404
+  #  render :template => 'error_pages/404', :layout => "application", :status => :not_found
+  #end
 
 
 end

@@ -15,7 +15,7 @@ $background: url(/images/jj-bg.jpg)
 // $logo: url(http://jamminjava.s3.amazonaws.com/images/logos/logo_gray.png)
 // $background: url()
 
-$background: url()
+//$background: url()
 
 
 @mixin red-button
@@ -81,10 +81,14 @@ h1, h2, h3, h4, h5
   font-weight: normal
   letter-spacing: -1px
   text-transform: uppercase
-  
+
+#wrap
+  background-color: transparentize($omega, .3)
+  max-width: 1000px
+  margin: 0 auto
   
 .container
-  background-color: transparentize($omega, .3)
+  //background-color: transparentize($omega, .3)
   
 #header
   
@@ -105,7 +109,7 @@ h1, h2, h3, h4, h5
   border-bottom: 1px solid #333
   display: none
   
-#wrap
+#svg_wrap
   background:
     color: transparentize($alpha, .5)
     repeat: no-repeat

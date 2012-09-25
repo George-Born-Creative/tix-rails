@@ -1,0 +1,6 @@
+-content_for :centered_sidebar do
+  %h1=@widget.title
+
+  =@widget.body.html_safe
+
+  =link_to 'Edit', edit_widget_path(@widget)

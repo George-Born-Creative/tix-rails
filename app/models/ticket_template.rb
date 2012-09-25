@@ -37,5 +37,11 @@ class TicketTemplate < ActiveRecord::Base
   Paperclip.interpolates :account_subdomain do |attachment, style|
     attachment.instance.account.subdomain
   end
+
+  def self.random
+    offset = rand(TicketTemplate.count)
+    rand_record = TicketTemplate.first(:offset => offset)
+  end
+    
   
 end

@@ -1,0 +1,40 @@
+.row
+  .span8
+    .widget
+      .widget-header
+        %h3 Image Library
+      .widget-content
+        .row
+          .span4
+            = link_to 'New Image', new_image_path, :class => 'btn btn-primary'
+          .span3
+            %input{:type=>"text", :placeholder=>"Search Image Library  by Tag or Title"}
+        %hr/
+        .row{:style => 'text-align: center'}
+          -@images.each do |image|
+            .span2
+              =link_to( image_tag(image.file(:medium), :width => "100%", :class => 'img-circle'), edit_image_path(image) )
+              -#%ul
+              -#  =link_to( image_tag(image.file(:medium), :width => "100%", :class => 'img-circle'), edit_image_path(image) )
+              -#  %li=link_to 'sh', image
+              -#  %li=link_to 'ed', edit_image_path(image)
+              -#  %li=link_to 'x', image, :confirm => 'Are you sure?', :method => :delete
+
+        %br
+
+  .span4
+    .widget-header
+      %h3 Homepage Carousel
+    .widget-content
+     
+      .well
+        Drag images from library here
+        %br/
+        %i.icon-plus
+
+=content_for :javascript do
+  :javascript
+    $(function(){
+      new TixMgr.Routers.ImagesRouter()
+      Backbone.history.start()
+    });

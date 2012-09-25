@@ -1,0 +1,11 @@
+-content_for :layout do 
+  .row
+    .span3
+      .layout-sidebar
+        =yield :sidebar
+    .span9
+      .layout-content
+        =yield :content
+
+    
+=render :template => 'layouts/application'

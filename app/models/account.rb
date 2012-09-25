@@ -17,7 +17,9 @@ class Account < ActiveRecord::Base
   has_many :orders, :dependent => :destroy
   has_many :pages, :dependent => :destroy
   has_many :charts, :dependent => :destroy
-  
+  has_many :sidebars, :dependent => :destroy  
+  has_many :images, :dependent => :destroy  
+  has_many :widgets, :dependent => :destroy
   has_many :ticket_templates, :dependent => :destroy
   has_many :customer_imports, :dependent => :destroy
   

@@ -82,11 +82,17 @@
                 %i.icon-facetime-video
                 %span Orders
    
-        
             %li
               %a{:href => "/manager/newsletters"}
                 %i.icon-facetime-video
                 %span Newsletters
+                
+                
+   
+            %li
+              %a{:href => "/manager/pages"}
+                %i.icon-facetime-video
+                %span Content
                 
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:;"}
@@ -111,14 +117,14 @@
     .main
       .main-inner
         .container
+        
           -if flash[:error]
             .alert.alert-block.alert-error.fade.in=flash[:error]
           -if flash[:notice]
             .alert.alert-block.fade.in=flash[:notice]
-            
-          =yield
-            
-          
+      
+          //=content_for?(:layout) ?  : yield
+          =content_for?(:content) ? yield(:content) : yield
           / /row
         / /container
       / /main-inner

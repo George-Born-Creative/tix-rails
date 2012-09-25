@@ -17,7 +17,7 @@ end
 
 group :test, :development do 
   gem 'sqlite3'
-  gem 'railroady' # uml generation (http://railroady.prestonlee.com/)
+  gem 'railroady' # uml generation (http://railroady.prestonlee.com/) #rake diagram:all
   gem 'rspec-rails', "~> 2.6" 
   # gem 'cucumber'
   # gem "factory_girl_rails", "~> 3.0"
@@ -53,7 +53,7 @@ gem 'compass-rails'
 gem 'simple_form'
 gem 'phone', :git => 'https://github.com/carr/phone.git'
 # gem 'country_select'
-
+gem 'acts-as-taggable-on', '~> 2.3.1'
 # messaging
 gem 'pusher'
 

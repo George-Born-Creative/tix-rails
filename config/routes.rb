@@ -1,15 +1,11 @@
 Tix::Application.routes.draw do
 
-
-  resources :widget_placements
-
-  resources :sidebars
-
-  resources :widgets
-
   devise_for :users
 
-  root :to => "main#index"
+  root :to => "cms#index"
+  
+  match '/page/:slug', :controller => :cms, :action => :index
+  
   resources :tickets
   get '/tickets/:id/checkin' => 'tickets#check_in'
   
@@ -22,11 +18,13 @@ Tix::Application.routes.draw do
     resources :users
     resources :events
     resources :artists
+    
     resources :orders
     get '/orders/:id/tickets' => 'orders#tickets'
+    
     resources :charts
     post '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'
-    
+
     resources :accounts
     resources :ticket_templates
     resources :newsletters
@@ -36,10 +34,21 @@ Tix::Application.routes.draw do
     resources :sections
     resources :areas
     
+    resources :sidebars
+    resources :widgets
+    resources :widget_placements
+    resources :sidebars
+    resources :widgets
+    get "/images/tags" => "images#tags", :as => :tags
+    resources :images
+    
     
     get '/customers' => 'users#index'
-    get '/newsletter' => 'newsletter#index'    
+    get '/newsletter' => 'newsletter#index'  
+    
+    # and finally,
     match '/:action', :controller => :manager
+
   end
 
   scope '/api' do
@@ -54,7 +63,6 @@ Tix::Application.routes.draw do
     post '/ticket_locks.json/new' => "ticket_locks#new"
     post '/ticket_locks.json/delete' => "ticket_locks#destroy"
   end
-  
   
   
   scope '/admin' do

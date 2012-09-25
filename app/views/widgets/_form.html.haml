@@ -1,0 +1,23 @@
+
+= simple_form_for(@widget) do |f|
+  = f.error_notification
+  .row
+    .span4
+      .form-inputs
+        = f.input :body, :as => :ckeditor, :input_html => {:toolbar => 'Easy'}
+    .span4
+    
+      .form-actions
+        = f.input :title
+        =# f.association :sidebars, :as => :check_boxes
+        =#"<br/>#{@widget.sidebars.count} of #{Sidebar.count} sidebars".html_safe
+
+        <br/>
+        = f.button :submit, :class => 'btn btn-large btn-primary'
+
+
+        -if @sidebars
+          -@sidebars.each do |sidebar|
+            =link_to 'Edit', edit_sidebar_path(sidebar)
+          
+

@@ -3,13 +3,26 @@ class CmsController < ApplicationController
   layout 'sidebar_left'
   
   def index
-    if params[:slug].nil?
+    layout = params[:layout] == 'r' ? 'sidebar_right' : 'sidebar_left'
+    
+    case params[:slug]
+    when nil
       @page = @current_account.pages.find_by_slug('home')
+      render :layout => layout
+      
+    when "calendar"
+      @events = @current_account.events.announced.all#.select('title, starts_at, id, headliner_id, announce_at')
+      render :template => 'shared/calendar', :layout => layout
+      
     else
       @page = @current_account.pages.find_by_slug(params[:slug])#  || not_found
+      render :layout => layout
     end
     
+    
   end
+  
+  
   
   
 end

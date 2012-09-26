@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   respond_to :html, :json
   # GET /users
   # GET /users.json

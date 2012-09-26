@@ -1,0 +1,50 @@
+.row
+  .span3
+    %h1 Calendar
+  .span4
+    <br/>
+    %h2
+      
+      =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-grid-view'
+      =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-list-view'
+
+#artists-list-view.artists-view
+  -@events.each do |event|
+    .row
+      .span3
+        -if (event.headliner && event.headliner.photo?)
+          =image_tag(event.headliner.photo(:medium), :width => '100%') 
+        -else
+          =image_tag('http://placehold.it/300x230', :width => '100%') 
+          
+      .span3.offset1
+        %h3=event.name
+        %h4=event.headliner.name if event.headliner
+        %h5=event.starts_at.to_formatted_s
+      .span3
+        %button{:href => 'buy tix'} Buy Tix
+
+#artists-grid-view.artists-view.hide
+  -@events.in_groups_of(3, false) do |events|
+    .row
+      -events.each do |event|
+        .span4{:style => 'margin-bottom: -130px;'}
+          -if event.headliner
+            =image_tag(event.headliner.photo, :width => '100%') 
+          -else
+            =image_tag('http://placehold.it/300x230', :width => '100%') 
+          .well{:style => 'position: relative; background: rgba(0,0,0,.6); height: 100px; bottom: 130px; '}
+            %h3=event.name
+            %h4=event.headliner.name if event.headliner
+            %h5=event.starts_at.to_formatted_s
+        
+-content_for :javascript do
+  :coffeescript
+    $ ->
+      $('.hide-other').click ->
+        klass = $(this).data('class')
+        target = $(this).data('target')
+        
+        $(klass).hide()
+        $(target).show()
+  

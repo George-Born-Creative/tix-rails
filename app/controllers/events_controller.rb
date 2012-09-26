@@ -25,7 +25,8 @@ class EventsController < ApplicationController
   def show
     @event = @current_account.events.find(params[:id])
 
-    respond_with @event
+    # respond_with @event
+    render :layout => 'manager'
   end
 
   # GET /events/new
@@ -42,6 +43,9 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = @current_account.events.find(params[:id])
+    respond_to do |format|
+      format.html { render :layout => 'manager'}
+    end
   end
 
   # POST /events

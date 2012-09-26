@@ -1,7 +1,8 @@
-%h1 Editing sidebar
+-content_for :narrow do
+  %h1 Editing sidebar
 
-= render 'form'
+  = render 'form'
 
-= link_to 'Show', @sidebar
-\|
-= link_to 'Back', sidebars_path
+  = link_to 'Show', @sidebar
+  \|
+  = link_to 'Back', sidebars_path

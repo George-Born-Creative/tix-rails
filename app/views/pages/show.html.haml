@@ -1,15 +1,1 @@
--content_for :content do
-  %h1= @page.title
-
-
-  %p#notice= notice
-  =@page.body.html_safe
-    
-  = link_to 'Edit', edit_page_path(@page), :class => 'btn'
-  = link_to 'All Pages', pages_path, :class => 'btn'
-
--content_for :sidebar do
-  %h3=@page.sidebar.title
-  =@page.sidebar.body
-
-
+=render :template => 'cms/index', :object => @page

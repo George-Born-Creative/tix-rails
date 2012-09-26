@@ -1,5 +1,5 @@
 class EventDatatable
-  delegate :params, :h, :link_to, :image_tag, :number_to_currency, :edit_event_url, to: :@view
+  delegate :params, :h, :link_to, :image_tag, :number_to_currency, :edit_event_url,  to: :@view
 
   def initialize(view, current_account_id)
     @view = view

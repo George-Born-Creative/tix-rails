@@ -7,6 +7,8 @@ Tix::Application.routes.draw do
   match '/page/:slug', :controller => :cms, :action => :index
   
   resources :tickets
+  resources :events
+  
   get '/tickets/:id/checkin' => 'tickets#check_in'
   
   
@@ -16,7 +18,7 @@ Tix::Application.routes.draw do
     resources :customer_imports
     
     resources :users
-    resources :events
+    resources :events, :as => 'manager_events'
     resources :artists
     
     resources :orders

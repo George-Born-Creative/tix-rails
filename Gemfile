@@ -7,7 +7,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'haml_coffee_assets', '~> 1.1.3'
   gem 'execjs'
-  gem 'therubyracer', :platform => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -18,6 +17,7 @@ end
 
 group :test, :development do 
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+  # gem 'therubyracer', :platform => :ruby
   
   gem 'sqlite3'
   gem 'railroady' # uml generation (http://railroady.prestonlee.com/) #rake diagram:all
@@ -33,6 +33,9 @@ group :test, :development do
   gem 'resque_spec'
   
 end
+
+
+
 
 # environment
 gem 'thin'
@@ -81,7 +84,7 @@ gem 'state_machine', :require => 'state_machine'
 gem 'paperclip', :require => 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'aws-s3'
-gem 'coffee-filter'
+# gem 'coffee-filter'
 
 # seed 
 # gem 'forgery' 

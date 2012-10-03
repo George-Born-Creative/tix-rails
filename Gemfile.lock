@@ -4,15 +4,6 @@ GIT
   specs:
     phone (1.0)
 
-GIT
-  remote: https://github.com/hunterae/table-for.git
-  revision: 1b4ab6bcaae7f933c972e18d1f05742b4fa787bf
-  specs:
-    table-for (1.2.1)
-      building-blocks (>= 1.2.3)
-      rails (>= 3.0.0)
-      table-for
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -66,9 +57,6 @@ GEM
     backbone-support (0.3.0)
     bcrypt-ruby (3.0.1)
     builder (3.0.3)
-    building-blocks (1.2.3)
-      building-blocks
-      rails (>= 3.0.0)
     chunky_png (1.2.6)
     ckeditor (3.7.3)
       mime-types
@@ -347,7 +335,6 @@ DEPENDENCIES
   squeel
   stamp
   state_machine
-  table-for!
   therubyracer
   thin
   uglifier (>= 1.0.3)

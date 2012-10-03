@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     if request.fullpath.slice(0,8) == '/manager'
       if (! user_signed_in? )
-        raise 'Must sign in first'
+        redirect_to new_user_session_path, :alert => 'Please sign in first '
       elsif !(current_user.has_at_least_role(:employee))
         redirect_to '/', :notice => 'Insufficient role '
       else

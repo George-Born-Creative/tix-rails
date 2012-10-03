@@ -19,3 +19,4 @@
 *.rdb
 .env
 dump.rdb
+deploy.sh

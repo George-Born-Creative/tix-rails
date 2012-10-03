@@ -1,72 +1,73 @@
-.span12
-  .well{:style => 'background-color: white;'}
+.ticket
+  .span12
+    .well{:style => 'background-color: white;'}
   
-    .row
-      .span6
-        .row
-          .span2
-            %h3 Event
-          .span4
-            %h2=ticket.event.name
+      .row
+        .span6
+          .row
+            .span2
+              %h3 Event
+            .span4
+              %h2=ticket.event.name
             
-        .row
-          %hr
-          .span2
-            %h3 Date
-          .span4            
-            =ticket.event.starts_at.to_formatted_s
+          .row
+            %hr
+            .span2
+              %h3 Date
+            .span4            
+              =ticket.event.starts_at.to_formatted_s
 
-        .row
-          %hr
-          .span2
-            %h3 Customer
-          .span4         
-            %h1=ticket.order.user.full_name
-
-
-
-
-        %hr/
-        .row
-          .span2
-            %h3 Order Info
-          .span4
-            Ordered by
-            %strong=ticket.user.full_name
-            at
-            %strong=ticket.created_at.to_formatted_s
-            <br/>
-            ="Order ##{ticket.order.id}"
+          .row
+            %hr
+            .span2
+              %h3 Customer
+            .span4         
+              %h1=ticket.order.user.full_name
 
 
 
-      .span4
-        .well{:style => 'background-color: black'}
-          =image_tag( '/images/jj-logo.png', :width => 250)
+
+          %hr/
+          .row
+            .span2
+              %h3 Order Info
+            .span4
+              Ordered by
+              %strong=ticket.user.full_name
+              at
+              %strong=ticket.created_at.to_formatted_s
+              <br/>
+              ="Order ##{ticket.order.id}"
+
+
+
+        .span4
+          .well{:style => 'background-color: black'}
+            =image_tag( '/images/jj-logo.png', :width => 250)
 
           
 
-        .row
-          .span8
-            .row
-              .span2
-                SECTION
-                %h2=ticket.area.label
-                SEAT
-                %h3=ticket.area.section.label
-                Admit
-                %h1 1
+          .row
+            .span8
+              .row
+                .span2
+                  SECTION
+                  %h2=ticket.area.label
+                  SEAT
+                  %h3=ticket.area.section.label
+                  Admit
+                  %h1 1
 
                 
-              .span2
-                =image_tag qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 150
+                .span2
+                  =image_tag qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 150
                 
-                -if ticket.checked_in?
-                  Checked in
-                -else
-                  =link_to 'Checkin »', "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin", :target => '_blank'
+                  -if ticket.checked_in?
+                    Checked in
+                  -else
+                    =link_to 'Checkin »', "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin", :target => '_blank'
 
 
-  -if show_artwork == true
-    =image_tag TicketTemplate.random.file, :width => "100%"
+    -if show_artwork == true
+      =image_tag TicketTemplate.random.file, :width => "100%"
 

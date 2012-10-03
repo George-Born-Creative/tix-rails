@@ -40,9 +40,9 @@
             
             =section.label
   
-    %h1= @event.title
+    %h2= @event.title
     
-    %p=@event.set_times.gsub(/([0-9][:]+)/, "<br/>\\1").html_safe
+    %p=@event.set_times.gsub(/([0-9][:]?[apmAPM]+)/, "<br/>\\1").html_safe
     After the show -- The lobby bar stays open!
     
     -if @event.on_sale? && ( ! @event.chart.nil? )

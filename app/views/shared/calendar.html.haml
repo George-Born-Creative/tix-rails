@@ -15,7 +15,8 @@
         -if (event.headliner && event.headliner.photo?)
           =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
         -else
-          =image_tag('http://placehold.it/300x230', :width => '100%') 
+          =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
+          =#image_tag('http://placehold.it/300x230', :width => '100%') 
           
       .span3.offset1
         %h3=event.name

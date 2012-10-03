@@ -8,6 +8,8 @@ group :assets do
   gem 'haml_coffee_assets', '~> 1.1.3'
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
+  gem 'less'
+  
 end
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
@@ -108,5 +110,4 @@ gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
 gem 'ckeditor'
 gem 'prawn'
-gem 'less'
 gem 'deep_cloneable'

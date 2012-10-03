@@ -6,6 +6,7 @@ class CmsController < ApplicationController
     layout = params[:layout] == 'r' ? 'sidebar_right' : 'sidebar_left'
     
     case params[:slug]
+      
     when nil
       @page = @current_account.pages.find_by_slug('home')
       render :layout => layout

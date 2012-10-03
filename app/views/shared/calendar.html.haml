@@ -40,12 +40,14 @@
             %h5=event.starts_at.to_formatted_s
         
 -content_for :javascript do
-  :coffeescript
-    $ ->
-      $('.hide-other').click ->
-        klass = $(this).data('class')
-        target = $(this).data('target')
+  :javascript
+    $(function(){
+      $('.hide-other').click(function(){
+        klass = $(this).data('class');
+        target = $(this).data('target');
         
-        $(klass).hide()
-        $(target).show()
+        $(klass).hide();
+        $(target).show();
+      })
+    });
   

@@ -8,7 +8,7 @@ group :assets do
   gem 'haml_coffee_assets'#, '~> 1.1.3'
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
-  gem 'less'
+  # gem 'less'
   
 end
 

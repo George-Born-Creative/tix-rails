@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003022443) do
+ActiveRecord::Schema.define(:version => 20121003183245) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -70,16 +70,16 @@ ActiveRecord::Schema.define(:version => 20121003022443) do
     t.string   "audio_sample_url"
     t.string   "video_url"
     t.string   "twitter"
-    t.string   "youtube1"
-    t.string   "youtube2"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.text     "youtube1",                :limit => 255
+    t.text     "youtube2",                :limit => 255
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.decimal  "id_old"
-    t.integer  "account_id",              :default => 0, :null => false
+    t.integer  "account_id",                             :default => 0, :null => false
     t.integer  "id_old_image"
     t.string   "audio_sample_title"
     t.integer  "artist_id_old_secondary"

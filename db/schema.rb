@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121002164551) do
+ActiveRecord::Schema.define(:version => 20121003022443) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -334,6 +334,14 @@ ActiveRecord::Schema.define(:version => 20121002164551) do
     t.string   "title"
     t.string   "role",                                                 :default => "customer"
     t.decimal  "balance",                :precision => 8, :scale => 2, :default => 0.0,        :null => false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",                                      :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

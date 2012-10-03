@@ -15,7 +15,14 @@
       #header.columns.sixteen
         =render 'shared/header'
   
-    
-      .columns.six.offset-by-six{:style => 'padding-top: 40px'}
-        = yield
-    
+      .row
+        .span12
+          .row
+            .span6.offset3
+              -unless notice.blank?
+                %p.notice= notice
+              -unless alert.blank?
+                %p.alert= alert
+            .span6.offset3
+              %div{:style => 'padding-top: 40px; background-color: black; padding: 40px; color: white; '}
+                = yield

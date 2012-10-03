@@ -35,6 +35,15 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
   
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(User) && resource.has_at_least_role(:employee)
+      root_url << '/manager'
+    else
+      super
+    end
+  end
+  
+  
   #if ENV['RAILS_ENV'] == 'development'
   #  render :text => E
   #end

@@ -33,7 +33,13 @@
         /  .event_chart
         /  .event_cart
         /  .event_checkout
-  
+        .container
+          -unless notice.blank?
+            %p.alert= notice
+            
+          -unless alert.blank?          
+            %p.alert= alert
+            
         .container
           =yield :layout if content_for?(:layout)
           .row

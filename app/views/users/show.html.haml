@@ -23,7 +23,23 @@
                 hasn't placed an order yet.
             -else
               -@user.orders.each do |order|
-                =order
+                Order placed 
+                %strong=order.created_at.to_formatted_s(:jammin_java)
+                
+                .well
+                  Price: 
+                  =number_to_currency(order.total_base_price)
+                  Service: 
+                  =number_to_currency(order.total_service_charge)
+                  %strong
+                    Total: 
+                    =number_to_currency(order.total)
+                  
+                  
+                %ul
+                  -order.tickets.collect{ |ticket| ticket.event.name }.uniq.each do |event_name|
+                    %li=event_name
+                  
                 
       
         .widget

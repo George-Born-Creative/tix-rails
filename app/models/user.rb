@@ -26,25 +26,28 @@
 #
 
 class User < ActiveRecord::Base
+  ROLES = %w[owner manager employee customer guest]
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :lockable, :timeoutable, :token_authenticatable
+         #:confirmable
    
    scope :with_role, lambda { |*roles| {
      :conditions => { :role => roles.map {|r| r.to_s}}
-  }}
+   }}
    
   
-  
-         
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name,  :middle_name, :last_name, :salutation, :title,
                   :role
    
   attr_accessor :full_name
+
 
 
   has_many :orders
@@ -56,8 +59,29 @@ class User < ActiveRecord::Base
   belongs_to :account
   
   
+  def has_at_least_role(role)
+    # owner manager employee customer guest
+    case role
+      when :owner
+        return true if (self.role == :owner)      
+      when :manager                  
+        return true if (self.role == :owner)      
+        return true if (self.role == :manager)      
+      when :employee                 
+        return true if (self.role == :owner)      
+        return true if (self.role == :manager)      
+        return true if (self.role == :employee)      
+      when :customer                 
+        return true if (self.role == :owner)      
+        return true if (self.role == :manager)      
+        return true if (self.role == :employee)      
+        return true if (self.role == :customer)      
+      else
+        return false
+    end
+    return false
+  end
   
-  ROLES = %w[owner manager employee customer guest]
   
   validates_inclusion_of :role, :in => ROLES.map{|r| r.to_sym}
   
@@ -89,6 +113,16 @@ class User < ActiveRecord::Base
     #}"http://gravatar.com/avatar/#{gravatar_id}.png?s=48"#d=#{CGI.escape(default_url)}"
   end
   
+  def total_sales
+    #TODO: cache
+    return 0 if self.orders.empty?
+    
+    return self.orders.reduce(0) do |memo, order|
+      memo += order.total
+    end
+  end
+  
+  
   
   class << 
     def total_balance
@@ -97,12 +131,9 @@ class User < ActiveRecord::Base
            )
     end
   
-    def average_balance
-      find(:all, 
-           :select => 'avg(balance) as balance'
-           )
-    end
   end
+  
+  
     
   
   

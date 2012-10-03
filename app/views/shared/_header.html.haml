@@ -2,6 +2,8 @@
   
 .info.columns.seven.omega
   .align.right
+    
+      
     =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
     |
     =link_to 'Facebook', 'http://www.facebook.com/pages/Vienna-VA/Jammin-Java/55704731656?ref=s', :target => '_blank'
@@ -12,6 +14,14 @@
     |
     =link_to 'Directions', 'http://jamminjava.com/home/main/contact', :target => '_blank'
     <br/>
+    -if user_signed_in?
+      Hello
+      %strong=link_to current_user.email, edit_user_path(current_user)
+      | 
+      =link_to 'Logout', destroy_user_session_path, :method => :delete
+      ="<!--Role: #{current_user.role}-->".html_safe
+    -else
+      =link_to 'Login', new_user_session_path
     <br/>
     %strong
       %a{:href => '#/checkout'}

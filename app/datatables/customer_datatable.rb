@@ -34,7 +34,7 @@ private
         customer.first_name,
         customer.last_name,
         number_to_currency(customer.balance),
-        number_to_currency(0),
+        number_to_currency(customer.total_sales),        
         customer.role,
         link_to('Edit', "/manager/users/#{customer.id.to_s}")
       ]
@@ -50,8 +50,10 @@ private
     if params[:sSearch].present?
       customers = @account.users
                           .with_role(:customer)
-                          .where("last_name like :search", search: "%#{params[:sSearch]}%")
+                          .where("last_name like :search OR first_name like :search OR email like :search",  search: "%#{params[:sSearch]}%")
                           .page(page).per(per_page)
+                          .order("#{sort_column} #{sort_direction}").page(page).per(per_page)
+                          
     else
       customers = @account.users.with_role(:customer)
                           .order("#{sort_column} #{sort_direction}").page(page).per(per_page)

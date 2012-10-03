@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
+  revision: 36060be332ffc8408daca5cee20ea5694261105b
+  branch: static
+  specs:
+    twitter-bootstrap-rails (2.0.7)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+
+GIT
   remote: https://github.com/carr/phone.git
   revision: 388c50f95df5dd687509f786173d327cb10fd8b4
   specs:
@@ -329,5 +338,6 @@ DEPENDENCIES
   stamp
   state_machine
   thin
+  twitter-bootstrap-rails!
   uglifier (>= 1.0.3)
   yajl-ruby

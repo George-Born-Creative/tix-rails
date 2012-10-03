@@ -13,7 +13,7 @@ end
 
 group :production do
   gem 'pg'
-  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
+  #gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
 end
 
 group :test, :development do 
@@ -97,7 +97,7 @@ gem 'annotate', ">=2.5.0"
 
 gem 'fastercsv'
 
-gem 'table-for', :git => 'https://github.com/hunterae/table-for.git'
+# gem 'table-for', :git => 'https://github.com/hunterae/table-for.git'
 gem 'kaminari'
 # gem "ransack" add this later for advanced searching
 gem "squeel"

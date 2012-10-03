@@ -19,6 +19,7 @@ group :production do
   gem 'newrelic_rpm'
 end
 
+
 group :test, :development do 
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem 'therubyracer', :platform => :ruby
@@ -39,6 +40,7 @@ end
 
 
 
+gem 'turbo-sprockets-rails3'
 
 # environment
 gem 'thin'

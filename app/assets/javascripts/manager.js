@@ -34,7 +34,7 @@
 //= require_tree ./manager/templates
 //= require ./manager/tix.manager
 //= require_tree ./manager/models
-//= require_tree ./manager/collections
+// require_tree ./manager/collections
 //= require_tree ./manager/views
 //= require_tree ./manager/routers
 

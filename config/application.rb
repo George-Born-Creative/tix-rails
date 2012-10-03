@@ -14,7 +14,7 @@ module Tix
   class Application < Rails::Application
     config.assets.initialize_on_precompile = false
     config.assets.precompile += ['manager.js', 'manager.css']
-        
+    config.assets.precompile += %w( ckeditor/* )
     config.time_zone = 'Eastern Time (US & Canada)'
     config.assets.paths << Rails.root.join("app", "assets", "lib")
     # Settings in config/environments/* take precedence over those specified here.

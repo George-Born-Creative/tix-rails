@@ -29,7 +29,7 @@
 // require_tree ./lib/models
 // require_tree ./lib/collections
 //= require_tree ./lib/views
-//= require_tree ./lib/routers
+// require_tree ./lib/routers
 
 //= require_tree ./manager/templates
 //= require ./manager/tix.manager

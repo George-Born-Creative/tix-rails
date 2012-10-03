@@ -25,11 +25,10 @@ class ArtistsController < ApplicationController
   
   def new
     @artist = @current_account.artists.new
-    
-    respond_with @artist
+
     respond_to do |format|
-      format.html
-      format.json
+      format.html # new.html.erb
+      format.json { render json: @artist }
     end
   end
 
@@ -73,6 +72,17 @@ class ArtistsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to artists_url }
       format.json { head :no_content }
+    end
+  end
+  
+  
+  
+  def search
+    # Do the search in memory for better performance
+    @artists = @current_account.artists.where("name like :q", q: "%#{params[:q]}%").limit(10)
+
+    respond_to do |format|
+      format.json{ render :json => @artists.collect{|a| {:id => a.id, :name => a.name }}  }
     end
   end
 end

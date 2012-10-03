@@ -1,0 +1,21 @@
+-if event.chart
+  =link_to 'Edit Chart', edit_chart_path(event.chart), :class => 'btn btn-primary btn-large'
+
+  %h3 Pricing
+  .row
+    -event.chart.sections.seatable.each do |section|
+      .span3
+        .well
+          %h3=section.label
+          %h5 Day Of
+          =section.dayof_price
+  
+          %h5 Presale
+          =section.presale_price
+  
+-else 
+  No Seating Chart Yet.
+  %h3 Chart Templates
+  %ul
+  -@current_account.charts.masters.each do |chart|
+    %li=link_to "Clone #{chart.name}", "/manager/charts/#{chart.id.to_s}/clone_for_event/#{event.id}", :method => :post

@@ -55,7 +55,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Seating chart was successfully created.' }
+        format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
@@ -68,10 +68,12 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = @current_account.events.find(params[:id])
-
+    
+    params[:event] = convert_datetimes( params[:event] )
+    
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to @event, notice: 'Seating chart was successfully updated.' }
+        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -97,4 +99,16 @@ class EventsController < ApplicationController
   def populate_artists
     @artist_options = @current_account.artists.order('name asc').all.collect {|a| [a.name, a.id] }
   end
+  
+  def convert_datetimes(parameters)
+    Event::TIMES.each do |field|
+      date = parameters[field][:date]
+      time = parameters[field][:time]
+      # TODO : ESTABLISH TIME ZONE FOR ACCOUNT: Currently hard coded at '-4' for EST
+      datetime = DateTime.strptime("#{date} #{time} -4", '%m-%d-%Y %I:%M %p %z')
+      parameters[field] = datetime.in_time_zone
+    end
+    parameters
+  end
+    
 end

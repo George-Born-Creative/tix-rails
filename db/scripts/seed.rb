@@ -32,8 +32,8 @@ module Tix
     end
 
     def self.seed_events
-      Tix::JamminJavaImporter.import_events("./db/fixtures/jamminjava/events-adult.csv", @account.events, 'adult')
-      Tix::JamminJavaImporter.import_events("./db/fixtures/jamminjava/events-kids.csv", @account.events, 'kids')
+      Tix::JamminJavaImporter.import_events("./db/fixtures/jamminjava/events-adult.csv", :adult)
+      Tix::JamminJavaImporter.import_events("./db/fixtures/jamminjava/events-kids.csv", :kids)
     end
     
     def self.fetch_artist_images

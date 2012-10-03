@@ -1,25 +1,30 @@
 Tix::Application.routes.draw do
+  root :to => "cms#index"  
 
   devise_for :users
-
-  root :to => "cms#index"
+  
+  resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
+  # resources :artists, :as => 'front_artists', :only => [:index, :show]
+  resources :orders, :as => "front_orders", :only => [:show], :controller => 'Front::Orders'
+  resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
+  
   
   match '/page/:slug', :controller => :cms, :action => :index
-  
-  resources :tickets
-  resources :events
-  
-  get '/tickets/:id/checkin' => 'tickets#check_in'
   
   
   scope '/manager' do
     match '/', :controller => :manager, :action => :index
+    get '/tickets/:id/checkin' => 'tickets#check_in'
     
     resources :customer_imports
     
     resources :users
-    resources :events, :as => 'manager_events'
+    resources :events#, :as => 'manager_events'
+    get "/artists/search" => "artists#search", :as => :search
+    
     resources :artists
+    
+    resources :tickets
     
     resources :orders
     get '/orders/:id/tickets' => 'orders#tickets'

@@ -1,0 +1,88 @@
+-# @event.
+-# @event.id                     :integer          not null, primary key
+-# @event.title                  :string(255)
+-# @event.headline               :string(255)
+-# @event.supporting_act         :text
+-# @event.body                   :text
+-# @event.starts_at              :datetime
+-# @event.ends_at                :datetime
+-# @event.chart_id               :integer
+-# @event.created_at             :datetime         not null
+-# @event.updated_at             :datetime         not null
+-# @event.headliner_id           :integer
+-# @event.secondary_headliner_id :integer
+-# @event.supporting_act_1       :string(255)
+-# @event.supporting_act_2       :string(255)
+-# @event.supporting_act_3       :string(255)
+-# @event.info                   :text
+-# @event.set_times              :text
+-# @event.price_freeform         :string(255)
+-# @event.account_id             :integer          default(0), not null
+-# @event.chart                  :string(255)
+-# @event.artist_id_old          :integer
+-# @event.cat                    :string(255)
+-# @event.announce_at            :datetime
+-# @event.on_sale_at             :datetime
+-# @event.off_sale_at            :datetime
+-# @event.remove_at              :datetime
+
+.row
+  .span7
+    =image_tag(@event.headliner.photo(:medium), :width => '100%')
+  .span4
+    %p=@event.starts_at.to_formatted_s :jammin_java
+    -if @event.chart
+      -# TODO: Event should have chart
+      %p
+        -@event.chart.sections.seatable.each do |section|
+          =succeed  '/' do
+            =number_to_currency(section.current_price.total, :precision => 0)
+            
+            =section.label
+  
+    %h1= @event.title
+    
+    %p=@event.set_times.gsub(/([0-9][:]+)/, "<br/>\\1").html_safe
+    After the show -- The lobby bar stays open!
+    
+    -if @event.on_sale? && ( ! @event.chart.nil? )
+      %a.btn.btn-large.buy_tix{:href => front_chart_path(@event.chart)} Buy Tix
+    -else
+      %p Event not yet on sale
+    
+    -if true # If admin signed in, show the edit control editable
+      %a.btn.btn-large{:href => edit_event_url(@event), :target => '_blank'} Edit
+      
+.row
+  .span7
+    %h1 Bios
+  
+    .row
+      .span2
+      
+        %h2=link_to 'Headliner', '#'
+        
+        -if @event.secondary_headliner
+          %h2=link_to 'Secondary', '#'
+          
+          
+        -#-if @event.supporting
+        -#  %h2=link_to 'Secondary', '#'
+      
+      .span5
+        =@event.body
+
+        %h3= @event.headliner.name
+        =@event.headliner.body.html_safe
+
+
+        -unless @event.secondary_headliner.nil?
+          %h2 Secondary Headliner
+          %h3= @event.secondary_headliner.name
+          =@event.secondary_headliner.body.html_safe
+          
+          
+
+  .span5
+    %h2 Additional Info
+    %p=@event.info.html_safe

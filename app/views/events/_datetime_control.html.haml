@@ -1,0 +1,18 @@
+-if @event.send(field)
+  %p=field.to_s.titleize
+  
+  
+  .datetime
+  
+  
+    .input-append.date.datepicker{:data => {:date=>@event.send(field).to_formatted_s(:date_y), 'date-format' => "mm-dd-yyyy" }}
+      %input.span1{:name => "event[#{field}][date]", :size=>"16", :type=>"text", :value=>@event.send(field).to_formatted_s(:date_y)}
+      %span.add-on
+        %i.icon-th
+      
+      
+    .input-append.time.timepicker.bootstrap-timepicker-component{}
+      %input.span1.timepicker.input-small{:type => 'text', :name => "event[#{field}][time]", :value => @event.send(field).to_formatted_s(:time).strip }
+      %span.add-on
+        .i.icon-time
+

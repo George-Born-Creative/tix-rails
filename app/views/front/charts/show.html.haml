@@ -1,0 +1,67 @@
+/Hi from front/chart/show
+-content_for :javascript do
+  :javascript
+    $(function(){
+      var data = {
+        chart: #{render('charts/chart', :object => @chart, :format => :json)}
+      };
+      var router = new Tix.Routers.FrontChartRouter(data);
+      Backbone.history.start()
+    });
+
+.row
+  .span2
+    %h2=image_tag( @event.photo(:thumb), :width => '100%')
+    
+  .span4
+    %h2=@event.name
+    
+    %p.artists
+      %span.headliner
+        =@event.headliner.name
+      -unless @event.secondary_headliner.nil?
+        %span.headliner-secondary.secondary-headlinr
+          ="+ " + @event.secondary_headliner.name
+      
+    =@event.starts_at.to_formatted_s(:jammin_java)
+    =image_tag '/images/interface/social_mini.png'
+
+  .span4
+    =@event.info.html_safe
+    
+    
+  .span2
+    .alert
+      Timer
+      %h1 10:00
+      
+.row
+  .span5
+    #chart_container
+    
+  .span4
+    =render(:partial => 'cart_mini')
+        
+  .span3
+    .row
+      .span5
+        %span
+          .clear
+          .alpha.columns.left.two
+            %h4 subtotal
+          .columns.omega.right.subtotal.two
+            %h4 $0.00
+          .clear
+          .alpha.columns.left.two
+            %h4 svc charge
+          .columns.omega.right.service_charge_total.two
+            %h4 $0.00
+          .clear
+          .alpha.columns.left.two
+            %h3 Total
+          .columns.omega.right.total.two
+            %h3 $0.00
+      %a.button.checkout.large{:href => "#/checkout"} Checkout »
+      
+
+    

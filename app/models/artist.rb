@@ -62,5 +62,9 @@ class Artist < ActiveRecord::Base
         find(:all)
       end
     end
+    
+    def to_paired_hash
+      {:id => self.id, :name => self.name }
+    end
 
 end

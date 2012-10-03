@@ -23,7 +23,7 @@ private
     events.map do |event|
       
       [
-        event.title,
+        link_to(event.title, edit_event_url(event)),
         (event.starts_at.nil? ? nil : event.starts_at.to_formatted_s(:date)),
         (event.starts_at.nil? ? nil : event.starts_at.to_formatted_s(:time)),
         (event.starts_at.nil? ? nil : event.starts_at.to_formatted_s(:weekday)),
@@ -40,7 +40,7 @@ private
   end
 
   def fetch_events
-    puts "####{sort_column} #{sort_direction}"
+    # puts "####{sort_column} #{sort_direction}"
     
     events = @account.events.order("#{sort_column} #{sort_direction}").page(page).per(per_page)
     

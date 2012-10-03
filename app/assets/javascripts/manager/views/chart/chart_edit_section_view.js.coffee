@@ -7,12 +7,12 @@ class TixMgr.Views.ChartEditSectionView extends Backbone.View
     'hover .chart-section-colorpicker': 'initColorPickerIfExists'
   
   initialize: (data)->
-    console.log "[SQUiiD] Initialized TixMgr.Views.ChartEditSectionView()"
+    console.log "[SR] Initialized TixMgr.Views.ChartEditSectionView()"
     @model = new TixMgr.Models.Section(data.section)
     
     _.bindAll this, 'onColorSelect'
   render: ->
-    console.log "[SQUiiD] Rendering TixMgr.Views.ChartEditSectionView()"
+    console.log "[SR] Rendering TixMgr.Views.ChartEditSectionView()"
     @$el.html( @template({section: @model.attributes }) )
     @initColorPicker()
     @
@@ -26,18 +26,18 @@ class TixMgr.Views.ChartEditSectionView extends Backbone.View
       field_val = $(field_el).val()
       self.model.set(field_name, field_val)
     
-    console.log '[SQUiiD] Saving section in TixMgr.Views.ChartEditSectionView()...'  
+    console.log '[SR] Saving section in TixMgr.Views.ChartEditSectionView()...'  
     
     @model.save()
       
   leave: ->
-    console.log '[SQUiiD] Saved section in TixMgr.Views.ChartEditSectionView().'
+    console.log '[SR] Saved section in TixMgr.Views.ChartEditSectionView().'
     @unbind()
     @remove()
     
 
   initColorPickerIfExists: ->
-    console.log '[SQUiiD] initColorPicker() in TixMgr.Views.ChartEditSectionView().'
+    console.log '[SR] initColorPicker() in TixMgr.Views.ChartEditSectionView().'
     $c = $('.chart-section-colorpicker').colorpicker()
     if $c.size() > 0 && @cp_initialized != true
       @initColorPicker()
@@ -55,5 +55,5 @@ class TixMgr.Views.ChartEditSectionView extends Backbone.View
       
   onColorSelect: (ev)->
     @model.save( {color: ev.color.toHex()} )
-    console.log "[SQUiiD] Called save for section"
+    console.log "[SR] Called save for section"
   

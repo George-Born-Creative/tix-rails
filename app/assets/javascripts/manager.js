@@ -23,11 +23,20 @@
 
 //= require dataTables/jquery.dataTables
 //= require ckeditor/init
+
+
+//= require_tree ./lib/templates
+//= require ./lib/tixlib
+//= require_tree ./lib/models
+//= require_tree ./lib/collections
+//= require_tree ./lib/views
+//= require_tree ./lib/routers
+
 //= require_tree ./manager/templates
-//
 //= require ./manager/tix.manager
-//
 //= require_tree ./manager/models
 //= require_tree ./manager/collections
 //= require_tree ./manager/views
 //= require_tree ./manager/routers
+
+

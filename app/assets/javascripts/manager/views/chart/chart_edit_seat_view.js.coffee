@@ -6,17 +6,17 @@ class TixMgr.Views.ChartEditSeatView extends Backbone.View
     'blur input[data-type="field"]': 'save'
     
   initialize: (data)->
-    console.log "[SQUiiD] Initialized TixMgr.Views.ChartEditSeatView()"
+    console.log "[SR] Initialized TixMgr.Views.ChartEditSeatView()"
     @model = new TixMgr.Models.Area(data.area)
     @data = data
     
   leave: ->
-    console.log "[SQUiiD] Removing TixMgr.Views.ChartEditSeatView()"
+    console.log "[SR] Removing TixMgr.Views.ChartEditSeatView()"
     @unbind()
     @remove()
     
   render: ->
-    console.log "[SQUiiD] Rendering TixMgr.Views.ChartEditSeatView()"
+    console.log "[SR] Rendering TixMgr.Views.ChartEditSeatView()"
     @$el.html( @template( {area: @model.attributes } ))
     @
     
@@ -31,10 +31,10 @@ class TixMgr.Views.ChartEditSeatView extends Backbone.View
       self.model.set(field_name, field_val)
       self.data.area[field_name] = field_val
 
-    console.log '[SQUiiD] Saving Area in TixMgr.Views.ChartEditSeatView()...'  
+    console.log '[SR] Saving Area in TixMgr.Views.ChartEditSeatView()...'  
     console.log @model
     @model.save()
     console.log @model
     window.m = @model
-    console.log '[SQUiiD] Saved Area in TixMgr.Views.ChartEditSeatView().'  
+    console.log '[SR] Saved Area in TixMgr.Views.ChartEditSeatView().'  
     

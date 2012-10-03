@@ -17,12 +17,13 @@
 
           .stat
             %h4 Min Ticket Price
-            %span.value
-              =number_to_currency @event.current_prices_arr.min
+            -unless @event.current_prices_arr.nil?
+              %span.value=number_to_currency @event.current_prices_arr.min
 
           .stat
             %h4 Max ticket Price
-            %span.value=number_to_currency @event.current_prices_arr.max
+            -unless @event.current_prices_arr.nil?
+              %span.value=number_to_currency @event.current_prices_arr.max
             
 
 .row
@@ -50,33 +51,6 @@
                 %label.control-label
                 .controls
                   =f.input :body, :as => :ckeditor, :toolbar => 'easy',  :input_html => { :style => 'width: 100%'}
-          
-      .widget
-        .widget-header
-          %h3 Seating Chart
-        .widget-content
-          -if @event.chart
-            %h3 Edit
-            =link_to @event.chart.name, edit_chart_path(@event.chart)
-   
-            %h3 Pricing
-            .row
-              -@event.chart.sections.seatable.each do |section|
-                .span3
-                  .well
-                    %h3=section.label
-                    %h5 Day Of
-                    =section.dayof_price
-            
-                    %h5 Presale
-                    =section.presale_price
-            
-          -else 
-            No Seating Chart Yet.
-            %h3 Chart Templates
-            %ul
-            -@current_account.charts.masters.each do |chart|
-              %li=link_to chart.name, "/manager/charts/#{chart.id.to_s}/clone_for_event/#{@event.id}", :method => :post
         
         
     
@@ -86,83 +60,53 @@
 
           =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
 
-          =link_to '+ New Event', new_event_path, :class => 'btn btn-large btn-support-contact btn'
+          =link_to '+ New Event', new_event_path, :class => 'btn btn-large btn-support-contact'
+          =link_to 'Preview', front_event_path(@event), :class => 'btn btn-large btn-support-contact', :target => '_blank'
 
 
        
-      
-      
-     
-      .widget.widget-box
-        .widget-header
-          %h3 Artists
-        
+      -#.accordion#event_edit_accordion
+      -#  .accordion-group
+      -#    .accordion-heading
+      -#      .accordion-toggle{:data => {'toggle' => 'collapse'} }
+      .widget
         .widget-content
-      
-          %p Headliner
-          =select("event", "headliner", '', {:include_blank => true})
-        
-          %p Secondary
-          =select("event", "headliner", '', {:include_blank => true})
-        
-          %p Supporting Acts
-          =select("event", "supporting_act_1", '', {:include_blank => true})
-          =select("event", "supporting_act_2", '', {:include_blank => true})
-          =select("event", "supporting_act_3", '', {:include_blank => true})
-        
-        
-        
-      .widget.widget-box
-        .widget-header
-          %h3 Times
-        
-        .widget-content
-      
-          %p 
-            %strong Announce At
-            =@event.announce_at
-          %p
-            %strong On Sale At
-            =@event.on_sale_at
-            
-          %p
-            %strong Starts At
-            =@event.starts_at
-          %p
-            %strong Off Sale At
-            =@event.off_sale_at
-            
-          %p
-            %strong Remove At
-            =@event.remove_at
+          #event_edit_accordion.accordion
           
           
-          -['Announce At', 'On Sale', 'Starts At', 'Off Sale', 'Remove At'].each do |label|
-            %p=label
-            .datetime
-              .input-append.time.timepicker.bootstrap-timepicker-component{}
-                %input.span1.timepicker.input-small{:type => 'text'}
-                %span.add-on
-                  .i.icon-time
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+                  Artists
+              #collapseOne.accordion-body.collapse
+                .accordion-inner
+                  =render :partial => 'artist_controls', :locals => {:event => @event}
+                  
+                  
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseTwo"}
+                  Show Times
+              #collapseTwo.accordion-body.collapse
+                .accordion-inner
+                  .yesno.announced
+                    %span Announced?
+                    =@event.announced? ? 'Yes' : 'No'
 
-              .input-append.date.datepicker{:data => {:date=>"12-02-2012", 'date-format' => "mm-dd-yyyy" }}
-                %input.span1{:size=>"16", :type=>"text", :value=>"12-02-2012"}
-                %span.add-on
-                  %i.icon-th            
-        
-          %p On Sale
-          %input{:type => 'text'}
-        
-          %p Starts At
-          %input{:type => 'text'}
-        
-          %p Off Sale
-          %input{:type => 'text', :disabled => 'disabled', :value => '2 hours after start'}
-        
-          %p Remove from site at
-          %input{:type => 'text'}
-        
-          =#f.input :starts_at        
-          =#f.input :ends_at        
-        
-
+                  .yesno
+                    %span On Sale?
+                    =@event.on_sale? ? 'Yes' : 'No'
+                    
+                  %hr/
+                  -Event::TIMES.each do |time|
+                    =render :partial => 'datetime_control', :locals => { :field => time }
+            
+            
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseThree"}
+                  Seating Chart + Prices
+              #collapseThree.accordion-body.collapse
+                .accordion-inner
+                  =render :partial => 'seating_chart_controls', :locals => {:event => @event}
+          

@@ -4,7 +4,7 @@ require './app/lib/tix'
 module Tix
   module JamminJavaImporter
 
-    ACCOUNT = Account.find_or_create_by_subdomain('jamminjava').id 
+    @account = Account.find_or_create_by_subdomain('jamminjava')
     
     def self.import(filename, model)
       puts "##### Starting Import: #{filename}"
@@ -20,18 +20,18 @@ module Tix
     end
     
     
-    def self.import_events(filename, model, cat_name)
+    def self.import_events(filename, cat_name)
       puts "##### Starting Import: #{filename}"
 
       CSV.foreach(filename, :headers => true ) do |row|
         puts "parsing date #{row['starts_at'].to_s}"
         # row['starts_at'] = Date.strptime(row['starts_at'].to_s << "-0500", '%m/%d/%y %H:%M %z')
-        row['starts_at'] = DateTime.strptime(row['starts_at'].to_s << " -0500", '%m/%d/%y %H:%M %z')
+        row['starts_at'] = DateTime.strptime(row['starts_at'].to_s << " -0100", '%m/%d/%y %H:%M %z')
         puts "got #{row['starts_at']} for #{row['title']}"
         
         row['cat'] = cat_name unless cat_name.nil?
         begin
-          model.create(row.to_hash)
+          @account.events.create(row.to_hash)
         rescue ActiveRecord::RecordNotSaved
           # handle save failures here…
         end

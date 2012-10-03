@@ -4,13 +4,13 @@ class TixMgr.Views.ImagesIndexView extends Backbone.View
   events: ->
     
   initialize: (data)->
-    console.log '[SQUiiD] TixMgr.Views.ImagesIndexView initialized'
+    console.log '[SR] TixMgr.Views.ImagesIndexView initialized'
     # @title = data.title
     # @content = data.content
     @initTokenInput()
     
   render: ->
-    console.log '[SQUiiD] TixMgr.Views.ImagesIndexView rendered'
+    console.log '[SR] TixMgr.Views.ImagesIndexView rendered'
     
     # @$el.html(@template({ title: @title}) )
     # _.each @content, (item)->

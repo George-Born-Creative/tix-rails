@@ -6,18 +6,18 @@ class TixMgr.Views.ChartEditPriceView extends Backbone.View
     'blur input[data-type="field"]': 'save'
     
   initialize: (data)->
-    console.log "[SQUiiD] Initialized TixMgr.Views.ChartEditPriceView()"
+    console.log "[SR] Initialized TixMgr.Views.ChartEditPriceView()"
     @model = new TixMgr.Models.Price(data.price)
     console.log ['model', @model]
     @data = data
     
   leave: ->
-    console.log "[SQUiiD] Removing TixMgr.Views.ChartEditPriceView()"
+    console.log "[SR] Removing TixMgr.Views.ChartEditPriceView()"
     @unbind()
     @remove()
     
   render: ->
-    console.log "[SQUiiD] Rendering TixMgr.Views.ChartEditPriceView()"
+    console.log "[SR] Rendering TixMgr.Views.ChartEditPriceView()"
     @$el.html( @template( {price: @model.attributes, label: @data.label } ))
     @
     
@@ -32,8 +32,8 @@ class TixMgr.Views.ChartEditPriceView extends Backbone.View
       self.model.set(field_name, field_val)
       self.data.price[field_name] = field_val
 
-    console.log '[SQUiiD] Saving Price in TixMgr.Views.ChartEditPriceView()...'  
+    console.log '[SR] Saving Price in TixMgr.Views.ChartEditPriceView()...'  
 
     @model.save()
     
-    console.log '[SQUiiD] Saved Price in TixMgr.Views.ChartEditPriceView().'  
+    console.log '[SR] Saved Price in TixMgr.Views.ChartEditPriceView().'  

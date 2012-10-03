@@ -31,8 +31,9 @@
           .widget-content
 
             %ul
-              -5.times do
-                %li= @current_account.random(:event).title
+              -#-unless @current_account.events.nil?
+              -#  -5.times do
+              -#    //%li= @current_account.random(:events).title
       .span3
         .widget
           .widget-header
@@ -40,9 +41,9 @@
           .widget-content
 
             %ul
-              -5.times do
-                -art = @current_account.random(:artist)
-                %li= link_to art.name, art
+              -#-5.times do
+              -#  -art = @current_account.random(:artists)
+              -#  %li= link_to art.name, art
 
       .span3.last
         .widget
@@ -75,7 +76,7 @@
                 =rand(10)+1
               tickets
               to 
-              %strong=@current_account.random(:event).title
+              -#%strong=@current_account.random(:event).title
 
 
 

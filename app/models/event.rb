@@ -31,31 +31,42 @@
 #
 
 
+
 class Event < ActiveRecord::Base
-  attr_accessible :title, :starts_at
-  attr_accessible :date, :price_freeform, :set_times, :info, :headliner, :body,
+  attr_accessible :title, :price_freeform, :set_times, :info, :body,
+                  :headliner, :secondary_headliner, :supporting_acts,
+                  :headliner_id, :secondary_headliner_id, :supporting_acts,
                   :suggestion_1, :suggestion_2, :suggestion_3,
-                  :supporting_act_1, :supporting_act_2, :supporting_act_3,
-                  :artist_id_old, :chart, :tickets, :starts_at, :secondary_headliner_id,
-                  :cat # TODO move category into its own model
-    
+                  :artist_id_old, :chart, :tickets, :starts_at, 
+                  :slug, :buytix_url_old,
+                  :cat,                   # TODO move category into its own model
+                  :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at
+  
+  attr_accessor :starts_at_formatted 
+  
+  TIMES = [:announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at]
+  
+  alias_attribute :name, :title
+  
+  delegate :photo, :to => :headliner # :allow_nil => true
+  alias :image :photo  
+  
   # TODO: Validates Timeliness
   # https://github.com/adzap/validates_timeliness
   # attr_accessible :ends_at, :headline, :body, :image_uri, :image_thumb_uri
   
   validates_presence_of :starts_at
+  validates_uniqueness_of :slug, :scope => :account_id
   
-  attr_accessor :starts_at_formatted 
+  before_save :set_default_times
+  before_destroy :check_tickets
   
-  belongs_to :chart, :autosave => true
+  belongs_to :chart, :autosave => true, :dependent => :destroy
   has_many :tickets
   belongs_to :account
   belongs_to :headliner, :class_name => 'Artist'
-  belongs_to :second_headliner, :class_name => 'Artist'
+  belongs_to :secondary_headliner, :class_name => 'Artist'
   
-  alias_attribute :name, :title
-  
-  before_save :set_default_times
   
   scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.now, Time.now] }}
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.now, Time.now] }}  
@@ -77,7 +88,6 @@ class Event < ActiveRecord::Base
   def inspect
     debug
   end
-  
   
   def day_of? # is today within 24 hours of midnight of the start price
     _day_of? self.starts_at
@@ -137,6 +147,12 @@ class Event < ActiveRecord::Base
     ( ( time.to_i - Time.now.to_i ) / 60 / 60 / 24) + 1
   end
 
+  def check_tickets
+    unless self.tickets.empty?
+      errors[:base] << "Cannot delete event that has tickets" 
+      return false
+    end
+  end
 
   
 end

@@ -4,6 +4,8 @@ Time::DATE_FORMATS[:jammin_java] = Stamp.strftime_format('Wednesday July 11 8:00
 
 Time::DATE_FORMATS[:weekday] = "%A"
 Time::DATE_FORMATS[:date] = "%Y-%m-%d"
+Time::DATE_FORMATS[:date_y] = "%m-%d-%Y"
+
 Time::DATE_FORMATS[:time] = "%l:%M %p"
 
 Time::DATE_FORMATS[:default] = "%Y-%m-%d %H:%M"

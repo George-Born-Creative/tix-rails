@@ -15,7 +15,7 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
     chart = @associateAreaPricesWithSectionPrices(chart) 
     
     # RENDER Raphael Chart
-    new TixMgr.Views.ChartRenderView({el: $( '#chart_container'), chart: chart})    
+    new TixLib.Views.ChartRenderView({el: $( '#chart_container'), chart: chart})    
 
     # After rendering
     @fireChartColorChange()
@@ -42,7 +42,7 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
     $('.chart-colorpicker').colorpicker()
       .off()
       .on 'changeColor', (ev)->
-        TixMgr.Dispatcher.trigger('chartColorChange', {color: ev.color.toHex() })
+        TixLib.Dispatcher.trigger('chartColorChange', {color: ev.color.toHex() })
       .on 'hide', (ev)->
         self.model.save({'background_color': ev.color.toHex()})
     
@@ -54,13 +54,13 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
       field_val = $(field_el).val()
       self.model.set(field_name, field_val)
       
-    console.log '[SQUiiD] Saving model chart'
+    console.log '[SR] Saving model chart'
     
     self.model.save()
   
   respondToAreaClicks: ->
     self = this
-    TixMgr.Dispatcher.on 'areaClick', (data)->
+    TixLib.Dispatcher.on 'areaClick', (data)->
       area = data.area
       section = data.section
       

@@ -63,7 +63,8 @@
               .span4
                 %h3=chart.name
                 %strong Event:
-                =link_to chart.event.title, chart.event
+                -if chart.event
+                  =link_to chart.event.title, chart.event
               .span4
                 Updated 
                 %strong= distance_of_time_in_words_to_now(chart.updated_at) + 'ago'

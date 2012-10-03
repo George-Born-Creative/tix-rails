@@ -6,7 +6,8 @@ $omega: black
 $tertiary: #39f
 $logo: url(/images/jj-logo.png)
 $background: url(/images/jj-bg.jpg)
-
+$tan: #C09853
+$lighttan: #FCF8E3
 
 // $primary: maroon 
 // $alpha: w
@@ -301,9 +302,9 @@ ul.stacked_list, #event_detail_cart ul
   .feature-img
     border: 3px solid rgba(255,255,255,.5)
     margin-left: 10px
-      
-  a.button.buy_tix, 
-    @include red-button
+    
+#buy_tix
+  @include red-button
     
 .event_chart
 
@@ -401,5 +402,10 @@ a
     background-color: rgba(255,255,255,.1)
     h1, h2, h3, h4, h5
       padding: 5px
+a.btn
+  color: $primary
     
     
+.alert
+  h1, h2, h3, h4, h5
+    color:  $tan

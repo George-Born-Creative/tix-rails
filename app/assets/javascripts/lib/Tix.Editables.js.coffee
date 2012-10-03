@@ -1,2 +1,0 @@
-Tix.Editables = 
-  init: ->

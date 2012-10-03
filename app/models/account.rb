@@ -29,17 +29,13 @@ class Account < ActiveRecord::Base
   
   def random(model_name) # as sym
       
-    case model_name
-      
-    when :event
-      r = rand(self.events.count)
-      m = self.events.offset(r).first
-    when :artist
-      r = rand(self.artists.count)
-      m = self.artists.offset(r).first
+    if self.send(model_name) && self.send(model_name).count > 0  
+      r = rand(self.send(model_name).count)
+      m = self.send(model_name).offset(r).first
+    else
+      return nil
     end
     
-    m
     
   end
 end

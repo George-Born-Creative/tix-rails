@@ -13,9 +13,12 @@ end
 
 group :production do
   gem 'pg'
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
 end
 
 group :test, :development do 
+  # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+  
   gem 'sqlite3'
   gem 'railroady' # uml generation (http://railroady.prestonlee.com/) #rake diagram:all
   gem 'rspec-rails', "~> 2.6" 
@@ -66,7 +69,6 @@ gem 'postmark-rails', '>= 0.4.1'
 gem 'devise'
 #gem 'cancan'
 
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'
 # gem 'jquery-noty-rails', :git => 'git@github.com:env/jquery-noty-rails.git', :require => 'jquery-noty-rails'
 

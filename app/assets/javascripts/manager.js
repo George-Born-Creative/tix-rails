@@ -1,6 +1,6 @@
 //= require ../lib/jquery.svg/jquery-1.7.2
 //= require jquery_ujs
-//= require bootstrap/excanvas.min
+//= require ./manager/bootstrap/excanvas.min
 // require bootstrap/jquery.flot
 // require bootstrap/jquery.flot.pie
 // require bootstrap/jquery.flot.orderBars
@@ -13,8 +13,8 @@
 //= require backbone
 //= require backbone-support
 //= require hamlcoffee
-//= require bootstrap/bootstrap
-//= require bootstrap/base
+//= require ./manager/bootstrap/bootstrap
+//= require ./manager/bootstrap/base
 //= require ../lib/bootstrap/colorpicker/js/bootstrap-colorpicker
 //= require ../lib/bootstrap/datepicker/js/bootstrap-datepicker
 //= require ../lib/bootstrap/timepicker/js/bootstrap-timepicker

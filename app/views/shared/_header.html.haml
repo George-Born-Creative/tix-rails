@@ -5,16 +5,7 @@
     .align.right
       .secondary-nav
     
-        -if user_signed_in?
-          Hello
-          %strong=link_to current_user.email, edit_user_path(current_user)
-          | 
-          =link_to 'Logout', destroy_user_session_path, :method => :delete
-          ="<!--Role: #{current_user.role}-->".html_safe
-        -else
-          =link_to 'Login', new_user_session_path
-    
-        |
+
       
         =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
         |
@@ -25,6 +16,21 @@
         =link_to 'Contact', 'http://jamminjava.com/home/main/contact', :target => '_blank'
         |
         =link_to 'Directions', 'http://jamminjava.com/home/main/contact', :target => '_blank'
+        
+        %br/
+        %br/
+        
+        -if user_signed_in?
+          Hello
+          %strong=link_to current_user.email, edit_user_path(current_user)
+          | 
+          =link_to 'Logout', destroy_user_session_path, :method => :delete
+          ="<!--Role: #{current_user.role}-->".html_safe
+        -else
+          =link_to 'Login', new_user_session_path
+    
+        
+        
         %br/
         %br/
         %strong

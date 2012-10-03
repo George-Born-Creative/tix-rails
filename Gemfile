@@ -89,7 +89,7 @@ gem 'state_machine', :require => 'state_machine'
 gem 'paperclip', :require => 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'aws-s3'
-# gem 'coffee-filter'
+gem 'coffee-filter'
 
 # seed 
 # gem 'forgery' 

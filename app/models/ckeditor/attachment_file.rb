@@ -22,7 +22,7 @@ class Ckeditor::AttachmentFile < Ckeditor::Asset
     :bucket => ENV['S3_BUCKET_NAME'],
     :s3_credentials => S3_CREDENTIALS,
     :styles => { :large => "600x600", :medium => "300x300>", :thumb => "100x100>" },
-    :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
+    :path => ":attachment/:id/:style.:extension"
   
   validates_attachment_size :data, :less_than => 100.megabytes
   validates_attachment_presence :data

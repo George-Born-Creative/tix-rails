@@ -3,6 +3,7 @@ class CmsController < ApplicationController
   layout 'sidebar_left'
   
   def index
+    
     layout = params[:layout] == 'r' ? 'sidebar_right' : 'sidebar_left'
     
     case params[:slug]

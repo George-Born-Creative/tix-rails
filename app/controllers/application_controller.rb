@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   
   def after_sign_in_path_for(resource)
     if resource.is_a?(User) && resource.has_at_least_role(:employee)
-      root_url << '/manager'
+      root_url << 'manager'
     else
       super
     end
@@ -56,9 +56,13 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  #if ENV['RAILS_ENV'] == 'development'
-  #  render :text => E
-  #end
+  protected
+  
+  def ckeditor_filebrowser_scope(options = {})
+    super({ :assetable_id => @current_account.id, :assetable_type => 'Account' }.merge(options))
+  end
+
+  
   
   #private
 

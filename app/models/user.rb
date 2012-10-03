@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name,  :middle_name, :last_name, :salutation, :title,
-                  :role
+                  :role, :account_id
    
   attr_accessor :full_name
 
@@ -122,6 +122,16 @@ class User < ActiveRecord::Base
     end
   end
   
+  protected
+  
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    email = conditions.delete(:email)
+    account_id = conditions.delete(:account_id)
+    puts "EMAIL #{email}"
+    puts "ACCOUNT ID #{account_id}"
+    where(conditions).where(["lower(email) = :value", { :value => email.downcase }]).where("account_id = ?", account_id).first
+  end
   
   
   class << 

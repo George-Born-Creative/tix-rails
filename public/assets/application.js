@@ -12718,7 +12718,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['artist/artist_detail'] = function(context) {
+  window.JST['front/templates/artist/artist_detail'] = function(context) {
     return (function() {
       var $c, $e, $o, headline_events, _i, _len, _ref1;
       $e = window.HAML.escape;
@@ -12766,7 +12766,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['artist/artist_list'] = function(context) {
+  window.JST['front/templates/artist/artist_list'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12785,7 +12785,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['checkout/checkout'] = function(context) {
+  window.JST['front/templates/checkout/checkout'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -12806,7 +12806,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_cart_item'] = function(context) {
+  window.JST['front/templates/event/event_cart_item'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12825,7 +12825,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_chart'] = function(context) {
+  window.JST['front/templates/event/event_chart'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -12842,7 +12842,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_checkout'] = function(context) {
+  window.JST['front/templates/event/event_checkout'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12861,7 +12861,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_detail'] = function(context) {
+  window.JST['front/templates/event/event_detail'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12886,7 +12886,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_detail_mini'] = function(context) {
+  window.JST['front/templates/event/event_detail_mini'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12910,7 +12910,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_edit'] = function(context) {
+  window.JST['front/templates/event/event_edit'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12929,7 +12929,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/event_list'] = function(context) {
+  window.JST['front/templates/event/event_list'] = function(context) {
     return (function() {
       var $c, $e, $o;
       $e = window.HAML.escape;
@@ -12952,7 +12952,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['event/events_list'] = function(context) {
+  window.JST['front/templates/event/events_list'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -12968,7 +12968,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['home/home'] = function(context) {
+  window.JST['front/templates/home/home'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -12985,7 +12985,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['page/about'] = function(context) {
+  window.JST['front/templates/page/about'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -13001,7 +13001,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['page/contact'] = function(context) {
+  window.JST['front/templates/page/contact'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -13018,7 +13018,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
     window.JST = {};
   }
 
-  window.JST['page/lobby_bar'] = function(context) {
+  window.JST['front/templates/page/lobby_bar'] = function(context) {
     return (function() {
       var $o;
       $o = [];
@@ -13070,120 +13070,6 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return Tix.initTixLogger();
     }
   };
-
-}).call(this);
-(function() {
-
-  window.TixLib = {
-    Models: {},
-    Collections: {},
-    Views: {},
-    Routers: {},
-    ExternalEvents: {},
-    Dispatcher: _.clone(Backbone.Events),
-    init: function() {}
-  };
-
-}).call(this);
-(function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  TixLib.Views.ChartRenderView = (function(_super) {
-
-    __extends(ChartRenderView, _super);
-
-    function ChartRenderView() {
-      return ChartRenderView.__super__.constructor.apply(this, arguments);
-    }
-
-    ChartRenderView.prototype.initialize = function(data) {
-      console.log('initialized TixLib.Views.ChartRenderView');
-      this.chartdata = data.chart;
-      this.setupEvents();
-      this.setBySectionID = {};
-      console.log(data);
-      return this.render();
-    };
-
-    ChartRenderView.prototype.render = function() {
-      var self;
-      console.log('ChartRenderView.render() invoked');
-      this.setChartBackgroundColor(this.chartdata.background_color);
-      this.paper = Raphael('chart_container', 500, 700);
-      self = this;
-      return _.each(this.chartdata.sections, function(section) {
-        var set;
-        this.paper.setStart();
-        self.renderSection(section);
-        set = this.paper.setFinish();
-        return this.setBySectionID[section.id] = set;
-      }, this);
-    };
-
-    ChartRenderView.prototype.setupEvents = function() {
-      var self;
-      self = this;
-      TixLib.Dispatcher.on('areaClick', function(data) {
-        console.log('[SR] areaClick event received with data');
-        return console.log(data);
-      });
-      TixLib.Dispatcher.on('sectionColorChange', function(data) {
-        var set;
-        console.log('[SR] sectionColorChange received with data');
-        console.log(data);
-        set = self.setBySectionID[data.section.id];
-        return set.attr('fill', data.color);
-      });
-      return TixLib.Dispatcher.on('chartColorChange', function(data) {
-        return self.setChartBackgroundColor(data.color);
-      });
-    };
-
-    ChartRenderView.prototype.setChartBackgroundColor = function(color) {
-      return $('#chart_container').css('background-color', color);
-    };
-
-    ChartRenderView.prototype.renderSection = function(section) {
-      var color, section_id, self;
-      self = this;
-      color = section.color === void 0 || section.color === null || section.color === '' ? '#000000' : section.color;
-      section_id = section.id;
-      console.log('[SR] Rendering Section ' + section.label);
-      return _.each(section.areas, function(area) {
-        var raf_shape;
-        raf_shape = null;
-        switch (area.type) {
-          case 'circle':
-            console.log('[SR] Rendering Area Circle ' + area.cx, area.cy);
-            raf_shape = self.paper.circle(area.cx, area.cy, area.r);
-            raf_shape.attr('fill', color);
-            break;
-          case 'rect':
-            console.log('[SR] Rendering Rect ' + area.points);
-            raf_shape = self.paper.rect(area.x, area.y, area.width, area.height);
-            raf_shape.attr('fill', color);
-            break;
-          case 'polygon':
-            console.log('[SR] Rendering Area Points ' + area.points);
-            raf_shape = self.paper.path("M " + area.points + "z");
-            raf_shape.attr('fill', color);
-        }
-        try {
-          raf_shape.attr('stroke', 0);
-          return raf_shape.click(function(shape) {
-            return TixLib.Dispatcher.trigger('areaClick', {
-              area: area,
-              section: section
-            });
-          });
-        } catch (_error) {}
-      });
-    };
-
-    return ChartRenderView;
-
-  })(Backbone.View);
 
 }).call(this);
 (function() {
@@ -13611,7 +13497,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return ArtistDetailiew.__super__.constructor.apply(this, arguments);
     }
 
-    ArtistDetailiew.prototype.template = JST['artist/artist_detail'];
+    ArtistDetailiew.prototype.template = JST['front/templates/artist/artist_detail'];
 
     ArtistDetailiew.prototype.initialize = function() {};
 
@@ -13645,7 +13531,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       'click': 'artistClick'
     };
 
-    ArtistListView.prototype.template = JST['artist/artist_list'];
+    ArtistListView.prototype.template = JST['front/templates/artist/artist_list'];
 
     ArtistListView.prototype.render = function() {
       this.$el.html(this.template({
@@ -13788,7 +13674,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return CheckoutView.__super__.constructor.apply(this, arguments);
     }
 
-    CheckoutView.prototype.template = JST['checkout/checkout'];
+    CheckoutView.prototype.template = JST['front/templates/checkout/checkout'];
 
     CheckoutView.prototype.initialize = function() {
       var cartHTML;
@@ -13830,7 +13716,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
 
     EventCartItemView.prototype.tagName = 'li';
 
-    EventCartItemView.prototype.template = JST['event/event_cart_item'];
+    EventCartItemView.prototype.template = JST['front/templates/event/event_cart_item'];
 
     EventCartItemView.prototype.events = {
       'click .close a': 'cancelTicket'
@@ -13958,7 +13844,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return EventChartView.__super__.constructor.apply(this, arguments);
     }
 
-    EventChartView.prototype.template = JST['event/event_chart'];
+    EventChartView.prototype.template = JST['front/templates/event/event_chart'];
 
     EventChartView.prototype.el = document.createElement('div');
 
@@ -14242,7 +14128,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return EventCheckoutView.__super__.constructor.apply(this, arguments);
     }
 
-    EventCheckoutView.prototype.template = JST['event/event_checkout'];
+    EventCheckoutView.prototype.template = JST['front/templates/event/event_checkout'];
 
     EventCheckoutView.prototype.initialize = function() {
       var self;
@@ -14281,7 +14167,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return EventDetailMiniView.__super__.constructor.apply(this, arguments);
     }
 
-    EventDetailMiniView.prototype.template = JST['event/event_detail_mini'];
+    EventDetailMiniView.prototype.template = JST['front/templates/event/event_detail_mini'];
 
     EventDetailMiniView.prototype.initialize = function() {
       return this.$el.addClass('col g16');
@@ -14314,7 +14200,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
 
     EventDetailView.prototype.className = 'event_details';
 
-    EventDetailView.prototype.template = JST['event/event_detail'];
+    EventDetailView.prototype.template = JST['front/templates/event/event_detail'];
 
     EventDetailView.prototype.initialize = function() {
       _.bindAll(this, 'render');
@@ -14344,7 +14230,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return EventEditView.__super__.constructor.apply(this, arguments);
     }
 
-    EventEditView.prototype.template = JST['event/event_edit'];
+    EventEditView.prototype.template = JST['front/templates/event/event_edit'];
 
     EventEditView.prototype.initialize = function() {
       return console.log(this.model.attributes);
@@ -14389,7 +14275,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       'click': 'eventClick'
     };
 
-    EventListView.prototype.template = JST['event/event_list'];
+    EventListView.prototype.template = JST['front/templates/event/event_list'];
 
     EventListView.prototype.render = function() {
       this.$el.html(this.template(this.model.attributes));
@@ -14531,7 +14417,7 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
       return HomeView.__super__.constructor.apply(this, arguments);
     }
 
-    HomeView.prototype.template = JST['home/home'];
+    HomeView.prototype.template = JST['front/templates/home/home'];
 
     HomeView.prototype.initialize = function() {};
 
@@ -14810,12 +14696,11 @@ jQuery.fn.liveUpdate = function(list, selectorToSearchOn, selectorToToggle){
 
 
 
-
+//
 //
 
-//
 
-// require_tree ../templates/
+
 
 
 

@@ -1,0 +1,44 @@
+@import "compass/css3/transition"
+
+.nav
+  border-bottom: 1px solid rgba(255,255,255,.1)
+  margin-bottom: 20px
+  height: 3em
+  ul  
+    margin-left: 0
+    li
+      list-style:  none
+      display:  inline
+      a
+        font-family: Helvetica
+        font-weight: 100
+        text-decoration: none
+        font-size:  1.5em
+        background-color: rgba(255,255,255,.2)
+        border-radius: 1px
+        @include transition( background-color 0.1s)
+        
+        padding: 3px 8px
+        &:hover
+          background-color: rgba(255,255,255,.8)
+          //border:1px 
+          //color: maroon
+          @include transition( background-color 0.1s)
+          //padding-top: 10px
+          //padding-bottom: 10px
+          
+      .highlighted
+
+.loading
+  margin-left: 400px
+  margin-top: 200px
+
+.nav.manager
+  ul
+    li
+      a
+        font-size:  1.1em
+
+
+.secondary-nav
+  font-size:  1.4em

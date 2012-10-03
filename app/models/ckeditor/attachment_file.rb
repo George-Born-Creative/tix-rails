@@ -16,9 +16,13 @@
 #
 
 class Ckeditor::AttachmentFile < Ckeditor::Asset
+  
   has_attached_file :data,
-                    :url => "/ckeditor_assets/attachments/:id/:filename",
-                    :path => ":rails_root/public/ckeditor_assets/attachments/:id/:filename"
+    :storage => :s3,
+    :bucket => ENV['S3_BUCKET_NAME'],
+    :s3_credentials => S3_CREDENTIALS,
+    :styles => { :large => "600x600", :medium => "300x300>", :thumb => "100x100>" },
+    :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
   
   validates_attachment_size :data, :less_than => 100.megabytes
   validates_attachment_presence :data

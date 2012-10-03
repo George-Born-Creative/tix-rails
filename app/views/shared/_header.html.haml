@@ -1,32 +1,36 @@
-#logo.columns.nine.alpha
-  
-.info.columns.seven.omega
-  .align.right
+.row
+  #logo.span6
+    =image_tag '/images/jj-logo.png'
+  .info.span6
+    .align.right
+      .secondary-nav
     
+        -if user_signed_in?
+          Hello
+          %strong=link_to current_user.email, edit_user_path(current_user)
+          | 
+          =link_to 'Logout', destroy_user_session_path, :method => :delete
+          ="<!--Role: #{current_user.role}-->".html_safe
+        -else
+          =link_to 'Login', new_user_session_path
+    
+        |
       
-    =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
-    |
-    =link_to 'Facebook', 'http://www.facebook.com/pages/Vienna-VA/Jammin-Java/55704731656?ref=s', :target => '_blank'
-    |
-    =link_to 'FAQ', 'http://jamminjava.com/home/main/faq', :target => '_blank'
-    |
-    =link_to 'Contact', 'http://jamminjava.com/home/main/contact', :target => '_blank'
-    |
-    =link_to 'Directions', 'http://jamminjava.com/home/main/contact', :target => '_blank'
-    <br/>
-    -if user_signed_in?
-      Hello
-      %strong=link_to current_user.email, edit_user_path(current_user)
-      | 
-      =link_to 'Logout', destroy_user_session_path, :method => :delete
-      ="<!--Role: #{current_user.role}-->".html_safe
-    -else
-      =link_to 'Login', new_user_session_path
-    <br/>
-    %strong
-      %a{:href => '#/checkout'}
-        Cart:
-        %span.cart_total $0.00
-    %br/
-    <br/>
-    .small 227 Maple Ave E Vienna, VA 22180   |   <a href='#'>thebros@jamminjava.com</a>
+        =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
+        |
+        =link_to 'Facebook', 'http://www.facebook.com/pages/Vienna-VA/Jammin-Java/55704731656?ref=s', :target => '_blank'
+        |
+        =link_to 'FAQ', 'http://jamminjava.com/home/main/faq', :target => '_blank'
+        |
+        =link_to 'Contact', 'http://jamminjava.com/home/main/contact', :target => '_blank'
+        |
+        =link_to 'Directions', 'http://jamminjava.com/home/main/contact', :target => '_blank'
+        %br/
+        %br/
+        %strong
+          %a{:href => '#/checkout'}
+            Cart:
+            %span.cart_total $0.00
+        %br/
+        <br/>
+        .small 227 Maple Ave E Vienna, VA 22180   |   <a href='#'>thebros@jamminjava.com</a>

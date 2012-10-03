@@ -12,11 +12,12 @@
   %body
     #wrap
       .container
-        #header.columns.sixteen
+        .row
+          #header.span16
     
-          =render 'shared/header'
+            =render 'shared/header'
     
-      .container
+
         .nav
           %ul 
             %li=link_to 'Calendar', '/page/calendar', :class => 'highlighted'

@@ -34,25 +34,10 @@ CKEDITOR.editorConfig = function( config )
   
   // Rails CSRF token
   config.filebrowserParams = function(){
-    var csrf_token, csrf_param, meta,
-        metas = document.getElementsByTagName('meta'),
+    var csrf_token = jQuery('meta[name=csrf-token]').attr('content'),
+        csrf_param = jQuery('meta[name=csrf-param]').attr('content'),
         params = new Object();
     
-    for ( var i = 0 ; i < metas.length ; i++ ){
-      meta = metas[i];
-
-      switch(meta.name) {
-        case "csrf-token":
-          csrf_token = meta.content;
-          break;
-        case "csrf-param":
-          csrf_param = meta.content;
-          break;
-        default:
-          continue;
-      }
-    }
-
     if (csrf_param !== undefined && csrf_token !== undefined) {
       params[csrf_param] = csrf_token;
     }
@@ -63,9 +48,10 @@ CKEDITOR.editorConfig = function( config )
   config.addQueryString = function( url, params ){
     var queryString = [];
 
-    if ( !params ) {
+    if ( !params )
       return url;
-    } else {
+    else
+    {
       for ( var i in params )
         queryString.push( i + "=" + encodeURIComponent( params[ i ] ) );
     }
@@ -80,7 +66,7 @@ CKEDITOR.editorConfig = function( config )
     var dialogDefinition = ev.data.definition;
     var content, upload;
     
-    if (CKEDITOR.tools.indexOf(['link', 'image', 'attachment', 'flash'], dialogName) > -1) {
+    if ($.inArray(dialogName, ['link', 'image', 'attachment', 'flash']) > -1) {
       content = (dialogDefinition.getContents('Upload') || dialogDefinition.getContents('upload'));
       upload = (content == null ? null : content.get('upload'));
       

@@ -9,6 +9,8 @@
       / Le HTML5 shim, for IE6-8 support of HTML5 elements
       /[if lt IE 9]
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      =javascript_include_tag 'manager'
+      
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -204,7 +206,6 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     -#%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"}
-    =javascript_include_tag 'manager'
     :javascript
       $(function(){ TixMgr.init(); });
       

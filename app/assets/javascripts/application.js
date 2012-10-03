@@ -21,15 +21,14 @@
 //= require raphael.min
 //= require jquery.livesearch
 //= require hamlcoffee
-//= require_tree ../templates
 //
-//= require .//tix
 //
-//= require_tree .//lib
-// require_tree ../templates/
-//= require_tree .//models
-//= require_tree .//collections
-//= require_tree .//views
-//= require_tree .//routers
+//= require_tree ./front/templates/
+//= require ./front/tix
+//= require_tree ./front/models
+//= require_tree ./front/collections
+//= require_tree ./front/views
+//= require_tree ./front/routers
+
 
 

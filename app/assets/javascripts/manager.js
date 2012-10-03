@@ -20,8 +20,8 @@
 //= require ../lib/bootstrap/timepicker/js/bootstrap-timepicker
 // require bootstrap/charts/area
 // require bootstrap/charts/donut
-
 //= require dataTables/jquery.dataTables
+
 //= require ckeditor/init
 
 // require_tree ./lib/templates

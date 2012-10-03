@@ -10,15 +10,15 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
+
 group :production do
   gem 'pg'
-  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
 end
 
 group :test, :development do 
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-  # gem 'therubyracer', :platform => :ruby
-  
+  gem 'therubyracer', :platform => :ruby
   gem 'sqlite3'
   gem 'railroady' # uml generation (http://railroady.prestonlee.com/) #rake diagram:all
   gem 'rspec-rails', "~> 2.6" 

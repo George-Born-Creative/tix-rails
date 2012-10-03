@@ -150,6 +150,7 @@ GEM
       activesupport (>= 3.0.0)
     less (2.2.2)
       commonjs (~> 0.2.6)
+    libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -267,6 +268,8 @@ GEM
       polyamorous (~> 0.5.0)
     stamp (0.2.0)
     state_machine (1.1.2)
+    therubyracer (0.10.2)
+      libv8 (~> 3.3.10)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -337,6 +340,7 @@ DEPENDENCIES
   squeel
   stamp
   state_machine
+  therubyracer
   thin
   twitter-bootstrap-rails!
   uglifier (>= 1.0.3)

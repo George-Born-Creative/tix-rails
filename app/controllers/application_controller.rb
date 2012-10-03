@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # before_filter :authenticate_user!
   before_filter :set_current_account
   before_filter :set_events
-
+  before_filter :authenticate_admin!
      
   private
 
@@ -43,6 +43,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  
+  def authenticate_admin!
+    if request.fullpath.slice(0,8) == '/manager'
+      if (! user_signed_in? )
+        raise 'Must sign in first'
+      elsif !(current_user.has_at_least_role(:employee))
+        redirect_to '/', :notice => 'Insufficient role '
+      else
+        true
+      end
+    end
+  end
   
   #if ENV['RAILS_ENV'] == 'development'
   #  render :text => E

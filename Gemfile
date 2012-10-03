@@ -16,6 +16,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 
 group :production do
   gem 'pg'
+  gem 'newrelic_rpm'
 end
 
 group :test, :development do 

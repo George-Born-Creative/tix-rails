@@ -18,4 +18,4 @@
   %h3 Chart Templates
   %ul
   -@current_account.charts.masters.each do |chart|
-    %li=link_to "Clone #{chart.name}", "/manager/charts/#{chart.id.to_s}/clone_for_event/#{event.id}", :method => :post
+    %li=link_to "Clone #{chart.name}", "/manager/charts/#{chart.id.to_s}/clone_for_event/#{event.id}"# , :method => :post

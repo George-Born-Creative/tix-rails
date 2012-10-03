@@ -23,6 +23,10 @@
         -if user_signed_in?
           Hello
           %strong=link_to current_user.email, edit_user_path(current_user)
+          -if current_user.has_at_least_role :employee
+            |
+            =link_to 'Manager', '/manager'
+          
           | 
           =link_to 'Logout', destroy_user_session_path, :method => :delete
           ="<!--Role: #{current_user.role}-->".html_safe

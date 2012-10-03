@@ -30,7 +30,7 @@ Tix::Application.routes.draw do
     get '/orders/:id/tickets' => 'orders#tickets'
     
     resources :charts
-    post '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'
+    get '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'
 
     resources :accounts
     resources :ticket_templates

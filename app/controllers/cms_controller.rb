@@ -13,7 +13,9 @@ class CmsController < ApplicationController
       render :layout => layout
       
     when "calendar"
-      @events = @current_account.events.announced.all#.select('title, starts_at, id, headliner_id, announce_at')
+      @events = @current_account.events.announced
+            .select('title, starts_at, id, headliner_id, announce_at')
+            .order('starts_at asc')
       render :template => 'shared/calendar', :layout => layout
       
     else

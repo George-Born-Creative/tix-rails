@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   
   # before_filter :authenticate_user!
   before_filter :set_current_account
-  before_filter :set_events
   before_filter :authenticate_admin!
      
   private
@@ -12,10 +11,6 @@ class ApplicationController < ActionController::Base
 
   def set_current_account
     @current_account = Account.find_by_subdomain!(request.subdomains.first)
-  end
-
-  def set_events # maybe move this into main controller
-    @events = @current_account.events.order("starts_at ASC")
   end
 
 
@@ -45,15 +40,24 @@ class ApplicationController < ActionController::Base
   
   
   def authenticate_admin!
-    if request.fullpath.slice(0,8) == '/manager'
-      if (! user_signed_in? )
-        redirect_to new_user_session_path, :alert => 'Please sign in first '
-      elsif !(current_user.has_at_least_role(:employee))
-        redirect_to '/', :notice => 'Insufficient role '
-      else
-        true
-      end
+    if (! user_signed_in? )
+      return false
     end
+    
+    if request.fullpath.slice(0,8) == '/manager' && !(current_user.has_at_least_role(:employee))
+      redirect_to '/', :notice => 'Insufficient permissions'
+    end  
+    
+    # if request.fullpath.slice(0,8) == '/manager'
+    #   if (! user_signed_in? )
+    #     redirect_to new_user_session_path, :alert => 'Please sign in first '
+    #   elsif !(current_user.has_at_least_role(:employee))
+    #     redirect_to '/', :notice => 'Insufficient role '
+    #   else
+    #     true
+    #   end
+    # end
+    true
   end
   
   protected

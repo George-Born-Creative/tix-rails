@@ -28,7 +28,8 @@
 
 .row
   .span7
-    =image_tag(@event.headliner.photo(:medium), :width => '100%')
+    -if @event.headliner && @event.headliner.photo?
+      =image_tag(@event.headliner.photo(:original), :width => '100%')
   .span4
     %p=@event.starts_at.to_formatted_s :jammin_java
     -if @event.chart
@@ -79,7 +80,8 @@
         -unless @event.secondary_headliner.nil?
           %h2 Secondary Headliner
           %h3= @event.secondary_headliner.name
-          =@event.secondary_headliner.body.html_safe
+          
+          =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.nil?
           
           
 

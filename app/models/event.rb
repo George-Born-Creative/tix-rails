@@ -37,7 +37,7 @@ class Event < ActiveRecord::Base
                   :headliner, :secondary_headliner, :supporting_acts,
                   :headliner_id, :secondary_headliner_id, :supporting_acts,
                   :suggestion_1, :suggestion_2, :suggestion_3,
-                  :artist_id_old, :chart, :tickets, :starts_at, 
+                  :artist_id_old, :chart, :tickets, :starts_at,
                   :slug, :buytix_url_old,
                   :cat,                   # TODO move category into its own model
                   :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at
@@ -58,7 +58,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :starts_at
   validates_uniqueness_of :slug, :scope => :account_id
   
-  before_save :set_default_times
   before_destroy :check_tickets
   
   belongs_to :chart, :autosave => true, :dependent => :destroy
@@ -79,6 +78,14 @@ class Event < ActiveRecord::Base
   def on_sale?
     now = DateTime.now.to_i
     now > self.on_sale_at.to_i && now < self.off_sale_at.to_i
+  end
+  
+  def self.defaults
+   {:starts_at => DateTime.now + 30, # 30 days from now
+    :announce_at => DateTime.now,
+    :on_sale_at => DateTime.now + 10,
+    :off_sale_at => DateTime.now + 30,
+    :remove_at => DateTime.now + 30 }
   end
   
   def starts_in_future?
@@ -118,6 +125,7 @@ class Event < ActiveRecord::Base
     # TODO: Make these into account-level settings
     
     now = DateTime.now 
+    self.starts_at = DateTime.now if self.starts_at.nil?
     self.off_sale_at = self.starts_at + 3.hours if self.off_sale_at.nil?
     self.remove_at = self.starts_at + 3.hours if self.remove_at.nil?
     

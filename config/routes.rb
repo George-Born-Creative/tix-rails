@@ -3,23 +3,19 @@ Tix::Application.routes.draw do
 
   devise_for :users
   
-  resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
-  # resources :artists, :as => 'front_artists', :only => [:index, :show]
-  resources :orders, :as => "front_orders", :only => [:show, :new], :controller => 'Front::Orders'
-  resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
-
   
   match '/page/:slug', :controller => :cms, :action => :index
   
   
   scope '/manager' do
+    resources :events# , :as => 'manager_events'
+    
     match '/', :controller => :manager, :action => :index
     get '/tickets/:id/checkin' => 'tickets#check_in'
     
     resources :customer_imports
     
     resources :users
-    resources :events#, :as => 'manager_events'
     get "/artists/search" => "artists#search", :as => :search
     
     resources :artists
@@ -76,6 +72,13 @@ Tix::Application.routes.draw do
     match '/', :controller => :admin, :action => :index
     resources :accounts  
   end
+  
+  
+  resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
+  # resources :artists, :as => 'front_artists', :only => [:index, :show]
+  resources :orders, :as => "front_orders", :only => [:show, :new], :controller => 'Front::Orders'
+  resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
+  
   
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   

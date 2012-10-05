@@ -18,15 +18,15 @@
 
           .stat
             %h4 Artists with Active Events
-            %span.value=@artists.count
+            %span.value=@current_account.events.announced.where('headliner_id IS NOT null').count
   
           .stat
-            %h4 Number of Artists
-            %span.value=@artists.count
+            %h4 
+            %span.value
 
           .stat
-            %h4 Number of Artists
-            %span.value=@artists.count
+            %h4 
+            %span.value
             
             
   

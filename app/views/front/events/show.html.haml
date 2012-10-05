@@ -73,8 +73,9 @@
       .span5
         =@event.body
 
-        %h3= @event.headliner.name
-        =@event.headliner.body.html_safe
+        -if @event.headliner
+          %h3= @event.headliner.name
+          =@event.headliner.body.html_safe
 
 
         -unless @event.secondary_headliner.nil?

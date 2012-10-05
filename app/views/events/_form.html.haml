@@ -61,7 +61,9 @@
           =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
 
           =link_to '+ New Event', new_event_path, :class => 'btn btn-large btn-support-contact'
-          =link_to 'Preview', front_event_path(@event), :class => 'btn btn-large btn-support-contact', :target => '_blank'
+          
+          -if @event.id
+            =link_to 'Preview', front_event_path(@event), :class => 'btn btn-large btn-support-contact', :target => '_blank'
 
 
        

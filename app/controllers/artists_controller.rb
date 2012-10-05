@@ -41,8 +41,10 @@ class ArtistsController < ApplicationController
     
     respond_to do |format|
       if @artist.save
+        format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully created.' }
         format.json { render json: @artist, status: :created, location: @artist }
       else
+        format.html { render action: "show" }
         format.json { render json: @artist.errors, status: :unprocessable_entity }
       end
     end
@@ -54,10 +56,10 @@ class ArtistsController < ApplicationController
     respond_to do |format|
       # params[:artist_id] = @current_account.id
       if @artist.update_attributes(params[:artist])
-        format.html { redirect_to @artist, notice: 'Artist was successfully updated.' }
+        format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "show" }
         format.json { render json: @artist.errors, status: :unprocessable_entity }
       end
     end

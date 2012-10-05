@@ -16,16 +16,16 @@
             %span.value=@current_account.events.count
 
           .stat
-            %h4 Number of Events
-            %span.value 0
+            %h4 Events with Headliners
+            %span.value=@current_account.events.where('headliner_id IS NOT null').count 
 
           .stat
-            %h4 Number of tickets sold
-            %span.value 0
+            %h4 Events with Secondary Headliners
+            %span.value=@current_account.events.where('secondary_headliner_id IS NOT null').count 
 
           .stat
-            %h4 Average Order Size
-            %span.value 0
+            %h4
+            %span.value
     
 .row
   .span12

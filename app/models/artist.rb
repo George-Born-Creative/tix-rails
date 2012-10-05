@@ -54,6 +54,7 @@ class Artist < ActiveRecord::Base
       attachment.instance.account.subdomain
     end
     
+    validates_presence_of :name
     
     def self.search(search)
       if search

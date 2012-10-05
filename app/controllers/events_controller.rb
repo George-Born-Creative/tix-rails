@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   respond_to :json, :html
+  
   before_filter :populate_artists
   
   # GET /events
@@ -32,7 +33,7 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
-    @event = @current_account.events.new
+    @event = @current_account.events.new(Event.defaults) # TODO, set this account-wid
 
     respond_to do |format|
       format.html # new.html.erb
@@ -51,6 +52,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    params[:event] = convert_datetimes( params[:event] )
     @event = @current_account.events.new(params[:event])
 
     respond_to do |format|

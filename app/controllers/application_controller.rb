@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout :layout
   
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_filter :set_current_account
   before_filter :authenticate_admin!
      
@@ -59,6 +59,11 @@ class ApplicationController < ActionController::Base
     # end
     true
   end
+  unless Rails.application.config.consider_all_requests_local
+     rescue_from Exception, with: lambda { |exception| render_error 500, exception }
+     rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception| render_error 404, exception }
+   end
+
   
   protected
   
@@ -67,12 +72,16 @@ class ApplicationController < ActionController::Base
   end
 
   
+  private
   
-  #private
+  def render_error(status, exception)
+    respond_to do |format|
+      format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
+      format.all { render nothing: true, status: status }
+    end
+  end
+  
 
-  #def render_404
-  #  render :template => 'error_pages/404', :layout => "application", :status => :not_found
-  #end
 
 
 end

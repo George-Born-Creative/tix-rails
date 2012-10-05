@@ -1,29 +1,43 @@
 .row
-  .span3
+  .span4
     %h1 Calendar
   .span4
     <br/>
     %h2
-      
       =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-grid-view'
       =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-list-view'
 
 #artists-list-view.artists-view
-  -@events.each do |event|
-    .row
-      .span3
-        -if (event.headliner && event.headliner.photo?)
-          =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
-        -else
-          =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
-          =#image_tag('http://placehold.it/300x230', :width => '100%') 
+  .row
+    .span9
+
+      -@events.each do |event|
+        /=@current_account.sidebars.first.body
+        .row
+          .span3
+            -if (event.headliner && event.headliner.photo?)
+              =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
+            -else
+              =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
+              =#image_tag('http://placehold.it/300x230', :width => '100%') 
+        
+          .span2
+            %h2=event.name
+            %h3=event.headliner.name if event.headliner
+            %h2=event.secondary_headliner.name if event.secondary_headliner
           
-      .span3.offset1
-        %h3=event.name
-        %h4=event.headliner.name if event.headliner
-        %h5=event.starts_at.to_formatted_s
-      .span3
-        %button{:href => 'buy tix'} Buy Tix
+            %h3=event.starts_at.to_formatted_s(:jammin_java)
+            %p=event.price_freeform.html_safe if event.price_freeform
+            
+          .span3
+            %p=event.info.html_safe if event.info
+            
+          .span1
+            %button{:href => 'buy tix'} Buy Tix
+          
+    .span3
+      =@current_account.sidebars.last.body.html_safe
+      
 
 #artists-grid-view.artists-view.hide
   -@events.in_groups_of(3, false) do |events|
@@ -35,9 +49,10 @@
           -else
             =image_tag('http://placehold.it/300x230', :width => '100%') 
           .well{:style => 'position: relative; background: rgba(0,0,0,.6); height: 100px; bottom: 130px; '}
-            %h3=event.name
-            %h4=event.headliner.name if event.headliner
-            %h5=event.starts_at.to_formatted_s
+            %h2=event.name
+            %h3=event.headliner.name if event.headliner
+            %h3=event.starts_at.to_formatted_s(:jammin_java)
+            =event.price_freeform
         
 -content_for :javascript do
   :javascript

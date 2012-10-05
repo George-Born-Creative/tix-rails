@@ -28,7 +28,7 @@ private
         (artist.facebook_url ? link_to(' Facebook ', artist.facebook_url) : nil),
         (artist.video_url ? link_to(' Video ', artist.video_url) : nil),
         (artist.url ? link_to(' Website ', artist.url) : nil),
-        link_to('Edit', artist)
+        link_to('Edit', artist, :class => 'btn')
       ]
     end
   end

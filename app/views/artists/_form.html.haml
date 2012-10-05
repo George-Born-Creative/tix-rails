@@ -45,6 +45,8 @@
         =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
       
         =link_to '+ New Artist', new_artist_path, :class => 'btn btn-large btn-support-contact btn'
+        -unless @artist.id.nil?
+          =button_to 'Delete', artist_path(@artist), :method => :delete, :confirm => "Are you sure?", :class => 'btn btn-large btn-support-contact btn btn-danger'
       
       
     .widget.widget-box

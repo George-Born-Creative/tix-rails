@@ -111,4 +111,14 @@
               #collapseThree.accordion-body.collapse
                 .accordion-inner
                   =render :partial => 'seating_chart_controls', :locals => {:event => @event}
+                  
+                  
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseFour"}
+                  Info
+              #collapseFour.accordion-body.collapse
+                .accordion-inner
+                  =f.input :info
+                  =f.input :price_freeform
           

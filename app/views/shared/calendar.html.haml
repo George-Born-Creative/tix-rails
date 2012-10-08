@@ -1,42 +1,44 @@
 .row
-  .span4
-    %h1 Calendar
-  .span4
+  .span6
+    %h1 Upcoming Shows
+  .span3
     <br/>
+    View:
     %h2
       =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-grid-view'
       =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-list-view'
+      
+%hr/
 
 #artists-list-view.artists-view
   .row
+    .span3
+      =@current_account.sidebars.last.body.html_safe
+      
     .span9
 
       -@events.each do |event|
-        /=@current_account.sidebars.first.body
-        .row
-          .span3
-            -if (event.headliner && event.headliner.photo?)
-              =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
-            -else
-              =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
-              =#image_tag('http://placehold.it/300x230', :width => '100%') 
+        .item
+          /=@current_account.sidebars.first.body
+          .row
+            .span2
+              -if (event.headliner && event.headliner.photo?)
+                =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
+              -else
+                =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
+                =#image_tag('http://placehold.it/300x230', :width => '100%') 
         
-          .span2
-            %h2=event.name
-            %h3=event.headliner.name if event.headliner
-            %h2=event.secondary_headliner.name if event.secondary_headliner
+            .span6
+              .starts-at=event.starts_at.to_formatted_s(:jammin_java)
+              .event-name=event.name
+              .artists
+                =event.headliner.name if event.headliner
+                =("+" << event.secondary_headliner.name) if event.secondary_headliner
           
-            %h3=event.starts_at.to_formatted_s(:jammin_java)
-            %p=event.price_freeform.html_safe if event.price_freeform
+              /%p=event.price_freeform.html_safe if event.price_freeform
+              %button{:href => 'buy tix'} Buy Tix
             
-          .span3
-            %p=event.info.html_safe if event.info
-            
-          .span1
-            %button{:href => 'buy tix'} Buy Tix
           
-    .span3
-      =@current_account.sidebars.last.body.html_safe
       
 
 #artists-grid-view.artists-view.hide

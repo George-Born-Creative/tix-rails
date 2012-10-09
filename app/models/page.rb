@@ -10,6 +10,7 @@
 #  parent_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  sidebar_id :decimal(, )
 #
 
 class Page < ActiveRecord::Base
@@ -22,6 +23,9 @@ class Page < ActiveRecord::Base
   
   validates_uniqueness_of :slug, :scope => :account_id
 
+  def self.by_id_or_slug(slug_or_id, account_id)
+    @page = Page.where('account_id = ? AND (slug = ? OR id = ?)', account_id, slug_or_id, slug_or_id).first
+  end
   
   
 end

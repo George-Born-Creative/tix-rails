@@ -34,10 +34,20 @@ body
   background: $omega $background top center no-repeat
   font-family: helvetica, arial, sans-serif
   color: $alpha
-  font-size: 14px
-  line-height: 16px
+  font-size: 18px
+  line-height: 30px
   font-family: "freight-sans-pro"
-
+  font-weight: 200
+  li
+    line-height: 1.6em
+  
+p
+  font-size: 18px
+  line-height: 30px
+    
+.floatright 
+  float: right
+  
 .button, a.btn, button.btn, button
   color: white
   text-shadow: none
@@ -50,7 +60,7 @@ body
   &:hover
     background-color: black !important
     color: $red
-    border: 0
+    border: 1px solid black
   
 strong
   color: inherit
@@ -103,19 +113,19 @@ h1, h2, h3, h4, h5
   text-transform: uppercase
   
 h1
-  font-size: 5em
-  line-height: .8em
+  font-size: 3em
+  line-height: 1em
   
 h2
-  font-size: 4em
+  font-size: 2em
   line-height: .8em
 
 h3
-  font-size: 2.5em
+  font-size: 1.5em
   line-height: 1.2em
   
 h4
-  font-size: 2em
+  font-size: 1.3em
   line-height: 1.2em
   
 h5
@@ -147,7 +157,8 @@ h5.minor
   //background-color: transparentize($omega, .3)
   
 #header
-  
+  font-size: 16px
+  line-height: 18px
   //margin: 20px 0
   border-bottom: 1px solid #333
   
@@ -486,3 +497,23 @@ a.btn
   border-radius: 3px
   a:hover
     color:  black
+    
+.additional-info
+  padding: 10px 0
+  border:
+    top: 15px solid $red
+    bottom: 15px solid $red
+    
+    
+hr.red
+  height: 15px
+  background-color: $red
+  margin: 15px 0
+  border: 0
+  
+  
+hr.red-thin
+  height: 1px
+  margin: 15px 0
+  border: 0
+  border-bottom: 1px solid $red

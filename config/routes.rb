@@ -1,12 +1,12 @@
 Tix::Application.routes.draw do
-  root :to => "cms#index"  
+  match '/', :controller => 'Front::Pages', :action => :show
 
   devise_for :users
   
+  match '/page/:slug', :action => :show, :controller => 'Front::Pages'
+  match '/page/:id/edit', :action => :edit, :controller => 'Pages'
   
-  match '/page/:slug', :controller => :cms, :action => :index
-  match '/cat/:slug', :controller => :cms, :action => :cat
-  
+  #  match '/cat/:slug', :controller => :cms, :action => :cat, :controller => 'Front::Pages'
   
   scope '/manager' do
     resources :events# , :as => 'manager_events'
@@ -79,6 +79,7 @@ Tix::Application.routes.draw do
   # resources :artists, :as => 'front_artists', :only => [:index, :show]
   resources :orders, :as => "front_orders", :only => [:show, :new], :controller => 'Front::Orders'
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
+  resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
   
   
   match "/delayed_job" => DelayedJobWeb, :anchor => false

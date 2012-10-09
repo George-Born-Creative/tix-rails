@@ -5,6 +5,6 @@
 =text_field_tag("event[secondary_headliner_id]", nil, :class => 'artist-token-input single artist-secondary-headliner', :data => {:pre => (@event.secondary_headliner.nil? ? "" : [@event.secondary_headliner.to_paired_hash].to_json) })
 
 %p Supporting Acts
-=#text_area_tag("event[supporting_acts]", :nil, :size => "25x10", :class => 'artist-token-input artist-supporting')
+=text_area_tag("event[supporting_act_ids_concat]", :nil, :size => "25x10", :class => 'artist-token-input artist-supporting', :data => {:pre => @event.supporting_acts.empty? ? "" : @event.supporting_acts.map{|artist| artist.to_paired_hash}.to_json })
 
 =link_to 'Create Artist', new_artist_url, :class => 'btn'

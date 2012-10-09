@@ -15,6 +15,9 @@
 #  service_charge :decimal(, )
 #  area_label     :string(255)
 #  section_label  :string(255)
+#  checked_in     :boolean          default(FALSE), not null
+#  checked_in_at  :datetime
+#  status         :string(255)
 #
 
 class Ticket < ActiveRecord::Base

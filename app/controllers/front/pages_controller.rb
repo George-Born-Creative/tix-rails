@@ -1,5 +1,4 @@
-class PagesController < ApplicationController
-  layout 'manager_cms'
+class Front::PagesController < ApplicationController
   
   # GET /pages
   # GET /pages.json
@@ -16,11 +15,18 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
-    @page = @current_account.pages.by_id_or_slug(params[:id], @current_account.id)
-    
+    # @page = @current_account.pages.find(params[:id]) if params[:id]
+    slug = params[:slug] || 'home'
+    @page = @current_account.pages.find_by_slug(slug)
+
     respond_to do |format|
-      format.html { render :layout => 'sidebar_left' } # show.html.erb
-      format.json { render json: @page }
+      unless @page.nil?
+        format.html { render :layout => 'sidebar_left' } # show.html.erb
+        format.json { render json: @page }
+      else
+        format.html { not_found }# 404 }
+        format.json { render json: @page.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +43,7 @@ class PagesController < ApplicationController
 
   # GET /pages/1/edit
   def edit
-    @page = @current_account.pages.by_id_or_slug(params[:id], @current_account.id)
+    @page = @current_account.pages.find(params[:id])
   end
 
   # POST /pages
@@ -63,7 +69,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
-        format.html { redirect_to "/page/#{@page.slug}", notice: 'Page was successfully updated.' }
+        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

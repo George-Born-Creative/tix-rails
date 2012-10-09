@@ -78,9 +78,9 @@
           
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseZero"}
                   Category
-              #collapseOne.accordion-body.collapse
+              #collapseZero.accordion-body.collapse
                 .accordion-inner
                   =f.input :cat, :as => :select, :collection => Event::CATEGORIES, :prompt => '- choose a category - ', :label => 'Category'
           

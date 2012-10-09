@@ -12,8 +12,8 @@
 #  audio_sample_url        :string(255)
 #  video_url               :string(255)
 #  twitter                 :string(255)
-#  youtube1                :string(255)
-#  youtube2                :string(255)
+#  youtube1                :text(255)
+#  youtube2                :text(255)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  photo_file_name         :string(255)
@@ -36,6 +36,8 @@ class Artist < ActiveRecord::Base
 
   has_many :headliners, :class_name => 'Events'
   has_many :secondary_headliners, :class_name => 'Events'
+  
+  has_and_belongs_to_many :events
   
   belongs_to :account
     

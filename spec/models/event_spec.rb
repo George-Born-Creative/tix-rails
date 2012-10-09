@@ -28,6 +28,8 @@
 #  on_sale_at             :datetime
 #  off_sale_at            :datetime
 #  remove_at              :datetime
+#  buytix_url_old         :string(255)
+#  slug                   :string(255)
 #
 
 require 'spec_helper'

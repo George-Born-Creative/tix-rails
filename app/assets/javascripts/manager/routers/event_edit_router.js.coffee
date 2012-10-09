@@ -32,6 +32,7 @@ class TixMgr.Routers.EventEditRouter extends Support.SwappingRouter
         animateDropdown:   false
         theme: 'facebook'
         tokenLimit: limit
+        tokenDelimiter: ','
     
     
     

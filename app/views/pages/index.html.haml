@@ -1,5 +1,11 @@
 -content_for :listing do
-  %h1 Pages
+  .row
+    .span4
+      %h1 Pages
+    .span4
+      .floatright
+        = link_to 'New Page', new_page_path, :class => 'btn btn-primary btn-large'
+      
 
   %table.table
     %tr
@@ -22,3 +28,4 @@
         %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :class => 'btn btn-danger', :method => :delete
 
   %br
+

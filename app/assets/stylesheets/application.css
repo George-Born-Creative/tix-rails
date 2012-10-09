@@ -14,7 +14,6 @@
  *= require skeleton
  *= require bootstrap/bootstrap
  *= require bootstrap/bootstrap-responsive
- * require ./front/grid
  *= require ./front/main
  *= require ./front/nav
  

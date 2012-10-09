@@ -28,6 +28,8 @@
 #  on_sale_at             :datetime
 #  off_sale_at            :datetime
 #  remove_at              :datetime
+#  buytix_url_old         :string(255)
+#  slug                   :string(255)
 #
 
 
@@ -40,7 +42,19 @@ class Event < ActiveRecord::Base
                   :artist_id_old, :chart, :tickets, :starts_at,
                   :slug, :buytix_url_old,
                   :cat,                   # TODO move category into its own model
-                  :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at
+                  :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at,
+                  :supporting_acts, :supporting_act_ids, :supporting_act_ids_concat
+                  
+  attr_accessor :supporting_act_ids_concat
+  
+    
+  before_save :set_supporting_act_ids
+  
+  def set_supporting_act_ids
+    if self.supporting_act_ids_concat
+      self.supporting_act_ids = self.supporting_act_ids_concat.split(',')
+    end
+  end
   
   attr_accessor :starts_at_formatted 
   
@@ -55,7 +69,8 @@ class Event < ActiveRecord::Base
   
   # TODO: Validates Timeliness
   # https://github.com/adzap/validates_timeliness
-  # attr_accessible :ends_at, :headline, :body, :image_uri, :image_thumb_uri
+  # attr_accessible :ends_at, :headline, :body, :image_uri, :image_thumb_ur
+  
   
   validates_presence_of :starts_at
   validates_uniqueness_of :slug, :scope => :account_id, :allow_nil => true
@@ -67,6 +82,9 @@ class Event < ActiveRecord::Base
   belongs_to :account
   belongs_to :headliner, :class_name => 'Artist'
   belongs_to :secondary_headliner, :class_name => 'Artist'
+  has_and_belongs_to_many :supporting_acts, :class_name => 'Artist', :join_table => 'events_supporting_acts'
+  accepts_nested_attributes_for :supporting_acts
+  
   has_many :categories, :as => :categorizable
   validates_inclusion_of :cat, :in => CATEGORIES.map{|c| c.to_s}.join(' '), :allow_nil => true
   

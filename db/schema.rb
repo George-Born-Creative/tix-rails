@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003201206) do
+ActiveRecord::Schema.define(:version => 20121009015824) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -179,6 +179,11 @@ ActiveRecord::Schema.define(:version => 20121003201206) do
     t.datetime "remove_at"
     t.string   "buytix_url_old"
     t.string   "slug"
+  end
+
+  create_table "events_supporting_acts", :force => true do |t|
+    t.integer "event_id"
+    t.integer "artist_id"
   end
 
   create_table "images", :force => true do |t|

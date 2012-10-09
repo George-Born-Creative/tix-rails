@@ -58,34 +58,40 @@
   .span7
     %h1 Bios
   
-    .row
-      .span2
+    =@event.body
+
+    -if @event.headliner
+      %h5 Headliner
+      %h3= @event.headliner.name
+      =@event.headliner.body.html_safe
+          
+    -unless @event.secondary_headliner.nil?
+      %hr.red-thin
+      %h5 Secondary Headliner
       
-        %h2=link_to 'Headliner', '#'
+      %h3= @event.secondary_headliner.name
+      =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
+      
+      =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.nil?
+      
+    -unless @event.supporting_acts.empty?
+      %hr.red-thin
+      %h5 Supporting Acts
+      -@event.supporting_acts.each do |artist|
+        =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
+      
+        %h3= artist.name
+        =artist.body.html_safe unless @event.secondary_headliner.body.nil?
+        %hr.red-thin
         
-        -if @event.secondary_headliner
-          %h2=link_to 'Secondary', '#'
-          
-          
-        -#-if @event.supporting
-        -#  %h2=link_to 'Secondary', '#'
-      
-      .span5
-        =@event.body
-
-        -if @event.headliner
-          %h3= @event.headliner.name
-          =@event.headliner.body.html_safe
-
-
-        -unless @event.secondary_headliner.nil?
-          %h2 Secondary Headliner
-          %h3= @event.secondary_headliner.name
-          
-          =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.nil?
-          
-          
 
   .span5
-    %h2 Additional Info
-    %p=@event.info.html_safe
+    .additional-info
+      %h2 Additional Info
+      %p=@event.info.html_safe if @event.info
+      
+    .videos
+      =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') if @event.headliner.youtube1
+      %hr.red
+      =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300') if @event.secondary_headliner.youtube1
+      

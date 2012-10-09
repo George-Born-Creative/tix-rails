@@ -23,6 +23,14 @@
 #  title                  :string(255)
 #  role                   :string(255)      default("customer")
 #  balance                :decimal(8, 2)    default(0.0), not null
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
+#  failed_attempts        :integer          default(0)
+#  unlock_token           :string(255)
+#  locked_at              :datetime
+#  authentication_token   :string(255)
 #
 
 class User < ActiveRecord::Base

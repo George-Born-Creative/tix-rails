@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: sidebars
+#
+#  id         :integer          not null, primary key
+#  slug       :string(255)
+#  title      :string(255)
+#  account_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Sidebar < ActiveRecord::Base
   attr_accessible :slug, :title, :widget_ids
   belongs_to :account

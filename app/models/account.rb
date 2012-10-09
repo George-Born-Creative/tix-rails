@@ -24,6 +24,8 @@ class Account < ActiveRecord::Base
   has_many :customer_imports, :dependent => :destroy
   has_many :categories, :dependent => :destroy
   
+  has_one :payment_gateway, :dependent => :destroy
+  
   # has_many :ckeditor_assets, :dependent => :destroy
   
   attr_accessible :subdomain

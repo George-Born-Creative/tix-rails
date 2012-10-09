@@ -1,8 +1,11 @@
 -content_for :layout do 
   .row
+    .span12
+      =yield :content_twelve
+  .row
     .span9
       .layout-content
-        =yield :content
+        =yield :content_nine
     .span3
       .layout-sidebar
         =yield :sidebar

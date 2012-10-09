@@ -23,6 +23,7 @@ private
     events.map do |event|
       
       [
+        event.cat,
         link_to(event.title, edit_event_url(event)),
         (event.starts_at.nil? ? nil : event.starts_at.to_formatted_s(:date)),
         (event.starts_at.nil? ? nil : event.starts_at.to_formatted_s(:time)),
@@ -60,7 +61,7 @@ private
   end
 
   def sort_column
-    columns = %w[title starts_at]
+    columns = %w[cat title starts_at]
     columns[params[:iSortCol_0].to_i]
   end
 

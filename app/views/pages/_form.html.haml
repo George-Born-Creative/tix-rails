@@ -33,13 +33,13 @@
           -if @page.sidebar
             =link_to "Edit #{@page.sidebar.title}", edit_sidebar_path(  @page.sidebar), :class => 'btn'
           
-      .widget
-        .widget-header
-          %h3 Image Browser
-        .widget-content
-          =select("", "", @current_account.images.collect {|p| [ p.file_name, p.file(:original) ] }, { :include_blank => true })
-      
-          -@current_account.images.limit(1).each do |image|
-            =image_tag( image.file(:original) )
+      -# .widget
+      -#   .widget-header
+      -#     %h3 Image Browser
+      -#   .widget-content
+      -#     =select("", "", @current_account.images.collect {|p| [ p.file_name, p.file(:original) ] }, { :include_blank => true })
+      -# 
+      -#     -@current_account.images.limit(1).each do |image|
+      -#       =image_tag( image.file(:original) )
 
  

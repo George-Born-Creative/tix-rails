@@ -34,6 +34,7 @@
     .widget.widget-table.action-table
       %table#events.table.table-striped.table-bordered.display{:data => {:source => events_url(format: 'json') }}
         %thead
+          %th Cat
           %th Title
           %th{:width => 70} Date
           %th{:width => 70} Time
@@ -44,6 +45,8 @@
     
         -@events.each do |event|
           %tr
+            %td=event.cat
+          
             %td=event.title
             %td=event.starts_at.to_formatted_s :date
             %td=event.starts_at.to_formatted_s :time

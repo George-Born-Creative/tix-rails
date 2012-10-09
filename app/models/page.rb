@@ -21,5 +21,7 @@ class Page < ActiveRecord::Base
   has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
   
   validates_uniqueness_of :slug, :scope => :account_id
+
+  
   
 end

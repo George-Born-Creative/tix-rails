@@ -37,10 +37,13 @@
         
         %br/
         %br/
-        %strong
-          %a{:href => '#/checkout'}
-            Cart:
-            %span.cart_total $0.00
+        .cart-minir
+          %strong
+            %a{:href => '#/checkout'}
+              Cart:
+              %span.cart_total $0.00
         %br/
         <br/>
-        .small 227 Maple Ave E Vienna, VA 22180   |   <a href='#'>thebros@jamminjava.com</a>
+        .small 
+          227 Maple Ave E Vienna, VA 22180   |   
+          =mail_to 'thebros@jamminjava.com', nil, :encode => 'hex'

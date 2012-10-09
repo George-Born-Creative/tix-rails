@@ -8,6 +8,7 @@ $logo: url(/images/jj-logo.png)
 $background: url(/images/jj-bg.jpg)
 $tan: #C09853
 $lighttan: #FCF8E3
+$red: #990000
 
 label 
   color: inherit
@@ -21,6 +22,7 @@ label
 //$background: url()
 
 
+
 @mixin red-button
   font-size: 1.7em
   padding: 15px 10px
@@ -32,9 +34,23 @@ body
   background: $omega $background top center no-repeat
   font-family: helvetica, arial, sans-serif
   color: $alpha
+  font-size: 14px
+  line-height: 16px
+  font-family: "freight-sans-pro"
 
-.button
-  font-family: 'atrament-web'
+.button, a.btn, button.btn, button
+  color: white
+  text-shadow: none
+  font-family: "freight-sans-pro"
+  background-color: $red !important
+  font-size: 1.3em
+  border: 1px solid black
+  padding: 10px
+  margin-top: 10px
+  &:hover
+    background-color: black !important
+    color: $red
+    border: 0
   
 strong
   color: inherit
@@ -78,32 +94,47 @@ table
   
 .hide
   display: none
+  
 h1, h2, h3, h4, h5
   color: $alpha
-  font-family:  'atrament-web', Helvetica
-  font-weight: 200
+  font-family:  "freight-sans-pro", Helvetica
+  font-weight: 400
   letter-spacing: -1px
   text-transform: uppercase
   
 h1
   font-size: 5em
-  line-height: 1.2em
+  line-height: .8em
   
 h2
-  font-size: 3em
-  line-height: 1.2em
+  font-size: 4em
+  line-height: .8em
 
 h3
-  font-size: 1.7em
+  font-size: 2.5em
   line-height: 1.2em
   
 h4
-  font-size: 1.2em
+  font-size: 2em
   line-height: 1.2em
   
 h5
   font-size: 1.1em
   line-height: 1.2em
+  
+.minor
+  font-size: 12px
+h1.minor
+  font-size: 4.1em
+h2.minor
+  font-size: 2.7em
+h3.minor
+  font-size: 2.1em
+h4.minor
+  font-size: 1.5em
+h5.minor
+  font-size: 1.5em
+
   
   
 #wrap > .container
@@ -434,6 +465,24 @@ a.btn
       font-size: 1.3em
       color: #ccc
     .event-name
+      font-size: 2.0em
+      line-height: 1.2em
+    .artist
+    
+#artists-grid-view
+  .item
+    .starts-at
+      font-size: 1.3em
+      color: #ccc
+    .event-name
       font-size: 2.5em
       line-height: 1.5em
     .artist
+    
+.cart-mini
+  background-color:  $red
+  display:  inline-block
+  padding:  4px
+  border-radius: 3px
+  a:hover
+    color:  black

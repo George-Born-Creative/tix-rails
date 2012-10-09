@@ -49,7 +49,7 @@ window.TixMgr =
         bServerSide: true
         sAjaxSource: $('#events').data('source')
         'aoColumnDefs': [
-          { "bSortable": false, "aTargets": [ 2, 3, 4, 5] } # these corespond to the events table columns
+          { "bSortable": false, "aTargets": [ 3, 4, 5, 6] } # these corespond to the events table columns
         ]
         
     }).addClass('display')

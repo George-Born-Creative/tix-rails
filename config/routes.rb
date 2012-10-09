@@ -5,6 +5,7 @@ Tix::Application.routes.draw do
   
   
   match '/page/:slug', :controller => :cms, :action => :index
+  match '/cat/:slug', :controller => :cms, :action => :cat
   
   
   scope '/manager' do

@@ -45,6 +45,8 @@ class Event < ActiveRecord::Base
   attr_accessor :starts_at_formatted 
   
   TIMES = [:announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at]
+  CATEGORIES = [:adults, :kids, :lobby]
+  
   
   alias_attribute :name, :title
   
@@ -56,7 +58,7 @@ class Event < ActiveRecord::Base
   # attr_accessible :ends_at, :headline, :body, :image_uri, :image_thumb_uri
   
   validates_presence_of :starts_at
-  validates_uniqueness_of :slug, :scope => :account_id
+  validates_uniqueness_of :slug, :scope => :account_id, :allow_nil => true
   
   before_destroy :check_tickets
   
@@ -65,10 +67,14 @@ class Event < ActiveRecord::Base
   belongs_to :account
   belongs_to :headliner, :class_name => 'Artist'
   belongs_to :secondary_headliner, :class_name => 'Artist'
-  
+  has_many :categories, :as => :categorizable
+  validates_inclusion_of :cat, :in => CATEGORIES.map{|c| c.to_s}.join(' '), :allow_nil => true
   
   scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.now, Time.now] }}
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.now, Time.now] }}  
+  scope :cat, lambda{ |cat| where('cat = ?', cat)}
+
+
 
   def announced?
     now = DateTime.now.to_i

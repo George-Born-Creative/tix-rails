@@ -22,6 +22,8 @@ class Account < ActiveRecord::Base
   has_many :widgets, :dependent => :destroy
   has_many :ticket_templates, :dependent => :destroy
   has_many :customer_imports, :dependent => :destroy
+  has_many :categories, :dependent => :destroy
+  
   # has_many :ckeditor_assets, :dependent => :destroy
   
   attr_accessible :subdomain

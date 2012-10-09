@@ -46,11 +46,11 @@
                 
       
           .row
-            .span7
+            .span8
               .control-group
                 %label.control-label
                 .controls
-                  =f.input :body, :as => :ckeditor, :toolbar => 'easy',  :input_html => { :style => 'width: 100%'}
+                  =f.input :body, :as => :ckeditor, :toolbar => 'easy',  :input_html => { :style => 'width: 100%', :height => '700'}
         
         
     
@@ -75,6 +75,14 @@
         .widget-content
           #event_edit_accordion.accordion
           
+          
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+                  Category
+              #collapseOne.accordion-body.collapse
+                .accordion-inner
+                  =f.input :cat, :as => :select, :collection => Event::CATEGORIES, :prompt => '- choose a category - ', :label => 'Category'
           
             .accordion-group
               .accordion-heading

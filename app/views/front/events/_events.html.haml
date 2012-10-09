@@ -1,0 +1,76 @@
+.row
+  .span3
+    %h2 Upcoming <br/> Shows
+  .span3
+    <br/>
+    Category
+    %h2=cat
+  .span3
+    <br/>
+    View:
+    %h2
+      =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.artists-view, .layout-sidebar', 'data-target' => '#artists-grid-view'
+      =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-list-view, .layout-sidebar'
+      
+%hr/
+
+#artists-list-view.artists-view
+  .row
+    .span9
+
+      -events.each do |event|
+        .item
+          /=@current_account.sidebars.first.body
+          .row
+            .span2
+              -if (event.headliner && event.headliner.photo?)
+                =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
+              -else
+                =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
+                =#image_tag('http://placehold.it/300x230', :width => '100%') 
+        
+            .span6
+              .starts-at=event.starts_at.to_formatted_s(:jammin_java)
+              .event-name=event.name
+              .artists
+                =event.headliner.name if event.headliner
+                =("+" << event.secondary_headliner.name) if event.secondary_headliner
+          
+              /%p=event.price_freeform.html_safe if event.price_freeform
+              %button{:href => 'buy tix'} Buy Tix
+            
+          
+      
+
+.row
+  .span12
+    #artists-grid-view.artists-view.hide
+      -events.in_groups_of(3, false) do |events|
+        .row
+          -events.each do |event|
+            .item
+              .span4{:style => 'margin-bottom: -130px;'}
+                -if event.headliner
+                  =image_tag(event.headliner.photo, :width => '100%') 
+                -else
+                  =image_tag('http://placehold.it/300x230', :width => '100%') 
+                .well{:style => 'position: relative; background: rgba(0,0,0,.6); height: 100px; bottom: 130px; '}
+                  .event-name=event.name
+                  .artists=event.headliner.name if event.headliner
+                  .starts-at=event.starts_at.to_formatted_s(:jammin_java)
+                  =event.price_freeform
+        
+-content_for :javascript do
+  :javascript
+    $(function(){
+      $('.hide-other').click(function(e){
+        e.preventDefault();
+          klass = $(this).data('class');
+          target = $(this).data('target');
+        
+          $(klass).hide();
+          $(target).fadeIn('fast');
+
+      })
+    });
+  

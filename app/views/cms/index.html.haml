@@ -1,6 +1,7 @@
--content_for :content do
-  =@page.body.html_safe
+=link_to "Edit", edit_page_path(@page)
 
-  =link_to "Edit", edit_page_path(@page)
--content_for :sidebar do 
+-content_for :content_nine do
+  =raw render_shortcodes( @page.body )
+  
+=content_for :sidebar do 
   =@page.sidebar.body if @page.sidebar

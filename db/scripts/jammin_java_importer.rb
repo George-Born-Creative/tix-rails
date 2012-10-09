@@ -29,7 +29,7 @@ module Tix
         row['starts_at'] = DateTime.strptime(row['starts_at'].to_s << " -0100", '%m/%d/%y %H:%M %z')
         puts "got #{row['starts_at']} for #{row['title']}"
         
-        row['cat'] = cat_name unless cat_name.nil?
+        row['cat'] = cat_name.to_s unless cat_name.nil?
         begin
           @account.events.create(row.to_hash)
         rescue ActiveRecord::RecordNotSaved

@@ -42,13 +42,16 @@
             =section.label
   
     %h2= @event.title
+    %h3= @event.headliners_str
+    -unless @event.supporting_acts_str.blank?
+      %h4=@event.supporting_acts_str
     
     -unless @event.set_times.empty?
       %p=@event.set_times.gsub(/([0-9][:]?[apmAPM]+)/, "<br/>\\1").html_safe
       
     After the show -- The lobby bar stays open!
     
-    -if @event.on_sale? && ( ! @event.chart.nil? )
+    -if @event.on_sale? && ( ! @event.chart.blank? )
       %a.btn.btn-large.buy_tix{:href => front_chart_path(@event.chart)} Buy Tix
     -else
       %p Event not yet on sale
@@ -67,7 +70,7 @@
 
     %h1 Bios
 
-    -if @event.headliner
+    -unless @event.headliner.blank?
       %h5 Headliner
       %h3= @event.headliner.name
       =raw @event.headliner.body.html_safe
@@ -75,28 +78,28 @@
       =artist_social_bar(@event.headliner)   
       
       
-    -unless @event.secondary_headliner.nil?
+    -unless @event.secondary_headliner.blank?
       %hr.red-thin
       %h5 Secondary Headliner
       
       %h3= @event.secondary_headliner.name
       =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
       
-      =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.nil?
+      =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank
       =artist_social_bar(@event.secondary_headliner)   
       
       
       
-    -unless @event.supporting_acts.empty?
+    -unless @event.supporting_acts.blank?
       %hr.red-thin
       %h5 Supporting Acts
       -@event.supporting_acts.each do |artist|
         =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
       
         %h3= artist.name
-        =artist.body.html_safe unless artist.body.nil?
+        =artist.body.html_safe unless artist.body.blank?
         
-        =artist_social_bar( artist )
+        /=artist_social_bar( artist )
         
         %hr.red-thin
         
@@ -105,12 +108,12 @@
     .additional-info
       %h2 Additional Info
 
-      %p=@event.info.html_safe unless @event.info.empty?
+      %p=@event.info.html_safe unless @event.info.blank?
       
     .videos
-      - unless (@event.headliner.nil? || @event.headliner.youtube1.nil?)
+      - unless (@event.headliner.blank? || @event.headliner.youtube1.blank?)
         =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') 
         %hr.red
-      - unless (@event.secondary_headliner.nil? || @event.secondary_headliner.youtube1.nil?)
+      - unless (@event.secondary_headliner.blank? || @event.secondary_headliner.youtube1.blank?)
         =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300')
       

@@ -92,33 +92,38 @@ module Tix
     
     
     
-    def self.import_artist_photos(artist_model)
+    def self.import_artist_photos(artist_model) #plural
       require 'open-uri'
       
       # imports photos only if photo does not exist on model
       
       artist_model.each do |artist|
         begin
-          unless artist.photo?
-            img_url = ''
-
-            open("http://jamminjava.com/home/shaun-data/_get_artist_image/#{artist.id_old}") {|f| f.each_line {|line| img_url += line}}
-            img_url = img_url.strip!
-            unless img_url.empty?
-              file = open(img_url)
-              filename = File.basename(img_url)
-              artist.photo = file
-              artist.photo.instance_write :file_name, filename # otherwise file name will be tempfile
-              artist.save
-              puts "Saved #{filename} for artist #{artist.name}"
-            end
-          end
+          self.import_artist_photo
         rescue
           #
         end
       end
     end
     
+    
+    def self.import_artist_photo(artist) #singular
+      unless artist.photo?
+        img_url = ''
+        path = "http://jamminjava.com/home/shaun-data/_get_artist_image/#{artist.id_old.to_i}"
+        puts "Opening #{path}..."
+        open(path) {|f| f.each_line {|line| img_url += line}}
+        img_url = img_url.strip!
+        unless img_url.empty?
+          file = open(img_url)
+          filename = File.basename(img_url)
+          artist.photo = file
+          artist.photo.instance_write :file_name, filename # otherwise file name will be tempfile
+          artist.save
+          puts "Saved #{filename} for artist #{artist.name}"
+        end
+      end
+    end
     
     
     

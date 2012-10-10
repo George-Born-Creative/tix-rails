@@ -37,7 +37,7 @@ class Artist < ActiveRecord::Base
   has_many :headliners, :class_name => 'Events'
   has_many :secondary_headliners, :class_name => 'Events'
   
-  has_and_belongs_to_many :events
+  # has_and_belongs_to_many :events
   
   belongs_to :account
     

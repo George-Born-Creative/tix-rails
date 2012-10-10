@@ -13,7 +13,7 @@ class ArtistDatatable
       iTotalDisplayRecords: artists.count,
       aaData: data,
       sortColumn: sort_column,
-      sortDirection: sort_direction
+      sortDirection: sort_direction,
     }
   end
 

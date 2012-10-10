@@ -56,9 +56,14 @@
       
 .row
   .span7
-    %h1 Bios
   
+    %h1 About this event
+    
     =@event.body.html_safe
+    
+    %hr.red-thin
+
+    %h1 Bios
 
     -if @event.headliner
       %h5 Headliner

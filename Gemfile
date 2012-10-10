@@ -112,6 +112,6 @@ gem 'kaminari'
 gem "squeel"
 gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
-gem 'ckeditor', "3.7.3", :git => 'https://github.com/galetahub/ckeditor.git'
+gem 'ckeditor', "3.7.3", :path => '../ckeditor/'# , :git => 'https://github.com/galetahub/ckeditor.git'
 gem 'prawn'
 gem 'deep_cloneable'

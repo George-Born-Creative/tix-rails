@@ -13,6 +13,14 @@ GIT
   specs:
     phone (1.0)
 
+GIT
+  remote: https://github.com/galetahub/ckeditor.git
+  revision: c96580a8f2da98f06fd708e75b81738baaa4c50c
+  specs:
+    ckeditor (3.7.3)
+      mime-types
+      orm_adapter
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,9 +85,6 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.3)
     chunky_png (1.2.6)
-    ckeditor (3.7.1)
-      mime-types
-      orm_adapter
     cocaine (0.3.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -316,7 +321,7 @@ DEPENDENCIES
   aws-sdk (~> 1.3.4)
   backbone-on-rails
   backbone-support
-  ckeditor (= 3.7.1)
+  ckeditor (= 3.7.3)!
   coffee-rails (~> 3.2.1)
   compass-rails
   deep_cloneable

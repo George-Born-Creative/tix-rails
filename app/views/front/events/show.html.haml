@@ -43,7 +43,9 @@
   
     %h2= @event.title
     
-    %p=@event.set_times.gsub(/([0-9][:]?[apmAPM]+)/, "<br/>\\1").html_safe
+    -unless @event.set_times.empty?
+      %p=@event.set_times.gsub(/([0-9][:]?[apmAPM]+)/, "<br/>\\1").html_safe
+      
     After the show -- The lobby bar stays open!
     
     -if @event.on_sale? && ( ! @event.chart.nil? )
@@ -102,7 +104,8 @@
   .span5
     .additional-info
       %h2 Additional Info
-      %p=@event.info.html_safe if @event.info
+
+      %p=@event.info.html_safe unless @event.info.empty?
       
     .videos
       - unless (@event.headliner.nil? || @event.headliner.youtube1.nil?)

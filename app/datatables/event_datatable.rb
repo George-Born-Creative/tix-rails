@@ -46,7 +46,7 @@ private
     events = @account.events.order("#{sort_column} #{sort_direction}").page(page).per(per_page)
     
     if params[:sSearch].present?
-      events = events.where("title like :search", search: "%#{params[:sSearch]}%")
+      events = events.where("title ILIKE :search", search: "%#{params[:sSearch]}%")
     end
     
     events

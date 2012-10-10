@@ -10,7 +10,7 @@
           .form-inputs
             = f.input :title
             = f.input :slug
-            = f.input :body, :as => :ckeditor, :toolbar => 'easy'
+            = f.input :body, :as => :ckeditor, :toolbar => 'easy', :input_html => { :style => 'width: 100%', :height => '700'}
 
     .span3
       .widget

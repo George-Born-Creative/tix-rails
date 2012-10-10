@@ -41,7 +41,7 @@ private
     artists = @account.artists.order("#{sort_column} #{sort_direction}").page(page).per(per_page)
     
     if params[:sSearch].present?
-      artists = artists.where("name like :search", search: "%#{params[:sSearch]}%")
+      artists = artists.where("name ilike :search", search: "%#{params[:sSearch]}%")
     end
     
     artists

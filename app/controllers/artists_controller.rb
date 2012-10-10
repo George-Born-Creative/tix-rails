@@ -80,7 +80,7 @@ class ArtistsController < ApplicationController
   
   def search
     # Do the search in memory for better performance
-    @artists = @current_account.artists.where("name like :q", q: "%#{params[:q]}%").limit(10)
+    @artists = @current_account.artists.where("name ilike :q", q: "%#{params[:q]}%").limit(10)
 
     respond_to do |format|
       format.json{ render :json => @artists.collect{|a| {:id => a.id, :name => a.name }}  }

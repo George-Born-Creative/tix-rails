@@ -47,7 +47,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to "/page/#{@page.slug}", notice: 'Page was successfully updated.' }
+        format.html { redirect_to "/page/#{@page.slug}", notice: 'Page was successfully created.' }
         format.json { render json: @page, status: :created, location: @page }
       else
         format.html { render action: "new" }

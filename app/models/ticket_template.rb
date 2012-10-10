@@ -35,7 +35,7 @@ class TicketTemplate < ActiveRecord::Base
   validates_uniqueness_of :label, :scope => :account_id
   
   Paperclip.interpolates :account_subdomain do |attachment, style|
-    attachment.instance.account.subdomain
+    'jamminjava'#attachment.instance.account.subdomain
   end
 
   def self.random

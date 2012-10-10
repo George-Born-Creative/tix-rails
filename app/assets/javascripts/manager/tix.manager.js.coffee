@@ -48,6 +48,7 @@ window.TixMgr =
         bProcessing: true
         bServerSide: true
         sAjaxSource: $('#events').data('source')
+        "aaSorting": [[ 2, "asc" ]]
         'aoColumnDefs': [
           { "bSortable": false, "aTargets": [ 3, 4, 5, 6] } # these corespond to the events table columns
         ]

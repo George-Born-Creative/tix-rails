@@ -23,19 +23,19 @@
               .controls
                 =f.input :body, :as => :ckeditor, :input_html => { :style => 'width: 100%'}
           
-    .widget
-      .widget-header
-        %h3 Artist Twitter
-      .widget-content
-        -unless @artist.twitter && !@artist.twitter.empty?
-          .alert.alert-danger
-            Enter the artist's twitter handle or URL on the right to see his feed
-        -else
-          -3.times do
-            .tweet
-              %strong= "@#{@artist.twitter.split('/').pop}"
-              %br/
-              artist tweet here
+    -# .widget
+    -#   .widget-header
+    -#     %h3 Artist Twitter
+    -#   .widget-content
+    -#     -unless @artist.twitter && !@artist.twitter.empty?
+    -#       .alert.alert-danger
+    -#         Enter the artist's twitter handle or URL on the right to see his feed
+    -#     -else
+    -#       -3.times do
+    -#         .tweet
+    -#           %strong= "@#{@artist.twitter.split('/').pop}"
+    -#           %br/
+    -#           artist tweet here
       
     
   .span4
@@ -71,13 +71,27 @@
       .widget-content
         .control_group
           %label.control-label
+          
+          .controls
+            =f.input :url, :label => 'Website', :input_html => { :style => 'width: 100%'}
+      
+        .control_group
+        
+          %label.control-label
+          
           .controls
             =f.input :facebook_url, :input_html => { :style => 'width: 100%'}
+            
 
         .control_group
           %label.control-label
           .controls
             =f.input :myspace_url, :input_html => { :style => 'width: 100%'}
+            
+        .control_group
+          %label.control-label
+          .controls
+            =f.input :video_url, :input_html => { :style => 'width: 100%'}
 
 
         .control_group

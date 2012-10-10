@@ -1,6 +1,6 @@
 Time::DATE_FORMATS[:month_and_year] = "%B %Y"
 Time::DATE_FORMATS[:short_ordinal] = lambda { |time| time.strftime("%B #{time.day.ordinalize}") }
-Time::DATE_FORMATS[:jammin_java] = Stamp.strftime_format('Wednesday July 11 8:00PM')
+Time::DATE_FORMATS[:jammin_java] = Stamp.strftime_format('Wednesday July 11, 2012 8:00PM')
 
 Time::DATE_FORMATS[:weekday] = "%A"
 Time::DATE_FORMATS[:date] = "%Y-%m-%d"

@@ -6,7 +6,7 @@ class TixMgr.Routers.ChartRouter extends Support.SwappingRouter
   
   initialize: (data)->
       
-    view = new TixMgr.Views.ChartEditorView({chart: data.chart})
+    view = new TixMgr.Views.ChartEditorView({el: $('body'), chart: data.chart})
     view.render()
     
   index: ->

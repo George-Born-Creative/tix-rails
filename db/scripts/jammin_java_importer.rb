@@ -19,6 +19,12 @@ module Tix
       end
     end
     
+    def self.seed_pages
+      pages = %w(calendar lobby-bar kids-shows private-events food-drink store about contact)
+      pages.each do |page|
+        @account.pages.create(:slug => page, :title => page)
+      end
+    end
     
     def self.import_events(filename, cat_name)
       puts "##### Starting Import: #{filename}"

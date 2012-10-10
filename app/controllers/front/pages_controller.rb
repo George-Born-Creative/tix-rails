@@ -3,13 +3,14 @@ class Front::PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = @current_account.pages.all
-    # @sidebars = @current_account.sidebars.all
-    # @widgets =  @current_account.widgets.all
-    respond_to do |format|
-      format.html { }# index.html.erb
-      format.json { render json: @pages }
-    end
+    # @pages = @current_account.pages.all
+    # # @sidebars = @current_account.sidebars.all
+    # # @widgets =  @current_account.widgets.all
+    # respond_to do |format|
+    #   format.html { }# index.html.erb
+    #   format.json { render json: @pages }
+    # end
+    render 'show'
   end
 
   # GET /pages/1

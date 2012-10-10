@@ -45,7 +45,7 @@
           %td='#' + order.id.to_s
           %td=order.created_at.to_s :short_ordinal
       
-          %td= number_to_currency( order.total)
+          %td=# number_to_currency( order.total)
           %td= order.user.full_name
           %td= order.tickets.count
           %td

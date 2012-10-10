@@ -1,5 +1,7 @@
 Tix::Application.routes.draw do
-  match '/', :controller => 'Front::Pages', :action => :show
+  resources :pages, :path => '/', :controller => 'Front::Pages'
+  # root :to => "pages#show", :controller => 'Front::Pages'
+  # match '/', :controller => 'Front::Pages', :action => :show
 
   devise_for :users
   
@@ -77,7 +79,7 @@ Tix::Application.routes.draw do
   
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
   # resources :artists, :as => 'front_artists', :only => [:index, :show]
-  resources :orders, :as => "front_orders", :only => [:show, :new], :controller => 'Front::Orders'
+  resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
   

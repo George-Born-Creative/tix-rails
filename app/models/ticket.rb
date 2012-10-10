@@ -19,78 +19,55 @@
 #  checked_in_at  :datetime
 #  status         :string(255)
 #
+#
+
+# Ticket
+# Connects an Order to a Set
+# Has three states: locked, active, checked_in
+
+# Locked: a ticket has been added to a cart 
+# Active: The ticket has been purchased but not yet checked in
+# Checked_in: The ticket has been scanned in
+
+# What about Unlocked / Open?
+# Tickets only exist 
+# Otherwise, the ability to create a ticket is defined as 
+# an Event-Section-Area having a positive inventory.
+# Locked tickets will be deleted after a certian time and the 
+# coresponding inventory increased
 
 class Ticket < ActiveRecord::Base
+  attr_accessible :area, :order, :state
   
-  TICKET_TIME_OUT = 5.minutes
+  before_save :set_info
   
-  
-  delegate :user, :to => :order
-  
-  
-  belongs_to :event
-  belongs_to :area
   belongs_to :order
-  attr_accessor :status
-  attr_accessor :price
-  attr_accessible :event,
-                  :area,
-                  :area_id,
-                  :seat_name,
-                  :section_name,
-                  :base_price,
-                  :service_charge,
-                  :status,
-                  :area_label,
-                  :section_label,
-                  :checked_in,
-                  :checked_in_at
+  belongs_to :area
+  delegate :section, :to => :area
   
-  
-  validates_presence_of :event
-  validates_presence_of :order
   validates_presence_of :area
+  validates_presence_of :order
   
-  
-  alias_attribute :total, :total_price
-
-  before_save :save_price
-  
-  scope :checked_in, lambda {{
-    :conditions => ['checked_in = ?', true]
-  }}
-  
-  def save_price
-    self.price = self.area.section.current_price
-    return false if @price.nil?
-    self.base_price = @price.base
-    self.service_charge = @price.service
+  state_machine :state, :initial => :locked do
+    
   end
+  
   
   def total_price
     self.base_price + self.service_charge
+  end  
+  
+  
+  
+  private 
+  def set_info
+    self.area_label = self.area.label
+    self.section_label = self.area.section.label
+    self.base_price = self.area.section.current_price.base
+    self.service_charge = self.area.section.current_price.service
   end
   
-  def check_in! # Ticket.find(1).check_in    
-    if self.checked_in?
-      return false
-    else
-      if save_checkin
-        return true
-      else
-        return false
-      end
-    end
-  end
   
-  def checked_in?
-   self.checked_in
-  end
   
-  private
-  
-  def save_checkin
-    self.update_attributes(:checked_in => true, :checked_in_at => Time.now )
-  end
-  
+    
 end

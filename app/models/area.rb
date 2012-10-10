@@ -30,12 +30,22 @@ class Area < ActiveRecord::Base
                   :type, :max_tickets #, :fill
   
   belongs_to :section
-  has_many :tickets
+  has_many :tickets  
+  
+  alias_attribute :inventory, :max_tickets
   
   validates_inclusion_of :type, :in => %w( circle rect polygon text )
   # validates_presence_of :label
   
+  
+  def ticketable?
+    self.max_tickets > 0
+  end
+  
+  
   private
+  
+  
 
     
 end

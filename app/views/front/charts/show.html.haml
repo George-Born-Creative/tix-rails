@@ -14,7 +14,7 @@
     %h2=image_tag( @event.photo(:thumb), :width => '100%')
     
   .span4
-    %h3=@event.name
+    %h4=@event.name
     
     %p.artists
       %span.headliner
@@ -23,7 +23,8 @@
         %span.headliner-secondary.secondary-headlinr
           ="+ " + @event.secondary_headliner.name
       
-    =@event.starts_at.to_formatted_s(:jammin_java)
+    %h5=@event.starts_at.to_formatted_s(:jammin_java)
+    %p.small=@event.current_prices_str
     =image_tag '/images/interface/social_mini.png'
 
   .span4

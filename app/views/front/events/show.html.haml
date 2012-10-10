@@ -58,12 +58,12 @@
   .span7
     %h1 Bios
   
-    =@event.body
+    =@event.body.html_safe
 
     -if @event.headliner
       %h5 Headliner
       %h3= @event.headliner.name
-      =@event.headliner.body.html_safe
+      =raw @event.headliner.body.html_safe
           
     -unless @event.secondary_headliner.nil?
       %hr.red-thin
@@ -81,7 +81,7 @@
         =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
       
         %h3= artist.name
-        =artist.body.html_safe unless @event.secondary_headliner.body.nil?
+        =artist.body.html_safe unless artist.body.nil?
         %hr.red-thin
         
 
@@ -91,7 +91,9 @@
       %p=@event.info.html_safe if @event.info
       
     .videos
-      =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') if @event.headliner.youtube1
-      %hr.red
-      =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300') if @event.secondary_headliner.youtube1
+      - unless (@event.headliner.nil? || @event.headliner.youtube1.nil?)
+        =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') 
+        %hr.red
+      - unless (@event.secondary_headliner.nil? || @event.secondary_headliner.youtube1.nil?)
+        =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300')
       

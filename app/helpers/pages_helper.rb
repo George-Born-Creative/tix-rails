@@ -7,7 +7,7 @@ module PagesHelper
       
        cat = match[1]
 
-       @events = Event.cat(cat).limit(100).order('starts_at asc')
+       @events = @current_account.events.current.cat(cat).limit(100).order('starts_at asc')
        
        injection_html = ''
        if @events

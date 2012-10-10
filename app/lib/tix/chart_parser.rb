@@ -19,6 +19,8 @@ module Tix
       @loaded_file = Nokogiri::XML(open(file))
       @account = Account.find_or_create_by_subdomain(account_subdomain)
     end
+    
+    
   
     # Creates Hash of Area. Can be used with .create(area)
     def parse_area(elem)
@@ -59,8 +61,8 @@ module Tix
         section = @chart.sections.create( :label => section_name,
                                           :seatable => seatable )
                                           
-        section.prices.create(:label => 'presale', :base => 10.00, :service => 3.00 )
-        section.prices.create(:label => 'day_of', :base => 12.00, :service => 12.00  )
+        # section.prices.create(:label => 'presale', :base => 10.00, :service => 3.00 )
+        # section.prices.create(:label => 'day_of', :base => 12.00, :service => 12.00  )
 
         @loaded_file.css("#{css} > circle, #{css} > text, #{css} > rect, #{css} > polygon").each do |elem|
           area_hash = parse_area(elem)

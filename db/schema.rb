@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009015824) do
+ActiveRecord::Schema.define(:version => 20121009195857) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -72,14 +72,14 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
     t.string   "twitter"
     t.text     "youtube1",                :limit => 255
     t.text     "youtube2",                :limit => 255
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.decimal  "id_old"
-    t.integer  "account_id",                             :default => 0, :null => false
+    t.integer  "id_old"
+    t.integer  "account_id"
     t.integer  "id_old_image"
     t.string   "audio_sample_title"
     t.integer  "artist_id_old_secondary"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
     t.string   "background_image_url"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.integer  "account_id",             :default => 0,     :null => false
+    t.integer  "account_id"
     t.string   "label"
     t.string   "svg_file_file_name"
     t.string   "svg_file_content_type"
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.integer  "chart_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.integer  "headliner_id"
     t.integer  "secondary_headliner_id"
     t.string   "supporting_act_1"
@@ -169,8 +169,7 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
     t.text     "info"
     t.text     "set_times"
     t.string   "price_freeform"
-    t.integer  "account_id",             :default => 0, :null => false
-    t.string   "chart"
+    t.integer  "account_id"
     t.integer  "artist_id_old"
     t.string   "cat"
     t.datetime "announce_at"
@@ -203,11 +202,12 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
     t.string   "status",                                       :default => "pending", :null => false
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
-    t.integer  "account_id",                                   :default => 0,         :null => false
+    t.integer  "account_id"
     t.integer  "user_id"
     t.decimal  "total",          :precision => 8, :scale => 2, :default => 0.0,       :null => false
     t.decimal  "tax",            :precision => 8, :scale => 2, :default => 0.0,       :null => false
     t.decimal  "service_charge", :precision => 8, :scale => 2, :default => 0.0,       :null => false
+    t.string   "state",                                        :default => "cart"
   end
 
   add_index "orders", ["status"], :name => "index_orders_on_status"
@@ -301,18 +301,17 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
 
   create_table "tickets", :force => true do |t|
     t.decimal  "price"
-    t.string   "state",          :default => "open", :null => false
+    t.string   "state",          :null => false
     t.integer  "event_id"
     t.integer  "area_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "order_id"
-    t.integer  "account_id",     :default => 0,      :null => false
+    t.integer  "account_id"
     t.decimal  "base_price"
     t.decimal  "service_charge"
     t.string   "area_label"
     t.string   "section_label"
-    t.boolean  "checked_in",     :default => false,  :null => false
     t.datetime "checked_in_at"
     t.string   "status"
   end
@@ -332,7 +331,7 @@ ActiveRecord::Schema.define(:version => 20121009015824) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                                                   :null => false
     t.datetime "updated_at",                                                                   :null => false
-    t.integer  "account_id",                                           :default => 0,          :null => false
+    t.integer  "account_id"
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"

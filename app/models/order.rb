@@ -15,17 +15,81 @@
 
 class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
+  LIFESPAN = 10.minutes
   
-  attr_accessible :total, :service_charge, :tax, :account, :user
+  before_create :expire_after_lifespan
   
+  attr_accessible :total, :service_charge, :tax, :account, :user, :state
   
   has_many :tickets
   belongs_to :user
   belongs_to :account
   
-  validates_presence_of :user
-  validates_presence_of :account
+  attr_accessor :cart, :expired, :paid, :ticketed
+  attr_accessor :credit_card
 
+  state_machine :state, :initial => :cart  do
+    
+    after_transition :on => :expire, :do => :release_tickets
+    after_transition :on => :pay, :do => :process_payment
+    before_transition :on => :email_tickets, :do => :generate_and_email_tickets
+    
+    
+    event :expire do
+      transition :cart => :expired
+    end
+    
+    
+    event :pay do
+      transition :cart => :paid
+      
+      # validates_presence_of :user
+      # validates_presence_of :account
+    end
+    
+    event :email_tickets do
+      transition :paid => :ticketed
+    end
+    
+    
+  end
+  
+  
+  # def initialize
+  #   super()
+  # end
+  
+  def create_ticket(area_id)
+    # TODO Watch out for race conditions here
+    area = Area.find(area_id)
+    if area.ticketable?
+        area.update_attribute(:inventory, area.inventory - 1)
+        self.tickets.create(:area => area)
+        return true
+    else
+      return false
+    end
+  end
+
+  def release_tickets
+    puts "### Releasing tickets"
+  end
+  
+  def process_payment
+    puts "processing payment..."
+    if false # payment successful
+      self.fire_state_event(:email_tickets)
+    else
+      self.state = 'cart'
+      return false
+    end
+  end
+  
+  def generate_and_email_tickets
+    puts "### Gen/Emailing tickets"
+  end
+  
+  
   def self.total
     self.all.each.reduce(0) do |memo, order|
       memo += order.total 
@@ -64,5 +128,15 @@ class Order < ActiveRecord::Base
   # end
   
   
-
+  #  Credit Card format: {:number => number,
+  #  :month => 3,        #for test cards, use any date in the future
+  #  :year => 2013,
+  #  :first_name => 'Mark',
+  #  :last_name => 'McBride',
+  #  :type => 'visa',       #note that MasterCard is 'master',
+  #  :verification_value => '123'}
+  
+  def expire_after_lifespan
+    handle_asynchronously :expire, :run_at => Proc.new {Time.now + LIFESPAN }
+  end
 end

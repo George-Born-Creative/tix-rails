@@ -84,7 +84,7 @@
 	<rect x="43.966" y="156.57" fill="none" width="72.735" height="10.415"/>
 	<text transform="matrix(1 0 0 1 59.5078 165.3296)" fill="#231F20" font-family="'GothamBook'" font-size="12">Seated</text>
 </g>
-<g id="Hot">
+<g id="Sections">
 	<g id="VIP">
 		<circle fill="#FFE600" cx="43.324" cy="285.4" r="4.469"/>
 		<circle fill="#FFE600" cx="43.324" cy="301.789" r="4.469"/>

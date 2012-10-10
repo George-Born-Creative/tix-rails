@@ -1,11 +1,11 @@
 class TixMgr.Views.ChartEditorView extends Backbone.View
   
-  el: $('.main')
-  
-  events: ->
+  events:
     'blur #chart_properties input[data-type="field"]': 'save'
-        
+  
+  
   initialize: (data)->
+    console.log 'TixMgr.Views.ChartEditorView initialized'
     chart = data.chart
     @model = new TixMgr.Models.Chart(chart)
     
@@ -47,14 +47,15 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
         self.model.save({'background_color': ev.color.toHex()})
     
   save: ->
+    console.log 'Save Called'
     self = this
     
     self.$el.find('[data-type="field"]').each (idx, field_el)->
-      field_name = $(field_el).data(field_name)
+      field_name = $(field_el).data('fieldname')
       field_val = $(field_el).val()
       self.model.set(field_name, field_val)
-      
-    console.log '[SR] Saving model chart'
+      console.log '[SR] Saving model chart with field val'
+      console.log [field_name, field_val]
     
     self.model.save()
   

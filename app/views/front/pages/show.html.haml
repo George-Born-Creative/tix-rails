@@ -1,6 +1,7 @@
 -content_for :content_nine do
-  -if @page.body
+  
+  -if @page && @page.body
     =raw render_shortcodes( @page.body )
   
 =content_for :sidebar do 
-  =@page.sidebar.body if @page.sidebar
+  =@page.sidebar.body unless (@page.nil? || @page.sidebar.nil?)

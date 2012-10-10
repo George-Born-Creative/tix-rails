@@ -33,8 +33,8 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       TixLib.Dispatcher.on 'sectionColorChange', (data)->
         console.log '[SR] sectionColorChange received with data'
         console.log data
-        
         set = self.setBySectionID[data.section.id]
+        
         set.attr('fill', data.color)
         
       TixLib.Dispatcher.on 'chartColorChange', (data)->

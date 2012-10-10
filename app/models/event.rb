@@ -49,7 +49,7 @@ class Event < ActiveRecord::Base
   
     
   before_save :set_supporting_act_ids
-  
+
   def set_supporting_act_ids
     if self.supporting_act_ids_concat
       self.supporting_act_ids = self.supporting_act_ids_concat.split(',')
@@ -90,18 +90,20 @@ class Event < ActiveRecord::Base
   
   scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.now, Time.now] }}
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.now, Time.now] }}  
+  scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.now] }}  
+  
   scope :cat, lambda{ |cat| where('cat = ?', cat)}
 
 
 
   def announced?
     now = DateTime.now.to_i
-    now > self.announce_at.to_i && now < self.remove_at.to_i
+    now > self.announce_at.to_i && (self.remove_at.nil? || now < self.remove_at.to_i)
   end
   
   def on_sale?
     now = DateTime.now.to_i
-    now > self.on_sale_at.to_i && now < self.off_sale_at.to_i
+    now > self.on_sale_at.to_i && (self.off_sale_at.nil? || now < self.off_sale_at.to_i)
   end
   
   def self.defaults
@@ -134,6 +136,36 @@ class Event < ActiveRecord::Base
     end
     prices
   end
+  
+  def current_prices_str
+    return nil if self.chart.nil?
+    
+    return self.chart.sections.seatable.reduce('') do |memo, section|
+      memo += "#{section.label} $#{"%.2f" % section.current_price.base} / "
+    end
+    
+  end
+  
+  # e.g. "Some Artist + Some Other Artist + Some Third Arits"
+  def artists_str
+    headliners_str + supporting_acts_str
+  end
+  
+  def headliners_str
+    str = ""
+    str = self.headliner.name unless self.headliner.nil?
+    str += " + #{self.secondary_headliner.name}" unless self.secondary_headliner.nil?
+    str
+  end
+  
+  def supporting_acts_str
+    str = ""
+    unless self.supporting_acts.empty?
+      str = self.supporting_acts.inject("") {|memo, artist| memo += "+ #{artist.name}" }
+    end
+    str
+  end
+  
   
   private
   

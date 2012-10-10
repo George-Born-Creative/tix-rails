@@ -48,7 +48,7 @@ class TixMgr.Views.ChartEditSectionView extends Backbone.View
     $('.chart-section-colorpicker').colorpicker()
       .off()
       .on 'changeColor', (ev)->
-        TixMgr.Dispatcher.trigger('sectionColorChange', {color: ev.color.toHex(), section: self.model.attributes })
+        TixLib.Dispatcher.trigger('sectionColorChange', {color: ev.color.toHex(), section: self.model.attributes })
       .on 'show', (ev)->
         return
       .on 'hide', @onColorSelect

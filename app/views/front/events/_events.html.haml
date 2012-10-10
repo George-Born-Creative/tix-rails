@@ -37,7 +37,7 @@
                 =("+" << event.secondary_headliner.name) if event.secondary_headliner
           
               /%p=event.price_freeform.html_safe if event.price_freeform
-              %button{:href => 'buy tix'} Buy Tix
+              %a.btn{:href => front_event_path(event)} Buy Tix
             
           
       

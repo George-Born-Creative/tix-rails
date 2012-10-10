@@ -1,0 +1,18 @@
+.artist-social-links
+  -if artist.url
+    =link_to 'Official Site', artist.facebook_url
+  |
+  -if artist.twitter
+    =link_to 'Twitter', artist.twitter
+  | 
+  -if artist.facebook_url
+    =link_to 'Facebook', artist.facebook_url
+  |
+  -if artist.video_url
+    =link_to 'Videos', artist.video_url
+  |
+  -if artist.audio_sample_url
+    =link_to 'Audio', artist.audio_sample_url
+  |
+  -if artist.myspace_url
+    =link_to 'Myspace', artist.myspace_url

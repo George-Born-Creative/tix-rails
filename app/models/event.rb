@@ -49,6 +49,7 @@ class Event < ActiveRecord::Base
   
     
   before_save :set_supporting_act_ids
+  before_save :set_default_times
 
   def set_supporting_act_ids
     if self.supporting_act_ids_concat

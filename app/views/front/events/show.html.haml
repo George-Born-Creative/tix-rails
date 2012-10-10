@@ -64,7 +64,8 @@
   
     %h1 About this event
     
-    =@event.body.html_safe
+    -unless @event.body.blank?
+      =@event.body.html_safe
     
     %hr.red-thin
 

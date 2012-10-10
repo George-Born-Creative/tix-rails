@@ -50,8 +50,9 @@ Tix::Application.routes.draw do
     resources :widget_placements
     resources :sidebars
     resources :widgets
-    resources :carousel_items
     resources :carousels
+    resources :carousel_items
+      
     
     get "/images/tags" => "images#tags", :as => :tags
     resources :images

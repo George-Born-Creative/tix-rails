@@ -1,5 +1,9 @@
 -content_for :listing do
-  %h1 Widgets
+  .span4
+    %h1 Widget
+  .span4
+    .floatright
+      = link_to 'New Widget', new_widget_path, :class => 'btn btn-primary btn-large'
 
   %table.table
     %tr

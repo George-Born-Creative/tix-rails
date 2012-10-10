@@ -1,5 +1,12 @@
 -content_for :listing do
-  %h1 Sidebars
+  .row
+    .span4
+      %h1 Sidebars
+    .span4
+      .floatright
+        = link_to 'New Sidebar', new_sidebar_path, :class => 'btn btn-primary btn-large'
+    
+  
 
   %table.table
     %tr

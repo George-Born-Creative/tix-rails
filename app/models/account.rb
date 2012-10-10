@@ -23,6 +23,7 @@ class Account < ActiveRecord::Base
   has_many :ticket_templates, :dependent => :destroy
   has_many :customer_imports, :dependent => :destroy
   has_many :categories, :dependent => :destroy
+  has_many :carousels, :dependent => :destroy
   
   has_one :payment_gateway, :dependent => :destroy
   

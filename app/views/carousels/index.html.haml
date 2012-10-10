@@ -1,0 +1,26 @@
+-content_for :listing do
+  .row
+    .span4
+      %h1 Carousels
+    .span4
+      .floatright
+        = link_to 'New Carousel', new_carousel_path, :class => 'btn btn-primary btn-large'
+      
+
+  %table.table
+    %tr
+      %th Slug
+      %th
+      %th
+      %th
+
+    - @carousels.each do |carousel|
+      %tr
+        %td= carousel.slug
+  
+        %td= link_to 'Show', carousel, :class => 'btn btn-info'
+        %td= link_to 'Edit', edit_carousel_path(carousel), :class => 'btn btn-success'
+        %td= link_to 'Destroy', carousel, :confirm => 'Are you sure?', :class => 'btn btn-danger', :method => :delete
+
+  %br
+

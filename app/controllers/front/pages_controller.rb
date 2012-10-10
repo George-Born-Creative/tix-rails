@@ -10,13 +10,17 @@ class Front::PagesController < ApplicationController
     #   format.html { }# index.html.erb
     #   format.json { render json: @pages }
     # end
-    render 'show'
+    @page = @current_account.pages.find_by_slug('home')
+    respond_to do |format|
+      format.html { render(:layout => 'sidebar_left', :action => :show) } # show.html.erb
+    end
   end
 
   # GET /pages/1
   # GET /pages/1.json
   def show
     # @page = @current_account.pages.find(params[:id]) if params[:id]
+    # params[:slug] = 'home' if params[:slug].nil?
     slug = params[:slug] || 'home'
     @page = @current_account.pages.find_by_slug(slug)
 

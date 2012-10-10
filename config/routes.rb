@@ -1,7 +1,8 @@
 Tix::Application.routes.draw do
+
   match '/manager', :controller => :manager, :action => :index
   
-  resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show]
+  resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
   # root :to => "pages#show", :controller => 'Front::Pages'
   # match '/', :controller => 'Front::Pages', :action => :show
@@ -35,6 +36,7 @@ Tix::Application.routes.draw do
     get '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'
 
     resources :accounts
+    
     resources :ticket_templates
     resources :newsletters
     resources :pages
@@ -48,6 +50,9 @@ Tix::Application.routes.draw do
     resources :widget_placements
     resources :sidebars
     resources :widgets
+    resources :carousel_items
+    resources :carousels
+    
     get "/images/tags" => "images#tags", :as => :tags
     resources :images
     

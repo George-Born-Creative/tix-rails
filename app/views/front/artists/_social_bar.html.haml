@@ -1,18 +1,18 @@
 .artist-social-links
-  -if artist.url
-    =link_to 'Official Site', artist.facebook_url
-  |
-  -if artist.twitter
+  -unless artist.url.empty?
+    =link_to 'Official Site', artist.url
+    |
+  -unless artist.twitter.empty?
     =link_to 'Twitter', artist.twitter
-  | 
-  -if artist.facebook_url
+    | 
+  -unless artist.facebook_url.empty?
     =link_to 'Facebook', artist.facebook_url
-  |
-  -if artist.video_url
+    |
+  -unless artist.video_url.empty?
     =link_to 'Videos', artist.video_url
-  |
-  -if artist.audio_sample_url
+    |
+  -unless artist.audio_sample_url.empty?
     =link_to 'Audio', artist.audio_sample_url
-  |
-  -if artist.myspace_url
+    |
+  -unless artist.myspace_url.empty?
     =link_to 'Myspace', artist.myspace_url

@@ -12,7 +12,6 @@ module EventsHelper
     end
   end
    
-   
    def artist_social_bar(artist)
      render :partial => 'front/artists/social_bar', :locals => {:artist => artist}
    end 

@@ -1,4 +1,6 @@
 Tix::Application.routes.draw do
+  match '/manager', :controller => :manager, :action => :index
+  
   resources :pages, :path => '/', :controller => 'Front::Pages'
   # root :to => "pages#show", :controller => 'Front::Pages'
   # match '/', :controller => 'Front::Pages', :action => :show
@@ -61,6 +63,7 @@ Tix::Application.routes.draw do
     resources :events
     resources :artists
     resources :orders
+    resources :tickets, :only => [:create]
     
     match '/stats/:action', :controller => :stats
     

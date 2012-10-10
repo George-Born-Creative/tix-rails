@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   
   def after_sign_in_path_for(resource)
     if resource.is_a?(User) && resource.has_at_least_role(:employee)
-      root_url << 'manager'
+      '/manager'
     else
       super
     end
@@ -68,6 +68,12 @@ class ApplicationController < ActionController::Base
   #    rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception| render_error 404, exception }
   #  end
 
+  
+  def set_current_order
+    order_id = session[:order_id]
+    @current_order = session[:order_id] ? @current_account.orders.find(order_id) : @current_account.orders.create
+    session[:order_id] = @current_order.id
+  end
   
   protected
   

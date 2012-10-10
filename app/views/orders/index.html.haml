@@ -46,7 +46,7 @@
           %td=order.created_at.to_s :short_ordinal
       
           %td=# number_to_currency( order.total)
-          %td= order.user.full_name
+          %td= order.user.full_name if order.user
           %td= order.tickets.count
           %td
             %ul

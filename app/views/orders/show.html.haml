@@ -2,11 +2,13 @@
   .well{:style => 'background-color: white'}
   
     %h1=' Order #' + @order.id.to_s
+    
     %p
-      placed by
-      =link_to @order.user.full_name, user_path(@order.user)
-      %strong=distance_of_time_in_words_to_now( @order.created_at, true)
-      ago
+      -if @order.user
+        placed by
+        =link_to @order.user.full_name, user_path(@order.user)
+        %strong=distance_of_time_in_words_to_now( @order.created_at, true)
+        ago
       
       Status:
       <br/> 

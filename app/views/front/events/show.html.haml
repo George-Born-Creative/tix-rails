@@ -70,6 +70,9 @@
       %h3= @event.headliner.name
       =raw @event.headliner.body.html_safe
           
+      =artist_social_bar(@event.headliner)   
+      
+      
     -unless @event.secondary_headliner.nil?
       %hr.red-thin
       %h5 Secondary Headliner
@@ -78,6 +81,9 @@
       =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
       
       =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.nil?
+      =artist_social_bar(@event.secondary_headliner)   
+      
+      
       
     -unless @event.supporting_acts.empty?
       %hr.red-thin
@@ -87,6 +93,9 @@
       
         %h3= artist.name
         =artist.body.html_safe unless artist.body.nil?
+        
+        =artist_social_bar( artist )
+        
         %hr.red-thin
         
 

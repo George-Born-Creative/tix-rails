@@ -24,12 +24,12 @@
 //
 //
 
-//= require_tree ./lib/templates/
+// require_tree ./lib/templates/
 //= require ./lib/tixlib
-//= require_tree ./lib/models
-//= require_tree ./lib/collections
+// require_tree ./lib/models
+// require_tree ./lib/collections
 //= require_tree ./lib/views
-//= require_tree ./lib/routers
+// require_tree ./lib/routers
 
 
 //= require_tree ./front/templates/

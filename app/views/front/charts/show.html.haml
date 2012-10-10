@@ -8,6 +8,8 @@
       var router = new Tix.Routers.FrontChartRouter(data);
       Backbone.history.start()
     });
+    
+    
 
 .row
   .span2
@@ -41,7 +43,9 @@
     #chart_container
     
   .span4
-    =render(:partial => 'cart_mini')
+    =@current_order
+    &nbsp;
+    =#render(:partial => 'cart_mini')
         
   .span3
     .row
@@ -62,8 +66,7 @@
             %h3 Total
           .columns.omega.right.total.two
             %h3 $0.00
-      =new_event_path
-      %a.button.checkout.large{:href => new_front_order_path} Checkout »
+        %a.button.checkout.large{:href => new_front_order_path} Checkout »
       
 
     

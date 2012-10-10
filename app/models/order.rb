@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
   LIFESPAN = 10.minutes
   
-  before_create :expire_after_lifespan
+
   
   attr_accessible :total, :service_charge, :tax, :account, :user, :state
   
@@ -136,7 +136,5 @@ class Order < ActiveRecord::Base
   #  :type => 'visa',       #note that MasterCard is 'master',
   #  :verification_value => '123'}
   
-  def expire_after_lifespan
-    handle_asynchronously :expire, :run_at => Proc.new {Time.now + LIFESPAN }
-  end
+
 end

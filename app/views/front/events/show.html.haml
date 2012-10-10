@@ -85,7 +85,7 @@
       %h3= @event.secondary_headliner.name
       =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
       
-      =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank
+      =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank?
       =artist_social_bar(@event.secondary_headliner)   
       
       

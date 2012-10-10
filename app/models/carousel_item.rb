@@ -1,4 +1,4 @@
-class CarouselItems < ActiveRecord::Base
+class CarouselItem < ActiveRecord::Base
   attr_accessible :title, :caption, :link, :image
   
   belongs_to :carousel

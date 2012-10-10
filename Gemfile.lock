@@ -13,8 +13,9 @@ GIT
   specs:
     phone (1.0)
 
-PATH
-  remote: ../ckeditor/
+GIT
+  remote: https://github.com/galetahub/ckeditor.git
+  revision: c96580a8f2da98f06fd708e75b81738baaa4c50c
   specs:
     ckeditor (3.7.3)
       mime-types

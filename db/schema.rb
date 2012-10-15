@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010123225) do
+ActiveRecord::Schema.define(:version => 20121015193011) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
 
   add_index "addresses", ["address_line_1"], :name => "index_addresses_on_address_line_1"
   add_index "addresses", ["postal_code"], :name => "index_addresses_on_postal_code"
+
+  create_table "area_seats", :force => true do |t|
+    t.string "polypath"
+    t.string "label"
+  end
 
   create_table "areas", :force => true do |t|
     t.string  "label"
@@ -72,14 +77,14 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.string   "twitter"
     t.text     "youtube1"
     t.text     "youtube2"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.integer  "id_old"
-    t.integer  "account_id"
+    t.decimal  "id_old"
+    t.integer  "account_id",              :default => 0, :null => false
     t.integer  "id_old_image"
     t.string   "audio_sample_title"
     t.integer  "artist_id_old_secondary"
@@ -105,7 +110,7 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.string   "background_image_url"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.integer  "account_id"
+    t.integer  "account_id",             :default => 0,     :null => false
     t.string   "label"
     t.string   "svg_file_file_name"
     t.string   "svg_file_content_type"
@@ -174,8 +179,8 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.integer  "chart_id"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "headliner_id"
     t.integer  "secondary_headliner_id"
     t.string   "supporting_act_1"
@@ -184,7 +189,8 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.text     "info"
     t.text     "set_times"
     t.string   "price_freeform"
-    t.integer  "account_id"
+    t.integer  "account_id",             :default => 0, :null => false
+    t.string   "chart"
     t.integer  "artist_id_old"
     t.string   "cat"
     t.datetime "announce_at"
@@ -217,7 +223,7 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.string   "status",                                       :default => "pending", :null => false
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
-    t.integer  "account_id"
+    t.integer  "account_id",                                   :default => 0,         :null => false
     t.integer  "user_id"
     t.decimal  "total",          :precision => 8, :scale => 2, :default => 0.0,       :null => false
     t.decimal  "tax",            :precision => 8, :scale => 2, :default => 0.0,       :null => false
@@ -236,7 +242,7 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "sidebar_id"
+    t.decimal  "sidebar_id"
   end
 
   create_table "phones", :force => true do |t|
@@ -263,6 +269,13 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.datetime "updated_at",                                                :null => false
   end
 
+  create_table "seating_charts", :force => true do |t|
+    t.string   "name"
+    t.string   "background_image_url"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
   create_table "sections", :force => true do |t|
     t.string   "label"
     t.decimal  "default_base_price",     :precision => 8, :scale => 2, :default => 0.0,   :null => false
@@ -282,6 +295,13 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.integer  "account_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "single_seats", :force => true do |t|
+    t.string  "label"
+    t.decimal "x",                :default => 0.0, :null => false
+    t.decimal "y",                :default => 0.0, :null => false
+    t.integer "seating_chart_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -316,13 +336,13 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
 
   create_table "tickets", :force => true do |t|
     t.decimal  "price"
-    t.string   "state",          :null => false
+    t.string   "state",                         :null => false
     t.integer  "event_id"
     t.integer  "area_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "order_id"
-    t.integer  "account_id"
+    t.integer  "account_id",     :default => 0, :null => false
     t.decimal  "base_price"
     t.decimal  "service_charge"
     t.string   "area_label"
@@ -346,7 +366,7 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                                                   :null => false
     t.datetime "updated_at",                                                                   :null => false
-    t.integer  "account_id"
+    t.integer  "account_id",                                           :default => 0,          :null => false
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
@@ -369,6 +389,17 @@ ActiveRecord::Schema.define(:version => 20121010123225) do
   add_index "users", ["last_name"], :name => "index_users_on_last_name"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role"], :name => "index_users_on_role"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "widget_placements", :force => true do |t|
     t.integer  "sidebar_id"

@@ -90,7 +90,7 @@ gem 'paperclip', :require => 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'aws-s3'
 gem 'activemerchant'
-
+gem 'paper_trail'
 
 # seed 
 # gem 'forgery' 

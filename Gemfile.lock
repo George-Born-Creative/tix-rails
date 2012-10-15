@@ -175,6 +175,9 @@ GEM
     newrelic_rpm (3.4.2.1)
     nokogiri (1.5.5)
     orm_adapter (0.4.0)
+    paper_trail (2.6.3)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
     paperclip (3.2.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -339,6 +342,7 @@ DEPENDENCIES
   kaminari
   newrelic_rpm
   nokogiri
+  paper_trail
   paperclip
   pg
   phone!

@@ -1,1 +1,33 @@
-=table_for @themes
+-content_for :listing do
+  .row
+    .span4
+      %h1 Themes
+    .span4
+      .floatright
+        = link_to 'New theme', new_theme_path, :class => 'btn btn-primary btn-large'
+        = link_to 'View Site', '/', :class => 'btn btn-large'
+    
+  
+
+  %table.table
+    %tr
+      %th Title
+      %th Active?
+      %th
+      %th
+      %th
+
+
+    - @themes.each do |theme|
+      %tr
+        %td= theme.title
+        %td= @active_theme.id == theme.id ? 'Yes' : ''
+        %td
+          -if theme.background_image?
+            =link_to('Background', theme.background_image(:thumb))
+        %td= link_to 'Activate', theme_path(theme) << '/activate', :method => 'post', :class => 'btn btn-info'
+        %td= link_to 'Edit', edit_theme_path(theme), :class => 'btn btn-success'
+        %td= link_to 'Destroy', theme, :confirm => 'Are you sure?', :method => :delete, :class => 'btn-danger btn'
+
+  %br
+

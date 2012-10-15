@@ -4,7 +4,7 @@ class CreateThemes < ActiveRecord::Migration
       t.string :title
       t.text :css_doc
       t.datetime :activated_at
-
+      t.references :account
       t.timestamps
     end
   end

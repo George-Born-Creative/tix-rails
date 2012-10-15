@@ -54,6 +54,7 @@ Tix::Application.routes.draw do
     resources :carousels
     resources :carousel_items
     resources :themes
+    post '/themes/:id/activate' => 'themes#activate'
       
     
     get "/images/tags" => "images#tags", :as => :tags

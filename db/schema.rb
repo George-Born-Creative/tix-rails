@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015194916) do
+ActiveRecord::Schema.define(:version => 20121015210601) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -325,8 +325,13 @@ ActiveRecord::Schema.define(:version => 20121015194916) do
     t.string   "title"
     t.text     "css_doc"
     t.datetime "activated_at"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "account_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "background_image_file_name"
+    t.string   "background_image_content_type"
+    t.integer  "background_image_file_size"
+    t.datetime "background_image_updated_at"
   end
 
   create_table "ticket_templates", :force => true do |t|

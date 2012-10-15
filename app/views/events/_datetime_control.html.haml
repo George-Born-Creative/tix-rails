@@ -1,8 +1,8 @@
 
 %p=field.to_s.titleize
 
--@date = @event.send(field).nil? ? '' : @event.send(field).to_formatted_s(:date_y)
--@time = @event.send(field).nil? ? '' : @event.send(field).to_formatted_s(:time)
+-@date = @event.send(field).nil? ? DateTime.now.to_formatted_s(:date_y) : @event.send(field).to_formatted_s(:date_y)
+-@time = @event.send(field).nil? ? DateTime.now.to_formatted_s(:time) : @event.send(field).to_formatted_s(:time)
 
 .datetime
   .input-append.date.datepicker{:data => {:date=>@date, 'date-format' => "mm-dd-yyyy" }}
@@ -12,7 +12,7 @@
     
     
   .input-append.time.timepicker.bootstrap-timepicker-component{}
-    %input.span1.timepicker.input-small{:type => 'text', :name => "event[#{field}][time]", :value => @time }
+    %input.span1.timepicker.input-small{:type => 'text', :name => "event[#{field}][time]", :value => @time.strip }
     %span.add-on
       .i.icon-time
 

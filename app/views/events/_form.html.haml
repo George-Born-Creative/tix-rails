@@ -107,9 +107,19 @@
                     %span On Sale?
                     =@event.on_sale? ? 'Yes' : 'No'
                     
-                  %hr/
-                  -Event::TIMES.each do |time|
+                  
+                  -(Event::TIMES).each do |time|
                     =render :partial => 'datetime_control', :locals => { :field => time }
+                    %hr/
+                    
+                    
+                  -[:off_sale_at, :remove_at].each do |time|
+                    %h5=time.to_s
+                    =@event.send(time).to_formatted_s(:date_y) << " " << @event.send(time).to_formatted_s(:time)
+                    
+                    %hr/
+                    
+
             
             
             .accordion-group

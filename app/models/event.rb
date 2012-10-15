@@ -59,7 +59,7 @@ class Event < ActiveRecord::Base
   
   attr_accessor :starts_at_formatted 
   
-  TIMES = [:announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at]
+  TIMES = [:announce_at, :on_sale_at, :starts_at]#, :off_sale_at, :remove_at]
   CATEGORIES = [:adult, :kids, :lobby]
   
   
@@ -182,15 +182,19 @@ class Event < ActiveRecord::Base
     # TODO: Make these into account-level settings
     
     now = DateTime.now 
+    
     self.starts_at = DateTime.now if self.starts_at.nil?
-    self.off_sale_at = self.starts_at + 3.hours if self.off_sale_at.nil?
-    self.remove_at = self.starts_at + 3.hours if self.remove_at.nil?
+    
+    # For now, these are always 3 hours after show start tim
+    self.off_sale_at = self.starts_at + 3.hours
+    self.remove_at = self.starts_at + 3.hours
     
     # only set these if in the future
-    if self.announce_at.nil? && self.starts_in_future?
-      self.announce_at = now
+    if self.starts_in_future?
+      self.announce_at = now && self.announce_at.nil? 
       self.on_sale_at = now if self.on_sale_at.nil?
     end
+    
   end
     
   def debug

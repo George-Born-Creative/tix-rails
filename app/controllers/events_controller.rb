@@ -104,10 +104,15 @@ class EventsController < ApplicationController
   
   def convert_datetimes(parameters)
     Event::TIMES.each do |field|
+      puts "#### Converting time #{field}"
       date = parameters[field][:date]
       time = parameters[field][:time]
+      puts "#### Date #{date}"
+      puts "#### Time #{time}"
       # TODO : ESTABLISH TIME ZONE FOR ACCOUNT: Currently hard coded at '-4' for EST
       datetime = DateTime.strptime("#{date} #{time} -4", '%m-%d-%Y %I:%M %p %z')
+      puts "#### Datetime #{datetime}"
+      
       parameters[field] = datetime.in_time_zone
     end
     parameters

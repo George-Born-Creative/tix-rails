@@ -8,6 +8,14 @@ GIT
       railties (>= 3.1)
 
 GIT
+  remote: https://github.com/airblade/paper_trail.git
+  revision: f057bee9db453d26c5713d66a23a939712ef0a72
+  specs:
+    paper_trail (2.6.3)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
+
+GIT
   remote: https://github.com/carr/phone.git
   revision: 388c50f95df5dd687509f786173d327cb10fd8b4
   specs:
@@ -175,9 +183,6 @@ GEM
     newrelic_rpm (3.4.2.1)
     nokogiri (1.5.5)
     orm_adapter (0.4.0)
-    paper_trail (2.6.3)
-      activerecord (~> 3.0)
-      railties (~> 3.0)
     paperclip (3.2.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -342,7 +347,7 @@ DEPENDENCIES
   kaminari
   newrelic_rpm
   nokogiri
-  paper_trail
+  paper_trail!
   paperclip
   pg
   phone!

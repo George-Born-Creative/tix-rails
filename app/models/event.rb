@@ -191,7 +191,7 @@ class Event < ActiveRecord::Base
     
     # only set these if in the future
     if self.starts_in_future?
-      self.announce_at = now && self.announce_at.nil? 
+      self.announce_at = now if self.announce_at.nil? 
       self.on_sale_at = now if self.on_sale_at.nil?
     end
     

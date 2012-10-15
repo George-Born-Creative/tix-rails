@@ -13,6 +13,24 @@
 #  service_charge :decimal(8, 2)    default(0.0), not null
 #
 
+# Order States
+# 
+# CART -- a shopping cart. Will expire in LIFESPAN
+# 
+# 
+# EXPIRED
+#
+#
+# PAID
+#
+#
+# TICKETED
+#
+#
+#
+# REFUNDED (not yet implemented)
+# CANCELED (not yet implemented)
+
 class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
   LIFESPAN = 10.minutes

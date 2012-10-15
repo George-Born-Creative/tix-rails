@@ -1,5 +1,6 @@
 Tix::Application.routes.draw do
 
+
   match '/manager', :controller => :manager, :action => :index
   
   resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
@@ -52,6 +53,7 @@ Tix::Application.routes.draw do
     resources :widgets
     resources :carousels
     resources :carousel_items
+    resources :themes
       
     
     get "/images/tags" => "images#tags", :as => :tags

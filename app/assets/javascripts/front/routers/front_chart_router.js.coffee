@@ -15,3 +15,5 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     TixLib.Dispatcher.on 'areaClick', (data)-> 
       console.log '[SR] areaClick event received with data'
       console.log data
+      
+    ticket = Tix.Models.ticket

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015193011) do
+ActiveRecord::Schema.define(:version => 20121015194916) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -319,6 +319,14 @@ ActiveRecord::Schema.define(:version => 20121015193011) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "themes", :force => true do |t|
+    t.string   "title"
+    t.text     "css_doc"
+    t.datetime "activated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "ticket_templates", :force => true do |t|

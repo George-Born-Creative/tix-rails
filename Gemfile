@@ -95,6 +95,7 @@ gem 'inherited_resources'
 gem 'has_scope'
 # seed 
 # gem 'forgery' 
+gem 'codemirror-rails'
 
 gem 'delayed_job_active_record'
 gem "delayed_job_web"

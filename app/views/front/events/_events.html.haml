@@ -9,12 +9,12 @@
     <br/>
     View:
     %h2
-      =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.artists-view, .layout-sidebar', 'data-target' => '#artists-grid-view'
-      =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.artists-view', 'data-target' => '#artists-list-view, .layout-sidebar'
+      =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.events-view, .layout-sidebar', 'data-target' => '.events-view-grid'
+      =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.events-view', 'data-target' => '.events-view-list, .layout-sidebar'
       
 %hr/
 
-#artists-list-view.artists-view
+.events-view.events-view-list
   .row
     .span9
 
@@ -32,9 +32,7 @@
             .span6
               .starts-at=event.starts_at.to_formatted_s(:jammin_java)
               .event-name=event.name
-              .artists
-                =event.headliner.name if event.headliner
-                =("+" << event.secondary_headliner.name) if event.secondary_headliner
+              .artists=event.artists_str
           
               /%p=event.price_freeform.html_safe if event.price_freeform
               %a.btn{:href => front_event_path(event)} Buy Tix
@@ -44,7 +42,7 @@
 
 .row
   .span12
-    #artists-grid-view.artists-view.hide
+    .events-view.events-view-grid.hide
       -events.in_groups_of(3, false) do |events|
         .row
           -events.each do |event|
@@ -54,9 +52,9 @@
                   =image_tag(event.headliner.photo, :width => '100%') 
                 -else
                   =image_tag('http://placehold.it/300x230', :width => '100%') 
-                .well{:style => 'position: relative; background: rgba(0,0,0,.6); height: 100px; bottom: 130px; '}
+                .meta.well
                   .event-name=event.name
-                  .artists=event.headliner.name if event.headliner
+                  .artists=event.artists_str
                   .starts-at=event.starts_at.to_formatted_s(:jammin_java)
                   =event.price_freeform
         

@@ -12,7 +12,7 @@ class Front::PagesController < ApplicationController
     # end
     @page = @current_account.pages.find_by_slug('home')
     respond_to do |format|
-      format.html { render(:layout => 'sidebar_left', :action => :show) } # show.html.erb
+      format.html { render(:layout => 'sidebar_right', :action => :show) } # show.html.erb
     end
   end
 
@@ -26,7 +26,7 @@ class Front::PagesController < ApplicationController
 
     respond_to do |format|
       unless @page.nil?
-        format.html { render :layout => 'sidebar_left' } # show.html.erb
+        format.html { render :layout => 'sidebar_right' } # show.html.erb
         format.json { render json: @page }
       else
         format.html { not_found }# 404 }

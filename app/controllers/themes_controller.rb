@@ -5,11 +5,11 @@ class ThemesController < InheritedResources::Base
   before_filter :set_active_theme
   
   def create
-    create! { themes_url }
+    create! { edit_theme_url(@theme) }
   end
   
   def update
-    create! { themes_url }
+    update! { edit_theme_url(@theme) }
   end
   
   def activate

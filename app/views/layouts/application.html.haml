@@ -17,7 +17,10 @@
           }
       
       :css
+      
         #{@current_account.themes.active_theme.css_doc.html_safe}
+  
+  
   %body
     #wrap
       .container
@@ -52,8 +55,7 @@
             
         .container
           =yield :layout if content_for?(:layout)
-          .row
-            .span12
+
               
               
     

@@ -5,46 +5,43 @@
   .info.span6
     .align.right
       .secondary-nav
-    
+        .social-links
 
       
-        =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
-        |
-        =link_to 'Facebook', 'http://www.facebook.com/pages/Vienna-VA/Jammin-Java/55704731656?ref=s', :target => '_blank'
-        |
-        =link_to 'FAQ', '/page/faq'
-        |
-        =link_to 'Contact', '/page/contact'
-        |
-        =link_to 'Directions', '/page/contact'
+          =link_to 'Twitter', 'http://www.twitter.com/jamminjava', :target => '_blank'
+          |
+          =link_to 'Facebook', 'http://www.facebook.com/pages/Vienna-VA/Jammin-Java/55704731656?ref=s', :target => '_blank'
+          |
+          =link_to 'FAQ', '/page/faq'
+          |
+          =link_to 'Contact', '/page/contact'
+          |
+          =link_to 'Directions', '/page/contact'
         
         %br/
-        %br/
-        
-        -if user_signed_in?
-          Hello
-          %strong=link_to current_user.email, edit_user_path(current_user)
-          -if current_user.has_at_least_role :employee
-            |
-            =link_to 'Manager', '/manager'
+        .login
+          -if user_signed_in?
+            Hello
+            %strong=link_to current_user.email, edit_user_path(current_user)
+            -if current_user.has_at_least_role :employee
+              |
+              =link_to 'Manager', '/manager'
           
-          | 
-          =link_to 'Logout', destroy_user_session_path, :method => :delete
-          ="<!--Role: #{current_user.role}-->".html_safe
-        -else
-          =link_to 'Login', new_user_session_path
+            | 
+            =link_to 'Logout', destroy_user_session_path, :method => :delete
+            ="<!--Role: #{current_user.role}-->".html_safe
+          -else
+            =link_to 'Login', new_user_session_path
     
         
-        
         %br/
-        %br/
-        .cart-minir
+        .cart-mini
           %strong
             %a{:href => '#/checkout'}
               Cart:
               %span.cart_total $0.00
         %br/
-        <br/>
-        .small 
-          227 Maple Ave E Vienna, VA 22180   |   
+        %br/
+        .small.contact
+          227 Maple Ave E Vienna, VA 22180   | 
           =mail_to 'thebros@jamminjava.com', nil, :encode => 'hex'

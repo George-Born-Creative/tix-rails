@@ -1,7 +1,26 @@
+
+
+-content_for :javascript do
+  :javascript
+    $(function(){
+      $('#theme_css_doc').codemirror({
+        mode: 'css'
+      });
+    });
+
+
+
 =simple_form_for @theme do |f|
-  =if @theme.background_image?
-    =link_to "View", @theme.background_image(:original)
-  =f.input :background_image
-  =f.input :title
-  =f.input :css_doc  
-  =f.button :submit
+  .row
+    .span3
+      =f.input :title
+    .span4
+      =f.input :background_image
+      -if @theme.background_image?
+        =link_to "View Current Image", @theme.background_image(:original)
+        
+  .row
+  
+    =f.input :css_doc, :label => '', :input_html => {:height => '700'}
+
+    =f.button :submit

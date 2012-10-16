@@ -1,16 +1,13 @@
 -content_for :layout do 
-  -if content_for? :content_twelve do
-    .row
-      .span12
-        =yield :content_twelve
   .row
+    .span9
+      .layout-content
+        =yield :content_nine
+        =yield :content
+    
     .span3
       .layout-sidebar
         =yield :sidebar
         
-    .span9
-      .layout-content
-        =yield :content_nine
-    
     
 =render :template => 'layouts/application'

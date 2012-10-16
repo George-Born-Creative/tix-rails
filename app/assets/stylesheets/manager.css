@@ -16,6 +16,8 @@
 //*= require jquery.ui.theme
 //*= require dataTables/src/demo_table_jui
 //*= require dataTables/jquery.dataTables
+//*= require codemirror
+//*= require codemirror/themes/night
 
 //*= require manager/global
 //*= require_tree ./manager/

@@ -21,6 +21,9 @@
 // require bootstrap/charts/area
 // require bootstrap/charts/donut
 //= require dataTables/jquery.dataTables
+//= require codemirror
+//= require codemirror/modes/css
+//= require codemirror/jquery.codemirror.js
 
 //= require ckeditor/init
 
@@ -37,5 +40,6 @@
 // require_tree ./manager/collections
 //= require_tree ./manager/views
 //= require_tree ./manager/routers
+
 
 

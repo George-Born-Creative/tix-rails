@@ -21,7 +21,7 @@
     - @themes.each do |theme|
       %tr
         %td= theme.title
-        %td= @active_theme.id == theme.id ? 'Yes' : ''
+        %td= (@active_theme && @active_theme.id == theme.id ) ? 'Yes' : ''
         %td
           -if theme.background_image?
             =link_to('Background', theme.background_image(:thumb))

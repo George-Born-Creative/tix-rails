@@ -13,6 +13,8 @@
 //= require backbone
 //= require backbone-support
 //= require hamlcoffee
+//= require jquery.ui.sortable
+//= require jquery.effects.highlight
 //= require ./manager/bootstrap/bootstrap
 //= require ./manager/bootstrap/base
 //= require ../lib/bootstrap/colorpicker/js/bootstrap-colorpicker
@@ -24,9 +26,6 @@
 //= require codemirror
 //= require codemirror/modes/css
 //= require codemirror/jquery.codemirror.js
-//= require jquery.ui.sortable
-//= require jquery.effects.highlight
-
 //= require ckeditor/init
 
 // require_tree ./lib/templates

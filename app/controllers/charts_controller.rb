@@ -1,5 +1,4 @@
 class ChartsController < ApplicationController
-  before_filter :current_order
   
   
   respond_to :json, :html

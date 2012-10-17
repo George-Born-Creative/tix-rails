@@ -36,7 +36,8 @@
       .alert
         Drag and drop the widgets to order them.
       %ul.widget-sorter.sortable
-        -@sidebar.widgets.each do |widget|
+        -@sidebar.widget_placements.each do |widget_placement|
+          -widget = widget_placement.widget
           %li.widget-item{:id => "widget_#{widget.id}"}
             %h3=widget.title
             =widget.body.html_safe

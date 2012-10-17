@@ -1,0 +1,13 @@
+<script type="text/javascript" src="//use.typekit.net/lmc2sec.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+-unless @current_account.themes.active_theme.nil?
+  -if @current_account.themes.active_theme.background_image?
+    :css
+      body {
+        background: url(#{@current_account.themes.active_theme.background_image(:original)}) top center no-repeat;
+      }
+  
+  :css
+  
+    #{@current_account.themes.active_theme.css_doc.html_safe}

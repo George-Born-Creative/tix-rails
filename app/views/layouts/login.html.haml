@@ -4,11 +4,8 @@
     %title Jammin' Java
     = stylesheet_link_tag    "application", :media => "all"
     = csrf_meta_tags
-    -unless ENV['RAILS_ENV'] == 'production'
-      <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-    <script type="text/javascript" src="//use.typekit.net/lmc2sec.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     =raw '<!-- current subdomain: ' + @current_account.subdomain + '-->'
+    =render 'front/shared/theme'
     
   %body
     #wrap

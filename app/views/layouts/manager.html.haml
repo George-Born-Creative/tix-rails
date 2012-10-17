@@ -63,6 +63,11 @@
               %a{:href => "/manager/"}
                 %i.icon-home
                 %span Dash
+                
+            %li
+              %a{:href => "/manager/pages"}
+                %i.icon-indent-left
+                %span Content
             %li
               %a{:href => '/manager/customers'}
                 %i.icon-user
@@ -71,10 +76,7 @@
               %a.dropdown-toggle{:href => "/manager/events"}
                 %i.icon-calendar
                 %span Events
-            %li
-              %a{:href => "/manager/reports"}
-                %i.icon-bar-chart
-                %span Reports
+            
             %li
               %a{:href => "/manager/artists"}
                 %i.icon-heart
@@ -83,36 +85,46 @@
               %a{:href => "/manager/orders"}
                 %i.icon-asterisk
                 %span Orders
-   
+  
             %li
-              %a{:href => "/manager/newsletters"}
-                %i.icon-envelope
-                %span Newsletters
-                
-                
-   
+              %a{:href => "/manager/charts"}
+                %i.icon-film
+                %span Charts
+
             %li
-              %a{:href => "/manager/pages"}
+              %a{:href => "/manager/ticket_templates"}
                 %i.icon-picture
-                %span Content
+                %span Ads
                 
-            %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:;"}
-                %i.icon-share-alt
-                %span More Goodness
-                %b.caret
-              %ul.dropdown-menu
-                %li
-                  %a{:href => "/manager/charts"} Charts
-                %li
-                  %a{:href => "/manager/ticket_templates"} Ticket Templates
-                %li.divider
-                %li
-                  %a{:href => "./login.html"} Login
-                %li
-                  %a{:href => "./signup.html"} Signup
-                %li
-                  %a{:href => "./error.html"} Error
+                
+                
+            -# %li
+            -#   %a{:href => "/manager/support"}
+            -#     %i.icon-star
+            -#     %span Support
+            
+            -# %li.dropdown
+            -#   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "javascript:;"}
+            -#     %i.icon-share-alt
+            -#     %span More Goodness
+            -#     %b.caret
+            -#   %ul.dropdown-menu
+            -#     %li
+            -#       %a{:href => "/manager/charts"} Charts
+            -#     %li
+            -#       %a{:href => "/manager/ticket_templates"} Ticket Templates
+            -#     %li.divider
+            -#     %li
+            -#       %a{:href => "./login.html"} Login
+            -#     %li
+            -#       %a{:href => "./signup.html"} Signup
+            -#     %li
+            -#       %a{:href => "./error.html"} Error
+            
+            -# %li
+            -#   %a{:href => "/manager/reports"}
+            -#     %i.icon-bar-chart
+            -#     %span Reports
         / /container
       / /subnavbar-inner
     / /subnavbar

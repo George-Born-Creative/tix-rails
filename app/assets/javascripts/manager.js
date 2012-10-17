@@ -24,6 +24,8 @@
 //= require codemirror
 //= require codemirror/modes/css
 //= require codemirror/jquery.codemirror.js
+//= require jquery.ui.sortable
+//= require jquery.effects.highlight
 
 //= require ckeditor/init
 

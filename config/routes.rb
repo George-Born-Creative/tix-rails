@@ -50,6 +50,8 @@ Tix::Application.routes.draw do
     resources :widgets
     resources :widget_placements
     resources :sidebars
+    post '/sidebars/:id/sort' => 'sidebars#sort'
+    
     resources :widgets
     resources :carousels
     resources :carousel_items

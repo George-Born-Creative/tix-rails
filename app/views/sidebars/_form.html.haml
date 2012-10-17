@@ -1,6 +1,25 @@
+-content_for :javascript do
+  :javascript
+    $(function(){
+      $('.widget-sorter').sortable({
+        update: function(){
+          $.ajax({
+            url: '/manager/sidebars/#{@sidebar.id}/sort',
+            type: 'post',
+            data: $('.widget-sorter').sortable('serialize'),
+            dataType: 'script',
+            complete: function(){
+              $('.widget-sorter').effect('highlight');
+            }
+          })
+        }
+      });
+    });
+
+
 = simple_form_for(@sidebar) do |f|
   .row
-    .span4.offset1
+    .span4
       = f.error_notification
 
       .form-inputs
@@ -14,7 +33,11 @@
       
 
     .span3
-      -@sidebar.widgets.each do |widget|
-        %h3=widget.title
-        =widget.body.html_safe
-        =link_to 'Edit', edit_widget_path(widget)
+      .alert
+        Drag and drop the widgets to order them.
+      %ul.widget-sorter.sortable
+        -@sidebar.widgets.each do |widget|
+          %li.widget-item{:id => "widget_#{widget.id}"}
+            %h3=widget.title
+            =widget.body.html_safe
+            =link_to 'Edit', edit_widget_path(widget)

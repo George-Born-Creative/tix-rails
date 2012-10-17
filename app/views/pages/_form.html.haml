@@ -1,4 +1,25 @@
 = simple_form_for(@page) do |f|
+  .row
+    .span9
+      .row
+        .span4
+          .widget
+            .widget-content
+              %br/
+              
+              = f.button :submit, :class => 'btn btn-primary btn-large'      
+              =link_to 'Sidebars', sidebars_path, :class => 'btn'
+        
+              =link_to 'Widgets', widgets_path, :class => 'btn'
+              %br/
+              
+        .span4
+          .widget
+            .widget-content
+              =f.input :sidebar_id, :label => '', :collection => (Sidebar.all.collect {|s| [s.title,s.id] }), :selected => (@page.sidebar.id if @page.sidebar)
+
+              -if @page.sidebar
+                =link_to "Edit #{@page.sidebar.title}", edit_sidebar_path(  @page.sidebar), :class => 'btn'
 
   .row
     .span9
@@ -11,28 +32,7 @@
             = f.input :title
             = f.input :slug
             = f.input :body, :as => :ckeditor, :toolbar => 'easy', :input_html => { :style => 'width: 100%', :height => '700'}
-
-    .span3
-      .widget
-
-        .widget-content
-          = f.button :submit, :class => 'btn btn-primary btn-large'      
-          <br/>
-          <br/>
-          =link_to 'Sidebars', sidebars_path, :class => 'btn'
-      
-          =link_to 'Widgets', widgets_path, :class => 'btn'
-      
-      
-      .widget
-        .widget-header
-          %h3 Sidebar
-        .widget-content
-          =f.input :sidebar_id, :label => '', :collection => (Sidebar.all.collect {|s| [s.title,s.id] }), :selected => (@page.sidebar.id if @page.sidebar)
-        
-          -if @page.sidebar
-            =link_to "Edit #{@page.sidebar.title}", edit_sidebar_path(  @page.sidebar), :class => 'btn'
-          
+ 
       -# .widget
       -#   .widget-header
       -#     %h3 Image Browser

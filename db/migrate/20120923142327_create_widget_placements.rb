@@ -1,5 +1,5 @@
 class CreateWidgetPlacements < ActiveRecord::Migration
-  def change
+  def up
     create_table :widget_placements do |t|
       t.integer :sidebar_id
       t.integer :widget_id

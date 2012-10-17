@@ -29,44 +29,45 @@ window.TixMgr =
     Backbone.history.start()
     
   initDatatables: ->
-    $('table#artists').dataTable({
-        sPaginationType: "full_numbers"
-        bJQueryUI: true
-        bProcessing: true
-        bServerSide: true
-        sAjaxSource: $('#artists').data('source')
-        'aoColumnDefs': [
-          { "bSortable": false, "aTargets": [ 0, 2, 3, 4, 5] } # these corespond to the artist table columns
-        ]
+    if $('table#artists').size() > 0
+      $('table#artists').dataTable({
+          sPaginationType: "full_numbers"
+          bJQueryUI: true
+          bProcessing: true
+          bServerSide: true
+          sAjaxSource: $('#artists').data('source')
+          'aoColumnDefs': [
+            { "bSortable": false, "aTargets": [ 0, 2, 3, 4, 5] } # these corespond to the artist table columns
+          ]
         
-    }).addClass('display')
+      }).addClass('display')
     
-    
-    $('table#events').dataTable({
-        sPaginationType: "full_numbers"
-        bJQueryUI: true
-        bProcessing: true
-        bServerSide: true
-        sAjaxSource: $('#events').data('source')
-        "aaSorting": [[ 2, "asc" ]]
-        'aoColumnDefs': [
-          { "bSortable": false, "aTargets": [ 3, 4, 5, 6] } # these corespond to the events table columns
-        ]
+    if $('table#events').size() > 0
+      $('table#events').dataTable({
+          sPaginationType: "full_numbers"
+          bJQueryUI: true
+          bProcessing: true
+          bServerSide: true
+          sAjaxSource: $('#events').data('source')
+          "aaSorting": [[ 2, "asc" ]]
+          'aoColumnDefs': [
+            { "bSortable": false, "aTargets": [ 3, 4, 5, 6] } # these corespond to the events table columns
+          ]
         
-    }).addClass('display')
+      }).addClass('display')
     
-    
-    $('table#customers').dataTable({
-        sPaginationType: "full_numbers"
-        bJQueryUI: true
-        bProcessing: true
-        bServerSide: true
-        sAjaxSource: $('#customers').data('source')
-        'aoColumnDefs': [
-          { "bSortable": false, "aTargets": [ 2, 3, 4, 5] } # these corespond to the events table columns
-        ]
+    if $('table#customers').size() > 0
+      $('table#customers').dataTable({
+          sPaginationType: "full_numbers"
+          bJQueryUI: true
+          bProcessing: true
+          bServerSide: true
+          sAjaxSource: $('#customers').data('source')
+          'aoColumnDefs': [
+            { "bSortable": false, "aTargets": [ 2, 3, 4, 5] } # these corespond to the events table columns
+          ]
         
-    }).addClass('display')
+      }).addClass('display')
     
     
     

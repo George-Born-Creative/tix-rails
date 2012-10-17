@@ -11,9 +11,9 @@
 #
 
 class Sidebar < ActiveRecord::Base
-  attr_accessible :slug, :title, :widget_ids
+  attr_accessible :slug, :title, :widget_ids, :account
   belongs_to :account
-  has_many :widget_placements
+  has_many :widget_placements,  :order => "index ASC"
   has_many :widgets, :through => :widget_placements
   has_many :pages
 
@@ -22,10 +22,10 @@ class Sidebar < ActiveRecord::Base
   validates_uniqueness_of :slug, :scope => :account_id
   
   
-  
   def body(show_edit_controls = false)
     return '' if self.widgets.count == 0
-    html = self.widgets.map do |widget|
+    html = self.widget_placements.map do |widget_placement|
+      widget = widget_placement.widget
       %Q{
          <div class="widget widget-slug-#{widget.slug}">
            <!--div class="widget-title"><h3>#{widget.title}</h3></div-->

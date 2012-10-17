@@ -1,87 +1,41 @@
-class SidebarsController < ApplicationController
+class SidebarsController < InheritedResources::Base
   layout 'manager_cms'
-
-  # GET /sidebars
-  # GET /sidebars.json
-  def index
-    @sidebars = Sidebar.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sidebars }
+  
+  def update
+    update! {edit_sidebar_path(@sidebar)}
+  end
+  
+  def sort
+    @sidebar = @current_account.sidebars.find(params[:id])
+    
+    unless params[:widget].blank?
+      @sidebar.widget_placements.delete_all
+      params[:widget].each_with_index do |widget_id, index|
+        @sidebar.widget_placements.create(:widget_id => widget_id, :index => index)
+      end
     end
-  end
-
-  # GET /sidebars/1
-  # GET /sidebars/1.json
-  def show
-    @sidebar = Sidebar.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @sidebar }
-    end
-  end
-
-  # GET /sidebars/new
-  # GET /sidebars/new.json
-  def new
-    @sidebar = Sidebar.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @sidebar }
-    end
-  end
-
-  # GET /sidebars/1/edit
-  def edit
-    @sidebar = Sidebar.find(params[:id])
-  end
-
-  # POST /sidebars
-  # POST /sidebars.json
-  def create
-    @sidebar = Sidebar.new(params[:sidebar])
-
+    
     respond_to do |format|
       if @sidebar.save
-        format.html { redirect_to @sidebar, notice: 'Sidebar was successfully created.' }
-        format.json { render json: @sidebar, status: :created, location: @sidebar }
+        format.js {render :text => 'Success' }
       else
-        format.html { render action: "new" }
-        format.json { render json: @sidebar.errors, status: :unprocessable_entity }
+        # TODO: Handle error properly on server and on client
+        format.js {render :text => 'Fail' }
       end
     end
   end
-
-  # PUT /sidebars/1
-  # PUT /sidebars/1.json
-  def update
-    @sidebar = Sidebar.find(params[:id])
-
-    respond_to do |format|
-      if @sidebar.update_attributes(params[:sidebar])
-        # format.html { redirect_to @sidebar, notice: 'Sidebar was successfully updated.' }
-        format.html { redirect_to edit_sidebar_path( @sidebar), notice: 'Sidebar was successfully updated.' }
-        
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @sidebar.errors, status: :unprocessable_entity }
-      end
-    end
+  
+  
+  
+  protected
+  
+  # def collection
+  #   @sidebars ||= end_of_association_chain.order('created_at ASC')
+  # end
+  
+  def begin_of_association_chain
+    @current_account
   end
-
-  # DELETE /sidebars/1
-  # DELETE /sidebars/1.json
-  def destroy
-    @sidebar = Sidebar.find(params[:id])
-    @sidebar.destroy
-
-    respond_to do |format|
-      format.html { redirect_to sidebars_url }
-      format.json { head :no_content }
-    end
-  end
+  
+  
 end

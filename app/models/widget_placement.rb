@@ -19,5 +19,6 @@ class WidgetPlacement < ActiveRecord::Base
   belongs_to :widget
   belongs_to :sidebar
   
+  alias_attribute :position, :index
   
 end

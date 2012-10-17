@@ -14,13 +14,14 @@
   .row
     .span3
       =f.input :title
-    .span4
+    .span2
       =f.input :background_image
       -if @theme.background_image?
-        =link_to "View Current Image", @theme.background_image(:original)
+        =link_to " Current Bg Image", @theme.background_image(:original)
+    .span2
+      =f.button :submit, :class => 'btn btn-primary btn-large'
         
   .row
   
-    =f.input :css_doc, :label => '', :input_html => {:height => '700'}
+    =f.input :css_doc, :label => 'CSS Overrides', :input_html => {:style => 'height:700px;'}
 
-    =f.button :submit

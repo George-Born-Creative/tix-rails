@@ -1,89 +1,25 @@
-class WidgetsController < ApplicationController
+class WidgetsController < InheritedResources::Base
   # GET /widgets
   # GET /widgets.json
   layout 'manager_cms'
+
   
-  def index
-    @widgets = @current_account.widgets.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @widgets }
-    end
-  end
-
-  # GET /widgets/1
-  # GET /widgets/1.json
-  def show
-    @widget = @current_account.widgets.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @widget }
-    end
-  end
-
-  # GET /widgets/new
-  # GET /widgets/new.json
-  def new
-    @widget = @current_account.widgets.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @widget }
-    end
-  end
-
   # GET /widgets/1/edit
   def edit
     @sidebars = @current_account.sidebars
-    
     @widget = @current_account.widgets.find(params[:id])
+    super
+  end
+  
+  
+  protected
+  
+  # def collection
+  #   @widget ||= end_of_association_chain.order('created_at ASC')
+  # end
+  
+  def begin_of_association_chain
+    @current_account
   end
 
-  # POST /widgets
-  # POST /widgets.json
-  def create
-    @widget = @current_account.widgets.new(params[:widget])
-
-    respond_to do |format|
-      if @widget.save
-        format.html { redirect_to @widget, notice: 'Widgets was successfully created.' }
-        format.json { render json: @widget, status: :created, location: @widget }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @widget.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /widgets/1
-  # PUT /widgets/1.json
-  def update
-    @widget = @current_account.widgets.find(params[:id])
-    
-
-    respond_to do |format|
-      if @widget.update_attributes(params[:widget])
-        # format.html { redirect_to @widget, notice: '@current_account.widgets was successfully updated.' }
-        format.html { redirect_to edit_widget_path(@widget), notice: 'Widgets was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @widget.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /widgets/1
-  # DELETE /widgets/1.json
-  def destroy
-    @widget = @current_account.widgets.find(params[:id])
-    @widget.destroy
-
-    respond_to do |format|
-      format.html { redirect_to widgets_url }
-      format.json { head :no_content }
-    end
-  end
 end

@@ -46,7 +46,6 @@ gem 'turbo-sprockets-rails3'
 # environment
 gem 'thin'
 
-
 ## accessories 
 # gem 'phony' # formatting phone number
 gem 'nokogiri'

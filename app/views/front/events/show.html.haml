@@ -28,7 +28,7 @@
 
 .row
   .span7
-    -if @event.headliner && @event.headliner.photo?
+    -unless @event.headliner.blank? || !@event.headliner.photo?
       =image_tag(@event.headliner.photo(:original), :width => '100%')
   .span4
     %p=@event.starts_at.to_formatted_s :jammin_java

@@ -47,6 +47,8 @@ private
     
     if params[:sSearch].present?
       events = events.where("title ILIKE :search", search: "%#{params[:sSearch]}%")
+    else
+      events = events.current
     end
     
     events

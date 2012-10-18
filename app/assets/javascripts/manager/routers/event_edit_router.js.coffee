@@ -25,6 +25,7 @@ class TixMgr.Routers.EventEditRouter extends Support.SwappingRouter
       limit = if $i.hasClass('single') then 1 else null
       console.log limit
       
+      console.log $i
       $i.tokenInput '/manager/artists/search.json',
         prePopulate:       $("#image_tag_list").data("pre")
         preventDuplicates: true

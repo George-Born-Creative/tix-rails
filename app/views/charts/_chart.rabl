@@ -4,12 +4,40 @@ attributes :id, :name, :background_color
 child (:sections) do |chart|
   attributes :id, :label, :seatable, :color
 
+  
   child :presale_price => :presale_price do
-    attributes :id, :base, :service, :tax, :total
+    attributes :id
+
+    node :base do |price|
+     "%.2f" % price.base
+    end
+    node :service do |price|
+       "%.2f" % price.service
+    end
+    node :tax do |price|
+       "%.2f" % price.tax
+    end
+    node :total do |price|
+       "%.2f" % price.total
+    end
+    
   end
   
   child :dayof_price => :dayof_price do
-    attributes :id, :base, :service, :tax, :total
+    attributes :id
+
+    node :base do |price|
+     "%.2f" % price.base
+    end
+    node :service do |price|
+       "%.2f" % price.service
+    end
+    node :tax do |price|
+       "%.2f" % price.tax
+    end
+    node :total do |price|
+       "%.2f" % price.total
+    end
   end
   
   child(:areas) do 

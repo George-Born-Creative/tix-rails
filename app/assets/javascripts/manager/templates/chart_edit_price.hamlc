@@ -1,8 +1,12 @@
 %h5=@label
 .row
-  .span1
-    %input{:type => 'text', :style => 'width: 50px', :placeholder => 'base',  :value => @price.base, :data => {:type => 'field', :fieldname => 'base'}
-  .span1
-    %input{:type => 'text',  :style => 'width: 50px', :placeholder => 'service', :value => @price.service, :data => {:type => 'field', :fieldname => 'service' }}
+  .span3
+    .input-prepend{:style => 'font-size: 19px'}
+      %span.add-on $
+      %input{:type => 'text', :style => 'margin: 0 0 0 -5px; width: 70px; font-size: 19px', :placeholder => 'base',  :value => @price.base, :data => {:type => 'field', :fieldname => 'base'}
+  .span3
+    .input-prepend{:style => 'font-size: 19px'}
+      %span.add-on $
+      %input{:type => 'text',  :style => 'margin: 0 0 0 -5px; width: 70px; font-size: 19px', :placeholder => 'service', :value => @price.service, :data => {:type => 'field', :fieldname => 'service' }}
   .span1
     .total= @price.total

@@ -32,17 +32,20 @@ class TixLib.Views.ChartRenderView extends Backbone.View
           set.exclude(el)
       
     setupTooltip: ->
-      tip = $('<div id="tooltip"></div>').css
+      tip = $('<div id="tooltip"></div>')
+      $('#chart_container').parent().prepend(tip)
+      $('#tooltip').css
         position : "absolute"
         border : "1px solid gray"
         'background-color' : '#efefef'
-        padding : "3px"
-        'z-index': "1000"
+        color: 'black'
+        'font-family: "lucida-grande", helvetica'
+        padding : "10px"
+        margin: '10px'
+        'z-index': "5000"
         'max-width': "200px"
         display: "none"
-      .text('hi kids, do you like violence')
-
-      $('#chart_container').parent().prepend(tip)
+      .text('')
       
       $(document).mousemove (e)->
         offLeft = e.pageX  -  $('#chart_container').offset().left + 30
@@ -71,7 +74,9 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         $('#tooltip')
           .fadeIn('fast')
           .html(text)
-          window.tix_over = true
+          .css('z-index', '5000')
+          
+        window.tix_over = true
       
       
     hideTooltip: ->

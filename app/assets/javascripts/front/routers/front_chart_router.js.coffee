@@ -9,6 +9,10 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
 
     @listenForClicks
     
+    
+    _.templateSettings = 
+      interpolate : /\{\{(.+?)\}\}/g
+    
   index: ->
 
   listenForClicks: ->

@@ -35,9 +35,9 @@ class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
   LIFESPAN = 10.minutes
   
-
+  before_create :set_expires_at
   
-  attr_accessible :total, :service_charge, :tax, :account, :user, :state
+  attr_accessible :total, :service_charge, :tax, :account, :user, :state, :expires_at
   
   has_many :tickets
   belongs_to :user
@@ -108,6 +108,37 @@ class Order < ActiveRecord::Base
   end
   
   
+  def reserve(area_id)
+    area = Area.find(area_id)
+    if area.ticketable?
+      self.tickets.create(:area => area)
+      return true
+    else
+      return false
+    end
+  end
+  
+  
+  
+  
+  
+  def total_base_price
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.base_price}
+  end
+  
+  def total_service_charge
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.service_charge}
+  end
+  
+  def total
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total_price}
+  end
+  
+  
+  
+  
+  # Class methods for totals
+  
   def self.total
     self.all.each.reduce(0) do |memo, order|
       memo += order.total 
@@ -122,19 +153,12 @@ class Order < ActiveRecord::Base
   end
   
   
-  def total_base_price
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.base_price}
-  end
-  
-  def total_service_charge
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.service_charge}
-  end
-  
-  def total
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total}
-  end
   
   private
+  
+  def set_expires_at
+    self.expires_at = DateTime.now + LIFESPAN
+  end
   
   # def calc_and_save_totals #before_savee
   #   return unless self.tickets

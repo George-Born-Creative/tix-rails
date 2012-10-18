@@ -27,6 +27,7 @@ module Tix
       
        area = OpenStruct.new
        area.type = elem.name
+       area.color = elem.attr 'fill'
        
        case elem.name 
        
@@ -36,6 +37,11 @@ module Tix
            area.r = elem.attr 'r'
          when 'text'
            area.transform = elem.attr 'transform'
+           coords = /1 0 0 1 ([\d\.]+) ([\d\.]+)/.match(area.transform)
+           area.x = coords[1]
+           area.y = coords[2]
+           area.text = elem.inner_text
+           #puts "TEXT: #{elem.inner_text} X: #{area.x} Y: #{area.y}"
          when 'rect'
            area.x = elem.attr 'x'
            area.y = elem.attr 'y'
@@ -50,26 +56,35 @@ module Tix
     end
     
     # Creates (AR) Section within (AR) Account    
-    def parse_section(css, seatable=false)
+    def parse_section(css, stack_index, seatable=false)
       
       section_name = css.split('#')[-1]
-      puts "   Section: #{section_name}  Active: #{seatable.to_s}"
-      
-      
-      
+      puts "   Section: #{section_name}  Active: #{seatable.to_s} "
       ActiveRecord::Base.silence do
         section = @chart.sections.create( :label => section_name,
-                                          :seatable => seatable )
+                                          :seatable => seatable,
+                                          :index => stack_index )
                                           
         # section.prices.create(:label => 'presale', :base => 10.00, :service => 3.00 )
         # section.prices.create(:label => 'day_of', :base => 12.00, :service => 12.00  )
 
-        @loaded_file.css("#{css} > circle, #{css} > text, #{css} > rect, #{css} > polygon").each do |elem|
+        @loaded_file.css("#{css} circle, #{css} text, #{css} rect, #{css} polygon").each do |elem|
           area_hash = parse_area(elem)
           puts "     #{area_hash[:type]} (Area)"
-        
+          section.update_attributes(:color => area_hash[:color]) if section.color.blank?
+          area_hash.delete :color
           section.areas.create( area_hash )
         end
+        
+        
+        
+        
+        
+        
+        puts "Section color is #{section.color}"
+        
+        
+        
       end
       
       
@@ -90,24 +105,25 @@ module Tix
                                     :label => 'Chart ' << Time.now.to_formatted_s,
                                     :width => @loaded_file.css('svg').attr('width'),
                                     :height => @loaded_file.css('svg').attr('height'),
+                                    :master => true
                                     )
   
                                     
       puts "Creating Chart #{@chart.name}"
       
       # Sections
-      
+      idx = 0
       # Background
-      parse_section('svg > g#Background')
+      parse_section('svg > g#Background', idx)
       
       # Sections (seatables)
       @loaded_file.css('svg > g#Sections > g').each do |section|
         section_id = section.attr('id')
-        parse_section("svg > g#Sections > g##{section_id}", true)
+        parse_section("svg > g#Sections > g##{section_id}", idx+=1 , true)
       end
       
       # Foreground
-      parse_section('svg > g#Foreground')
+      parse_section('svg > g#Foreground', idx+=1)
     end
     
     

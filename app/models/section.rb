@@ -25,13 +25,12 @@ class Section < ActiveRecord::Base
   # has_many :prices, :dependent => :destroy
   
   
-  
   belongs_to :presale_price, :dependent => :destroy, :class_name => 'Price', :foreign_key => 'presale_price_id'
   belongs_to :dayof_price, :dependent => :destroy, :class_name => 'Price', :foreign_key => 'dayof_price_id'
   
   scope :seatable, :conditions => {:seatable => true}
   
-  attr_accessible :chart_id, :label, :seatable, :color, :account_id#, :presale_price, :dayof_price
+  attr_accessible :chart_id, :label, :seatable, :color, :account_id, :index#, :presale_price, :dayof_price
   
   
   def current_price

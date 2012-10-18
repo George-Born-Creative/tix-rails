@@ -13,8 +13,10 @@
 class Sidebar < ActiveRecord::Base
   attr_accessible :slug, :title, :widget_ids, :account
   belongs_to :account
+  
   has_many :widget_placements,  :order => "index ASC"
   has_many :widgets, :through => :widget_placements
+  
   has_many :pages
 
   accepts_nested_attributes_for :widgets

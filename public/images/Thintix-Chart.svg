@@ -5,7 +5,6 @@
 	 width="398.417px" height="639.46px" viewBox="0 0 398.417 639.46" enable-background="new 0 0 398.417 639.46"
 	 xml:space="preserve">
 <g id="Background">
-	<rect fill="#231F20" width="398.417" height="639.46"/>
 	<polyline fill="#444444" points="68.558,464.742 28.888,464.908 28.888,272.03 98.1,272.03 147.402,320.289 147.402,452.796 
 		81.233,452.796 68.558,464.742 	"/>
 	<rect x="148.79" y="124.347" fill="#666666" width="21.88" height="60.053"/>
@@ -32,7 +31,7 @@
 	<rect x="305.035" y="510.39" fill="#444444" width="77.086" height="107.533"/>
 	<g>
 		<rect x="306.632" y="485.8" fill="none" width="61.785" height="39.074"/>
-		<text transform="matrix(1 0 0 1 315.2495 496.02)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14">Sound </text>
+		<text transform="matrix(1 0 0 1 315.2495 496.019)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14">Sound </text>
 		<text transform="matrix(1 0 0 1 316.2866 512.8198)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14">Booth</text>
 	</g>
 	<circle fill="#562D2D" cx="261.18" cy="302.339" r="4.469"/>

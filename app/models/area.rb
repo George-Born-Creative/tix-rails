@@ -27,7 +27,8 @@ class Area < ActiveRecord::Base
   
   attr_accessible :x, :y, :polypath, :label, :stack_order,
                   :cx, :cy, :r, :width, :height, :points, :transform,
-                  :type, :max_tickets #, :fill
+                  :type, :max_tickets,
+                  :reservations, :text
   
   belongs_to :section
   has_many :tickets  
@@ -39,9 +40,13 @@ class Area < ActiveRecord::Base
   
   
   def ticketable?
-    self.max_tickets > 0
+    self.inventory > 0
   end
   
+  def inventory
+    self.max_tickets - self.tickets.count#.with_state(:reserved).count - self.tickets.where('state = ?', 'reserved')
+  end
+
   
   private
   

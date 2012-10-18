@@ -10,3 +10,8 @@
 
     %label # Tickets for Seat
     %input{:type => 'text', :value => @area.max_tickets, :data => {:type => 'field', :fieldname => 'max_tickets' }}
+    %p="Reserved: #{@area.tickets_reserved_count}"
+    %p="Purchased: #{@area.tickets_purchased_count}"
+    %p="Checked In: #{@area.tickets_checked_in_count}"
+    %p="Inventory: #{@area.inventory}"
+    

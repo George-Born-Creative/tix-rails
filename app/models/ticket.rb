@@ -23,23 +23,18 @@
 
 # Ticket
 # Connects an Order to a Set
-# Has three states: locked, active, checked_in
+# Has three states: reserved, purchased, checked in
 
-# Locked: a ticket has been added to a cart 
-# Active: The ticket has been purchased but not yet checked in
+# Reserved: a ticket has been added to a cart 
+# Purchased: The ticket has been purchased but not yet checked in
 # Checked_in: The ticket has been scanned in
-
-# What about Unlocked / Open?
-# Tickets only exist 
-# Otherwise, the ability to create a ticket is defined as 
-# an Event-Section-Area having a positive inventory.
-# Locked tickets will be deleted after a certian time and the 
-# coresponding inventory increased
 
 class Ticket < ActiveRecord::Base
   attr_accessible :area, :order, :state
   
   before_save :set_info
+  
+  attr_accessor :reserved, :purchased, :checked_in
   
   belongs_to :order
   belongs_to :area
@@ -48,8 +43,10 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :area
   validates_presence_of :order
   
-  state_machine :state, :initial => :locked do
-    
+  state_machine :state, :initial => :reserved do
+    state :reserved 
+    state :purchased
+    state :checked_in
   end
   
   

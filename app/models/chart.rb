@@ -27,14 +27,14 @@
 require 'open-uri'
 class Chart < ActiveRecord::Base
   attr_accessible :label, :name, :svg_file, :thumbnail,
-                  :width, :height, :background_color
+                  :width, :height, :background_color, :master, :event
 
   alias_attribute :name, :label
   
   before_save :set_default_background_color
   DEFAULT_BACKGROUND_COLOR = '#000000'
   belongs_to :account
-  has_many :sections, :dependent => :destroy
+  has_many :sections, :dependent => :destroy, :order => 'index ASC'
   
   has_one :event
   
@@ -42,9 +42,7 @@ class Chart < ActiveRecord::Base
   
   scope :masters, :conditions => { :master => true }
   scope :slaves, :conditions => { :master => false }
-  
-  
-  
+
   
   
   has_attached_file :svg_file,

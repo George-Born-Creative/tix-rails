@@ -14,5 +14,5 @@
     %h3 Total
   .columns.omega.right.total.two
     %h3= @cart.total()
-%a.button.checkout.large{:href => '#'} Checkout »
+%a.button.checkout.large{:href => '/checkout'} Checkout »
 

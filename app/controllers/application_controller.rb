@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   
   def set_current_order
     order_id = session[:order_id]
-    @current_order = session[:order_id] ? @current_account.orders.find(order_id) : @current_account.orders.new
+    @current_order = session[:order_id] ? @current_account.orders.find(order_id) : @current_account.orders.create
     session[:order_id] = @current_order.id
   end
   

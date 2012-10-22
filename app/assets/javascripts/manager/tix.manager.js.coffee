@@ -21,7 +21,8 @@ window.TixMgr =
       interpolate : /\{\{(.+?)\}\}/g
   
   startChartRouter: (data)->
-    new TixMgr.Routers.ChartRouter({ chart: data.chart })
+    chart = new Backbone.NestedModel(data.chart)
+    new TixMgr.Routers.ChartRouter({ chart: chart })
     Backbone.history.start()
     
   startEventEditRouter: (data)->

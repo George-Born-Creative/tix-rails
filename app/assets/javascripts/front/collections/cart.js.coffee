@@ -1,20 +1,15 @@
 class Tix.Collections.Cart extends Backbone.Collection
   model: Tix.Models.Seat
-  # urlRoot: '/orders'
+  # urlRoot: '/orders' not
   
   initialize: ->
     _.bindAll this, 'total'
-    
-  cart_total: ->
-    _.each @models, (ticket)->
-      console.log ['ticket', ticket, ticket.get('total')]
-      #t=parseFloat(ticket.attributes.total)
-      #console.log(t)
-      # return memo + t
       
   addSeat: (data)->
-    console.log "Cart.addSeat called"
-
+    # console.log "Cart.addSeat called"
+    
+ 
+    
     seat = new Tix.Models.Seat
       section: data.section
       area: data.area
@@ -25,8 +20,19 @@ class Tix.Collections.Cart extends Backbone.Collection
       tax: data.section.current_price.tax
         
     console.log seat
+    console.log seat.url()
+    
     
     @push(seat)
+    
+    $.ajax
+      type: 'POST'
+      url: seat.url()
+
+      success: (data)->
+        alert('Success' + data)
+
+         
     
     
     

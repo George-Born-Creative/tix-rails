@@ -47,7 +47,7 @@
         .row
           -events.each do |event|
             .item
-              .span4{:style => 'margin-bottom: -130px;'}
+              .span4{:style => 'margin-bottom: -130px;', :onclick => "location.href='/events/#{event.id}'"}
                 -if event.headliner
                   =image_tag(event.headliner.photo, :width => '100%') 
                 -else

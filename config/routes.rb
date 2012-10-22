@@ -3,7 +3,7 @@ Tix::Application.routes.draw do
 
   match '/manager', :controller => :manager, :action => :index
   
-  resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
+  # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
   # root :to => "pages#show", :controller => 'Front::Pages'
   # match '/', :controller => 'Front::Pages', :action => :show
@@ -87,14 +87,20 @@ Tix::Application.routes.draw do
   
   
   scope '/admin' do
-    match '/', :controller => :admin, :action => :index
+    match '/', :controller => :admin, :action => :index, :via => :post,  :constraints => {:area_id => /^\d/}
     resources :accounts  
   end
   
+  get '/checkout' => 'front::checkouts#index'
+  resources :checkouts, :as => 'front_checkouts', :only => [:index], :controller => 'Front::Checkouts'
   
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
   # resources :artists, :as => 'front_artists', :only => [:index, :show]
   resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
+  
+  match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
+  match '/orders/remove_from_cart/:ticket_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
+  
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
   

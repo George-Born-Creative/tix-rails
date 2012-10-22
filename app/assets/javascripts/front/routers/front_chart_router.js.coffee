@@ -11,15 +11,14 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     @chart = new Backbone.NestedModel(Tix.Chart)
     
-    
     @listenForClicks()
     @setupCart()
     @setupTotals()
     
     @inventoryByAreaID = @setupInventories(@chart)
-    console.log 'Inventory by area id'
+    # console.log 'Inventory by area id'
     
-    console.log @inventoryByAreaID
+    # console.log @inventoryByAreaID
     
     @chartView = new TixLib.Views.ChartRenderView({chart: @chart })
     
@@ -66,7 +65,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     TixLib.Dispatcher.on 'areaClick', (data)-> 
       
-      console.log "Inventory is " + self.inventoryByAreaID[data.area.id]
+      # console.log "Inventory is " + self.inventoryByAreaID[data.area.id]
       
       if self.inventoryByAreaID[data.area.id] > 0
       
@@ -87,9 +86,9 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
         
   
     Tix.Cart.on 'remove', (seat)->
-      console.log "Tix.Cart.on 'remove'"
+      # console.log "Tix.Cart.on 'remove'"
       area_id = seat.get('area').id
-      console.log ['area_id', area_id]
+      # console.log ['area_id', area_id]
       self.chartView.enableArea(area_id)
       self.inventoryByAreaID[area_id] += 1 # Increase inventory by 1
       

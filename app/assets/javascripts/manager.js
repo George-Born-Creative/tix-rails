@@ -15,6 +15,7 @@
 //= require underscore
 //= require backbone
 //= require backbone-support
+//= require backbone-nested/backbone-nested
 //= require hamlcoffee
 //= require ./manager/bootstrap/bootstrap
 //= require ./manager/bootstrap/base

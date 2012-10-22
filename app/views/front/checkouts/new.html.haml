@@ -1,0 +1,80 @@
+
+.row
+
+  
+  .span6
+    =form_tag '/checkout', :method => 'post' do
+      .row
+        .span6
+          %h2 Your Information
+      
+          %hr/
+        .span2=text_field_tag 'user[first_name]', attr_or_nil(:user_first_name), :placeholder =>  'first name'
+        .span2=text_field_tag 'user[last_name]', attr_or_nil(:user_last_name), :placeholder =>  'last name'
+        .span2=text_field_tag 'user[email]', attr_or_nil(:user_email), :placeholder =>  'email'
+      
+      
+      %h2 Billing Address
+      %hr/
+      .row
+        .span3=text_field_tag 'address[address_line_1]', attr_or_nil(:address_line_1), :placeholder =>  'address 1'
+        .span3=text_field_tag 'address[address_line_2]', attr_or_nil(:address_line_2), :placeholder =>  'address 2'
+      .row
+        .span2=text_field_tag 'address[city]', attr_or_nil(:address_city), :placeholder =>  'city',  :size => 15
+        .span2=text_field_tag 'address[state]', attr_or_nil(:address_state), :placeholder => 'state', :size => 3
+        .span2=text_field_tag 'address[zip]', attr_or_nil(:address_zip), :placeholder => 'zip',  :size => 15
+    
+      %h2 Credit Card Information
+      %hr
+      .row
+        .span2=text_field_tag 'credit_card[card_number]', attr_or_nil(:card_number), :placeholder =>  'credit card number'
+        .span2=text_field_tag 'credit_card[expiration]', attr_or_nil(:card_expiration), :placeholder =>  'expiration date (mm/yyyy)'
+        .span2=text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv'
+      
+      %hr/
+      =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'
+  
+  .span6
+    %h1=@checkout.to_s
+
+    
+    -if flash[:error]
+      .span6
+        .alert.errors
+          %ul
+            -flash[:error].each do |field,message|
+              %li="#{field.to_s.titleize} #{message}"
+              
+.row      
+  .span6
+    %table
+      %thead
+        %th Event
+        %th Section
+        %th Seat
+        %th Price
+        %th Service
+        %th Total
+        %th remove
+      %tr
+        %td
+        %td
+        %td
+        %td
+          %strong= number_to_currency @current_order.total_base_price
+        %td
+          %strong= number_to_currency @current_order.total_service_charge
+        %td
+          %strong= number_to_currency @current_order.total
+        %td
+        
+      %tbody
+        -@current_order.tickets.each do |ticket|
+          %tr
+            %td=link_to ticket.event.name, front_event_path(ticket.event)
+            %td=ticket.section_label
+            %td=ticket.area.label
+            %td=number_to_currency ticket.base_price
+            %td=number_to_currency ticket.service_charge
+            %td=number_to_currency ticket.total_price
+            %td=link_to '[x]', "/orders/remove_from_cart/#{ticket.id}", :class => 'btn', :method => 'post'

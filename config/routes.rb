@@ -70,29 +70,17 @@ Tix::Application.routes.draw do
     match '/:action', :controller => :manager
 
   end
-
-  scope '/api' do
-    resources :events
-    resources :artists
-    resources :orders
-    resources :tickets, :only => [:create]
-    
-    match '/stats/:action', :controller => :stats
-    
-    get '/ticket_locks.json/new' => "ticket_locks#new"
-    get '/ticket_locks.json/delete' => "ticket_locks#destroy"
-    post '/ticket_locks.json/new' => "ticket_locks#new"
-    post '/ticket_locks.json/delete' => "ticket_locks#destroy"
-  end
-  
   
   scope '/admin' do
     match '/', :controller => :admin, :action => :index, :via => :post,  :constraints => {:area_id => /^\d/}
     resources :accounts  
   end
   
-  get '/checkout' => 'front::checkouts#index'
-  resources :checkouts, :as => 'front_checkouts', :only => [:index], :controller => 'Front::Checkouts'
+  get '/checkout' => 'front::checkouts#new'
+  post '/checkout' => 'front::checkouts#create'
+  
+    
+  resources :checkouts, :as => 'front_checkouts', :only => [:show, :new, :create], :controller => 'Front::Checkouts'
   
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
   # resources :artists, :as => 'front_artists', :only => [:index, :show]

@@ -10,14 +10,22 @@ window.Tix =
       return '$' + parseFloat(price).toFixed(2).toString()
     
   init: (data)->
-
     console.log 'ThinTix App Initialized'
-    Tix.Cart = new Tix.Collections.Cart()
-    # 
-    # cartMiniView = new Tix.Views.CartMiniView()
-    # 
-    # 
-    if Tix.Chart
-       new Tix.Routers.FrontChartRouter({chart:Tix.Chart})
     
+    @initCart()
+    @initCartMiniView()
+    @initChart()
+    
+  initCart: ->
+    Tix.Cart = new Tix.Collections.Cart()
+    
+  initCartMiniView: ->
+    
+    cartMiniView = new Tix.Views.CartMiniView()
+    Tix.Cart.on 'add', -> cartMiniView.render()
+    Tix.Cart.on 'remove', -> cartMiniView.render()
+    
+  initChart: ->
+    if Tix.Chart
+      new Tix.Routers.FrontChartRouter({chart:Tix.Chart})
     

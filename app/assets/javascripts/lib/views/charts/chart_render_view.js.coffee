@@ -44,7 +44,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       $(elem.node).unbind('click')
       
       
-      if !elem.data('enabled')
+      if elem.data('enabled')
         elem.data('enabled', false)
 
       @hideTooltip()
@@ -63,6 +63,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       if !elem.data('enabled')
         elem.data('enabled', true)
       else
+        console.log "Element already enabled"
         return
       
       section = elem.data('section')

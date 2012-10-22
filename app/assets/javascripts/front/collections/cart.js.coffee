@@ -2,6 +2,9 @@ class Tix.Collections.Cart extends Backbone.Collection
   model: Tix.Models.Seat
   # urlRoot: '/orders'
   
+  initialize: ->
+    _.bindAll this, 'total'
+    
   cart_total: ->
     _.each @models, (ticket)->
       console.log ['ticket', ticket, ticket.get('total')]
@@ -32,7 +35,7 @@ class Tix.Collections.Cart extends Backbone.Collection
   tax_total: -> @_sumFormatted('tax')
   
   total: ->
-    Tix.utils.formatCurrency( @_sum('base') + @_sum('service') + @_sum('tax'))
+    return Tix.utils.formatCurrency( @_sum('base') + @_sum('service') + @_sum('tax'))
     
   _sum: (propName)->
     return _.reduce @models, (memo, seat)->

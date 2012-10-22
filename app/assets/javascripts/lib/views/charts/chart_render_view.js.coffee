@@ -5,6 +5,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       @chartdata = data.chart
       @setupEvents()
       @setBySectionID = {} # map Raphaël Set to Rails Section ID
+      @elemByAreaID = {} # map of Raphaël elements to Tix area IDs
       #console.log data
       @textElements = []
       @setupTooltip()
@@ -19,7 +20,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       self = this
       
-      _.each @chartdata.sections, (section)->
+      _.each @chartdata.get('sections'), (section)->
         @paper.setStart()
         self.renderSection( section)
         set = @paper.setFinish()
@@ -30,6 +31,42 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         el.toFront()
         _.each @setBySectionID, (set)->
           set.exclude(el)
+      
+      console.log @elemByAreaID
+      
+      
+    disableArea: (area_id)->
+      elem = @elemByAreaID[area_id]
+      elem.attr
+        'fill': "#333333"
+      $(elem.node).unbind()
+      @hideTooltip()
+        
+    enableArea: (area_id)->
+      self = @
+      elem = @elemByAreaID[area_id]
+      
+      section = elem.data('section')
+      area = elem.data('area')
+      color = if area.type == 'text' then '#ffffff' else section.color
+      
+      elem.attr('fill', color)
+      
+      $(elem.node).mouseenter ->
+        
+        tmpl = _.template("<strong>{{ section_label }} <br/><strong>Area: {{ area_label }} <br/>")
+        rendered = tmpl
+          section_label: section.label
+          area_label: area.label
+          
+        #console.log rendered
+        self.showTooltip( rendered )
+        $('body').css('cursor', 'pointer')
+        
+      .mouseleave ->
+        self.hideTooltip()
+        $('body').css('cursor', 'inherit')
+      
       
     setupTooltip: ->
       tip = $('<div id="tooltip"></div>')
@@ -56,16 +93,6 @@ class TixLib.Views.ChartRenderView extends Backbone.View
           .css
             "left" : offLeft
             "top": offTop
-    
-    
-        # offLeft = e.pageX  -  this.$el.offset().left + 10
-        # offTop  = e.pageY  - this.$el.offset().top - 90
-        # 
-        # offLeft = if offLeft >= 250 then offLeft - 200 else offLeft
-        # 
-        # # console.log [wo.left, wo.top, e.pageX, e.pageY, e.pageX-wo.left, e.pageY-wo.top]
-        # 
-        # Tix.tooltip.attr
         
         
         
@@ -121,6 +148,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       color = if (section.color == undefined || section.color == null || section.color == '') then '#000000' else section.color
       
       raf_shape = null
+      
       switch area.type
         when 'text'
           raf_shape = self.paper.text(area.x, area.y, area.text).attr({'text-anchor': 'start'})
@@ -132,42 +160,39 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         when 'circle' # Paper.circle(x, y, r)⚓➭   
           #console.log '[SR] Rendering Area Circle ' + area.cx, area.cy, area.r
           raf_shape = self.paper.circle(area.cx, area.cy, area.r)
-          raf_shape.attr('fill', color)
+          #raf_shape.attr('fill', color)
           raf_shape.attr('r', 6)
           
         when 'rect' # Paper.rect(x, y, width, height, [r])
           # console.log '[SR] Rendering Rect ' + area.points
         
           raf_shape = self.paper.rect(area.x, area.y, area.width, area.height)
-          raf_shape.attr('fill', color)
+          #raf_shape.attr('fill', color)
             
         when 'polygon'
           # console.log '[SR] Rendering Area Points ' + area.points
           raf_shape = self.paper.path("M " + area.points + "z")
       
-          raf_shape.attr('fill', color)
+          #raf_shape.attr('fill', color)
     
       try
         unless area.type == 'text'
           raf_shape.attr('stroke', 0)
           raf_shape.click (shape)->
             TixLib.Dispatcher.trigger('areaClick', {area: area, section: section} )
-            
-            
+      
+      raf_shape.data('section', section)
+      raf_shape.data('area', area)
+      
+      self.elemByAreaID[area.id] = raf_shape
+           
           
       if section.seatable && (area.inventory > 0) || area.type == 'text'
-        $(raf_shape.node).mouseenter ->
-          tmpl = _.template("<strong>Section: {{ section_label }} <br/><strong>Area: {{ area_label }} <br/>")
-          rendered = tmpl( {section_label: section.label, area_label: area.label} )
-          #console.log rendered
-          self.showTooltip( rendered )
-          $('body').css('cursor', 'pointer')
-        .mouseleave ->
-          self.hideTooltip()
-          $('body').css('cursor', 'inherit')
-          
+        self.enableArea(area.id)
       else
-        raf_shape.attr('fill', "#333333")
+        self.disableArea(area.id)
+        
+      
           
     # drawCircle: ->
     #   

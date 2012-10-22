@@ -2,12 +2,12 @@ object @chart
 attributes :id, :name, :background_color
   
 node :event_name do |chart|
-  chart.event.name
+  chart.event.name if chart.event
 end
 
 
 node :event_starts_at do |chart|
-  chart.event.starts_at.to_formatted_s(:jammin_java)
+  chart.event.starts_at.to_formatted_s(:jammin_java) if chart.event
 end
 
 

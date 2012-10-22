@@ -9,7 +9,9 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     @event_starts_at = data.chart.event_starts_at
     @event_name = data.chart.event_name
     
-    chartView = new TixLib.Views.ChartRenderView({chart: Tix.Chart })
+    @chart = new Backbone.NestedModel(Tix.Chart)
+    
+    @chartView = new TixLib.Views.ChartRenderView({chart: @chart })
     
     @listenForClicks()
     @setupCart()
@@ -25,6 +27,8 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     Tix.Cart.on 'add', (seat)->
       view = new Tix.Views.CartItemSmall({model: seat})
       $('#cart_container').prepend(view.render().el)
+      
+      
     
   setupTotals: ->
     
@@ -34,6 +38,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     Tix.Cart.on('add', -> cartTotalsView.render() )
     Tix.Cart.on('remove', -> cartTotalsView.render() )
     
+  
     
   listenForClicks: ->
     self = this
@@ -44,6 +49,17 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
         event:
           name: self.event_name
           starts_at: self.event_starts_at
+      
+      if (data.area.inventory - 1) == 0
+        self.chartView.disableArea(data.area.id)
+        
+  
+    Tix.Cart.on 'remove', (seat)->
+      console.log "Tix.Cart.on 'remove'"
+      area_id = seat.get('area').id
+      console.log ['area_id', area_id]
+      self.chartView.enableArea(area_id)
+      
       
       # console.log '[SR] areaClick event received with data'
       # console.log data

@@ -45,4 +45,8 @@ Tix::Application.configure do
   
   config.action_mailer.default_url_options = {:host => 'localhost'}
   
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test 
+  end
+  
 end

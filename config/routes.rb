@@ -1,12 +1,11 @@
 Tix::Application.routes.draw do
 
-
   match '/manager', :controller => :manager, :action => :index
   
   # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
   # root :to => "pages#show", :controller => 'Front::Pages'
-  # match '/', :controller => 'Front::Pages', :action => :show
+  match '/', :controller => 'Front::Pages', :action => :show
 
   devise_for :users
   

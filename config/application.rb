@@ -66,5 +66,13 @@ module Tix
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    
+    config.after_initialize do
+      ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+          :login => ENV['JJ_LOGIN_ID'],
+          :password => ENV['JJ_TRANSACTION_KEY']
+      )
+    end
   end
 end

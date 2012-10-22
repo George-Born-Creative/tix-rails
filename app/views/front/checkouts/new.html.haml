@@ -1,7 +1,4 @@
-
-.row
-
-  
+.row  
   .span6
     =form_tag '/checkout', :method => 'post' do
       .row
@@ -27,9 +24,12 @@
       %h2 Credit Card Information
       %hr
       .row
-        .span2=text_field_tag 'credit_card[card_number]', attr_or_nil(:card_number), :placeholder =>  'credit card number'
+        .span3=text_field_tag 'credit_card[card_number]', attr_or_nil(:card_number), :placeholder =>  'credit card number'
         .span2=text_field_tag 'credit_card[expiration]', attr_or_nil(:card_expiration), :placeholder =>  'expiration date (mm/yyyy)'
-        .span2=text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv'
+        -#.span2=date_select( 'credit_card', 'expires', :discard_day => true, |
+        -#    :start_year => Date.today.year, :end_year => (Date.today.year+10), |
+        -#    :order => [:month, :year], :add_month_numbers => true) 
+        .span1=text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv'
       
       %hr/
       =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'
@@ -42,9 +42,8 @@
       .span6
         .alert.errors
           %ul
-            -flash[:error].each do |field,message|
-              %li="#{field.to_s.titleize} #{message}"
-              
+            -flash[:error].full_messages.each do |message|
+              %li=message
 .row      
   .span6
     %table

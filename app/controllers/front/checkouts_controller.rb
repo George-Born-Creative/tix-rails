@@ -13,7 +13,8 @@ class Front::CheckoutsController < InheritedResources::Base
       :user_last_name => params[:user][:last_name],
       :user_email => params[:user][:email],
       :card_number => params[:credit_card][:card_number],
-      :card_expiration => params[:credit_card][:expiration],
+      :card_expiration_month => params[:credit_card][:"expiration(2i)"],
+      :card_expiration_year => params[:credit_card][:"expiration(1i)"],
       :card_cvv => params[:credit_card][:cvv],
       :address_line_1 => params[:address][:address_line_1],
       :address_line_2 => params[:address][:address_line_2],
@@ -25,7 +26,17 @@ class Front::CheckoutsController < InheritedResources::Base
     
     respond_to do |format|
       if @checkout.valid?
-        format.html { @checkout }
+        @order = @current_order
+
+        @checkout.process_order(@order.id)
+        if @order
+          format.html {
+            redirect_to front_order_path(@order)
+          }
+        else
+          flash[:errors] = "Error. Please try again"
+          redirect_to '/checkout'
+        end
       else
         format.html {
           flash[:error] = @checkout.errors

@@ -48,9 +48,9 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       .text('')
       
       $(document).mousemove (e)->
-        offLeft = e.pageX  -  $('#chart_container').offset().left + 30
-        offTop  = e.pageY  - $('#chart_container').offset().top 
-        offLeft = if offLeft >= 200 then offLeft - 150 else offLeft
+        offLeft = e.pageX  -  $('#chart_container').offset().left + 20
+        offTop  = e.pageY  - $('#chart_container').offset().top  + 200
+        offLeft = if offLeft >= 200 then offLeft - 160 else offLeft
         
         $('#tooltip')
           .css
@@ -161,8 +161,11 @@ class TixLib.Views.ChartRenderView extends Backbone.View
           rendered = tmpl( {section_label: section.label, area_label: area.label} )
           #console.log rendered
           self.showTooltip( rendered )
+          $('body').css('cursor', 'pointer')
         .mouseleave ->
           self.hideTooltip()
+          $('body').css('cursor', 'inherit')
+          
       else
         raf_shape.attr('fill', "#333333")
           

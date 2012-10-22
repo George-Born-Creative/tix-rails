@@ -36,13 +36,18 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       
     disableArea: (area_id)->
+      console.log 'Disabling area ' + area_id
       elem = @elemByAreaID[area_id]
       elem.attr
         'fill': "#333333"
       $(elem.node).unbind()
       @hideTooltip()
+      $('body').css('cursor', 'inherit')
+      
+      
         
     enableArea: (area_id)->
+      console.log "Enabling area " + area_id
       self = @
       elem = @elemByAreaID[area_id]
       
@@ -66,6 +71,10 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       .mouseleave ->
         self.hideTooltip()
         $('body').css('cursor', 'inherit')
+        
+      .click (shape)->
+        TixLib.Dispatcher.trigger('areaClick', {area: area, section: section} )
+      
       
       
     setupTooltip: ->
@@ -115,8 +124,8 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       self = this
       TixLib.Dispatcher.on 'areaClick', (data)-> 
-        # console.log '[SR] areaClick event received with data'
-        #console.log data
+        console.log '[SR] areaClick event received with data'
+        console.log data
         
       TixLib.Dispatcher.on 'sectionColorChange', (data)->
         #console.log '[SR] sectionColorChange received with data'
@@ -178,14 +187,11 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       try
         unless area.type == 'text'
           raf_shape.attr('stroke', 0)
-          raf_shape.click (shape)->
-            TixLib.Dispatcher.trigger('areaClick', {area: area, section: section} )
       
       raf_shape.data('section', section)
       raf_shape.data('area', area)
       
       self.elemByAreaID[area.id] = raf_shape
-           
           
       if section.seatable && (area.inventory > 0) || area.type == 'text'
         self.enableArea(area.id)

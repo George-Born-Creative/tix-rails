@@ -11,11 +11,18 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     @chart = new Backbone.NestedModel(Tix.Chart)
     
-    @chartView = new TixLib.Views.ChartRenderView({chart: @chart })
     
     @listenForClicks()
     @setupCart()
     @setupTotals()
+    
+    @inventoryByAreaID = @setupInventories(@chart)
+    console.log 'Inventory by area id'
+    
+    console.log @inventoryByAreaID
+    
+    @chartView = new TixLib.Views.ChartRenderView({chart: @chart })
+    
     
     _.templateSettings = 
       interpolate : /\{\{(.+?)\}\}/g
@@ -28,7 +35,19 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
       view = new Tix.Views.CartItemSmall({model: seat})
       $('#cart_container').prepend(view.render().el)
       
-      
+  
+  setupInventories: (chart)-> # accept chart. return hash of area_id => 
+    self = this
+    sections = chart.get('sections')
+    _inventoryByAreaID = {}
+    _.each sections, (section)->
+      if section.seatable
+        _.each section.areas, (area)->
+          _inventoryByAreaID[area.id] = area.inventory
+    
+    return _inventoryByAreaID
+    
+    
     
   setupTotals: ->
     
@@ -42,15 +61,26 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
   listenForClicks: ->
     self = this
+    
     TixLib.Dispatcher.on 'areaClick', (data)-> 
-      Tix.Cart.addSeat
-        section: data.section
-        area: data.area
-        event:
-          name: self.event_name
-          starts_at: self.event_starts_at
+    
+      console.log "Inventory is " + self.inventoryByAreaID[data.area.id]
       
-      if (data.area.inventory - 1) == 0
+      if self.inventoryByAreaID[data.area.id] > 0
+      
+        Tix.Cart.addSeat
+          section: data.section
+          area: data.area
+          event:
+            name: self.event_name
+            starts_at: self.event_starts_at
+      else
+        self.chartView.disableArea(data.area.id)
+      
+      self.inventoryByAreaID[data.area.id] -= 1
+      
+      
+      if self.inventoryByAreaID[data.area.id] == 0
         self.chartView.disableArea(data.area.id)
         
   
@@ -59,6 +89,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
       area_id = seat.get('area').id
       console.log ['area_id', area_id]
       self.chartView.enableArea(area_id)
+      self.inventoryByAreaID[area_id] += 1
       
       
       # console.log '[SR] areaClick event received with data'

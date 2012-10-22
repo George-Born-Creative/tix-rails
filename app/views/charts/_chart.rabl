@@ -1,10 +1,24 @@
 object @chart
 attributes :id, :name, :background_color
   
+node :event_name do |chart|
+  chart.event.name
+end
+
+
+node :event_starts_at do |chart|
+  chart.event.starts_at.to_formatted_s(:jammin_java)
+end
+
+
 child (:sections) do |chart|
   attributes :id, :label, :seatable, :color
 
-  
+
+  node :current_price do |section|
+    section.current_price
+  end
+
   child :presale_price => :presale_price do
     attributes :id
 

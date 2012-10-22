@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   # before_filter :authenticate_user!
   before_filter :set_current_account
   before_filter :authenticate_admin!
-     
+  before_filter :set_current_order
+  
   private
 
 
@@ -71,7 +72,7 @@ class ApplicationController < ActionController::Base
   
   def set_current_order
     order_id = session[:order_id]
-    @current_order = session[:order_id] ? @current_account.orders.find(order_id) : @current_account.orders.create
+    @current_order = session[:order_id] ? @current_account.orders.find(order_id) : @current_account.orders.new
     session[:order_id] = @current_order.id
   end
   

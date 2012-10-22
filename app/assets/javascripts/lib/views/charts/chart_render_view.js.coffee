@@ -1,17 +1,17 @@
 class TixLib.Views.ChartRenderView extends Backbone.View
   
     initialize: (data)->
-      console.log 'initialized TixLib.Views.ChartRenderView'
+      #console.log 'initialized TixLib.Views.ChartRenderView'
       @chartdata = data.chart
       @setupEvents()
       @setBySectionID = {} # map Raphaël Set to Rails Section ID
-      console.log data
+      #console.log data
       @textElements = []
       @setupTooltip()
       @render()
       
     render: ->
-      console.log 'ChartRenderView.render() invoked'
+      #console.log 'ChartRenderView.render() invoked'
       
       @setChartBackgroundColor( @chartdata.background_color)
       
@@ -85,14 +85,15 @@ class TixLib.Views.ChartRenderView extends Backbone.View
     
       
     setupEvents: ->
+      
       self = this
       TixLib.Dispatcher.on 'areaClick', (data)-> 
-        console.log '[SR] areaClick event received with data'
-        console.log data
+        # console.log '[SR] areaClick event received with data'
+        #console.log data
         
       TixLib.Dispatcher.on 'sectionColorChange', (data)->
-        console.log '[SR] sectionColorChange received with data'
-        console.log data
+        #console.log '[SR] sectionColorChange received with data'
+        #console.log data
         set = self.setBySectionID[data.section.id]
         
         set.attr('fill', data.color)
@@ -111,7 +112,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       section_id = section.id
 
-      console.log '[SR] Rendering Section ' + section.label
+      #console.log '[SR] Rendering Section ' + section.label
       _.each section.areas, (area)->
         self.renderArea(area, section)
         
@@ -123,13 +124,13 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       switch area.type
         when 'text'
           raf_shape = self.paper.text(area.x, area.y, area.text).attr({'text-anchor': 'start'})
-          console.log ["REDNERING TEXT", area.x, area.y, area.text]
+
           raf_shape.attr
               'fill': '#ffffff'
               'font-size': '15px'
           self.textElements.push(raf_shape)
         when 'circle' # Paper.circle(x, y, r)⚓➭   
-          console.log '[SR] Rendering Area Circle ' + area.cx, area.cy, area.r
+          #console.log '[SR] Rendering Area Circle ' + area.cx, area.cy, area.r
           raf_shape = self.paper.circle(area.cx, area.cy, area.r)
           raf_shape.attr('fill', color)
           raf_shape.attr('r', 6)
@@ -153,15 +154,17 @@ class TixLib.Views.ChartRenderView extends Backbone.View
             TixLib.Dispatcher.trigger('areaClick', {area: area, section: section} )
             
             
-      if section.seatable
-        console.log 'SEATABLE'
+          
+      if section.seatable && (area.inventory > 0) || area.type == 'text'
         $(raf_shape.node).mouseenter ->
           tmpl = _.template("<strong>Section: {{ section_label }} <br/><strong>Area: {{ area_label }} <br/>")
           rendered = tmpl( {section_label: section.label, area_label: area.label} )
-          console.log rendered
+          #console.log rendered
           self.showTooltip( rendered )
         .mouseleave ->
           self.hideTooltip()
+      else
+        raf_shape.attr('fill', "#333333")
           
     # drawCircle: ->
     #   

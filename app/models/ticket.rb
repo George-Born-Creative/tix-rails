@@ -44,16 +44,20 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :order
   
   state_machine :state, :initial => :reserved do
-    state :reserved 
+    state :reserved
     state :purchased
     state :checked_in
   end
+  
   
   
   def total_price
     self.base_price + self.service_charge
   end  
   
+  def event
+    self.area.section.chart.event
+  end
   
   
   private 

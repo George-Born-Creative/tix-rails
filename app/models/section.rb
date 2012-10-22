@@ -42,6 +42,7 @@ class Section < ActiveRecord::Base
     return nil if self.chart.nil? || self.chart.event.nil?
     _day_of?(self.chart.event.starts_at) ? 'Day Of' : 'Presale'
   end
+  
 
   private
   

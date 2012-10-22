@@ -2,12 +2,11 @@
 -content_for :javascript do
   :javascript
     $(function(){
-      var data = {
-        chart: #{render('charts/chart', :object => @chart, :format => :json)}
-      };
-      var router = new Tix.Routers.FrontChartRouter(data);
-      Backbone.history.start()
+      // Tix = Tix || {}
+      Tix.Chart = #{render('charts/chart', :object => @chart, :format => :json)};
     });
+    
+    
     
     
 
@@ -43,9 +42,8 @@
     #chart_container
     
   .span4
-    =@current_order.id
-    &nbsp;
-    =#render(:partial => 'cart_mini')
+    #cart_container
+      %em No items yet.
         
   .span3
     .row

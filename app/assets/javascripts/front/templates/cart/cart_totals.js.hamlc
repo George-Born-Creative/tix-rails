@@ -1,0 +1,18 @@
+%span
+  .clear
+  .alpha.columns.left.two
+    %h4 subtotal
+  .columns.omega.right.subtotal.two
+    %h4= @cart.subtotal()
+  .clear
+  .alpha.columns.left.two
+    %h4 svc charge
+  .columns.omega.right.service_charge_total.two
+    %h4= @cart.service_total()
+  .clear
+  .alpha.columns.left.two
+    %h3 Total
+  .columns.omega.right.total.two
+    %h3= @cart.total()
+%a.button.checkout.large{:href => '#'} Checkout »
+

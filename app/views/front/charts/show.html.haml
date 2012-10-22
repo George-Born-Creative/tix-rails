@@ -7,9 +7,7 @@
     });
     
     
-    
-    
-
+  
 .row
   .span2
     %h2=image_tag( @event.photo(:thumb), :width => '100%')
@@ -46,25 +44,6 @@
       %em No items yet.
         
   .span3
-    .row
-      .span5
-        %span
-          .clear
-          .alpha.columns.left.two
-            %h4 subtotal
-          .columns.omega.right.subtotal.two
-            %h4 $0.00
-          .clear
-          .alpha.columns.left.two
-            %h4 svc charge
-          .columns.omega.right.service_charge_total.two
-            %h4 $0.00
-          .clear
-          .alpha.columns.left.two
-            %h3 Total
-          .columns.omega.right.total.two
-            %h3 $0.00
-        %a.button.checkout.large{:href => new_front_order_path} Checkout »
-      
-
+    #cart_totals_container
+     
     

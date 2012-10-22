@@ -32,7 +32,7 @@ class Tix.Collections.Cart extends Backbone.Collection
   tax_total: -> @_sumFormatted('tax')
   
   total: ->
-    Tix.utils.formatCurrency( @_sum('base') + @_sum('subtotal') + @_sum('tax'))
+    Tix.utils.formatCurrency( @_sum('base') + @_sum('service') + @_sum('tax'))
     
   _sum: (propName)->
     return _.reduce @models, (memo, seat)->

@@ -13,7 +13,8 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     @listenForClicks()
     @setupCart()
-
+    @setupTotals()
+    
     _.templateSettings = 
       interpolate : /\{\{(.+?)\}\}/g
     
@@ -23,12 +24,17 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     Tix.Cart.on 'add', (seat)->
       view = new Tix.Views.CartItemSmall({model: seat})
-      console.log view.render()
       $('#cart_container').prepend(view.render().el)
-      
     
-      
-
+  setupTotals: ->
+    
+    cartTotalsView = new Tix.Views.CartTotalsView()
+    $('#cart_totals_container').append(cartTotalsView.render().el)
+    
+    Tix.Cart.on('add', -> cartTotalsView.render() )
+    Tix.Cart.on('remove', -> cartTotalsView.render() )
+    
+    
   listenForClicks: ->
     self = this
     TixLib.Dispatcher.on 'areaClick', (data)-> 

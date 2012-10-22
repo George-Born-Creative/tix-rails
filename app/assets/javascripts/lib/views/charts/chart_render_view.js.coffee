@@ -36,20 +36,34 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       
     disableArea: (area_id)->
-      console.log 'Disabling area ' + area_id
+      # console.log 'Disabling area ' + area_id
       elem = @elemByAreaID[area_id]
       elem.attr
         'fill': "#333333"
       $(elem.node).unbind()
+      $(elem.node).unbind('click')
+      
+      
+      if !elem.data('enabled')
+        elem.data('enabled', false)
+
       @hideTooltip()
+      
       $('body').css('cursor', 'inherit')
       
       
         
     enableArea: (area_id)->
-      console.log "Enabling area " + area_id
+      # console.log "Enabling area " + area_id
       self = @
       elem = @elemByAreaID[area_id]
+      
+      # Only enabled if not enabled already 
+      # the case whenever (area inventory > 1 )
+      if !elem.data('enabled')
+        elem.data('enabled', true)
+      else
+        return
       
       section = elem.data('section')
       area = elem.data('area')
@@ -124,8 +138,8 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       self = this
       TixLib.Dispatcher.on 'areaClick', (data)-> 
-        console.log '[SR] areaClick event received with data'
-        console.log data
+        # console.log '[SR] areaClick event received with data'
+        # console.log data
         
       TixLib.Dispatcher.on 'sectionColorChange', (data)->
         #console.log '[SR] sectionColorChange received with data'

@@ -23,13 +23,13 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     @chartView = new TixLib.Views.ChartRenderView({chart: @chart })
     
-    
     _.templateSettings = 
       interpolate : /\{\{(.+?)\}\}/g
     
   index: ->
 
   setupCart: ->
+    # When cart changes, add item
     
     Tix.Cart.on 'add', (seat)->
       view = new Tix.Views.CartItemSmall({model: seat})
@@ -58,12 +58,14 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     Tix.Cart.on('remove', -> cartTotalsView.render() )
     
   
-    
+  
+  # TODO: This is a messy system that may not survive future modification.
+  # OK for now but should be refactored soon
   listenForClicks: ->
     self = this
     
     TixLib.Dispatcher.on 'areaClick', (data)-> 
-    
+      
       console.log "Inventory is " + self.inventoryByAreaID[data.area.id]
       
       if self.inventoryByAreaID[data.area.id] > 0
@@ -77,7 +79,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
       else
         self.chartView.disableArea(data.area.id)
       
-      self.inventoryByAreaID[data.area.id] -= 1
+      self.inventoryByAreaID[data.area.id] -= 1 # Reduce inventory by 1
       
       
       if self.inventoryByAreaID[data.area.id] == 0
@@ -89,7 +91,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
       area_id = seat.get('area').id
       console.log ['area_id', area_id]
       self.chartView.enableArea(area_id)
-      self.inventoryByAreaID[area_id] += 1
+      self.inventoryByAreaID[area_id] += 1 # Increase inventory by 1
       
       
       # console.log '[SR] areaClick event received with data'

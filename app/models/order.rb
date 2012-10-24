@@ -134,7 +134,9 @@ class Order < ActiveRecord::Base
     self.tickets.reduce(0) {|memo, ticket| memo += ticket.total_price}
   end
   
-  
+  def tickets_uniq_with_counts
+    self.tickets.reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
+  end
   
   
   # Class methods for totals

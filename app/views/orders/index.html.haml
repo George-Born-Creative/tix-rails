@@ -34,9 +34,14 @@
       %thead
         %th ID
         %th Created
+        %th Expires
+        %th Expired?
         %th Total
         %th Customer
-        %th Num tickets
+        %th # Tickets
+        %th By Section
+        %th 
+        %th 
 
 
 
@@ -44,21 +49,23 @@
         %tr
           %td='#' + order.id.to_s
           %td=order.created_at.to_s :short_ordinal
+          %td=time_ago_in_words(order.expires_at, true)
+          %td=order.expires_at < Time.now ? 'Yes' : ''
       
-          %td=# number_to_currency( order.total)
+          %td= number_to_currency( order.total)
           %td= order.user.full_name if order.user
           %td= order.tickets.count
           %td
-            %ul
-              -order.tickets.each do |ticket|
-                %li.small=ticket.area.section.label
+            -unless order.tickets_uniq_with_counts.blank?
+              -order.tickets_uniq_with_counts.each do |section,count|
+                ="#{count}x #{section} "
       
-    
+          %td=order.state
           %td
-            %a.btn.btn-large.button.small Refund »
+            %a.btn.btn-large.button.small refund
         
           %td
-            %a.btn.btn-primary.btn-large{:href => order_path(order)} View
+            %a.btn.btn-primary.btn-large{:href => order_path(order)} view
         
         
 

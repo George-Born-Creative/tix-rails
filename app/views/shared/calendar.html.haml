@@ -19,7 +19,6 @@
 
       -@events.each do |event|
         .item
-          /=@current_account.sidebars.first.body
           .row
             .span2
               -if (event.headliner && event.headliner.photo?)
@@ -35,7 +34,6 @@
                 =event.headliner.name if event.headliner
                 =("+" << event.secondary_headliner.name) if event.secondary_headliner
           
-              /%p=event.price_freeform.html_safe if event.price_freeform
               %button{:href => 'buy tix'} Buy Tix
             
           

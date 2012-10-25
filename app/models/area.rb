@@ -33,7 +33,7 @@ class Area < ActiveRecord::Base
   belongs_to :section
   has_many :tickets  
   
-  alias_attribute :inventory, :max_tickets
+  #alias_attribute :inventory, :max_tickets
   
   validates_inclusion_of :type, :in => %w( circle rect polygon text )
   # validates_presence_of :label

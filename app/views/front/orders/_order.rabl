@@ -16,5 +16,4 @@ child( :tickets) do
     ticket.event.name
   end
   
-  
 end

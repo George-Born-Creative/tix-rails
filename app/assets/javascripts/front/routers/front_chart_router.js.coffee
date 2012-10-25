@@ -12,7 +12,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     @chart = new Backbone.NestedModel(Tix.Chart)
     
     @listenForClicks()
-    @setupCart()
+    # @setupCart()
     @setupTotals()
     
     @inventoryByAreaID = @setupInventories(@chart)
@@ -24,17 +24,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     
     _.templateSettings = 
       interpolate : /\{\{(.+?)\}\}/g
-    
-  index: ->
-
-  setupCart: ->
-    # When cart changes, add item
-    
-    Tix.Cart.on 'add', (seat)->
-      view = new Tix.Views.CartItemSmall({model: seat})
-      $('#cart_container').prepend(view.render().el)
       
-  
   setupInventories: (chart)-> # accept chart. return hash of area_id => 
     self = this
     sections = chart.get('sections')
@@ -63,6 +53,10 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
   listenForClicks: ->
     self = this
     
+    TixLib.Dispatcher.on 'closeCartItem', (seat)->
+      console.log ["TixLib.Dispatcher.on 'closeCartItem'", seat]
+      Tix.Cart.remove(seat)
+    
     TixLib.Dispatcher.on 'areaClick', (data)-> 
       
       # console.log "Inventory is " + self.inventoryByAreaID[data.area.id]
@@ -75,6 +69,8 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
           event:
             name: self.event_name
             starts_at: self.event_starts_at
+            
+            
       else
         self.chartView.disableArea(data.area.id)
       

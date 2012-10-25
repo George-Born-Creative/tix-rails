@@ -25,18 +25,22 @@ class Front::OrdersController < ApplicationController
     end
   end
 
-  def remove_from_cart # POST /orders/remove_from_cart/:ticket_id 
-    ticket_id = params[:ticket_id]
+  def remove_from_cart # POST /orders/remove_from_cart/:area_id 
+    area_id = params[:area_id]
+    @current_order.tickets.find_by_area_id(area_id).delete
+    
     respond_to do |format|
       format.html{
-        @current_order.tickets.find(ticket_id).destroy
         redirect_to '/checkouts'
+      }
+      format.js {
+        render :json => {:message => 'success', :order => @current_order}
       }
     end
   end
   
 
   private
-
+ 
   
 end

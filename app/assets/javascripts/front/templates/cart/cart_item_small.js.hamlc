@@ -8,3 +8,4 @@
     %span.price= Tix.utils.formatCurrency( @seat.get('base') )
     
     %a.close{:href => "javascript:;"} [x]
+

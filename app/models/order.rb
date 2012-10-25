@@ -13,23 +13,7 @@
 #  service_charge :decimal(8, 2)    default(0.0), not null
 #
 
-# Order States
-# 
-# CART -- a shopping cart. Will expire in LIFESPAN
-# 
-# 
-# EXPIRED
-#
-#
-# PAID
-#
-#
-# TICKETED
-#
-#
-#
-# REFUNDED (not yet implemented)
-# CANCELED (not yet implemented)
+
 
 class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
@@ -46,42 +30,11 @@ class Order < ActiveRecord::Base
   attr_accessor :cart, :expired, :paid, :ticketed
   attr_accessor :credit_card
 
-  state_machine :state, :initial => :cart  do
-    
-    after_transition :on => :expire, :do => :release_tickets
-    after_transition :on => :pay, :do => :process_payment
-    before_transition :on => :email_tickets, :do => :generate_and_email_tickets
-    
-    
-    event :expire do
-      transition :cart => :expired
-    end
-    
-    
-    event :pay do
-      transition :cart => :paid
-      
-      # validates_presence_of :user
-      # validates_presence_of :account
-    end
-    
-    event :email_tickets do
-      transition :paid => :ticketed
-    end
-    
-    
-  end
-  
-  
-  # def initialize
-  #   super()
-  # end
   
   def create_ticket(area_id)
     # TODO Watch out for race conditions here
     area = Area.find(area_id)
     if area.ticketable?
-        area.update_attribute(:inventory, area.inventory - 1)
         self.tickets.create(:area => area)
         return true
     else
@@ -121,7 +74,6 @@ class Order < ActiveRecord::Base
   
   
   
-  
   def total_base_price
     self.tickets.reduce(0) {|memo, ticket| memo += ticket.base_price}
   end
@@ -135,6 +87,7 @@ class Order < ActiveRecord::Base
   end
   
   def tickets_uniq_with_counts
+    return nil if self.tickets.nil?
     self.tickets.reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
   end
   
@@ -154,6 +107,9 @@ class Order < ActiveRecord::Base
     end
   end
   
+  def expired?
+    self.expires_at > DateTime.now
+  end
   
   
   private
@@ -161,24 +117,7 @@ class Order < ActiveRecord::Base
   def set_expires_at
     self.expires_at = DateTime.now + LIFESPAN
   end
-  
-  # def calc_and_save_totals #before_savee
-  #   return unless self.tickets
-  #   total = 0.0
-  #   total = self.tickets.reduce(0) do |memo, ticket|
-  #     memo += ticket.price
-  #   end
-  #   self.total = total
-  # end
-  
-  
-  #  Credit Card format: {:number => number,
-  #  :month => 3,        #for test cards, use any date in the future
-  #  :year => 2013,
-  #  :first_name => 'Mark',
-  #  :last_name => 'McBride',
-  #  :type => 'visa',       #note that MasterCard is 'master',
-  #  :verification_value => '123'}
+
   
 
 end

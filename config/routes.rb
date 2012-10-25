@@ -86,7 +86,7 @@ Tix::Application.routes.draw do
   resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
   
   match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
-  match '/orders/remove_from_cart/:ticket_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
+  match '/orders/remove_from_cart/:area_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
   
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'

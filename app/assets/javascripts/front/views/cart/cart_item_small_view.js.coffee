@@ -5,7 +5,7 @@ class Tix.Views.CartItemSmall extends Backbone.View
     'click .close': 'close'
     
   close: ->
-    Tix.Cart.remove(@model)
+    TixLib.Dispatcher.trigger('closeCartItem', @model)
     @remove()
     
   initialize: ->

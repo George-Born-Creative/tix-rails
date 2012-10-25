@@ -51,11 +51,10 @@
     = javascript_include_tag "application"
     =yield :javascript if content_for?(:javascript)
     :javascript
-      // #{@current_order.id}
+
       $(function(){
         Tix.init({
           env: "#{ENV['RAILS_ENV']}",
-          order: #{ render('front/orders/order', :object => @current_order, :format => :json) },
-          
+          order: #{ @current_order.blank? ? 'null' : render('front/orders/order', :object => @current_order, :format => :json)  }
         });
       });

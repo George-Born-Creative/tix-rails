@@ -43,6 +43,7 @@
         %th 
         %th 
 
+        %th 
 
 
       -@orders.each do |order|
@@ -50,7 +51,7 @@
           %td='#' + order.id.to_s
           %td=order.created_at.to_s :short_ordinal
           %td=time_ago_in_words(order.expires_at, true)
-          %td=order.expires_at < Time.now ? 'Yes' : ''
+          %td=order.expired? ? 'Yes' : ''
       
           %td= number_to_currency( order.total)
           %td= order.user.full_name if order.user
@@ -66,7 +67,9 @@
         
           %td
             %a.btn.btn-primary.btn-large{:href => order_path(order)} view
-        
+          %td
+            =link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
+      
         
 
 

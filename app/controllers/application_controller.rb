@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   
   # before_filter :authenticate_user!
   before_filter :set_current_account
-  before_filter :authenticate_admin!
   before_filter :set_current_order
+  before_filter :authenticate_admin!
   
   private
 
@@ -70,11 +70,6 @@ class ApplicationController < ActionController::Base
   #  end
 
   
-  def set_current_order
-    order_id = session[:order_id]
-    @current_order = session[:order_id] ? @current_account.orders.find(order_id) : @current_account.orders.create
-    session[:order_id] = @current_order.id
-  end
   
   protected
   
@@ -99,6 +94,25 @@ class ApplicationController < ActionController::Base
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
     end
+  end
+  
+  
+  
+  # If current order is expired, clear stored session order
+  # Otherwise, create a new order and attach to current session
+  # (Order becomes abandonded)
+  def set_current_order
+    if session[:order_id]
+      @current_order ||= @current_account.orders.find(session[:order_id])
+      if @current_order.expired? #|| @current_order.purchased_at ||
+        session[:order_id] = nil
+      end  
+    end
+    if session[:order_id].nil?  
+      @current_order = @current_account.orders.create!
+      session[:order_id] ||= @current_order.id  
+    end
+    @current_order
   end
   
 

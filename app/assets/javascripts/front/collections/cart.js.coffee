@@ -4,12 +4,29 @@ class Tix.Collections.Cart extends Backbone.Collection
   
   initialize: ->
     _.bindAll this, 'total'
-      
+    self = this
+    
+    self.on 'remove', @removeSeat
+     
+  removeSeat: (seat)->
+    
+    console.log ['Pre Remove Seat', Tix.Cart]
+    Tix.Cart.remove(seat)
+    console.log ['Post Remove Seat', Tix.Cart]
+    console.log seat
+    
+    $.ajax
+      type: 'POST'
+      url: '/orders/remove_from_cart/' + seat.get('area').id
+
+      success: (data)->
+        alert('Success' + data)
+        
+
   addSeat: (data)->
     # console.log "Cart.addSeat called"
     
  
-    
     seat = new Tix.Models.Seat
       section: data.section
       area: data.area
@@ -19,9 +36,12 @@ class Tix.Collections.Cart extends Backbone.Collection
       service: data.section.current_price.service
       tax: data.section.current_price.tax
         
+    console.log 'Add Seat'
     console.log seat
     console.log seat.url()
     
+    
+        
     
     @push(seat)
     
@@ -45,7 +65,10 @@ class Tix.Collections.Cart extends Backbone.Collection
     
   _sum: (propName)->
     return _.reduce @models, (memo, seat)->
-      return memo + parseFloat(seat.get(propName))
+      if seat.get(propName)
+        return memo + parseFloat(seat.get(propName))
+      else
+        return memo
     , 0
     
   _sumFormatted: (propName)->

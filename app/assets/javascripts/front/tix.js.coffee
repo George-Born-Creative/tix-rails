@@ -14,18 +14,66 @@ window.Tix =
     
     @initCart()
     @initCartMiniView()
+    @initCartView(data)
     @initChart()
     
   initCart: ->
     Tix.Cart = new Tix.Collections.Cart()
     
   initCartMiniView: ->
-    
     cartMiniView = new Tix.Views.CartMiniView()
     Tix.Cart.on 'add', -> cartMiniView.render()
     Tix.Cart.on 'remove', -> cartMiniView.render()
     
+  initCartView: (data)->
+    self = @
+    # When cart changes, add item
+    order = data.order
+    if order
+      console.log ["ORDER EXISTS", data.order] 
+      _.each data.order.tickets, (ticket)->
+        console.log ['ticket', ticket]
+        seat = new Tix.Models.Seat
+          ticket_id: ticket.id
+          event_name:  ticket.event_name
+          section:
+            label: ticket.section_label
+          area:
+            label:  ticket.area_label
+            id: ticket.area_id
+          base: ticket.base_price
+        
+        Tix.Cart.add(seat)
+        self.renderCartItem(seat)
+        
+        
+        
+        # @renderCartItem(seat)
+        
+        # event_name
+        # section.label
+        # area.label
+        # base
+
+        
+        
+          
+          
+          
+    Tix.Cart.on 'add', (seat)->
+      @renderCartItem(seat)
+    , this
+      
+  renderCartItem: (seat)->
+    view = new Tix.Views.CartItemSmall({model: seat})
+    $('#cart_container').prepend(view.render().el)
+    
+    
   initChart: ->
     if Tix.Chart
       new Tix.Routers.FrontChartRouter({chart:Tix.Chart})
+      
+      
+      
+      
     

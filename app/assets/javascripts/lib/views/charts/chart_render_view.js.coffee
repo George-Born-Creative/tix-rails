@@ -57,7 +57,6 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       # console.log "Enabling area " + area_id
       self = @
       elem = @elemByAreaID[area_id]
-      
       # Only enabled if not enabled already 
       # the case whenever (area inventory > 1 )
       if !elem.data('enabled')

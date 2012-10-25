@@ -44,7 +44,7 @@ class Area < ActiveRecord::Base
   end
   
   def inventory
-    self.max_tickets - self.tickets.count#.with_state(:reserved).count - self.tickets.where('state = ?', 'reserved')
+    self.max_tickets - self.tickets.cart.count
   end
 
   

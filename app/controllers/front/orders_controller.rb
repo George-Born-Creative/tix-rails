@@ -7,7 +7,7 @@ class Front::OrdersController < ApplicationController
   end
 
   def show
-    
+    @order = Order.find(params[:id])
   end
   
   def new
@@ -30,12 +30,8 @@ class Front::OrdersController < ApplicationController
     @current_order.tickets.find_by_area_id(area_id).delete
     
     respond_to do |format|
-      format.html{
-        redirect_to '/checkout'
-      }
-      format.js {
-        render :json => {:message => 'success', :order => @current_order}
-      }
+      format.html{ redirect_to '/checkout' }
+      format.js { render :json => {:message => 'success', :order => @current_order} }
     end
   end
   

@@ -33,6 +33,8 @@ class Ticket < ActiveRecord::Base
   attr_accessible :area, :order, :state
   
   before_save :set_info
+  # before_create :set_initial_state
+  
   
   attr_accessor :reserved, :purchased, :checked_in
   
@@ -42,14 +44,17 @@ class Ticket < ActiveRecord::Base
   
   validates_presence_of :area
   validates_presence_of :order
+    
+  scope :expired, lambda { self.joins(:order).where('orders.expires_at <= ?', Time.zone.now) }  
+  scope :cart, lambda { self.joins(:order).where('orders.expires_at > ?', Time.zone.now) }
   
+
   state_machine :state, :initial => :reserved do
     state :reserved
     state :purchased
     state :checked_in
   end
-  
-  
+    
   
   def total_price
     self.base_price + self.service_charge
@@ -58,6 +63,10 @@ class Ticket < ActiveRecord::Base
   def event
     self.area.section.chart.event
   end
+  
+  # Ticket.order 
+  
+  # Order.expired
   
   
   private 
@@ -68,6 +77,10 @@ class Ticket < ActiveRecord::Base
     self.service_charge = self.area.section.current_price.service
   end
   
+  
+  # def set_initial_state
+  #   self.state = 'cart' if self.state.blank?
+  # end
   
   
     

@@ -27,28 +27,19 @@ class Front::CheckoutsController < InheritedResources::Base
     
     
     respond_to do |format|
-      if @checkout.valid?
-        @order = @current_order
+      @order = @current_order
 
-        @checkout.process_order(@order.id)
-        if @order
-          format.html {
-            redirect_to front_order_path(@order)
-          }
-        else
-          flash[:errors] = "Error. Please try again"
-          redirect_to '/checkout'
-        end
+      if @checkout.valid?
+        @order.process(@checkout)
+        format.html { redirect_to front_order_path(@order) }
       else
         format.html {
           flash[:error] = @checkout.errors
           flash[:checkout] = @checkout
-          
           redirect_to '/checkout'
         }
       end
     end
-    
     
     
     

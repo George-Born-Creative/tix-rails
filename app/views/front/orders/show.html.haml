@@ -2,6 +2,6 @@
   .span12
     %h1="Order ##{@order.id}"
     %p
-      ="Placed by #{@order.user.full_name} at #{@order.created_at.to_formatted_s(:jamminjava)}"
+      ="Placed by #{@order.user.full_name if @order.user} at #{@order.created_at.to_formatted_s(:jamminjava)}"
 
 =render :partial => 'tickets/tickets', :locals => {:tickets => @order.tickets, :show_artwork => false}

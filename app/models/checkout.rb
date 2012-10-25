@@ -42,6 +42,16 @@ class Checkout
       
   end
 
+  
+  
+  def card_expiration_month
+    card_expiration.split('/')[0] if card_expiration
+  end
+  
+  def card_expiration_year
+    card_expiration.split('/')[0] if card_expiration
+    
+  end
 
   private
   
@@ -53,15 +63,6 @@ class Checkout
     end
   end
   
-  
-  def card_expiration_month
-    card_expiration.split('/')[0] if card_expiration
-  end
-  
-  def card_expiration_year
-    card_expiration.split('/')[0] if card_expiration
-    
-  end
   
   def credit_card
     #@credit_card ||=

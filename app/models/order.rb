@@ -27,10 +27,19 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   
-  attr_accessor :cart, :expired, :paid, :ticketed
+  # attr_accessor :cart, :expired, :paid, :ticketed
   attr_accessor :credit_card
 
+  attr_accessor :checkout # for a checkout object (non-persisted)
   
+  scope :expired, lambda { where("expires_at < ?", Time.zone.now ) }
+  scope :cart, lambda { where("expires_at >= ?", Time.zone.now ) }
+  
+  scope :with_role, lambda { |*roles| {
+    :conditions => { :role => roles.map {|r| r.to_s}}
+  }}
+  
+  # Used by Ajax Request
   def create_ticket(area_id)
     # TODO Watch out for race conditions here
     area = Area.find(area_id)
@@ -42,18 +51,72 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def release_tickets
-    puts "### Releasing tickets"
-  end
   
   def process_payment
-    puts "processing payment..."
-    if false # payment successful
-      self.fire_state_event(:email_tickets)
+    
+    credit_card = ActiveMerchant::Billing::CreditCard.new(
+      :number => @checkout.card_number,
+      :month => @checkout.card_expiration_month,
+      :year => @checkout.card_expiration_year,
+      :first_name => @checkout.user_first_name,
+      :last_name => @checkout.user_last_name
+    )
+
+    unless credit_card.valid?
+      self.errors.add(:base, 'Card is invalid')
     else
-      self.state = 'cart'
-      return false
+      gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+         :login  => ENV['JJ_LOGIN_ID'],
+         :password => ENV['TRANSACTION_KEY']
+      )
+      
+      options = {:address => {}, :billing_address => {}}
+      response = gateway.authorize(charge_amount, creditcard, options)
+      
+      if response.success?
+        return true
+      else
+        self.errors.add(:base, 'Authorize failed')
+      end
+      
+      # if response.success?
+      #   gateway.capture(charge_amount, response.authorization)        
+      # else
+      #   puts "Fail: " + response.message.to_s
+      #   self.errors.add(:base, 'Card is invalid')
+      #   
+      # end
+      
     end
+      
+  end
+  
+  
+  # Returns true if there are no errors and the checkout process completes
+  #  :user_first_name => params[:user][:first_name],
+  #  :user_last_name
+  #  :user_email
+  #  :card_number 
+  #  :card_expiration_month 
+  #  :card_expiration_year 
+  #  :card_cvv => 
+  #  :address_line_1
+  #  :address_line_2 
+  #  :address_city 
+  #  :address_state 
+  #  :address_zip  
+
+  def process(checkout) # Checkout object
+    @checkout = checkout
+    return false unless checkout.valid?      
+    return false unless self.process_payment
+    
+    self.update_attributes({
+      :state => 'purchased'
+    })
+    
+    session[:order_id] = nil
+    true
   end
   
   def generate_and_email_tickets
@@ -71,6 +134,13 @@ class Order < ActiveRecord::Base
     end
   end
   
+  
+  
+  #
+  #
+  # this order's TICKETS 
+  #
+  #
   
   
   
@@ -91,8 +161,12 @@ class Order < ActiveRecord::Base
     self.tickets.reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
   end
   
+  #
+  #
+  # CLASS methods for totals
+  #
+  #
   
-  # Class methods for totals
   
   def self.total
     self.all.each.reduce(0) do |memo, order|

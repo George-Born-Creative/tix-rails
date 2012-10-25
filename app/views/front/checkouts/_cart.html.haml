@@ -1,0 +1,26 @@
+%table
+  %tr
+    %td Tickets
+    %td.align.right
+      %strong= number_to_currency current_order.total_base_price
+  %tr
+    %td Total
+    %td.align.right
+      %strong= number_to_currency current_order.total_service_charge
+  %tr
+    %td TOTAL
+    %td.align.right
+      %strong= number_to_currency current_order.total
+
+
+
+-current_order.tickets.each do |ticket|
+  .ticket
+    %h3=link_to ticket.event.name, front_event_path(ticket.event)
+    %h4="#{ticket.section_label} / #{ticket.area.label}"
+    =number_to_currency ticket.base_price
+    =number_to_currency ticket.service_charge
+    =number_to_currency ticket.total_price
+    
+    =link_to '[remove]', "/orders/remove_from_cart/#{ticket.area.id}", :class => '', :method => 'post'
+

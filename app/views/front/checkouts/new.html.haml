@@ -35,8 +35,7 @@
       =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'
   
   .span6
-    %h1=@checkout.to_s
-
+    
     
     -if flash[:error]
       .span6
@@ -44,36 +43,41 @@
           %ul
             -flash[:error].full_messages.each do |message|
               %li=message
-.row      
-  .span6
-    %table
-      %thead
-        %th Event
-        %th Section
-        %th Seat
-        %th Price
-        %th Service
-        %th Total
-        %th remove
-      %tr
-        %td
-        %td
-        %td
-        %td
-          %strong= number_to_currency @current_order.total_base_price
-        %td
-          %strong= number_to_currency @current_order.total_service_charge
-        %td
-          %strong= number_to_currency @current_order.total
-        %td
-        
-      %tbody
-        -@current_order.tickets.each do |ticket|
-          %tr
-            %td=link_to ticket.event.name, front_event_path(ticket.event)
-            %td=ticket.section_label
-            %td=ticket.area.label
-            %td=number_to_currency ticket.base_price
-            %td=number_to_currency ticket.service_charge
-            %td=number_to_currency ticket.total_price
-            %td=link_to '[x]', "/orders/remove_from_cart/#{ticket.area.id}", :class => 'btn', :method => 'post'
+              
+    =render :partial => 'front/checkouts/cart', :locals => {:current_order => @current_order}
+              
+
+
+-#.row      
+-#  .span6
+-#    %table
+-#      %thead
+-#        %th Event
+-#        %th Section
+-#        %th Seat
+-#        %th Price
+-#        %th Service
+-#        %th Total
+-#        %th remove
+-#      %tr
+-#        %td
+-#        %td
+-#        %td
+-#        %td
+-#          %strong= number_to_currency @current_order.total_base_price
+-#        %td
+-#          %strong= number_to_currency @current_order.total_service_charge
+-#        %td
+-#          %strong= number_to_currency @current_order.total
+-#        %td
+-#        
+-#      %tbody
+-#        -@current_order.tickets.each do |ticket|
+-#          %tr
+-#            %td=link_to ticket.event.name, front_event_path(ticket.event)
+-#            %td=ticket.section_label
+-#            %td=ticket.area.label
+-#            %td=number_to_currency ticket.base_price
+-#            %td=number_to_currency ticket.service_charge
+-#            %td=number_to_currency ticket.total_price
+-#            %td=link_to '[x]', "/orders/remove_from_cart/#{ticket.area.id}", :class => 'btn', :method => 'post'

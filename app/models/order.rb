@@ -108,7 +108,7 @@ class Order < ActiveRecord::Base
   end
   
   def expired?
-    self.expires_at > DateTime.now
+    self.expires_at < DateTime.now
   end
   
   

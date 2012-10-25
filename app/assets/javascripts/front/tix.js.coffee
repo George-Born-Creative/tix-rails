@@ -42,7 +42,8 @@ window.Tix =
             label:  ticket.area_label
             id: ticket.area_id
           base: ticket.base_price
-        
+          service: ticket.service_charge
+          
         Tix.Cart.add(seat)
         self.renderCartItem(seat)
         

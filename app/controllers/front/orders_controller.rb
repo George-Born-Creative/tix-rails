@@ -31,7 +31,7 @@ class Front::OrdersController < ApplicationController
     
     respond_to do |format|
       format.html{
-        redirect_to '/checkouts'
+        redirect_to '/checkout'
       }
       format.js {
         render :json => {:message => 'success', :order => @current_order}

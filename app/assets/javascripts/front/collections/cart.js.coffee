@@ -18,9 +18,10 @@ class Tix.Collections.Cart extends Backbone.Collection
     $.ajax
       type: 'POST'
       url: '/orders/remove_from_cart/' + seat.get('area').id
+      dataType: 'json'
 
       success: (data)->
-        alert('Success' + data)
+        console.log('removeSeat ajax Success' + data)
         
 
   addSeat: (data)->
@@ -48,7 +49,6 @@ class Tix.Collections.Cart extends Backbone.Collection
     $.ajax
       type: 'POST'
       url: seat.url()
-
       success: (data)->
         alert('Success' + data)
 

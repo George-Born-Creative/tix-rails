@@ -1,9 +1,11 @@
 class Front::CheckoutsController < InheritedResources::Base
   
-  def index
-    render new
-  end
   
+  def new
+    if @current_order.tickets.count == 0
+      redirect_to '/page/calendar', :notice => 'You have no items in your Shopping Cart!'
+    end
+  end
   
   # POST /checkout
   def create

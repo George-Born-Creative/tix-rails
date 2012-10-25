@@ -51,7 +51,7 @@
       %h4=@event.supporting_acts_str
     
     -unless @event.set_times.empty?
-      %p=@event.set_times.gsub(/([0-9][:]?[apmAPM]+)/, "<br/>\\1").html_safe
+      %p=@event.set_times.gsub(/([0-9]+[:]?[apmAPM]+)/, "<br/>\\1").html_safe
       
     After the show -- The lobby bar stays open!
     

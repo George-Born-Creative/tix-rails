@@ -24,10 +24,10 @@ private
       [
         link_to(image_tag(artist.photo(:thumb)), artist),
         artist.name,
-        (artist.twitter ? link_to(' Twitter ', artist.twitter) : nil ),
-        (artist.facebook_url ? link_to(' Facebook ', artist.facebook_url) : nil),
-        (artist.video_url ? link_to(' Video ', artist.video_url) : nil),
-        (artist.url ? link_to(' Website ', artist.url) : nil),
+        (!artist.twitter.blank? ? link_to(' Twitter ', artist.twitter) : nil ),
+        (!artist.facebook_url.blank? ? link_to(' Facebook ', artist.facebook_url) : nil),
+        (!artist.video_url.blank? ? link_to(' Video ', artist.video_url) : nil),
+        (!artist.url.blank? ? link_to(' Website ', artist.url) : nil),
         link_to('Edit', artist, :class => 'btn')
       ]
     end

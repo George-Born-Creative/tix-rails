@@ -41,8 +41,12 @@
             
             =section.label
   
-    %h2= @event.title
-    %h3= @event.headliners_str
+    -if @event.disable_event_title
+      %h2= @event.headliners_str
+    -else
+      %h2= @event.title
+      %h3= @event.headliners_str
+    
     -unless @event.supporting_acts_str.blank?
       %h4=@event.supporting_acts_str
     

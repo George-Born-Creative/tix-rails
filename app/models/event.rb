@@ -43,7 +43,8 @@ class Event < ActiveRecord::Base
                   :slug, :buytix_url_old,
                   :cat,                   # TODO move category into its own model
                   :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at,
-                  :supporting_acts, :supporting_act_ids, :supporting_act_ids_concat
+                  :supporting_acts, :supporting_act_ids, :supporting_act_ids_concat,
+                  :disable_event_title
                   
   attr_accessor :supporting_act_ids_concat
   
@@ -162,7 +163,7 @@ class Event < ActiveRecord::Base
   def supporting_acts_str
     str = ""
     unless self.supporting_acts.empty?
-      str = self.supporting_acts.inject("") {|memo, artist| memo += "+ #{artist.name}" }
+      str = self.supporting_acts.inject("") {|memo, artist| memo += " + #{artist.name}" }
     end
     str
   end

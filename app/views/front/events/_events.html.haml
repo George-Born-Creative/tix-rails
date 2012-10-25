@@ -30,10 +30,16 @@
         
             .span6
               .starts-at=event.starts_at.to_formatted_s(:jammin_java)
-              .event-name=event.name
-              .artists=event.artists_str
+              
+              -if event.disable_event_title
+                .event-name=event.headliners_str
+                .artists=event.supporting_acts_str
+                
+              -else
+                .event-name= event.title
+                .artists= event.artists_str
+                
           
-              /%p=event.price_freeform.html_safe if event.price_freeform
               %a.btn{:href => front_event_path(event)} Buy Tix
             
           

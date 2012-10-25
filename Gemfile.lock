@@ -168,6 +168,7 @@ GEM
     has_scope (0.5.1)
     hashery (2.0.1)
     hike (1.2.1)
+    hirefireapp (0.0.8)
     httparty (0.9.0)
       multi_json (~> 1.0)
       multi_xml
@@ -363,6 +364,7 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets
   has_scope
+  hirefireapp
   inherited_resources
   jquery-datatables-rails
   jquery-rails

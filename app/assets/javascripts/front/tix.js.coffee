@@ -12,6 +12,7 @@ window.Tix =
   init: (data)->
     console.log 'ThinTix App Initialized'
     
+    TixLib.init()
     @initCart()
     @initCartMiniView()
     @initCartView(data)

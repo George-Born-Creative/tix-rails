@@ -11,7 +11,7 @@ window.TixMgr =
   
   init: ->
     # http://railscasts.com/episodes/340-datatables?view=asciicast
-    
+    TixLib.init()
     @initNav()
     @initDatatables()
     @initColorPicker()

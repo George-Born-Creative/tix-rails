@@ -105,10 +105,14 @@ class ApplicationController < ActionController::Base
     if session[:order_id]
       @current_order ||= @current_account.orders.find(session[:order_id])
       if @current_order.expired? #|| @current_order.purchased_at ||
+        flash[:notice] = 'PART 2 '
+        
         session[:order_id] = nil
       end  
     end
     if session[:order_id].nil?  
+      flash[:notice] = 'PART 3 '
+      
       @current_order = @current_account.orders.create!
       session[:order_id] ||= @current_order.id  
     end

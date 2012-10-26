@@ -13,6 +13,7 @@
 #  color                  :string(255)
 #  dayof_price_id         :integer
 #  presale_price_id       :integer
+#  index                  :integer
 #
 
 class Section < ActiveRecord::Base

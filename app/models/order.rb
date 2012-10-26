@@ -2,15 +2,24 @@
 #
 # Table name: orders
 #
-#  id             :integer          not null, primary key
-#  status         :string(255)      default("pending"), not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  account_id     :integer          default(0), not null
-#  user_id        :integer
-#  total          :decimal(8, 2)    default(0.0), not null
-#  tax            :decimal(8, 2)    default(0.0), not null
-#  service_charge :decimal(8, 2)    default(0.0), not null
+#  id                    :integer          not null, primary key
+#  status                :string(255)      default("pending"), not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  account_id            :integer          default(0), not null
+#  user_id               :integer
+#  total                 :decimal(8, 2)    default(0.0), not null
+#  tax                   :decimal(8, 2)    default(0.0), not null
+#  service_charge        :decimal(8, 2)    default(0.0), not null
+#  state                 :string(255)      default("cart")
+#  expires_at            :datetime
+#  card_type             :string(255)
+#  card_expiration_month :string(255)
+#  card_expiration_year  :string(255)
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  purchased_at          :datetime
+#  email                 :string(255)
 #
 
 
@@ -21,7 +30,17 @@ class Order < ActiveRecord::Base
   
   before_create :set_expires_at
   
-  attr_accessible :total, :service_charge, :tax, :account, :user, :state, :expires_at
+  attr_accessible :total, :service_charge, :tax, :account, :user, :state, :expires_at,
+                  :card_type, :card_expiration_month, :card_expiration_year, :first_name, :last_name,
+                  :email, :address, :ip_address, :address_attributes
+  
+  attr_accessor :card_number, :card_verification, :card_expiration
+  
+  has_many :transactions, :class_name => "OrderTransaction"
+  
+  has_one :address, :as => :addressable, :dependent => :destroy
+  
+  accepts_nested_attributes_for :address
   
   has_many :tickets
   belongs_to :user
@@ -52,73 +71,25 @@ class Order < ActiveRecord::Base
   end
 
   
-  def process_payment
-    
-    credit_card = ActiveMerchant::Billing::CreditCard.new(
-      :number => @checkout.card_number,
-      :month => @checkout.card_expiration_month,
-      :year => @checkout.card_expiration_year,
-      :first_name => @checkout.user_first_name,
-      :last_name => @checkout.user_last_name
-    )
-
-    unless credit_card.valid?
-      self.errors.add(:base, 'Card is invalid')
-    else
-      gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-         :login  => ENV['JJ_LOGIN_ID'],
-         :password => ENV['TRANSACTION_KEY']
-      )
-      
-      options = {:address => {}, :billing_address => {}}
-      response = gateway.authorize(charge_amount, creditcard, options)
-      
-      if response.success?
-        return true
-      else
-        self.errors.add(:base, 'Authorize failed')
-      end
-      
-      # if response.success?
-      #   gateway.capture(charge_amount, response.authorization)        
-      # else
-      #   puts "Fail: " + response.message.to_s
-      #   self.errors.add(:base, 'Card is invalid')
-      #   
-      # end
-      
-    end
-      
+  def purchase
+    # raise credit_card.to_s
+    puts "price_in_cents #{price_in_cents}"
+    puts "credit_card #{credit_card}"
+    puts "credit_card #{credit_card.valid?}"
+    puts "purchase_options #{purchase_options.to_s}"
+    response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
+    transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
+    update_attribute(:purchased_at, Time.now) if response.success?
+    response.success?
   end
   
+ 
   
-  # Returns true if there are no errors and the checkout process completes
-  #  :user_first_name => params[:user][:first_name],
-  #  :user_last_name
-  #  :user_email
-  #  :card_number 
-  #  :card_expiration_month 
-  #  :card_expiration_year 
-  #  :card_cvv => 
-  #  :address_line_1
-  #  :address_line_2 
-  #  :address_city 
-  #  :address_state 
-  #  :address_zip  
+  def price_in_cents
+     (total*100).round
+   end
+   
 
-  def process(checkout) # Checkout object
-    @checkout = checkout
-    return false unless checkout.valid?      
-    return false unless self.process_payment
-    
-    self.update_attributes({
-      :state => 'purchased'
-    })
-    
-    session[:order_id] = nil
-    true
-  end
-  
   def generate_and_email_tickets
     puts "### Gen/Emailing tickets"
   end
@@ -190,6 +161,41 @@ class Order < ActiveRecord::Base
   
   def set_expires_at
     self.expires_at = DateTime.now + LIFESPAN
+  end
+
+
+  def validate_card
+    unless credit_card.valid?
+      credit_card.errors.full_messages.each do |message|
+        errors.add_to_base message
+      end
+    end
+  end
+
+  def credit_card
+   @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
+     :type               => card_type,
+     :number             => card_number,
+     :verification_value => card_verification,
+     :month              => card_expiration_month,
+     :year               => card_expiration_year,
+     :first_name         => first_name,
+     :last_name          => last_name
+   )
+  end
+  
+  def purchase_options
+    {
+      :ip => ip_address,
+      :billing_address => {
+        :name     => "#{first_name} #{last_name}",
+        :address1 => address.address_line_1,
+        :city     => address.city,
+        :state    => address.state,
+        :country  => "US",
+        :zip      => address.zip
+      }
+    }
   end
 
   

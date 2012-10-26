@@ -1,9 +1,8 @@
 
 %p=field.to_s.titleize
 
--@date = @event.send(field).nil? ? DateTime.now.to_formatted_s(:date_y) : @event.send(field).to_formatted_s(:date_y)
--@time = @event.send(field).nil? ? DateTime.now.to_formatted_s(:time) : @event.send(field).to_formatted_s(:time)
-
+-@date = @event.send(field).nil? ? Time.zone.now.to_formatted_s(:date_y) : @event.send(field).in_time_zone.to_formatted_s(:date_y)
+-@time = @event.send(field).nil? ? Time.zone.now.to_formatted_s(:time) : @event.send(field).in_time_zone.to_formatted_s(:time)
 .datetime
   .input-append.date.datepicker{:data => {:date=>@date, 'date-format' => "mm-dd-yyyy" }}
     %input.span1{:name => "event[#{field}][date]", :size=>"16", :type=>"text", :value=>@date}

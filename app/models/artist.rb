@@ -12,8 +12,8 @@
 #  audio_sample_url        :string(255)
 #  video_url               :string(255)
 #  twitter                 :string(255)
-#  youtube1                :text(255)
-#  youtube2                :text(255)
+#  youtube1                :text
+#  youtube2                :text
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  photo_file_name         :string(255)

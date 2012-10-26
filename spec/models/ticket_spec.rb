@@ -4,7 +4,7 @@
 #
 #  id             :integer          not null, primary key
 #  price          :decimal(, )
-#  state          :string(255)      default("open"), not null
+#  state          :string(255)      not null
 #  event_id       :integer
 #  area_id        :integer
 #  created_at     :datetime         not null
@@ -15,7 +15,6 @@
 #  service_charge :decimal(, )
 #  area_label     :string(255)
 #  section_label  :string(255)
-#  checked_in     :boolean          default(FALSE), not null
 #  checked_in_at  :datetime
 #  status         :string(255)
 #

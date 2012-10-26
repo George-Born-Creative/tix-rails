@@ -96,7 +96,7 @@ gem 'has_scope'
 # seed 
 # gem 'forgery' 
 gem 'codemirror-rails'
-
+gem 'time_zone_ext'
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
 gem 'table-for', :git => 'https://github.com/hunterae/table-for.git'

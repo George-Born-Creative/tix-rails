@@ -20,6 +20,7 @@
 #  transform     :string(255)
 #  points        :string(255)
 #  max_tickets   :integer          default(1), not null
+#  text          :string(255)
 #
 
 class Area < ActiveRecord::Base

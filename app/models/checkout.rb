@@ -18,7 +18,6 @@ class Checkout
   # validates_presence_of :card_expiration_month, :message => 'Card Expiration Month'
   # validates_presence_of :card_expiration_month, :message => 'Card Expiration Year'
   
-  
   validates_presence_of :address_line_1, :address_city, :address_state, :address_zip
   
   validate :validate_card#, :on => :create
@@ -49,7 +48,7 @@ class Checkout
   end
   
   def card_expiration_year
-    card_expiration.split('/')[0] if card_expiration
+    card_expiration.split('/')[1] if card_expiration
     
   end
 
@@ -65,7 +64,6 @@ class Checkout
   
   
   def credit_card
-    #@credit_card ||=
     ActiveMerchant::Billing::CreditCard.new(
       :number             => card_number,
       :verification_value => card_cvv,

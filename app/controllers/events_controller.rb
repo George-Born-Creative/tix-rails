@@ -110,7 +110,8 @@ class EventsController < ApplicationController
       puts "#### Date #{date}"
       puts "#### Time #{time}"
       # TODO : ESTABLISH TIME ZONE FOR ACCOUNT: Currently hard coded at '-4' for EST
-      datetime = DateTime.strptime("#{date} #{time} -4", '%m-%d-%Y %I:%M %p %z')
+      datetime = Time.zone.strptime("#{date} #{time}", '%m-%d-%Y %I:%M %p')
+      
       puts "#### Datetime #{datetime}"
       
       parameters[field] = datetime.in_time_zone

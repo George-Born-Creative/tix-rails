@@ -30,6 +30,7 @@
 #  remove_at              :datetime
 #  buytix_url_old         :string(255)
 #  slug                   :string(255)
+#  disable_event_title    :boolean          default(FALSE)
 #
 
 

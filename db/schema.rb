@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025161922) do
+ActiveRecord::Schema.define(:version => 20121026023339) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -221,17 +221,37 @@ ActiveRecord::Schema.define(:version => 20121025161922) do
     t.integer  "account_id"
   end
 
+  create_table "order_transactions", :force => true do |t|
+    t.integer  "order_id"
+    t.string   "action"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "authorization"
+    t.string   "message"
+    t.text     "params"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "orders", :force => true do |t|
-    t.string   "status",                                       :default => "pending", :null => false
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
-    t.integer  "account_id",                                   :default => 0,         :null => false
+    t.string   "status",                                              :default => "pending", :null => false
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
+    t.integer  "account_id",                                          :default => 0,         :null => false
     t.integer  "user_id"
-    t.decimal  "total",          :precision => 8, :scale => 2, :default => 0.0,       :null => false
-    t.decimal  "tax",            :precision => 8, :scale => 2, :default => 0.0,       :null => false
-    t.decimal  "service_charge", :precision => 8, :scale => 2, :default => 0.0,       :null => false
-    t.string   "state",                                        :default => "cart"
+    t.decimal  "total",                 :precision => 8, :scale => 2, :default => 0.0,       :null => false
+    t.decimal  "tax",                   :precision => 8, :scale => 2, :default => 0.0,       :null => false
+    t.decimal  "service_charge",        :precision => 8, :scale => 2, :default => 0.0,       :null => false
+    t.string   "state",                                               :default => "cart"
     t.datetime "expires_at"
+    t.string   "card_type"
+    t.string   "card_expiration_month"
+    t.string   "card_expiration_year"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "purchased_at"
+    t.string   "email"
+    t.string   "ip_address"
   end
 
   add_index "orders", ["status"], :name => "index_orders_on_status"

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: themes
+#
+#  id                            :integer          not null, primary key
+#  title                         :string(255)
+#  css_doc                       :text
+#  activated_at                  :datetime
+#  account_id                    :integer
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  background_image_file_name    :string(255)
+#  background_image_content_type :string(255)
+#  background_image_file_size    :integer
+#  background_image_updated_at   :datetime
+#
+
 class Theme < ActiveRecord::Base
   attr_accessible :activated_at, :css_doc, :title, :background_image
   belongs_to :account

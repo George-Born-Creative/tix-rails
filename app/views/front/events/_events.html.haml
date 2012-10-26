@@ -1,13 +1,9 @@
 .row
+  .span6
+    %h1 Upcoming Shows
+    /="Category: #{cat}"
   .span3
-    %h1 Upcoming <br/> Shows
-  .span3
-    <br/>
-    Category
-    %h2=cat
-  .span3
-    <br/>
-    View:
+    View As:
     %h2
       =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.events-view, .layout-sidebar', 'data-target' => '.events-view-grid'
       =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.events-view', 'data-target' => '.events-view-list, .layout-sidebar'
@@ -36,7 +32,7 @@
                 .artists=event.supporting_acts_str
                 
               -else
-                .event-name= event.title
+                .event-name=link_to event.title, front_event_path(event)
                 .artists= event.artists_str
                 
           
@@ -58,7 +54,7 @@
                 -else
                   =image_tag('http://placehold.it/300x230', :width => '100%') 
                 .meta.well
-                  .event-name=event.name
+                  .event-name=link_to event.title, front_event_path(event)
                   .artists=event.artists_str
                   .starts-at=event.starts_at.to_formatted_s(:jammin_java)
                   =event.price_freeform

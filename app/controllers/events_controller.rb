@@ -109,12 +109,15 @@ class EventsController < ApplicationController
       time = parameters[field][:time]
       puts "#### Date #{date}"
       puts "#### Time #{time}"
-      # TODO : ESTABLISH TIME ZONE FOR ACCOUNT: Currently hard coded at '-4' for EST
-      datetime = Time.zone.strptime("#{date} #{time}", '%m-%d-%Y %I:%M %p')
+      # THIS NEXT LINE WAS CAUSING ONE TIMEZONE TO ROLL BACK AN HOUR: NOT WORKING
+      # datetime = Time.zone.strptime("#{date} #{time}", '%m-%d-%Y %I:%M %p')
+      # http://danilenko.org/2012/7/6/rails_timezones/
+      # FIX:
+      datetime = Time.strptime("#{date} #{time}", '%m-%d-%Y %I:%M %p').in_time_zone
       
       puts "#### Datetime #{datetime}"
       
-      parameters[field] = datetime.in_time_zone
+      parameters[field] = datetime
     end
     parameters
   end

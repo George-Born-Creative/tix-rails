@@ -91,30 +91,31 @@ class Event < ActiveRecord::Base
   has_many :categories, :as => :categorizable
   validates_inclusion_of :cat, :in => CATEGORIES.map{|c| c.to_s}.join(' '), :allow_nil => true
   
-  scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.now, Time.now] }}
-  scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.now, Time.now] }}  
-  scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.now] }}  
+  scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.zone.now, Time.zone.now] }}
+  scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.zone.now, Time.zone.now] }}  
+  scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.zone.now] }}  
   
   scope :cat, lambda{ |cat| where('cat = ?', cat)}
 
 
 
   def announced?
-    now = DateTime.now.to_i
-    now > self.announce_at.to_i && (self.remove_at.nil? || now < self.remove_at.to_i)
+    now = Time.zone.now
+    now > self.announce_at && (self.remove_at.nil? || now < self.remove_at)
   end
   
   def on_sale?
-    now = DateTime.now.to_i
-    now > self.on_sale_at.to_i && (self.off_sale_at.nil? || now < self.off_sale_at.to_i)
+    now = Time.zone.now
+    now > self.on_sale_at && (self.off_sale_at.nil? || now < self.off_sale_at)
   end
   
   def self.defaults
-   {:starts_at => DateTime.now + 30, # 30 days from now
-    :announce_at => DateTime.now,
-    :on_sale_at => DateTime.now + 10,
-    :off_sale_at => DateTime.now + 30,
-    :remove_at => DateTime.now + 30 }
+    today = Time.zone.now.to_date
+   {:starts_at => today + 30, # 30 days from now
+    :announce_at => today,
+    :on_sale_at => today + 10,
+    :off_sale_at => today + 30,
+    :remove_at => today + 30 }
   end
   
   def starts_in_future?
@@ -183,9 +184,9 @@ class Event < ActiveRecord::Base
     
     # TODO: Make these into account-level settings
     
-    now = DateTime.now 
+    now = Time.zone.now 
     
-    self.starts_at = DateTime.now if self.starts_at.nil?
+    self.starts_at = Time.zone.now if self.starts_at.nil?
     
     # For now, these are always 3 hours after show start tim
     self.off_sale_at = self.starts_at + 3.hours
@@ -211,11 +212,11 @@ class Event < ActiveRecord::Base
   
   private 
   def future?(time)
-    ( time.to_i - Time.now.to_i ) > 0
+    ( time.to_i - Time.zone.now.to_i ) > 0
   end
     
   def days_ago(time)
-    ( ( time.to_i - Time.now.to_i ) / 60 / 60 / 24) + 1
+    ( ( time.to_i - Time.zone.now.to_i ) / 60 / 60 / 24) + 1
   end
 
   def check_tickets

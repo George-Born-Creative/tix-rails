@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   # before_filter :authenticate_user!
   before_filter :set_current_account
-  before_filter :set_current_order
+  before_filter :set_current_order_if_front
   before_filter :authenticate_admin!
   
   private
@@ -26,6 +26,11 @@ class ApplicationController < ActionController::Base
     end  
   end
 
+
+  def manager_path?
+    request.fullpath.slice(0,8) == '/manager'
+  end
+  
   def not_found
     raise ActionController::RoutingError.new('Not Found')
   end
@@ -98,9 +103,16 @@ class ApplicationController < ActionController::Base
   
   
   
+  
+  def set_current_order_if_front
+    set_current_order() unless manager_path? # only set the current order if front end
+  end
+  
+  
   # If current order is expired, clear stored session order
   # Otherwise, create a new order and attach to current session
-  # (Order becomes abandonded)
+  # (Order becomes abandonded (expired_at > Now + LIFESPAN)
+  
   def set_current_order
     if session[:order_id]
       @current_order ||= @current_account.orders.find(session[:order_id])
@@ -115,7 +127,7 @@ class ApplicationController < ActionController::Base
       
       @current_order = @current_account.orders.create!
       session[:order_id] ||= @current_order.id  
-    end
+    end    
     @current_order
   end
   

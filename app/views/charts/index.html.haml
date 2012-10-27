@@ -28,11 +28,12 @@
       .span12
         .row
       
+          .span4
             
-          -@charts.masters.each do |chart|
+            -@charts.masters.each do |chart|
 
-            .span4
               .well
+             
                 .row
                   .span4
                     %h3=chart.name
@@ -40,9 +41,9 @@
                     Last updated
                     =chart.updated_at.to_formatted_s :default
                   .span4
-                    = link_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn', :style => 'float: left'
-                    = link_to 'Edit', edit_chart_path(chart), :class => 'btn'
-          
+                    = link_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
+                    = link_to 'Edit', edit_chart_path(chart), :class => 'btn btn-primary'
+    
 
         .row
           .span7
@@ -65,9 +66,11 @@
                 %strong Event:
                 -if chart.event
                   =link_to chart.event.title, chart.event
+                  =image_tag(chart.event.headliner.photo(:thumb)) if (chart.event.headliner || chart.headliner.photo?)
+                  
               .span4
                 Updated 
                 %strong= distance_of_time_in_words_to_now(chart.updated_at) + 'ago'
               .span4
-                = link_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn', :style => 'float: left'
+                = link_to 'Delete', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
                 = link_to 'Edit', edit_chart_path(chart), :class => 'btn'

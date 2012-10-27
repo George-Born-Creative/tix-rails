@@ -16,11 +16,16 @@ module Tix
   
     def initialize(file, account_subdomain)
       @file = file
+      
       @loaded_file = Nokogiri::XML(open(file))
+      
       @account = Account.find_or_create_by_subdomain(account_subdomain)
     end
     
     
+    def filename
+      File.basename(@file, '.svg')
+    end
   
     # Creates Hash of Area. Can be used with .create(area)
     def parse_area(elem)
@@ -47,9 +52,10 @@ module Tix
            area.y = elem.attr 'y'
            area.width = elem.attr 'width'
            area.height = elem.attr 'height'
-         when 'polygon'
+         when 'polygon', 'polyline'
            area.points = elem.attr 'points'
            
+
       end
       
       area.marshal_dump
@@ -102,7 +108,7 @@ module Tix
       
       # Create Chart
       @chart = @account.charts.create(
-                                    :label => 'Chart ' << Time.now.to_formatted_s,
+                                    :label => filename,
                                     :width => @loaded_file.css('svg').attr('width'),
                                     :height => @loaded_file.css('svg').attr('height'),
                                     :master => true
@@ -115,6 +121,7 @@ module Tix
       idx = 0
       # Background
       parse_section('svg > g#Background', idx)
+      parse_section('svg > g#Background-Above', idx+=1)
       
       # Sections (seatables)
       @loaded_file.css('svg > g#Sections > g').each do |section|

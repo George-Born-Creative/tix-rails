@@ -24,6 +24,9 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         @paper.setStart()
         self.renderSection( section)
         set = @paper.setFinish()
+        set.toFront()
+        console.log 'Bringing ' + section.label + "to front"
+        if section.label == 'Background-Above' then set.attr('fill', '#000')
         @setBySectionID[section.id] = set
       , this
       
@@ -159,17 +162,17 @@ class TixLib.Views.ChartRenderView extends Backbone.View
     renderSection: (section)->
       self = @
       
-      
       section_id = section.id
 
-      #console.log '[SR] Rendering Section ' + section.label
+      console.log '[SR] Rendering Section ' + section.label
+      console.log 'Section seatable?' + section.seatable
       _.each section.areas, (area)->
         self.renderArea(area, section)
         
     renderArea: (area, section)->
       self = @
       color = if (section.color == undefined || section.color == null || section.color == '') then '#000000' else section.color
-      
+      # console.log 'Rendering area color ' + color
       raf_shape = null
       
       switch area.type
@@ -207,10 +210,15 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       self.elemByAreaID[area.id] = raf_shape
           
-      if section.seatable && (area.inventory > 0) || area.type == 'text'
+      if section.seatable && (area.inventory > 0) || area.type != 'text'
         self.enableArea(area.id)
       else
         self.disableArea(area.id)
+        
+        
+      if area.type == 'text'
+        raf_shape.attr('fill', '#ffffff')
+      
         
       
           

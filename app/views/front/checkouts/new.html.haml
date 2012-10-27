@@ -35,12 +35,14 @@
       =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'
   
   .span6
-    
+    -if flash[:message]  
+      .span6
+        .alert.errors
+          =flash[:message]
     
     -if flash[:error]
       .span6
         .alert.errors
-          =flash[:message]
           %ul
             -flash[:error].full_messages.each do |message|
               %li=message

@@ -23,21 +23,20 @@
 #  ip_address            :string(255)
 #
 
-
-
 class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
   LIFESPAN = 10.minutes
   
   before_create :set_expires_at
+  before_save :cache_state
   
-  attr_accessible :total, :service_charge, :tax, :account, :user, :state, :expires_at,
+  attr_accessible :total, :service_charge, :tax, :account, :user,  :expires_at,
                   :card_type, :card_expiration_month, :card_expiration_year, :first_name, :last_name,
                   :email, :address, :ip_address, :address_attributes
   
   attr_accessor :card_number, :card_verification, :card_expiration
   
-  has_many :transactions, :class_name => "OrderTransaction"
+  has_many :transactions, :class_name => "OrderTransaction", :order => 'created_at DESC'
   
   has_one :address, :as => :addressable, :dependent => :destroy
   
@@ -52,12 +51,31 @@ class Order < ActiveRecord::Base
 
   attr_accessor :checkout # for a checkout object (non-persisted)
   
-  scope :expired, lambda { where("expires_at < ?", Time.zone.now ) }
-  scope :cart, lambda { where("expires_at >= ?", Time.zone.now ) }
+  # EXPIRED (dynamic: not complete && (Time.now + LIFESPAN) < expired_at   )
+  scope :expired, lambda { where("expires_at < ? AND purchased_at IS ?", Time.zone.now, nil ) }
+  # CART (dynamic: not expired, not purchased
+  scope :cart, lambda { where("expires_at >= ? AND purchased_at IS ?", Time.zone.now, nil) }
+  # COMPLETE (  purchased_at < Time.now   
+  scope :complete, lambda { where("purchased_at < ?", Time.zone.now)}
+
   
-  scope :with_role, lambda { |*roles| {
-    :conditions => { :role => roles.map {|r| r.to_s}}
-  }}
+  def expired?
+    self.class.send('expired').exists?(self)
+  end
+  
+  def cart?
+    self.class.send('cart').exists?(self)
+  end
+
+  def complete?
+    self.class.send('complete').exists?(self)
+  end
+  
+  def cache_state
+    self.state = 'expired' if self.expired?
+    self.state = 'cart' if self.cart?
+    self.state = 'complete' if self.complete?
+  end
   
   # Used by Ajax Request
   def create_ticket(area_id)
@@ -65,6 +83,9 @@ class Order < ActiveRecord::Base
     area = Area.find(area_id)
     if area.ticketable?
         self.tickets.create(:area => area)
+        # If this is the first ticket, reset order expiration
+        set_expires_at() if self.tickets.count == 1
+        
         return true
     else
       return false
@@ -153,12 +174,10 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def expired?
-    self.expires_at < DateTime.now
-  end
   
   
   private
+  
   
   def set_expires_at
     self.expires_at = DateTime.now + LIFESPAN
@@ -199,6 +218,14 @@ class Order < ActiveRecord::Base
     }
   end
 
+  # Test Cards for Authorize.net∂
+  #
+  # American Express Test Card: 370000000000002
+  # Discover Test Card: 6011000000000012
+  # Visa Test Card: 4007000000027
+  # Second Visa Test Card: 4012888818888
+  # JCB: 3088000000000017
+  # Diners Club/ Carte Blanche: 38000000000006
   
 
 end

@@ -21,8 +21,7 @@
 -#             %h4 Average Order Size
 -#             %span.value=@orders.count
 
-.span8.offset1
-  
+.span12
 
   .clear{:style => 'height: 30px'}
   %h1 Orders
@@ -50,11 +49,16 @@
         %tr
           %td='#' + order.id.to_s
           %td=order.created_at.to_s :short_ordinal
-          %td=time_ago_in_words(order.expires_at, true)
+          %td
+            =order.expired? ? '-' : ''
+            =time_ago_in_words(order.expires_at, true)
           %td=order.expired? ? 'Yes' : ''
-      
+          
           %td= number_to_currency( order.total)
-          %td= order.user.full_name if order.user
+          %td
+            %strong="#{order.first_name} #{order.last_name}"
+            = "#{order.email}"
+            
           %td= order.tickets.count
           %td
             -unless order.tickets_uniq_with_counts.blank?

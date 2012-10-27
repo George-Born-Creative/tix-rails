@@ -1,16 +1,29 @@
 .row
   .span12
   
-    -if @order.transactions.last.success?
-      %h1 Success! Transaction successful.
+    -if @order.transactions.first.success?
+      %h1 Success!
       
-      
-    =@order.transactions.last.message
-    
-    %h3="Order ##{@order.id}"
     %p
-      ="Placed by #{@order.first_name} at #{@order.created_at.to_formatted_s}"
-
+      .row
+        .span5
+          Jammin' Java delivers tickets in three convenient, eco- friendly ways.
+          Open you order email and Scan in using your smartphone. 
+          %i.icon-qrcode
+          We will also admit with
+          %strong="#{@order.first_name} #{@order.last_name}'s"
+          driver license.
+          
+        .span6.offset-by-one
+          %i.icon-ok.icon-white
+          ="Sent via Email"#, '#' #, :class => 'btn btn btn-large'
+          %br/
+          =link_to "<i class='icon-white icon-qrcode'></i> Send via Text Mesage »".html_safe, '#' , :class => 'btn'
+          %br/
+          =link_to "<i class='icon-white icon-print'></i> Print at Home »".html_safe, '#', :class => 'btn '
+    
+              
+    %p
     
   
 =render :partial => 'tickets/tickets', :locals => {:tickets => @order.tickets, :show_artwork => false}

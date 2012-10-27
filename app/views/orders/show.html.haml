@@ -2,7 +2,7 @@
   .well{:style => 'background-color: white'}
   
     %h1=' Order #' + @order.id.to_s
-    
+
     %p
       -if @order.user
         placed by
@@ -53,3 +53,52 @@
         %td=#number_to_currency @order.total_service_charge
         %td=#number_to_currency @order.total
         -#%td= "#{@order.tickets.checked_in.count} / #{@order.tickets.count}"
+        
+      
+    %h3 Transactions
+    -@order.transactions.each do |transaction|
+      .well
+        %p
+          %strong 
+          =@order.created_at.to_formatted_s(:jammin_java)
+        %p
+          %strong Success?
+          =transaction.success? ? 'YES' : 'NO'
+        %p
+          %strong Message
+          =transaction.message
+          
+        %p
+          %strong Amount
+          =transaction.amount
+          
+          -#     #<OrderTransaction id: 12
+          -#      order_id: 132
+          -#      action: "purchase"
+          -#      amount: 0
+          -#      success: false
+          -#      authorization: "0"
+          -#      message: "The credit card number is invalid"
+          -#      params: {"response_code"=>3
+          -#      "response_reason_code"=>"6"
+          -#      "response_reason_text"=>"The credit card number is invalid."
+          -#      "avs_result_code"=>"P"
+          -#      "transaction_id"=>"0"
+          -#      "card_code"=>""}
+          -#      created_at: "2012-10-27 19:24:23"
+          -#      updated_at: "2012-10-27 19:24:23">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        
+        

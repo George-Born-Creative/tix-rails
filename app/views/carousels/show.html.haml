@@ -1,2 +1,6 @@
--@carousel.carousel_items.each do |item|
-  =render :partial => 'carousel_items/carousel_item', :locals => {:item => item}
+=render :partial => 'carousels/carousel_full', :locals => {:carousel => @carousel}
+.clear
+=link_to 'New Item', new_carousel_carousel_item_path(@carousel), :class => 'btn'
+.clear
+.well.white
+  =render :partial => 'carousels/carousel_list', :locals => {:carousel => @carousel}

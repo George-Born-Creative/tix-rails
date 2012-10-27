@@ -1,12 +1,19 @@
 .carousel-item
   .row
-    .span1
-      =image_tag(item.image.file(:thumb)) if item.image && item.image.file?
-    .span3
-      %h1=item.title
-      =item.caption
-      =item.link
+    .span2
+      -if item.image && item.image.file?
+        =link_to( image_tag( item.image.file(:thumb), :class => 'img-rounded' ), edit_carousel_carousel_item_path(item.carousel, item))
+    .span5
+      %h1.title=link_to item.title, edit_carousel_carousel_item_path(item.carousel, item)
+      
+    .span4
+      %p.caption=item.caption
+      .link=link_to item.link, item.link
       =#item.expires_at
-      =link_to 'Edit', edit_carousel_carousel_item_path(item.carousel, item)
       
 
+    .span1
+      .link=link_to 'Edit', edit_carousel_carousel_item_path(item.carousel, item)
+    
+      .link=link_to 'Delete', carousel_carousel_item_path(item.carousel, item), :method => :delete, :confirm => 'Sure?'
+      

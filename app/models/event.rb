@@ -95,7 +95,9 @@ class Event < ActiveRecord::Base
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.zone.now, Time.zone.now] }}  
   scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.zone.now] }}  
   
-  scope :cat, lambda{ |cat| where('cat = ?', cat)}
+  scope :cat, lambda { |*cats| {
+    :conditions => ['cat IN (?)', cats.flatten.map{|c| c.to_s} ]
+  }}
 
 
 

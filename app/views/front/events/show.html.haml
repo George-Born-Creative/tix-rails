@@ -111,10 +111,11 @@
 
   .span5
     .additional-info
-      %h2 Additional Info
-
-      %p=@event.info.html_safe unless @event.info.blank?
-      
+      -unless @event.info.blank?
+        %hr.red
+        %h2 Additional Info
+        %p=@event.info.html_safe 
+        %hr.red
     .videos
       
       - unless (@event.headliner.blank? || @event.headliner.youtube1.blank?)

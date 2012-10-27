@@ -15,6 +15,12 @@ Tix::Application.routes.draw do
   #  match '/cat/:slug', :controller => :cms, :action => :cat, :controller => 'Front::Pages'
   
   scope '/manager' do
+    
+    
+    resources :carousels do
+      resources :carousel_items#, :as => :items
+    end
+    
     resources :events# , :as => 'manager_events'
     
     match '/', :controller => :manager, :action => :index
@@ -52,8 +58,10 @@ Tix::Application.routes.draw do
     post '/sidebars/:id/sort' => 'sidebars#sort'
     
     resources :widgets
-    resources :carousels
-    resources :carousel_items
+    
+    
+    
+    
     resources :themes
     post '/themes/:id/activate' => 'themes#activate'
       

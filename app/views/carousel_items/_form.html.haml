@@ -1,0 +1,22 @@
+=simple_form_for([@carousel, @carousel_item], :html => {:multipart => true}) do |f|
+  .row
+    .span2
+      =f.input :title
+    .span2
+      =f.input :caption
+    .span2
+      =f.input :link
+  .row
+    .span2
+      =f.simple_fields_for :image do |image_form|
+        =image_form.input :file, as: :file
+    .span2
+      %label Active?<br/>
+      =check_box_tag "Active"
+    .span1
+      =f.input :index, :label => 'Order'
+      
+  
+  .row
+    =f.submit
+    -# :multipart => true

@@ -1,4 +1,3 @@
-
 .row
   .span5
     /image_tag( @carousel.file(:original), :style => 'float: right' )
@@ -10,7 +9,15 @@
         = f.input :slug
       .form-actions
         = f.button :submit
- 
+        
+
+      -if @carousel.carousel_items.empty?
+        No carousel items. 
+        =link_to "Create the first »" , "/manager/carousels/#{@carousel.id}/carousel_items/new"
+      -else
+        -@carousel.carousel_items.each do |item|
+          =item.title
+          =link_to 'Edit', edit_carousel_carousel_item_path(item)
 
 =content_for :javascript do
   :javascript

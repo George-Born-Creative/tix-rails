@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026023339) do
+ActiveRecord::Schema.define(:version => 20121026235958) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -95,8 +95,11 @@ ActiveRecord::Schema.define(:version => 20121026023339) do
     t.string   "title"
     t.string   "caption"
     t.string   "link"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "expires_at"
+    t.integer  "index"
+    t.integer  "carousel_id"
   end
 
   create_table "carousels", :force => true do |t|
@@ -219,6 +222,8 @@ ActiveRecord::Schema.define(:version => 20121026023339) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "account_id"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
   end
 
   create_table "order_transactions", :force => true do |t|

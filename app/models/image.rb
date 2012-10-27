@@ -19,11 +19,11 @@ class Image < ActiveRecord::Base
   attr_accessible :caption, :title, :file, :tag_list
   attr_accessor :file_name
   belongs_to :imageable, :polymorphic => true
-  belongs_to :account
+  delegate :account, :to => :imageable
   attr_accessible :tag_tokens
   
   attr_reader :tag_tokens
-  
+    
   acts_as_taggable_on :tags
    
   has_attached_file :file,

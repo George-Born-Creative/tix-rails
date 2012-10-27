@@ -1,0 +1,12 @@
+.carousel-item
+  .row
+    .span1
+      =image_tag(item.image.file(:thumb)) if item.image && item.image.file?
+    .span3
+      %h1=item.title
+      =item.caption
+      =item.link
+      =#item.expires_at
+      =link_to 'Edit', edit_carousel_carousel_item_path(item.carousel, item)
+      
+

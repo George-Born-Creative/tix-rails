@@ -20,6 +20,7 @@
 #  last_name             :string(255)
 #  purchased_at          :datetime
 #  email                 :string(255)
+#  ip_address            :string(255)
 #
 
 

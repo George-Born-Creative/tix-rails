@@ -30,7 +30,7 @@ class Image < ActiveRecord::Base
     :storage => :s3,
     :bucket => ENV['S3_BUCKET_NAME'],
     :s3_credentials => S3_CREDENTIALS,
-    :styles => { :large => "600x600", :medium => "300x300>", :thumb => "100x100>" },
+    :styles => { :large => "870x450", :medium => "500x259", :thumb => "100x100" },
     :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
 
   Paperclip.interpolates :account_subdomain do |attachment, style|

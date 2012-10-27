@@ -4,8 +4,8 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="398.417px" height="639.46px" viewBox="0 0 398.417 639.46" enable-background="new 0 0 398.417 639.46"
 	 xml:space="preserve">
-<g id="Background_2_">
-	<polyline fill="#444444" points="68.558,464.742 28.888,464.908 28.888,272.03 98.1,272.03 147.402,320.289 147.402,452.796 
+<g id="Background">
+	<polygon fill="#444444" points="68.558,464.742 28.888,464.908 28.888,272.03 98.1,272.03 147.402,320.289 147.402,452.796 
 		81.233,452.796 68.558,464.742 	"/>
 	<rect x="148.79" y="124.347" fill="#666666" width="21.88" height="60.053"/>
 	<rect x="211.402" y="124.347" fill="#666666" width="21.881" height="60.053"/>
@@ -51,8 +51,8 @@
 	<rect x="106.91" y="418.351" fill="#020202" width="21.879" height="14.369"/>
 	<polygon fill="#020202" points="127.068,375.167 105.188,375.167 105.188,300.599 127.068,321.826 	"/>
 </g>
-<g id="Sections_2_">
-	<g id="VIP_2_">
+<g id="Sections">
+	<g id="VIP">
 		<circle fill="#FFE600" cx="41.836" cy="282.4" r="4.469"/>
 		<circle fill="#FFE600" cx="41.836" cy="303.789" r="4.469"/>
 		<circle fill="#FFE600" cx="41.836" cy="323.362" r="4.469"/>
@@ -79,13 +79,13 @@
 		<circle fill="#FFE600" cx="134.196" cy="349.184" r="4.469"/>
 		<circle fill="#FFE600" cx="134.196" cy="366.698" r="4.469"/>
 	</g>
-	<g id="Bar_2_">
+	<g id="Bar">
 		<circle fill="#BBFF00" cx="95.131" cy="464.402" r="4.469"/>
 		<circle fill="#BBFF00" cx="116.028" cy="464.402" r="4.469"/>
 		<circle fill="#BBFF00" cx="136.924" cy="464.402" r="4.469"/>
 		<circle fill="#BBFF00" cx="154.439" cy="464.402" r="4.469"/>
 	</g>
-	<g id="Seated_2_">
+	<g id="Seated">
 		<circle fill="#FF8B00" cx="140.805" cy="158.777" r="4.469"/>
 		<circle fill="#FF8B00" cx="140.805" cy="175.93" r="4.469"/>
 		<circle fill="#FF8B00" cx="178.798" cy="158.777" r="4.469"/>
@@ -151,7 +151,7 @@
 		<circle fill="#FF8B00" cx="367.927" cy="127.816" r="4.47"/>
 		<circle fill="#FF8B00" cx="367.927" cy="144.204" r="4.47"/>
 	</g>
-	<g id="General_Admission_2_">
+	<g id="General_Admission">
 		<polygon fill="#FF0043" points="380.929,271.053 380.929,427.873 275.558,427.873 275.558,617.615 211.763,617.615 
 			211.917,360.472 98.029,258.187 30,258.187 30,121.445 52.334,121.445 98.054,240.563 98.029,258.187 211.917,360.472 
 			211.855,271.039 		"/>

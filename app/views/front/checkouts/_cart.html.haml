@@ -15,12 +15,28 @@
 
 
 -current_order.tickets.each do |ticket|
-  .ticket
-    %h3=link_to ticket.event.name, front_event_path(ticket.event)
-    %h4="#{ticket.section_label} / #{ticket.area.label}"
-    =number_to_currency ticket.base_price
-    =number_to_currency ticket.service_charge
-    =number_to_currency ticket.total_price
-    
-    =link_to '[remove]', "/orders/remove_from_cart/#{ticket.area.id}", :class => '', :method => 'post'
+  .cart-item
+    .row
+      .span3
+        %h4=link_to ticket.event.name, front_event_path(ticket.event)
+        %p=ticket.event.starts_at.to_s(:jammin_java)
+        
+        %h5
+          ="#{ticket.section_label}"
+          -unless ticket.area.label.blank?
+            =" / #{ticket.area.label}"
+        =image_tag('http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=#{front_event_path(ticket.event)}&chld=H|0')
+          
+      .span
+        %span.mono Base
+        =number_to_currency ticket.base_price
+        %br/
+        %span.mono Service
+        =number_to_currency ticket.service_charge
+        %br/
+        %span.mono Total
+        =number_to_currency ticket.total_price
+        %br/
+
+        =link_to 'Remove', "/orders/remove_from_cart/#{ticket.area.id}", :class => '', :method => 'post'
 

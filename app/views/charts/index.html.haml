@@ -55,7 +55,7 @@
                 of the ticket system. For example, once a ticket is 
                 sold against a Chart's Areas, those areas may not be changed.
 
-
+      = "No chart slaves yet. Create these through Event." unless @charts.slaves
       -@charts.slaves.each do |chart|
 
         .span4
@@ -70,7 +70,7 @@
                   
               .span4
                 Updated 
-                %strong= distance_of_time_in_words_to_now(chart.updated_at) + 'ago'
+                %strong= distance_of_time_in_words_to_now(chart.updated_at) + ' ago'
               .span4
                 = link_to 'Delete', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
                 = link_to 'Edit', edit_chart_path(chart), :class => 'btn'

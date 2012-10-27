@@ -28,8 +28,8 @@ class TixMgr.Views.ChartEditSectionView extends Backbone.View
     
     console.log '[SR] Saving section in TixMgr.Views.ChartEditSectionView()...'  
     
-    #@model.save
-    #  success:  $(field_el).effect('highlight');
+    @model.save()
+      #success:  $(field_el).effect('highlight');
       
   leave: ->
     console.log '[SR] Saved section in TixMgr.Views.ChartEditSectionView().'

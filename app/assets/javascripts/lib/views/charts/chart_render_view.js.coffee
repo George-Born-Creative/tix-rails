@@ -210,7 +210,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       self.elemByAreaID[area.id] = raf_shape
           
-      if section.seatable && (area.inventory > 0) || area.type != 'text'
+      if section.seatable && (area.inventory > 0) && area.type != 'text'
         self.enableArea(area.id)
       else
         self.disableArea(area.id)

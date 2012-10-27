@@ -1,0 +1,104 @@
+:css
+
+  [class*="span"]{float:left;margin-left:20px;}
+  .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:752px;}
+  .span12{width:752px;}
+  .span11{width:688px;}
+  .span10{width:624px;}
+  .span9{ width:560px;}
+  .span8{ width:496px;}
+  .span7{ width:432px;}
+  .span6{ width:368px;}
+  .span5{ width:304px;}
+  .span4{ width:240px;}
+  .span3{ width:176px;}
+  .span2{ width:112px;}
+  .span1{ width: 48px;}
+  
+ 
+ 
+  .container{margin-left:auto;margin-right:auto;*zoom:1;}.container:before,.container:after{display:table;content:"";}
+  .container:after{clear:both;}
+  .container-fluid{padding-left:20px;padding-right:20px;*zoom:1;}.container-fluid:before,.container-fluid:after{display:table;content:"";}
+  .container-fluid:after{clear:both;}
+  
+  
+  
+-@order.tickets.each do |ticket|
+  %table
+    %tr
+      %td=ticket.section.chart.event.name
+      %td
+  .ticket
+    .span12
+      .well{:style => 'background-color: white;'}
+  
+        .row
+          .span6
+            .row
+              .span2
+                %h3 Event
+              .span4
+                %h2=ticket.section.chart.event.name
+            
+            .row
+              %hr
+              .span2
+                %h3 Date
+              .span4            
+                =ticket.section.chart.event.starts_at.to_formatted_s
+
+            .row
+              %hr
+              .span2
+                %h3 Customer
+              .span4         
+                %h1=#ticket.order.user.full_name
+
+
+
+
+            %hr/
+            .row
+              .span2
+                %h3 Order Info
+              .span4
+                Ordered by
+                %strong=#ticket.user.full_name
+                at
+                %strong=ticket.created_at.to_formatted_s
+                <br/>
+                ="Order ##{ticket.order.id}"
+
+
+
+          .span4
+            .well{:style => 'background-color: black'}
+              =image_tag( '/images/jj-logo.png', :width => 250)
+
+          
+
+            .row
+              .span8
+                .row
+                  .span2
+                    SECTION
+                    %h2=ticket.area.label
+                    SEAT
+                    %h3=ticket.area.section.label
+                    Admit
+                    %h1 1
+
+                
+                  .span2
+                    =image_tag qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 150
+                
+                    -#-if ticket.checked_in?
+                    -#  Checked in
+                    -#-else
+                    -#  =link_to 'Checkin »', "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin", :target => '_blank'
+
+
+      -#if show_artwork == true
+      =#image_tag TicketTemplate.random.file, :width => "100%"
+

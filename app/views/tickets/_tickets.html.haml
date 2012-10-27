@@ -1,2 +1,2 @@
 -tickets.each do |ticket|
-  =render :partial => 'tickets/ticket', :object => ticket, :locals => {:show_artwork => show_artwork}
+  =render :partial => 'tickets/ticket.html.haml', :object => ticket, :locals => {:show_artwork => show_artwork}

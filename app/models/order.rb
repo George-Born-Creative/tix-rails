@@ -29,6 +29,7 @@ class Order < ActiveRecord::Base
   
   before_create :set_expires_at
   before_save :cache_state
+
   
   attr_accessible :total, :service_charge, :tax, :account, :user,  :expires_at,
                   :card_type, :card_expiration_month, :card_expiration_year, :first_name, :last_name,

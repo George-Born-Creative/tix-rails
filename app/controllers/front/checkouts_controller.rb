@@ -32,8 +32,9 @@ class Front::CheckoutsController < InheritedResources::Base
             redirect_to front_order_path(@order), :notice => 'Order successful!'
           else
             flash[:message] = @order.transactions.first.message
+            flash[:checkout] = @checkout
             
-            redirect_to '/checkout'
+            render 'new' #'/checkout'
           end
         else # Checkout object did not pass validation
           flash[:error] = @checkout.errors
@@ -75,6 +76,11 @@ class Front::CheckoutsController < InheritedResources::Base
   def ensure_order
     if @current_order.tickets.count == 0
       redirect_to '/page/calendar', :notice => 'You have no items in your Shopping Cart!'
+    end
+    if @current_order.complete?
+      order_path = front_order_path(@current_order)
+      session[:order_id] = nil
+      redirect_to order_path
     end
   end
   

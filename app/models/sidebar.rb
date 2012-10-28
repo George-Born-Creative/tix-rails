@@ -34,6 +34,7 @@ class Sidebar < ActiveRecord::Base
            <div class="widget-body">#{widget.body}</div>
         
          </div>
+         <div class="clear"></div>
        }
       
     end

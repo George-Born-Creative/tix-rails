@@ -14,7 +14,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
     render: ->
       #console.log 'ChartRenderView.render() invoked'
       
-      @setChartBackgroundColor( @chartdata.background_color)
+      @setChartBackgroundColor( @chartdata.get('background_color') )
       
       @paper = Raphael('chart_container',  500, 700);
       
@@ -111,6 +111,15 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       .text('')
       
       $(document).mousemove (e)->
+         
+        # console.log ['left', $('#chart_container').offset().left]
+        # console.log ['top', $('#chart_container').offset().top]
+        # console.log ['e.pageX', e.pageX]
+        # console.log ['e.pageY', e.pageY]
+
+          
+          
+        console.log $('#chart_container').offset().left
         offLeft = e.pageX  -  $('#chart_container').offset().left + 20
         offTop  = e.pageY  - $('#chart_container').offset().top  + 200
         offLeft = if offLeft >= 200 then offLeft - 160 else offLeft

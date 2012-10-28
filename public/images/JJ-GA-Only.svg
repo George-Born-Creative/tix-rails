@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="398.417px" height="639.46px" viewBox="0 0 398.417 639.46" enable-background="new 0 0 398.417 639.46"
+	 xml:space="preserve">
+<g id="Background">
+	<polygon fill="#444444" points="68.558,466.816 28.888,466.982 28.888,274.105 98.1,274.105 147.402,322.363 147.402,454.871 
+		81.233,454.871 68.558,466.816 	"/>
+	<rect x="74.93" y="16.846" fill="#444444" width="307.19" height="102.983"/>
+	<rect x="82.066" y="480.191" fill="#444444" width="87.286" height="139.807"/>
+	<path fill="#F3F4F5" d="M68.558,466.816"/>
+	<polygon fill="#444444" points="28.888,469.093 68.558,469.093 79.94,480.476 79.573,619.998 28.888,619.998 	"/>
+	<g>
+		<rect x="206.559" y="66.091" fill="none" width="43.378" height="11.404"/>
+		<text transform="matrix(1 0 0 1 208.0952 76.3096)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14">Stage</text>
+	</g>
+	<rect x="285.97" y="441.433" fill="#444444" width="95.943" height="71.514"/>
+	<rect x="305.035" y="512.464" fill="#444444" width="77.086" height="107.533"/>
+	<g>
+		<rect x="306.632" y="487.875" fill="none" width="61.785" height="39.074"/>
+		<text transform="matrix(1 0 0 1 315.2495 498.0933)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14">Sound </text>
+		<text transform="matrix(1 0 0 1 316.2866 514.894)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14">Booth</text>
+	</g>
+</g>
+<g id="Background-Above">
+	<circle cx="40.869" cy="290.4" r="4.469"/>
+	<circle cx="40.869" cy="311.789" r="4.469"/>
+	<circle cx="40.869" cy="331.362" r="4.469"/>
+	<circle cx="40.869" cy="351.515" r="4.469"/>
+	<circle cx="78.862" cy="290.4" r="4.469"/>
+	<circle cx="78.862" cy="311.789" r="4.469"/>
+	<circle cx="78.862" cy="331.362" r="4.469"/>
+	<circle cx="78.862" cy="351.515" r="4.469"/>
+	<circle cx="41.207" cy="377.576" r="4.469"/>
+	<circle cx="41.207" cy="395.148" r="4.469"/>
+	<circle cx="41.207" cy="415.303" r="4.47"/>
+	<circle cx="79.2" cy="377.576" r="4.469"/>
+	<circle cx="79.2" cy="395.148" r="4.469"/>
+	<circle cx="79.2" cy="415.303" r="4.47"/>
+	<circle cx="41.207" cy="436.816" r="4.469"/>
+	<circle cx="79.2" cy="436.816" r="4.469"/>
+	<circle cx="96.957" cy="432.251" r="4.469"/>
+	<circle cx="134.949" cy="432.251" r="4.469"/>
+	<circle cx="95.236" cy="309.07" r="4.469"/>
+	<circle cx="95.236" cy="331.457" r="4.469"/>
+	<circle cx="95.236" cy="350.03" r="4.469"/>
+	<circle cx="95.236" cy="370.184" r="4.469"/>
+	<circle cx="133.229" cy="338.486" r="4.469"/>
+	<circle cx="133.229" cy="357.184" r="4.469"/>
+	<circle cx="133.229" cy="374.698" r="4.469"/>
+	<rect x="49.821" y="288.006" fill="#020202" width="21.88" height="74.566"/>
+	<rect x="50.16" y="368.792" fill="#020202" width="21.879" height="74.566"/>
+	<rect x="105.91" y="424.425" fill="#020202" width="21.879" height="14.369"/>
+	<polygon fill="#020202" points="126.068,381.242 104.188,381.242 104.188,306.673 126.068,327.9 	"/>
+</g>
+<g id="Sections">
+	<g id="GA">
+		<polygon fill="#FF0043" points="219.373,317.775 235.472,317.775 235.472,612.923 280.267,612.923 280.267,429.181 
+			381.638,429.181 381.638,130.362 82.702,130.362 82.048,178.831 		"/>
+	</g>
+</g>
+<g id="Foreground">
+	<text transform="matrix(1 0 0 1 204.8843 259.23)" fill="#FFFFFF" font-family="'GothamBook'" font-size="14.7252">General Admission </text>
+</g>
+</svg>

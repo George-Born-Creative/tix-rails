@@ -27,7 +27,7 @@
               .starts-at=event.starts_at.to_formatted_s(:jammin_java)
               
               -if event.disable_event_title
-                .event-name=event.headliners_str
+                .event-name=link_to event.headliners_str, front_event_path(event)
                 .artists=event.supporting_acts_str
                 
               -else

@@ -37,12 +37,8 @@
     %p=@event.starts_at.to_formatted_s :jammin_java
     -if @event.chart
       -# TODO: Event should have chart
-      %p
-        -@event.chart.sections.seatable.each do |section|
-          =succeed  '/' do
-            =number_to_currency(section.current_price.total, :precision => 0)
-            
-            =section.label
+      %p=@event.current_prices_str
+        
   
     -if @event.disable_event_title
       %h1= @event.headliners_str

@@ -109,12 +109,9 @@ class EventsController < ApplicationController
       time = parameters[field][:time]
       puts "#### Date #{date}"
       puts "#### Time #{time}"
-      # THIS NEXT LINE WAS CAUSING ONE TIMEZONE TO ROLL BACK AN HOUR: NOT WORKING
-      # datetime = Time.zone.strptime("#{date} #{time}", '%m-%d-%Y %I:%M %p')
-      # http://danilenko.org/2012/7/6/rails_timezones/
-      # FIX:     
-      #datetime = Time.strptime("#{date} #{time}", '%m-%d-%Y %I:%M %p').in_time_zone
-      datetime = ActiveSupport::TimeWithZone.new(nil, Time.zone, Time.strptime("10-29-2012 07:30 PM", "%m-%d-%Y %I:%M %p"))
+      # Bug in Rails http://www.elabs.se/blog/36-working-with-time-zones-in-ruby-on-rails
+      # https://github.com/rails/rails/issues/5559
+      datetime = ActiveSupport::TimeWithZone.new(nil, Time.zone, Time.strptime("#{date} #{time}", "%m-%d-%Y %I:%M %p"))
 
       puts "#### Datetime #{datetime}"
       

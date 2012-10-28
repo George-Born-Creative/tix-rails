@@ -1,7 +1,12 @@
 !!!
 %html
   %head
-    %title Jammin' Java
+    
+    %title
+      -if content_for :title
+        =content_for :title 
+        »
+      Jammin' Java
     = stylesheet_link_tag    "application", :media => "all"
     = csrf_meta_tags
     =raw '<!-- current subdomain ' + @current_account.subdomain + '-->'

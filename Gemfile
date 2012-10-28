@@ -102,6 +102,9 @@ gem 'delayed_job_active_record'
 gem "delayed_job_web"
 gem 'table-for', :git => 'https://github.com/hunterae/table-for.git'
 
+gem "friendly_id", "~> 4.0.1"
+
+
 gem 'annotate', ">=2.5.0"
 # gem 'resque', "~> 1.22.0"
 # gem 'resque', :git => 'https://github.com/defunkt/resque.git', :require => 'resque/server'

@@ -1,4 +1,6 @@
-/Hi from front/chart/show
+-content_for :title do
+  ='Buy Tickets »' << @event.name << ' » Events'
+
 -content_for :javascript do
   :javascript
     $(function(){
@@ -7,7 +9,6 @@
     });
     
     
-  
 .row
   .span2
     %h2=image_tag( @event.photo(:thumb), :width => '100%')

@@ -36,6 +36,9 @@
 
 
 class Event < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+    
   attr_accessible :title, :price_freeform, :set_times, :info, :body,
                   :headliner, :secondary_headliner, :supporting_acts,
                   :headliner_id, :secondary_headliner_id, :supporting_acts,

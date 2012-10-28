@@ -56,6 +56,12 @@ class Event < ActiveRecord::Base
   before_save :set_supporting_act_ids
   before_save :set_default_times
 
+  validates_uniqueness_of :slug, :scope => :account_id
+  # http://rubydoc.info/github/norman/friendly_id/master/FriendlyId/Slugged
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+   
   def set_supporting_act_ids
     if self.supporting_act_ids_concat
       self.supporting_act_ids = self.supporting_act_ids_concat.split(',')

@@ -18,6 +18,9 @@
 //= require backbone-support
 //= require backbone-nested/backbone-nested
 
+//= require ./manager/bootstrap/bootstrap
+
+
 // require backbone.localStorage
 //= require quicksilver
 //= require raphael.min

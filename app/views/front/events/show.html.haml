@@ -27,10 +27,10 @@
 -# @event.remove_at              :datetime
 
 .row
-  .span7
+  .span6
     -unless @event.headliner.blank? || !@event.headliner.photo?
       =image_tag(@event.headliner.photo(:original), :width => '100%')
-  .span4
+  .span6
     %p=@event.starts_at.to_formatted_s :jammin_java
     -if @event.chart
       -# TODO: Event should have chart
@@ -112,8 +112,8 @@
   .span5
     .additional-info
       -unless @event.info.blank?
-        %hr.red
         %h2 Additional Info
+        %hr.red
         %p=@event.info.html_safe 
         %hr.red
     .videos

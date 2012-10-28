@@ -16,9 +16,7 @@
               %i{:style => "background-color: " + @section.color}
         .clear
   
-          
         -_.each @section.prices, (price)->
-  
   
           %h5=price.label
           .row

@@ -92,13 +92,13 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
       
       self.presale_price_view.leave() unless self.presale_price_view == undefined
       self.presale_price_view = new TixMgr.Views.ChartEditPriceView
-        price: section.dayof_price
+        price: section.presale_price
         label: 'Presale Price'
         
       
       self.dayof_price_view.leave() unless self.dayof_price_view == undefined
       self.dayof_price_view = new TixMgr.Views.ChartEditPriceView
-        price: section.presale_price
+        price: section.dayof_price
         label: 'Day of Price'
         
         

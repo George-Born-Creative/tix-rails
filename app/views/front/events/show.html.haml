@@ -62,7 +62,7 @@
       -else
         %p Event not yet on sale
     
-      -unless current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
+      -if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
         %a.btn.btn-large.edit{:href => edit_event_url(@event), :target => '_blank'} Edit
       
 

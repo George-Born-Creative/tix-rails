@@ -5,12 +5,12 @@
       .carousel-inner
 
         -carousel.carousel_items.each_with_index do |item, index|
-          .item{:class => ((index == 0) ? 'active' : ''), :style => 'height: 450px'}
+          .item{:class => ((index == 0) ? 'active' : '')}
             -if item.image && item.image.file?
-              =link_to(image_tag(item.image.file(:large), :style => 'height: 450px; width: 100%'), edit_carousel_carousel_item_path(item.carousel, item))
+              =link_to(image_tag(item.image.file(:large), :style => ' width: 100%'), edit_carousel_carousel_item_path(item.carousel, item))
   
             .carousel-caption
-              %h4.title= item.title
+              %h3.title= item.title
               %p=item.caption
             =#item.expires_at
 

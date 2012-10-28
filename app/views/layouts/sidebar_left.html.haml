@@ -1,7 +1,9 @@
 -content_for :layout do 
   .row
   
-    
+    .span12
+      =yield :content_twelve
+      
     .span3
       .layout-sidebar
         =yield :sidebar
@@ -10,7 +12,7 @@
       .layout-content
         =yield :content_nine
         =yield :content
-
+        
         
     
 =render :template => 'layouts/application'

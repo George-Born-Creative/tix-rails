@@ -1,17 +1,19 @@
 class TicketMailer < ActionMailer::Base
+  # layout 'application.pdf.haml'
+    
   add_template_helper(ApplicationHelper)
 
-  def send_tickets(account_id, order_id)
+  def send_tickets(account_id, order_id, attach_tickets=true)
     @account = Account.find(account_id)
     @order = @account.orders.find(order_id)
-    subject = "#{@order.first_name}, your tickets are attached"
+    subject = "Your Jammin' Java Order (#{@order.id})"
     
-    attachments["tickets.pdf"] =  gen_pdf()
+    attachments["tickets.pdf"] = gen_pdf() if attach_tickets
 
       mail(
         :subject => subject,
         :to      => 'shaun@squiid.com',
-        :from    => 'shaun@squiid.com'
+        :from    => 'Jammin\' Java<memberservices@jamminjava.com>'
       )
   end
   

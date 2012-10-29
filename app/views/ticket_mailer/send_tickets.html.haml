@@ -2,38 +2,38 @@
   %head
   %body
 
-    %div{:style => "line-height:1.3em;font-size:14px;background-color:#f8f2e7;font-family:'Lucida Grande','Lucida Sans Unicode','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif"}
-      .adM
+    %div{:style => "line-height:1.3em;font-size:14px;background-color:#000000; color: white;font-family:'Lucida Grande','Lucida Sans Unicode','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif"}
       %img{:src => "https://billing.37signals.com/images/pixel.png?source=invoice&id=4787042"}
         %div{:style => "width:650px;margin:0 auto;padding:10px 0 30px"}
           %div{:style => "overflow:hidden;padding:15px 25px 0"}
             %h1{:style => "font-size:21px"}
               Paid
               %span.il Invoice
-            %img{:alt => "Thank you for being a customer!", :border => "0", :height => "50", :src => "https://37assets.s3.amazonaws.com/emails/queenbee/invoice/thank-you.png", :width => "475"}
-              %div{:style => "overflow:hidden;padding:10px 0"}
-                %div{:style => "width:40%;overflow:hidden;font-size:12px;padding-right:20px;float:left"}
-                  %p{:style => "margin:0"}
-                    %strong Your card has been charged.
-                    %br
-                      Card type charged:
-                      =@order.card_type
-                  %p
-                %div{:style => "width:50%;overflow:hidden;font-size:12px;float:left"}
-                  %p{:style => "margin:0"}
-                    %strong=@order.full_name
-                    placed this order.
-                  %p
+            =image_tag('http://jamminjava.thintix.com/images/jj-logo.png', :width => "475")
+            -#%img{:alt => "Thank you for being a customer!", :border => "0", :height => "50", :src => "http://jamminjava.thinitix.com/images/mailer/thank-you-customer.png", :width => "475"}
+            %div{:style => "overflow:hidden;padding:10px 0"}
+              %div{:style => "width:40%;overflow:hidden;font-size:12px;padding-right:20px;float:left"}
+                %p{:style => "margin:0"}
+                  %strong Your card has been charged.
+                  %br
+                    Card type charged:
+                    =@order.card_type
+                %p
+              %div{:style => "width:50%;overflow:hidden;font-size:12px;float:left"}
+                %p{:style => "margin:0"}
+                  %strong=@order.full_name
+                  placed this order.
+                %p
           %div{:style => "background-color:#fff;padding:0;border:1px solid #e8e8e8;border-top:0;border-bottom:0;overflow:hidden"}
             %div{:style => "margin:0 0 20px;padding:0;max-height:5px;overflow:hidden;display:block"}
               %img{:alt => "Top-edge", :border => "0", :height => "5", :src => "https://37assets.s3.amazonaws.com/emails/queenbee/invoice/top-edge.png", :width => "650"}
-            %div{:style => "padding:0 15px;overflow:hidden"}
+            %div{:style => "padding:0 15px;overflow:hidden; color: #333;"}
               %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
                 %tbody
                   %tr
                     %td{:style => "padding:0 10px 20px 10px;font-size:12px", :valign => "top"}
-                      %a{:href => "http://basecamp.com/?source=invoice", :target => "_blank"}
-                        %img{:align => "left", :alt => "Logo-bcx", :border => "0", :height => "40", :src => "https://37assets.s3.amazonaws.com/emails/queenbee/invoice/logo-bcx.png", :width => "47"}/
+                      -#%a{:href => "http://basecamp.com/?source=invoice", :target => "_blank"}
+                      -#%img{:align => "left", :alt => "Logo-bcx", :border => "0", :height => "40", :src => "https://37assets.s3.amazonaws.com/emails/queenbee/invoice/logo-bcx.png", :width => "47"}/
                       %h2{:style => "font-size:24px;vertical-align:bottom;margin:0;padding:8px 0 0 55px"}
                         %span.il Jammin' Java
                     %td{:colspan => "2", :style => "padding:10px;font-size:12px;text-align:right", :valign => "top"}

@@ -219,13 +219,6 @@ GEM
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
-    postmark (0.9.12)
-      json
-      rake
-    postmark-rails (0.4.1)
-      actionmailer
-      postmark (>= 0.9.0)
-      rake
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
@@ -384,7 +377,6 @@ DEPENDENCIES
   paperclip
   pg
   phone!
-  postmark-rails (>= 0.4.1)
   prawn
   pusher
   rabl

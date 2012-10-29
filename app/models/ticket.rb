@@ -2,21 +2,23 @@
 #
 # Table name: tickets
 #
-#  id             :integer          not null, primary key
-#  price          :decimal(, )
-#  state          :string(255)      not null
-#  event_id       :integer
-#  area_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  order_id       :integer
-#  account_id     :integer          default(0), not null
-#  base_price     :decimal(, )
-#  service_charge :decimal(, )
-#  area_label     :string(255)
-#  section_label  :string(255)
-#  checked_in_at  :datetime
-#  status         :string(255)
+#  id              :integer          not null, primary key
+#  price           :decimal(, )
+#  state           :string(255)      not null
+#  event_id        :integer
+#  area_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  order_id        :integer
+#  account_id      :integer          default(0), not null
+#  base_price      :decimal(, )
+#  service_charge  :decimal(, )
+#  area_label      :string(255)
+#  section_label   :string(255)
+#  checked_in_at   :datetime
+#  status          :string(255)
+#  event_name      :string(255)
+#  event_starts_at :datetime
 #
 
 # Ticket
@@ -67,7 +69,10 @@ class Ticket < ActiveRecord::Base
   # Ticket.order 
   # Order.expired
   
-  
+  def total
+    self.base_price + self.service_charge
+  end
+    
   
   private 
   
@@ -75,6 +80,7 @@ class Ticket < ActiveRecord::Base
     puts "Setinfo: #{event.name}"
     self.area_label = area.label
     self.event_name = event.name
+    self.event_artists = event.artists_str
     self.event_starts_at = area.section.chart.event.starts_at
     self.section_label = area.section.label
     self.base_price = area.section.current_price.base

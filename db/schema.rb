@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121029192233) do
+ActiveRecord::Schema.define(:version => 20121029213308) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -393,6 +393,7 @@ ActiveRecord::Schema.define(:version => 20121029192233) do
     t.string   "status"
     t.string   "event_name"
     t.datetime "event_starts_at"
+    t.string   "event_artists"
   end
 
   add_index "tickets", ["state"], :name => "index_tickets_on_state"

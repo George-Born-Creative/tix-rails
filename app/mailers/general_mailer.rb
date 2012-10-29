@@ -6,8 +6,7 @@ class GeneralMailer < ActionMailer::Base
     mail(
       :subject => subject,
       :to      => 'shaun@squiid.com',
-      :from    => 'shaun@squiid.com',
-      :tag     => tag
+      :from    => 'shaun@squiid.com'
     )
   end
   

@@ -72,7 +72,7 @@ gem 'pusher'
 gem 'redis'
 # gem 'redis-objects', :require => 'redis/objects'
 
-gem 'postmark-rails', '>= 0.4.1'
+#gem 'postmark-rails', '>= 0.4.1'
 
 gem 'devise'
 #gem 'cancan'

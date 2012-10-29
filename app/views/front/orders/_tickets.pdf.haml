@@ -1,0 +1,152 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Scada'">
+:css
+  body {
+    font-family: "Helvetica", sans-serif; 
+    font-size: 16pt
+  }
+  .wrap{
+    margin: .5in;
+  }
+  .page {
+    page-break-after:always;
+  
+  }
+    
+  .left, .right {
+    float: left;
+  }
+  .left {
+    width: 4.25in;
+  }
+
+  .right {
+    width: 3.75in;
+    overflow: hidden;
+  }
+  .item {
+     clear: both;
+     display: block;
+     
+  }
+  .left .item {
+    padding-bottom: 0.7in;
+  }
+  .left .item .label {
+    font-size: 16pt;
+    float: left;
+    width: 1.25in;
+    color: #aaa;
+    
+  }
+  .left .item .text {
+    font-size: 11pt;
+    float: right;
+    width: 2.5in;
+  }
+  
+  
+  .right {
+  
+  }
+  .right .image {
+     border-radius: 5px;
+     background-color: black;
+     width: 3.5in;
+     padding: .2in;
+     margin-bottom: .1in;
+  }
+
+  .right .info {
+     width: 1.75in;
+     float: left;
+  }
+  .right .info .label {
+     text-transform: uppercase;
+     font-size: 14pt;
+     color: #aaa;
+  }
+  
+  .right .info .text {
+    font-size: 25pt;
+    margin-bottom: 2pt; 
+    
+  }
+  
+  .large, .xlarge {
+    margin: 0;
+    padding: 0
+  }
+  .large {
+    font-size: 2em;
+  }
+  .xlarge {
+    font-size: 2.5em;
+  }
+  .ticket {
+    clear: both;
+    height: 3in;
+    border-bottom: 10px solid #ccc;
+  }
+  .artwork {
+    width: 8in;
+    height: 7.75in;
+    background-color: #eee;
+  }
+  .artwork img {
+    prince-image-resolution: 250;
+    width: 8in;
+    height: 7.75in;
+  }
+
+.wrap
+  -order.tickets.each do |ticket|
+    .page
+      .ticket
+        .left
+          .item
+            .label Event
+            .text
+              %span.xlarge=ticket.event_name
+          .item
+            .label Date
+            .text=ticket.event.starts_at.to_formatted_s(:jammin_java)
+        
+          .item
+            .label Customer
+            .text
+              %span.large
+                =ticket.order.first_name + ' ' + ticket.order.last_name
+              %br/
+              =ticket.order.email
+          .item
+            .label Order Info
+            .text
+              Ordered by
+              %strong=ticket.full_name
+              on
+              %br/
+              %strong=ticket.created_at.to_formatted_s(:jammin_java)
+              <br/>
+              ="Order ##{ticket.order.id}"
+      
+    
+        .right
+          .image
+            =image_tag( 'http://jamminjava.thintix.com/images/jj-logo.png', :width => 275)
+
+          .info
+            .label Section
+            .text Premiere
+            =#=ticket.section_label
+
+            .label Seat
+            .text=ticket.area_label
+
+            .label admit 1
+          .qr
+            =#image_tag qr( "http://jamminjava.thintix.com/tickets/#{ticket.id}/checkin"), :width => 175
+      
+      
+      .artwork
+        =image_tag(account.ticket_templates.first.file(:original)) unless account.ticket_templates.blank?
+

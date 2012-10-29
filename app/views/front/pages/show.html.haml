@@ -1,25 +1,25 @@
 -content_for :title do
   =@page.title.titleize
 
-
--if @page.slug == 'home'
-  -content_for :content_twelve do
-    .row
-      .span8
-        =raw render_shortcodes('[carousel name=&quot;home&quot;]')
-      .span4
-        =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/041/medium/tonight_header.png?1351461213',  width: '100%')
-
-        -@current_account.events.today.order('starts_at ASC').each do |event|
-          =event.set_times.html_safe unless event.set_times.blank?
-
-
 -content_for :content_nine do
-  
+  -if @page.slug == 'home'
+    =raw render_shortcodes('[carousel name=&quot;home&quot;]')
+    
   -if @page && @page.body
     =raw render_shortcodes( @page.body )
-  
+    %br/
   
   
 =content_for :sidebar do 
+  -if @page.slug == 'home'
+  
+    .today
+      =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/041/medium/tonight_header.png?1351461213',  width: '100%')
+      .set-times
+        -@current_account.events.today.order('starts_at ASC').each do |event|
+          =event.set_times.html_safe unless event.set_times.blank?
+    %br/
+    %br/
+    %br/
+    
   =@page.sidebar.body unless (@page.nil? || @page.sidebar.nil?)

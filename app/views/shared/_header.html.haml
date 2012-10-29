@@ -8,27 +8,6 @@
       
       
 
-      %span.login
-        -if user_signed_in?
-          Hello
-          %strong=link_to current_user.email, edit_user_path(current_user)
-          -if current_user.has_at_least_role :employee
-            |
-            =link_to 'Manager', '/manager'
-
-          | 
-          =link_to 'Logout', destroy_user_session_path, :method => :delete
-          ="<!--Role: #{current_user.role}-->".html_safe
-        -else
-          =link_to 'Login', new_user_session_path
-  
-      
-        %span.cart-mini.hide
-          %strong
-            %a{:href => '/checkout'}
-              Cart:
-              %span.cart-total $0.00
-              
               
             
         .social-links
@@ -45,7 +24,34 @@
           =link_to 'Directions', '/page/contact'
         
         
-        %br/
+
+          %span.cart-mini.hide
+            %strong
+              %a{:href => '/checkout'}
+                Cart:
+                %span.cart-total $0.00
+                
+                
+          %br/
+          %br/
+          
+          %span.login
+
+
+          -if user_signed_in?
+            Hello
+            %strong=link_to current_user.email, edit_user_path(current_user)
+            -if current_user.has_at_least_role :employee
+              |
+              =link_to 'Manager', '/manager'
+
+              | 
+              =link_to 'Logout', destroy_user_session_path, :method => :delete
+              ="<!--Role: #{current_user.role}-->".html_safe
+            -else
+              =link_to 'Login', new_user_session_path
+
+        
         %br/
         .small.contact
           %span.address 227 Maple Ave E Vienna, VA 22180

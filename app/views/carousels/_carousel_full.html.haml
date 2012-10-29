@@ -1,5 +1,5 @@
 .row
-  .span8
+  .span9
   
     #myCarousel.carousel.slide
       .carousel-inner
@@ -7,7 +7,7 @@
         -carousel.carousel_items.each_with_index do |item, index|
           .item{:class => ((index == 0) ? 'active' : '')}
             -if item.image && item.image.file?
-              =link_to(image_tag(item.image.file(:large), :style => ' width: 100%'), edit_carousel_carousel_item_path(item.carousel, item))
+              =link_to(image_tag(item.image.file(:large)), edit_carousel_carousel_item_path(item.carousel, item))
   
             .carousel-caption
               %h3.title= item.title

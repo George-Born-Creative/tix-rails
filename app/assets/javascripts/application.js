@@ -17,7 +17,6 @@
 //= require backbone
 //= require backbone-support
 //= require backbone-nested/backbone-nested
-
 //= require ./manager/bootstrap/bootstrap
 
 

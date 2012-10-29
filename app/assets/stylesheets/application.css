@@ -13,9 +13,8 @@
  *= require layout
  *= require skeleton
  *= require bootstrap/bootstrap
- *= require bootstrap/bootstrap-responsive
+ *= require bootstrap/bootstrap-responsive 
  *= require ./front/main
  *= require ./front/nav
- 
  
  */

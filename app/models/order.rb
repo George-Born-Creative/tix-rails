@@ -105,7 +105,10 @@ class Order < ActiveRecord::Base
     puts "purchase_options #{purchase_options.to_s}"
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
-    update_attribute(:purchased_at, Time.now) if response.success?
+    if response.success?
+      update_attribute(:purchased_at, Time.now) 
+      TicketMailer.delay.send_tickets(self.account.id,self.id,true) # true=send_tickets
+    end
     response.success?
   end
   

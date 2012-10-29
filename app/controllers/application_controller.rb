@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :set_current_account
   before_filter :set_current_order_if_front
+  before_filter :clear_completed_order_if_front
   before_filter :authenticate_admin!
   
   private
@@ -105,11 +106,17 @@ class ApplicationController < ActionController::Base
   end
   
   
+  def clear_completed_order_if_front
+    clear_completed_order() unless manager_path? # only clear the current order if front end
+  end
+  
+  
   # If current order is expired, clear stored session order
   # Otherwise, create a new order and attach to current session
   # (Order becomes abandonded (expired_at > Now + LIFESPAN)
   
   def set_current_order
+
     if session[:order_id]
       @current_order ||= @current_account.orders.find(session[:order_id])
       if @current_order.expired? #|| @current_order.purchased_at ||
@@ -119,8 +126,17 @@ class ApplicationController < ActionController::Base
     if session[:order_id].nil?  
       @current_order = @current_account.orders.create!
       session[:order_id] ||= @current_order.id  
+      
     end    
     @current_order
+  end
+  
+  def clear_completed_order
+    if @current_order.complete?
+      order_path = front_order_path(@current_order)
+      session[:order_id] = nil
+      redirect_to order_path
+    end
   end
   
   

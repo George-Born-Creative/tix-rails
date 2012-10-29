@@ -77,11 +77,7 @@ class Front::CheckoutsController < InheritedResources::Base
     if @current_order.tickets.count == 0
       redirect_to '/page/calendar', :notice => 'You have no items in your Shopping Cart!'
     end
-    if @current_order.complete?
-      order_path = front_order_path(@current_order)
-      session[:order_id] = nil
-      redirect_to order_path
-    end
+    
   end
   
   

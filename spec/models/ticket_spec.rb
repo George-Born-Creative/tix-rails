@@ -17,6 +17,8 @@
 #  section_label  :string(255)
 #  checked_in_at  :datetime
 #  status         :string(255)
+#  event_name     :string(255)
+#  starts_at      :datetime
 #
 
 require 'spec_helper'

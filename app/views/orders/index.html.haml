@@ -54,16 +54,16 @@
             =time_ago_in_words(order.expires_at, true)
           %td=order.expired? ? 'Yes' : ''
           
-          %td= number_to_currency( order.total)
+          %td=# number_to_currency( order.total ) unless order.total.blank?
           %td
             %strong="#{order.first_name} #{order.last_name}"
             = "#{order.email}"
             
           %td= order.tickets.count
           %td
-            -unless order.tickets_uniq_with_counts.blank?
-              -order.tickets_uniq_with_counts.each do |section,count|
-                ="#{count}x #{section} "
+            -#unless order.tickets_uniq_with_counts.blank?
+              -#order.tickets_uniq_with_counts.each do |section,count|
+                =#{}"#{count}x #{section} "
       
           %td=order.state
           %td

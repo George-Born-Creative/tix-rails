@@ -1,104 +1,152 @@
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Scada'">
 :css
-
-  [class*="span"]{float:left;margin-left:20px;}
-  .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:752px;}
-  .span12{width:752px;}
-  .span11{width:688px;}
-  .span10{width:624px;}
-  .span9{ width:560px;}
-  .span8{ width:496px;}
-  .span7{ width:432px;}
-  .span6{ width:368px;}
-  .span5{ width:304px;}
-  .span4{ width:240px;}
-  .span3{ width:176px;}
-  .span2{ width:112px;}
-  .span1{ width: 48px;}
+  body {
+    font-family: "Helvetica", sans-serif; 
+    font-size: 16pt
+  }
+  .wrap{
+    margin: .5in;
+  }
+  .page {
+    page-break-after:always;
   
- 
- 
-  .container{margin-left:auto;margin-right:auto;*zoom:1;}.container:before,.container:after{display:table;content:"";}
-  .container:after{clear:both;}
-  .container-fluid{padding-left:20px;padding-right:20px;*zoom:1;}.container-fluid:before,.container-fluid:after{display:table;content:"";}
-  .container-fluid:after{clear:both;}
+  }
+    
+  .left, .right {
+    float: left;
+  }
+  .left {
+    width: 4.25in;
+  }
+
+  .right {
+    width: 3.75in;
+    overflow: hidden;
+  }
+  .item {
+     clear: both;
+     display: block;
+     
+  }
+  .left .item {
+    padding-bottom: 0.7in;
+  }
+  .left .item .label {
+    font-size: 16pt;
+    float: left;
+    width: 1.25in;
+    color: #aaa;
+    
+  }
+  .left .item .text {
+    font-size: 11pt;
+    float: right;
+    width: 2.5in;
+  }
   
   
+  .right {
   
--@order.tickets.each do |ticket|
-  %table
-    %tr
-      %td=ticket.section.chart.event.name
-      %td
-  .ticket
-    .span12
-      .well{:style => 'background-color: white;'}
+  }
+  .right .image {
+     border-radius: 5px;
+     background-color: black;
+     width: 3.5in;
+     padding: .2in;
+     margin-bottom: .1in;
+  }
+
+  .right .info {
+     width: 1.75in;
+     float: left;
+  }
+  .right .info .label {
+     text-transform: uppercase;
+     font-size: 14pt;
+     color: #aaa;
+  }
   
-        .row
-          .span6
-            .row
-              .span2
-                %h3 Event
-              .span4
-                %h2=ticket.section.chart.event.name
-            
-            .row
-              %hr
-              .span2
-                %h3 Date
-              .span4            
-                =ticket.section.chart.event.starts_at.to_formatted_s
+  .right .info .text {
+    font-size: 25pt;
+    margin-bottom: 2pt; 
+    
+  }
+  
+  .large, .xlarge {
+    margin: 0;
+    padding: 0
+  }
+  .large {
+    font-size: 2em;
+  }
+  .xlarge {
+    font-size: 2.5em;
+  }
+  .ticket {
+    clear: both;
+    height: 3in;
+    border-bottom: 10px solid #ccc;
+  }
+  .artwork {
+    width: 8in;
+    height: 7.75in;
+    background-color: #eee;
+  }
+  .artwork img {
+    prince-image-resolution: 250;
+    width: 8in;
+    height: 7.75in;
+  }
 
-            .row
-              %hr
-              .span2
-                %h3 Customer
-              .span4         
-                %h1=#ticket.order.user.full_name
+.wrap
+  -@order.tickets.each do |ticket|
+    .page
+      .ticket
+        .left
+          .item
+            .label Event
+            .text
+              %span.xlarge=ticket.event_name
+          .item
+            .label Date
+            .text=ticket.event.starts_at.to_formatted_s(:jammin_java)
+        
+          .item
+            .label Customer
+            .text
+              %span.large
+                =ticket.order.first_name + ' ' + ticket.order.last_name
+              %br/
+              =ticket.order.email
+          .item
+            .label Order Info
+            .text
+              Ordered by
+              %strong=ticket.full_name
+              on
+              %br/
+              %strong=ticket.created_at.to_formatted_s(:jammin_java)
+              <br/>
+              ="Order ##{ticket.order.id}"
+      
+    
+        .right
+          .image
+            =image_tag( 'http://jamminjava.thintix.com/images/jj-logo.png', :width => 275)
 
+          .info
+            .label Section
+            .text Premiere
+            =#=ticket.section_label
 
+            .label Seat
+            .text=ticket.area_label
 
-
-            %hr/
-            .row
-              .span2
-                %h3 Order Info
-              .span4
-                Ordered by
-                %strong=#ticket.user.full_name
-                at
-                %strong=ticket.created_at.to_formatted_s
-                <br/>
-                ="Order ##{ticket.order.id}"
-
-
-
-          .span4
-            .well{:style => 'background-color: black'}
-              =image_tag( '/images/jj-logo.png', :width => 250)
-
-          
-
-            .row
-              .span8
-                .row
-                  .span2
-                    SECTION
-                    %h2=ticket.area.label
-                    SEAT
-                    %h3=ticket.area.section.label
-                    Admit
-                    %h1 1
-
-                
-                  .span2
-                    =image_tag qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 150
-                
-                    -#-if ticket.checked_in?
-                    -#  Checked in
-                    -#-else
-                    -#  =link_to 'Checkin »', "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin", :target => '_blank'
-
-
-      -#if show_artwork == true
-      =#image_tag TicketTemplate.random.file, :width => "100%"
+            .label admit 1
+          .qr
+            =image_tag qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 175
+      
+      
+      .artwork
+        =image_tag(@current_account.ticket_templates.first.file(:original)) unless @current_account.ticket_templates.blank?
 

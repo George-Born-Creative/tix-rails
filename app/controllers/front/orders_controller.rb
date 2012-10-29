@@ -54,7 +54,9 @@ class Front::OrdersController < ApplicationController
 
      response = DocRaptor.create(options)
      if response.code == 200
-       send_data response, :filename => "#{options[:name]}.#{ext}", :type => ext
+       send_data response, :filename => "#{options[:name]}.#{ext}", 
+                           :type => ext, 
+                           :disposition => 'inline'
      else
        render :inline => response.body, :status => response.code
      end

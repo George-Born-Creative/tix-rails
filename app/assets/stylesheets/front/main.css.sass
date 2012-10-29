@@ -308,14 +308,24 @@ ul.event_cart
 .carousel
   .item
     border: 10px solid white
-    height: 450px
+    height: 470px
     img
-      height: 450px
+      height: 470px
+
+.nav ul li a
+  padding: 3px 11px
+  margin-right: 7px
+  font-size: 17px
+
     
-    
-@media (max-width: 1200px)
+@media (max-width: 1200px) and (min-width: 979px)
   body
     font-size: 14px
+  
+  .nav ul li a
+    font-size: 15px
+    margin-right: 4px
+    padding: 3px 7px
     
   .carousel
     .item
@@ -324,8 +334,48 @@ ul.event_cart
         height: 350px
         
       
-      
-      
+@media (min-width: 768px) and (max-width: 978px)
+  body
+    font-size: 12px
+
+  .nav
+    ul
+      li
+        a
+          font-size: 12px
+          padding: 3px 0px
+          
+          
+  .carousel
+    .item
+      height: 300px
+      img
+        height: 300px
+          
+        
+        
+@media (max-width: 767px)
+  
+    
+  .carousel
+    .item
+      height: 400px
+      img
+        height: 400px
+  
+  
+
+
+// @media (min-width: 1200px) {
+// @media (min-width: 768px) and (max-width: 979px) {
+// @media (max-width: 767px) {
+// @media (max-width: 480px) {
+// @media (max-width: 979px) {
+  
+
+  
+
+
 //      :styles => { :large => "870x450", :medium => "500x259", :thumb => "100x100" },
 
       

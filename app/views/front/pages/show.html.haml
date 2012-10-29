@@ -5,9 +5,9 @@
 -if @page.slug == 'home'
   -content_for :content_twelve do
     .row
-      .span9
+      .span8
         =raw render_shortcodes('[carousel name=&quot;home&quot;]')
-      .span3
+      .span4
         =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/041/medium/tonight_header.png?1351461213',  width: '100%')
 
         -@current_account.events.today.order('starts_at ASC').each do |event|

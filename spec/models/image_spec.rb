@@ -13,6 +13,8 @@
 #  file_file_size    :integer
 #  file_updated_at   :datetime
 #  account_id        :integer
+#  imageable_id      :integer
+#  imageable_type    :string(255)
 #
 
 require 'spec_helper'

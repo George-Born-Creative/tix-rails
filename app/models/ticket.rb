@@ -28,7 +28,9 @@
 # Checked_in: The ticket has been scanned in
 
 class Ticket < ActiveRecord::Base
-  attr_accessible :area, :order, :state
+  attr_accessible :area, :order, :state, :event_name, 
+                  :area_label, :section_label, :base_price,
+                  :service_charge
   
   before_save :set_info
   # before_create :set_initial_state
@@ -39,12 +41,12 @@ class Ticket < ActiveRecord::Base
   belongs_to :order
   belongs_to :area
   delegate :section, :to => :area
-  
+  delegate :full_name, :to => :order
   validates_presence_of :area
   validates_presence_of :order
     
-  scope :expired, lambda { self.joins(:order).where('orders.expires_at <= ?', Time.zone.now) }  
-  scope :cart, lambda { self.joins(:order).where('orders.expires_at > ?', Time.zone.now) }
+  scope :expired, lambda { joins(:order).where('orders.expires_at <= ?', Time.zone.now) }  
+  scope :cart, lambda { joins(:order).where('orders.expires_at > ?', Time.zone.now) }
   
 
   state_machine :state, :initial => :reserved do
@@ -55,29 +57,33 @@ class Ticket < ActiveRecord::Base
     
   
   def total_price
-    self.base_price + self.service_charge
+    base_price + service_charge
   end  
   
   def event
-    self.area.section.chart.event
+    area.section.chart.event
   end
   
   # Ticket.order 
-  
   # Order.expired
   
   
+  
   private 
-  def set_info
-    self.area_label = self.area.label
-    self.section_label = self.area.section.label
-    self.base_price = self.area.section.current_price.base
-    self.service_charge = self.area.section.current_price.service
+  
+  def set_info # 
+    puts "Setinfo: #{event.name}"
+    self.area_label = area.label
+    self.event_name = event.name
+    self.event_starts_at = area.section.chart.event.starts_at
+    self.section_label = area.section.label
+    self.base_price = area.section.current_price.base
+    self.service_charge = area.section.current_price.service
   end
   
   
   # def set_initial_state
-  #   self.state = 'cart' if self.state.blank?
+  #   state = 'cart' if state.blank?
   # end
   
   

@@ -107,7 +107,7 @@ class Order < ActiveRecord::Base
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     if response.success?
       update_attribute(:purchased_at, Time.now) 
-      TicketMailer.delay.send_tickets(self.account.id,self.id,true) # true=send_tickets
+      TicketMailer.delay.send_tickets(self.account.id, self.id, true) # true=send_tickets
     end
     response.success?
   end

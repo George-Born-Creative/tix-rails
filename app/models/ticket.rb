@@ -35,6 +35,8 @@ class Ticket < ActiveRecord::Base
                   :service_charge
   
   before_save :set_info
+  # before_create :set_info
+  
   # before_create :set_initial_state
   
   
@@ -76,7 +78,7 @@ class Ticket < ActiveRecord::Base
   
   private 
   
-  def set_info # 
+  def set_info # ®
     puts "Setinfo: #{event.name}"
     self.area_label = area.label
     self.event_name = event.name

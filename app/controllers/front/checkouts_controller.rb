@@ -56,7 +56,7 @@ class Front::CheckoutsController < InheritedResources::Base
       :last_name => @checkout.user_last_name,
       :email => @checkout.user_email,
       :card_expiration_year => @checkout.card_expiration_year,
-      :card_expiration_month => @checkout.card_expiration_month
+      :card_expiration_month => @checkout.card_expiration_month,
       :phone => @checkout.phone_number,
       
     })

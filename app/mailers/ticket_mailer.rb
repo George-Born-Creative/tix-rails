@@ -1,6 +1,6 @@
 class TicketMailer < ActionMailer::Base
-  # layout 'application.pdf.haml'
-    
+
+  DEV_EMAIL = 'shaun@squiid.com'
   add_template_helper(ApplicationHelper)
 
   def send_tickets(account_id, order_id, attach_tickets=true)
@@ -12,12 +12,19 @@ class TicketMailer < ActionMailer::Base
 
       mail(
         :subject => subject,
-        :to      => 'shaun@squiid.com',
+        :to      => get_email,
         :from    => 'Jammin\' Java<memberservices@jamminjava.com>'
       )
   end
   
   private
+  
+  def get_email
+    #puts "get_email CALLED"
+    #puts ENV['RAILS_ENV'] == 'production'
+    
+    ENV['RAILS_ENV'] == 'production' ? @order.email : DEV_EMAIL
+  end
   
   def gen_pdf
     DocRaptor.api_key ||= ENV["DOCRAPTOR_API_KEY"]

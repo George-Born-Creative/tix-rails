@@ -18,7 +18,8 @@ class Front::CheckoutsController < InheritedResources::Base
       :address_line_2 => params[:address][:address_line_2],
       :address_city => params[:address][:city],
       :address_state => params[:address][:state], 
-      :address_zip => params[:address][:zip]
+      :address_zip => params[:address][:zip],
+      :phone_number => params[:phone][:number]
     })
     
     @order = @current_order
@@ -56,6 +57,8 @@ class Front::CheckoutsController < InheritedResources::Base
       :email => @checkout.user_email,
       :card_expiration_year => @checkout.card_expiration_year,
       :card_expiration_month => @checkout.card_expiration_month
+      :phone => @checkout.phone_number,
+      
     })
     
     @order.create_address({

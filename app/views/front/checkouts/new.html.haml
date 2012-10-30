@@ -23,7 +23,11 @@
         .span2=text_field_tag 'address[city]', attr_or_nil(:address_city), :placeholder =>  'city',  :size => 15
         .span2=text_field_tag 'address[state]', attr_or_nil(:address_state), :placeholder => 'state', :size => 3
         .span2=text_field_tag 'address[zip]', attr_or_nil(:address_zip), :placeholder => 'zip',  :size => 15
-    
+      %h2 Phone
+      %hr/
+      .row
+        .span3=text_field_tag 'phone[number]', attr_or_nil(:phone_number), :placeholder =>  'XXX-XXX-XXXX'
+  
       %h2 Credit Card Information
       %hr
       .row

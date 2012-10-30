@@ -149,15 +149,15 @@ class Order < ActiveRecord::Base
   
   
   def total_base_price
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.base_price}
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.base_price || 0}
   end
   
   def total_service_charge
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.service_charge}
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.service_charge || 0}
   end
   
   def total
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total}
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total || 0}
   end
   
   def tickets_uniq_with_counts

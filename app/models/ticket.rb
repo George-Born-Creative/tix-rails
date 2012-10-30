@@ -51,16 +51,11 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :area
   validates_presence_of :order
     
-  scope :expired, lambda { joins(:order).where('orders.expires_at <= ?', Time.zone.now) }  
-  scope :cart, lambda { joins(:order).where('orders.expires_at > ?', Time.zone.now) }
+  scope :expired, lambda { joins(:order).where('orders.expires_at <= ? AND purchased_at IS ?', Time.zone.now, nil) }  
+  scope :cart, lambda { joins(:order).where('orders.expires_at > ? AND purchased_at IS ?', Time.zone.now, nil) }
+  scope :complete, lambda { joins(:order).where("orders.purchased_at < ?", Time.zone.now)}
   
-
-  state_machine :state, :initial => :reserved do
-    state :reserved
-    state :purchased
-    state :checked_in
-  end
-    
+  
   
   def event
     area.section.chart.event

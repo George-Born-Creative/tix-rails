@@ -60,16 +60,16 @@ child (:sections) do |chart|
     :max_tickets, :label, :inventory, :text
     
     node :tickets_reserved_count do |area|
-      area.tickets.with_state(:reserved).count
+      area.tickets.cart.count
     end
     
     node :tickets_purchased_count do |area|
-      area.tickets.with_state(:purchased).count
+      area.tickets.complete.count
     end
     
-    node :tickets_checked_in_count do |area|
-      area.tickets.with_state(:checked_in).count
-    end
+    # node :tickets_checked_in_count do |area|
+    #   area.tickets.with_state(:checked_in).count
+    # end
     
   end
 end

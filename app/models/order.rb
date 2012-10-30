@@ -33,8 +33,9 @@ class Order < ActiveRecord::Base
   
   before_create :set_expires_at
   before_save :cache_state
+  before_save :set_totals
   
-  attr_accessible :total, :service_charge, :tax, :account, :user,  :expires_at,
+  attr_accessible :total, :service_charge, :tax, :base, :account, :user,  :expires_at,
                   :card_type, :card_expiration_month, :card_expiration_year, :first_name, :last_name,
                   :email, :address, :ip_address, :address_attributes
   
@@ -184,8 +185,9 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def total_for_day # Date
-    self.complete.where('purchased_at BETWEEN ?')
+  def self.total_for_day # Date
+    self.complete.where('purchased_at BETWEEN ? AND ?', Time.zone.today.to_date, Time.zone.today.to_date+1)
+        .sum('service_charge')
   end
   
   private
@@ -228,6 +230,12 @@ class Order < ActiveRecord::Base
         :zip      => address.zip
       }
     }
+  end
+  
+  def set_totals
+    self.service_charge = self.tickets.sum('service_charge')
+    self.base = self.tickets.sum('base_price')
+    self.total = self.service_charge + self.base
   end
 
   # Test Cards for Authorize.net∂

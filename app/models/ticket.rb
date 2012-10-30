@@ -72,7 +72,9 @@ class Ticket < ActiveRecord::Base
   # Order.expired
   
   def total
-    self.base_price + self.service_charge
+    base = self.base_price || 0
+    service = self.service_charge || 0
+    base + service
   end
     
   

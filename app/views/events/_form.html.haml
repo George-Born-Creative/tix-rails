@@ -143,4 +143,15 @@
                   =#f.input :price_freeform
                   =f.input :set_times
                   
+                  
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseFive"}
+                  Overrides
+              #collapseFive.accordion-body.collapse
+                .accordion-inner
+                  =f.input :external_ticket_url
+                  =f.input :sold_out, :label => "Force sold out" #, :as => :checkbox
+                  
+                  
           

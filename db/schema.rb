@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030180043) do
+ActiveRecord::Schema.define(:version => 20121030195419) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(:version => 20121030180043) do
     t.string   "buytix_url_old"
     t.string   "slug"
     t.boolean  "disable_event_title",    :default => false
+    t.string   "external_ticket_url"
+    t.boolean  "sold_out"
   end
 
   create_table "events_supporting_acts", :force => true do |t|

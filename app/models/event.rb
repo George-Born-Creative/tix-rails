@@ -48,7 +48,7 @@ class Event < ActiveRecord::Base
                   :cat,                   # TODO move category into its own model
                   :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at,
                   :supporting_acts, :supporting_act_ids, :supporting_act_ids_concat,
-                  :disable_event_title
+                  :disable_event_title, :external_ticket_url, :sold_out
                   
   attr_accessor :supporting_act_ids_concat
   

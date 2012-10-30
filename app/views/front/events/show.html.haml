@@ -57,8 +57,17 @@
         %p After the show -- The lobby bar stays open!
     
     .controls
-      -if @event.on_sale? && ( ! @event.chart.blank? )
+      -# IF SOLD OUT OVERRIDE IS TRUE
+      -if @event.sold_out
+        %a.btn.btn-large.buy_tix{:href => "#"}Sold Out!
+        -# ELSIF EXTERNAL SITE URL is SET
+      -elsif !@event.external_ticket_url.blank?
+        %a.btn.btn-large.buy_tix{:href => @event.external_ticket_url, :target=>'_blank'} Buy Tix »
+        -# ELSIF EVENT IS ON SALE AND CHART IS NOT BLANK
+      -elsif @event.on_sale? && ( ! @event.chart.blank? )
         %a.btn.btn-large.buy_tix{:href => front_chart_path(@event.chart)} Buy Tix
+        
+        
       -else
         %p Event not yet on sale
     

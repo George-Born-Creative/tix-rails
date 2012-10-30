@@ -30,7 +30,7 @@
 # Checked_in: The ticket has been scanned in
 
 class Ticket < ActiveRecord::Base
-  attr_accessible :area, :order, :state, :event_name, 
+  attr_accessible :area, :order, :event_name, 
                   :area_label, :section_label, :base_price,
                   :service_charge
   
@@ -39,13 +39,15 @@ class Ticket < ActiveRecord::Base
   
   # before_create :set_initial_state
   
-  
+
   attr_accessor :reserved, :purchased, :checked_in
   
   belongs_to :order
   belongs_to :area
   delegate :section, :to => :area
   delegate :full_name, :to => :order
+  delegate :state, :to => :order
+  
   validates_presence_of :area
   validates_presence_of :order
     
@@ -59,10 +61,6 @@ class Ticket < ActiveRecord::Base
     state :checked_in
   end
     
-  
-  def total_price
-    base_price + service_charge
-  end  
   
   def event
     area.section.chart.event
@@ -92,9 +90,6 @@ class Ticket < ActiveRecord::Base
   end
   
   
-  # def set_initial_state
-  #   state = 'cart' if state.blank?
-  # end
   
   
     

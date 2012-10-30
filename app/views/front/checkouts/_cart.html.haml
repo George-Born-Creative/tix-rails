@@ -35,7 +35,7 @@
         =number_to_currency ticket.service_charge
         %br/
         %span.mono Total
-        =number_to_currency ticket.total_price
+        =number_to_currency ticket.total
         %br/
 
         =link_to 'Remove', "/orders/remove_from_cart/#{ticket.area.id}", :class => '', :method => 'post'

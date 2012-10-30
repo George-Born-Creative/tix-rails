@@ -13,11 +13,10 @@ class OrdersController < InheritedResources::Base
   end
   
   
-  
   protected
   
   def collection
-    @orders ||= end_of_association_chain.order('created_at DESC')
+    @orders ||= end_of_association_chain.complete.order('created_at DESC')
   end
   
   def begin_of_association_chain

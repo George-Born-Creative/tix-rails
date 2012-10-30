@@ -36,12 +36,12 @@
   
       -@order.tickets.each do |ticket|
         %tr
-          %td=link_to ticket.section.chart.event.name, event_path(ticket.section.chart.event)
-          %td=link_to ticket.area.section.label, event_path(ticket.section.chart.event)
-          %td=link_to "#{ticket.area.label}", event_path(ticket.section.chart.event)
+          %td=link_to ticket.event_name, event_path(ticket.section.chart.event)
+          %td= ticket.section_label
+          %td= ticket.area_label
           %td= number_to_currency ticket.base_price
           %td= number_to_currency ticket.service_charge
-          %td= number_to_currency ticket.total_price
+          %td= number_to_currency ticket.total
           %td= ticket.state
 
       
@@ -52,6 +52,7 @@
         %td=#number_to_currency @order.total_base_price
         %td=#number_to_currency @order.total_service_charge
         %td=#number_to_currency @order.total
+        %td
         -#%td= "#{@order.tickets.checked_in.count} / #{@order.tickets.count}"
         
       
@@ -70,7 +71,7 @@
           
         %p
           %strong Amount
-          =transaction.amount
+          =number_to_currency(transaction.amount/100)
           
           -#     #<OrderTransaction id: 12
           -#      order_id: 132

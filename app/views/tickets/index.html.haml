@@ -31,7 +31,7 @@
           %td=link_to( ticket.area.section.label, edit_chart_path(ticket.area.section.chart) + '/#/section/' + ticket.area.section.id.to_s) if ticket.area
           %td=number_to_currency ticket.base_price.to_s
           %td=number_to_currency ticket.service_charge.to_s
-          %td=number_to_currency ticket.total_price.to_s
+          %td=number_to_currency ticket.total.to_s
           %td=link_to 'Show', ticket_path(ticket)
       
       

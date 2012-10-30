@@ -2,23 +2,21 @@
 #
 # Table name: tickets
 #
-#  id              :integer          not null, primary key
-#  price           :decimal(, )
-#  state           :string(255)      not null
-#  event_id        :integer
-#  area_id         :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  order_id        :integer
-#  account_id      :integer          default(0), not null
-#  base_price      :decimal(, )
-#  service_charge  :decimal(, )
-#  area_label      :string(255)
-#  section_label   :string(255)
-#  checked_in_at   :datetime
-#  status          :string(255)
-#  event_name      :string(255)
-#  event_starts_at :datetime
+#  id             :integer          not null, primary key
+#  price          :decimal(, )
+#  state          :string(255)      not null
+#  event_id       :integer
+#  area_id        :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  order_id       :integer
+#  account_id     :integer          default(0), not null
+#  base_price     :decimal(, )
+#  service_charge :decimal(, )
+#  area_label     :string(255)
+#  section_label  :string(255)
+#  checked_in_at  :datetime
+#  status         :string(255)
 #
 
 require 'spec_helper'
@@ -50,13 +48,13 @@ describe Ticket do
   @ticket.section_label.should eq 'General Admission'
   @ticket.base_price.should eq 10.00
   @ticket.service_charge.should eq 3.00
-  @ticket.total_price.should eq 13.00
+  @ticket.total.should eq 13.00
   @ticket.status.should eq 'open'
   
   end
   
   it "returns a correct total given a service charge and price" do
-    @ticket.total_price.should eq 13.00
+    @ticket.total.should eq 13.00
   end
   
   

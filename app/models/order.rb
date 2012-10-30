@@ -107,6 +107,7 @@ class Order < ActiveRecord::Base
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     if response.success?
       update_attribute(:purchased_at, Time.now) 
+      self.save # to trigger before_saves (cache_state)
       TicketMailer.delay.send_tickets(self.account.id, self.id, true) # true=send_tickets
     end
     response.success?
@@ -155,7 +156,7 @@ class Order < ActiveRecord::Base
   end
   
   def total
-    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total_price}
+    self.tickets.reduce(0) {|memo, ticket| memo += ticket.total}
   end
   
   def tickets_uniq_with_counts
@@ -183,7 +184,9 @@ class Order < ActiveRecord::Base
     end
   end
   
-  
+  def total_for_day # Date
+    self.complete.where('purchased_at BETWEEN ?')
+  end
   
   private
   

@@ -33,37 +33,32 @@
       %thead
         %th ID
         %th Created
-        %th Expires
-        %th Expired?
+        %th Purchased
         %th Total
         %th Customer
         %th # Tickets
         %th By Section
-        %th 
+        %th Status
         %th 
 
-        %th 
+        -#%th 
 
 
       -@orders.each do |order|
         %tr
           %td='#' + order.id.to_s
           %td=order.created_at.to_s :short_ordinal
-          %td
-            =order.expired? ? '-' : ''
-            =time_ago_in_words(order.expires_at, true)
-          %td=order.expired? ? 'Yes' : ''
-          
-          %td=# number_to_currency( order.total ) unless order.total.blank?
+          %td=time_ago_in_words(order.purchased_at, true) +' ago'
+          %td=number_to_currency( order.total ) unless order.total.blank?
           %td
             %strong="#{order.first_name} #{order.last_name}"
             = "#{order.email}"
             
           %td= order.tickets.count
           %td
-            -#unless order.tickets_uniq_with_counts.blank?
-              -#order.tickets_uniq_with_counts.each do |section,count|
-                =#{}"#{count}x #{section} "
+            -unless order.tickets_uniq_with_counts.blank?
+              -order.tickets_uniq_with_counts.each do |section,count|
+                ="#{count}x #{section} "
       
           %td=order.state
           %td
@@ -71,8 +66,7 @@
         
           %td
             %a.btn.btn-primary.btn-large{:href => order_path(order)} view
-          %td
-            =link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
+          -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
       
         
 

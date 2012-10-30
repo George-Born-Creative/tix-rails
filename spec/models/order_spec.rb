@@ -21,6 +21,7 @@
 #  purchased_at          :datetime
 #  email                 :string(255)
 #  ip_address            :string(255)
+#  base                  :decimal(, )
 #
 
 require 'spec_helper'

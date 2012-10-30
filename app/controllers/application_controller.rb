@@ -116,9 +116,14 @@ class ApplicationController < ActionController::Base
   # (Order becomes abandonded (expired_at > Now + LIFESPAN)
   
   def set_current_order
+    # For case when order is deleted (mostly in early development) 
+    # clear session if order is blank. TODO: remove this
+    session[:order_id] = nil if @current_account.orders.where(:id => session[:order_id]).empty?
 
     if session[:order_id]
+      
       @current_order ||= @current_account.orders.find(session[:order_id])
+      
       if @current_order.expired? #|| @current_order.purchased_at ||
         if @current_order.tickets.count == 0
           @current_order.destroy
@@ -126,10 +131,10 @@ class ApplicationController < ActionController::Base
         session[:order_id] = nil
       end  
     end
+    
     if session[:order_id].nil?  
       @current_order = @current_account.orders.create!
       session[:order_id] ||= @current_order.id  
-      
     end    
     @current_order
   end

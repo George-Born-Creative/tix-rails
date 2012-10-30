@@ -2,21 +2,23 @@
 #
 # Table name: tickets
 #
-#  id             :integer          not null, primary key
-#  price          :decimal(, )
-#  state          :string(255)      not null
-#  event_id       :integer
-#  area_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  order_id       :integer
-#  account_id     :integer          default(0), not null
-#  base_price     :decimal(, )
-#  service_charge :decimal(, )
-#  area_label     :string(255)
-#  section_label  :string(255)
-#  checked_in_at  :datetime
-#  status         :string(255)
+#  id              :integer          not null, primary key
+#  price           :decimal(, )
+#  event_id        :integer
+#  area_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  order_id        :integer
+#  account_id      :integer          default(0), not null
+#  base_price      :decimal(, )
+#  service_charge  :decimal(, )
+#  area_label      :string(255)
+#  section_label   :string(255)
+#  checked_in_at   :datetime
+#  status          :string(255)
+#  event_name      :string(255)
+#  event_starts_at :datetime
+#  event_artists   :string(255)
 #
 
 require 'spec_helper'

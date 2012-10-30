@@ -21,10 +21,8 @@
 #  purchased_at          :datetime
 #  email                 :string(255)
 #  ip_address            :string(255)
+#  base                  :decimal(, )
 #
-#
-# first_name, last_name, event_name, event_artists, section_label, section_label, :email
-# full_name
 
 
 class Order < ActiveRecord::Base
@@ -44,6 +42,7 @@ class Order < ActiveRecord::Base
   has_many :transactions, :class_name => "OrderTransaction", :order => 'created_at DESC'
   
   has_one :address, :as => :addressable, :dependent => :destroy
+  has_one :phone, :as => :phonable, :dependent => :destroy
   
   accepts_nested_attributes_for :address
   

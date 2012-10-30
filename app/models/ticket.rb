@@ -4,7 +4,6 @@
 #
 #  id              :integer          not null, primary key
 #  price           :decimal(, )
-#  state           :string(255)      not null
 #  event_id        :integer
 #  area_id         :integer
 #  created_at      :datetime         not null
@@ -19,6 +18,7 @@
 #  status          :string(255)
 #  event_name      :string(255)
 #  event_starts_at :datetime
+#  event_artists   :string(255)
 #
 
 # Ticket

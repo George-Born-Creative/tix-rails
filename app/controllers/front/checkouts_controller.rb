@@ -57,7 +57,6 @@ class Front::CheckoutsController < InheritedResources::Base
       :email => @checkout.user_email,
       :card_expiration_year => @checkout.card_expiration_year,
       :card_expiration_month => @checkout.card_expiration_month,
-      :phone => @checkout.phone_number,
       
     })
     
@@ -67,6 +66,11 @@ class Front::CheckoutsController < InheritedResources::Base
        :city => @checkout.address_city,
        :state => @checkout.address_state,
        :zip => @checkout.address_zip
+    })
+    
+    @order.create_phone({
+      :number => @checkout.phone_number,
+      
     })
     
     @order.card_number = @checkout.card_number

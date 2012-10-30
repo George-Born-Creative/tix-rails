@@ -120,6 +120,9 @@ class ApplicationController < ActionController::Base
     if session[:order_id]
       @current_order ||= @current_account.orders.find(session[:order_id])
       if @current_order.expired? #|| @current_order.purchased_at ||
+        if @current_order.tickets.count == 0
+          @current_order.destroy
+        end
         session[:order_id] = nil
       end  
     end

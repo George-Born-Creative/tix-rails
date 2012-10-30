@@ -35,7 +35,7 @@ class Ticket < ActiveRecord::Base
                   :service_charge
   
   before_save :set_info
-  # before_create :set_info
+  before_create :set_info
   
   # before_create :set_initial_state
   

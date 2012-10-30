@@ -71,7 +71,7 @@ class Event < ActiveRecord::Base
   attr_accessor :starts_at_formatted 
   
   TIMES = [:announce_at, :on_sale_at, :starts_at]#, :off_sale_at, :remove_at]
-  CATEGORIES = [:adult, :kids, :lobby]
+  CATEGORIES = [:adult, :kids, :lobby, :brindley]
   
   
   alias_attribute :name, :title

@@ -7,7 +7,8 @@ class Checkout
                 :address_line_1, :address_line_2,
                 :address_city, :address_state, :address_zip,
                 :card_expiration,
-                :card_expiration_month, :card_expiration_year
+                :card_expiration_month, :card_expiration_year,
+                :phone_number
                 
   attr_reader :card_type
   

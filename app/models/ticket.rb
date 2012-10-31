@@ -79,8 +79,7 @@ class Ticket < ActiveRecord::Base
     
     puts "setting self.event_artists = event.artists_str"
     self.event_artists = event.artists_str
-    self.event_artists
-    
+    puts self.event_artists
     
     puts "setting self.event_starts_at = area.section.chart.event.starts_at"
     self.event_starts_at = area.section.chart.event.starts_at
@@ -90,8 +89,8 @@ class Ticket < ActiveRecord::Base
     self.section_label = area.section.label
     puts self.section_label
     
-    puts "setting self.area_label = area.labelname"
-    self.area_label = area.label
+    puts "setting self.area_label = area.label"
+    self.area_label = self.area.label
     puts self.area_label
     
     puts "self.base_price = area.section.current_price."

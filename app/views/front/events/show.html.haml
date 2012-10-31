@@ -114,7 +114,7 @@
       - unless (@event.headliner.blank? || @event.headliner.youtube1.blank?)
         %h2 Videos
         =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') 
-        %hr.red
+
       - unless (@event.secondary_headliner.blank? || @event.secondary_headliner.youtube1.blank?)
         =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300')
       

@@ -114,11 +114,11 @@ class Order < ActiveRecord::Base
   end
   
  
-  
+
   def price_in_cents
-     (total*100).round
-   end
-   
+    (total*100).round
+  end
+
 
   def generate_and_email_tickets
     puts "### Gen/Emailing tickets"

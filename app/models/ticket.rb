@@ -73,17 +73,21 @@ class Ticket < ActiveRecord::Base
   
   private 
   
-  def set_info # ®
+  def set_info
     puts "Setinfo: #{event.name}"
     puts "self.event_name = event.name"
     self.event_name = event.name
-    puts "Setinfo: #{event.name}"
-    
+    puts "self.event_artists = event.artists_str"
     self.event_artists = event.artists_str
+    puts "event_starts_at = area.section.chart.event.starts_at"
     self.event_starts_at = area.section.chart.event.starts_at
+    puts "self.section_label  = area.section.label"
     self.section_label  = area.section.label
+    puts "self.area_label  = self.area.label"
     self.area_label  = self.area.label
+    puts "base_price = self.area.section.current_price.base"
     self.base_price = self.area.section.current_price.base
+    puts "service_charge = area.section.current_price.service"
     self.service_charge = area.section.current_price.service
   end
   

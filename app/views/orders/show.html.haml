@@ -49,9 +49,9 @@
         %td
         %td
         %td
-        %td=#number_to_currency @order.total_base_price
-        %td=#number_to_currency @order.total_service_charge
-        %td=#number_to_currency @order.total
+        %td=number_to_currency @order.total_base_price
+        %td=number_to_currency @order.total_service_charge
+        %td=number_to_currency @order.total
         %td
         -#%td= "#{@order.tickets.checked_in.count} / #{@order.tickets.count}"
         

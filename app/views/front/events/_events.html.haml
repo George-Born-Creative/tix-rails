@@ -35,7 +35,8 @@
                 .artists= event.artists_str
                 
           
-              %a.btn{:href => front_event_path(event)} Buy Tix
+              .controls
+                =render :partial => 'front/events/buttons', :locals => {:event => event }
             
           
       

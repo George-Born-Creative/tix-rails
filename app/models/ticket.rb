@@ -89,8 +89,11 @@ class Ticket < ActiveRecord::Base
     self.section_label = area.section.label
     puts self.section_label
     
-    puts "setting self.area_label = area.label"
+    puts "setting self.area_label = self.area.label"
     self.area_label = self.area.label
+    puts "self.area.label"
+    puts self.area.label
+    puts "self.area_label"
     puts self.area_label
     
     puts "self.base_price = area.section.current_price."

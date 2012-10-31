@@ -86,11 +86,11 @@ class Order < ActiveRecord::Base
     # TODO Watch out for race conditions here
     area = Area.find(area_id)
     if area.ticketable?
-        self.tickets.create(:area => area)
-        # If this is the first ticket, reset order expiration
-        set_expires_at() if self.tickets.count == 1
-        
-        return true
+      self.tickets.create(:area => area)
+      # If this is the first ticket, reset order expiration
+      set_expires_at() if self.tickets.count == 1
+      
+      return true
     else
       return false
     end

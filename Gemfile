@@ -71,7 +71,7 @@ gem 'pusher'
 # key value store
 gem 'redis'
 # gem 'redis-objects', :require => 'redis/objects'
-
+gem "moonshado-sms"
 #gem 'postmark-rails', '>= 0.4.1'
 
 gem 'devise'

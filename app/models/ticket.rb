@@ -32,13 +32,12 @@
 class Ticket < ActiveRecord::Base
   attr_accessible :area, :order, :event_name, 
                   :area_label, :section_label, :base_price,
-                  :service_charge
+                  :service_charge, :event_artists, :event_starts_at
   
   before_save :set_info
   before_create :set_info
   
   # before_create :set_initial_state
-  
 
   attr_accessor :reserved, :purchased, :checked_in
   
@@ -74,15 +73,14 @@ class Ticket < ActiveRecord::Base
   private 
   
   def set_info
-    update_attributes({
-      :event_name => event.name,
-      :event_artists => event.artists_str,
-      :event_starts_at => area.section.chart.event.starts_at,
-      :section_label => area.section.label,
-      :area_label => area.label,
-      :base_price => area.section.current_price.base,
-      :service_charge => area.section.current_price.service,
-    })
+    
+      self.event_name = event.name
+      self.event_artists = event.artists_str
+      self.event_starts_at = area.section.chart.event.starts_at
+      self.section_label = area.section.label
+      self.area_label = area.label
+      self.base_price = area.section.current_price.base
+      self.service_charge = area.section.current_price.service
    
   end
   

@@ -119,7 +119,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
 
           
           
-        console.log $('#chart_container').offset().left
+        #console.log $('#chart_container').offset().left
         offLeft = e.pageX  -  $('#chart_container').offset().left + 20
         offTop  = e.pageY  - $('#chart_container').offset().top  + 200
         offLeft = if offLeft >= 200 then offLeft - 160 else offLeft

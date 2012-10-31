@@ -2,7 +2,6 @@
 -if local_assigns[:show_event_info] && show_event_info == true
   %a.btn.btn-large.buy_tix{:href => front_event_path(event)} Info
 
-
 -if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
   %a.btn.btn-large.edit{:href => edit_event_url(event), :target => '_blank'} Edit
 

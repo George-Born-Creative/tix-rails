@@ -16,6 +16,7 @@
         font-family: "Helvetica", sans-serif; 
         font-size: 16pt
       }
+  
       .wrap{
         margin: .5in;
       }
@@ -28,11 +29,11 @@
         float: left;
       }
       .left {
-        width: 4.25in;
+        width: 4.75in;
       }
 
       .right {
-        width: 3.75in;
+        width: 3.0in;
         overflow: hidden;
       }
       .item {
@@ -53,7 +54,7 @@
       .left .item .text {
         font-size: 11pt;
         float: right;
-        width: 2.5in;
+        width: 3.5in;
       }
 
 
@@ -63,7 +64,7 @@
       .right .image {
          border-radius: 5px;
          background-color: black;
-         width: 3.5in;
+         width: 2.50in;
          padding: .2in;
          margin-bottom: .1in;
       }
@@ -93,6 +94,9 @@
       }
       .xlarge {
         font-size: 2.5em;
+      }
+      .small {
+        font-size: .8em !important;
       }
       .ticket {
         clear: both;
@@ -127,24 +131,25 @@
                 .label Customer
                 .text
                   %span.large
-                    =ticket.order.first_name + ' ' + ticket.order.last_name
+                    =ticket.order.full_name
                   %br/
                   =ticket.order.email
               .item
                 .label Order Info
                 .text
-                  Ordered by
-                  %strong=ticket.full_name
-                  on
-                  %br/
-                  %strong=ticket.created_at.to_formatted_s(:jammin_java)
-                  <br/>
-                  ="Order ##{ticket.order.id}"
+                  %span.small
+                    Ordered by
+                    %strong=ticket.full_name
+                    on
+                    %br/
+                    %strong=ticket.created_at.to_formatted_s(:jammin_java)
+                    <br/>
+                    ="Order ##{ticket.order.id}"
     
   
             .right
               .image
-                =image_tag( 'http://jamminjava.thintix.com/images/jj-logo.png', :alt => "Jammin' Java: Thank you for your order!", :width => 275)
+                =image_tag( 'http://jamminjava.thintix.com/images/jj-logo.png', :alt => "Jammin' Java: Thank you for your order!", :width => 250)
 
               .info
                 .label Section

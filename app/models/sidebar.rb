@@ -25,20 +25,20 @@ class Sidebar < ActiveRecord::Base
   
   
   def body(show_edit_controls = false)
-    return '' if self.widgets.count == 0
-    html = self.widget_placements.map do |widget_placement|
-      widget = widget_placement.widget
-      %Q{
-         <div class="widget widget-slug-#{widget.slug}">
-           <!--div class="widget-title"><h3>#{widget.title}</h3></div-->
-           <div class="widget-body">#{widget.body}</div>
-        
-         </div>
-         <div class="clear"></div>
-       }
-      
-    end
-    html.join('').to_s.html_safe
+    return ''# if self.widgets.count == 0
+    # html = self.widget_placements.map do |widget_placement|
+    #   widget = widget_placement.widget
+    #   %Q{
+    #      <div class="widget widget-slug-#{widget.slug unless widget.slug.blank?}">
+    #        <!--div class="widget-title"><h3>#{widget.title unless widget.slug.blank?}</h3></div-->
+    #        <div class="widget-body">#{widget.body unless widget.slug.blank?}</div>
+    #     
+    #      </div>
+    #      <div class="clear"></div>
+    #    }
+    #   
+    # end
+    # html.join('').to_s.html_safe
   end
   
 end

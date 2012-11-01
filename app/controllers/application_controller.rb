@@ -84,8 +84,8 @@ class ApplicationController < ActionController::Base
   end
   
   def ckeditor_before_create_asset(asset)
-      asset.assetable = @current_account
-      return true
+    asset.assetable = @current_account
+    return true
   end
   
   private

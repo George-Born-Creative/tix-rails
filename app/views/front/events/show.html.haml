@@ -34,20 +34,21 @@
     -unless @event.headliner.blank? || !@event.headliner.photo?
       =image_tag(@event.headliner.photo(:original), :width => '100%')
   .span5
-    %p=@event.starts_at.to_formatted_s :jammin_java
-    -if @event.chart
-      -# TODO: Event should have chart
-      %p=@event.current_prices_str
+    .event-info
+      %p.starts-at=@event.starts_at.to_formatted_s :jammin_java
+      -if @event.chart
+        -# TODO: Event should have chart
+        %p.current-prices=@event.current_prices_str
         
-  
-    -if @event.disable_event_title
-      %h1= @event.headliners_str
-    -else
-      %h1= @event.title
-      %h2= @event.headliners_str
+      .event-title
+        -if @event.disable_event_title
+          %h1= @event.headliners_str
+        -else
+          %h1= @event.title
+          %h2= @event.headliners_str
     
-    -unless @event.supporting_acts_str.blank?
-      %h3=@event.supporting_acts_str
+        -unless @event.supporting_acts_str.blank?
+          %h3=@event.supporting_acts_str
     
     
     .set-times
@@ -66,40 +67,43 @@
     -unless @event.body.blank?
       =@event.body.html_safe
     
+    .artist-bios
+      %h1 Bios
 
-    %h1 Bios
-
-    -unless @event.headliner.blank?
-      %h3= @event.headliner.name
-      =raw @event.headliner.body.html_safe
+      -unless @event.headliner.blank?
+        .headliner
+          %h3= @event.headliner.name
+          =raw @event.headliner.body.html_safe
           
-      =artist_social_bar(@event.headliner)   
+          =artist_social_bar(@event.headliner)   
       
       
-    -unless @event.secondary_headliner.blank?
-      %hr.red-thin
+      -unless @event.secondary_headliner.blank?
+        .secondary-headliner
+          %hr.red-thin
       
-      %h5 Secondary Headliner
+          %h5 Secondary Headliner
       
-      %h3= @event.secondary_headliner.name
-      =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
+          %h3= @event.secondary_headliner.name
+          =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
       
-      =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank?
-      =artist_social_bar(@event.secondary_headliner)   
+          =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank?
+          =artist_social_bar(@event.secondary_headliner)   
       
       
       
-    -unless @event.supporting_acts.blank?
-      %hr.red-thin
-      -@event.supporting_acts.each do |artist|
-        =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
-      
-        %h3= artist.name
-        =artist.body.html_safe unless artist.body.blank?
-        
-        =artist_social_bar( artist )
-        
+      -unless @event.supporting_acts.blank?
         %hr.red-thin
+        -@event.supporting_acts.each do |artist|
+          .supporting-act
+            =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
+      
+            %h3= artist.name
+            =artist.body.html_safe unless artist.body.blank?
+        
+            =artist_social_bar( artist )
+        
+            %hr.red-thin
         
 
   .span5

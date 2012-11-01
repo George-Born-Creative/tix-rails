@@ -1,0 +1,9 @@
+-sidebar.widget_placements.each do |widget_placement|
+
+  -widget = widget_placement.widget
+  -if widget
+    .widget.widget-slug
+      .widget-title{:class => 'widget-#{widget.title if widget.title}'}
+      .widget-body=widget.body.html_safe
+    .clear
+  

@@ -13,7 +13,7 @@
 
 class Widget < ActiveRecord::Base
   
-  has_many :widget_placements
+  has_many :widget_placements, :dependent => :destroy
   has_many :sidebars, :through => :widget_placements
   belongs_to :account
   

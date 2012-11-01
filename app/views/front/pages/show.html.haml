@@ -11,7 +11,7 @@
   
   
 =content_for :sidebar do 
-  -if @page.slug == 'home'
+  -if  @page && @page.slug == 'home'
   
     .today
       =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/042/original/today.png?1351699284',  width: '100%')
@@ -22,4 +22,4 @@
     %br/
     %br/
     
-  =@page.sidebar.body unless (@page.nil? || @page.sidebar.nil?)
+  =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

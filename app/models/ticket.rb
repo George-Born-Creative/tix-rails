@@ -90,7 +90,7 @@ class Ticket < ActiveRecord::Base
     puts self.section_label
     
     puts "setting self.area_label = self.area.label"
-    self.area_label = self.area.label
+    self.area_label = "#{self.area.label}"
     puts "self.area.label"
     puts self.area.label
     puts "self.area_label"

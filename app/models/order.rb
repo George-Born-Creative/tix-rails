@@ -61,6 +61,9 @@ class Order < ActiveRecord::Base
   scope :cart, lambda { where("expires_at >= ? AND purchased_at IS ?", Time.zone.now, nil) }
   # COMPLETE (  purchased_at < Time.now   
   scope :complete, lambda { where("purchased_at < ?", Time.zone.now)}
+  
+  
+  scope :purchased_between, lambda { |start_time, end_time| where(:purchased_at => (start_time...end_time)) }
 
   
   def expired?
@@ -171,6 +174,12 @@ class Order < ActiveRecord::Base
   #
   #
   
+  def self.uniq_shows_with_counts
+    # scope :expired, lambda { joins(:order).where('orders.expires_at <= ? AND purchased_at IS ?', Time.zone.now, nil) }  
+    self.joins(:tickets).joins(:events)
+    #self.joins(:).reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
+  end
+  
   
   def self.total
     self.all.each.reduce(0) do |memo, order|
@@ -189,6 +198,25 @@ class Order < ActiveRecord::Base
     self.complete.where('purchased_at BETWEEN ? AND ?', Time.zone.today.to_date, Time.zone.today.to_date+1)
         .sum('service_charge')
   end
+  
+  
+  def self.purchased_today
+    today = Time.zone.now
+    purchased_between(today.beginning_of_day, today.end_of_day)
+  end
+  
+  def self.purchased_yesterday
+    yesterday = Time.zone.now - 1.day
+    purchased_between(yesterday.beginning_of_day, yesterday.end_of_day)
+  end
+  
+  
+  def self.purchased_this_week
+    start_time = (Time.zone.now - 1.week).beginning_of_day
+    end_time = Time.zone.now
+    purchased_between(start_time, end_time)
+  end
+
   
   private
   

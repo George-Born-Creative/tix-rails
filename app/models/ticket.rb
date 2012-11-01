@@ -30,11 +30,11 @@
 # Checked_in: The ticket has been scanned in
 
 class Ticket < ActiveRecord::Base
-  attr_accessible :area, :order, :event_name, 
+  attr_accessible :area, :order, :event_name,  :event_id,
                   :area_label, :section_label, :base_price,
                   :service_charge, :event_artists, :event_starts_at
   
-  # before_save :set_info
+  before_save :set_attributes
   # before_create :set_info
   
   # before_create :set_initial_state
@@ -46,13 +46,41 @@ class Ticket < ActiveRecord::Base
   delegate :section, :to => :area
   delegate :full_name, :to => :order
   delegate :state, :to => :order
-  
+    
   validates_presence_of :area
   validates_presence_of :order
     
   scope :expired, lambda { joins(:order).where('orders.expires_at <= ? AND purchased_at IS ?', Time.zone.now, nil) }  
   scope :cart, lambda { joins(:order).where('orders.expires_at > ? AND purchased_at IS ?', Time.zone.now, nil) }
   scope :complete, lambda { joins(:order).where("orders.purchased_at < ?", Time.zone.now)}
+  scope :purchased_between, lambda { |start_time, end_time| joins(:order).where('orders.purchased_at BETWEEN ? AND ?', start_time, end_time) }
+  
+
+
+  # scope :purchased_between, lambda { |start_time, end_time| where(:purchased_at => (start_time...end_time) }
+  
+  # Ticket.purchased_between(yesterday.beginning_of_day, yesterday.end_of_day).sum(:base_price, :group => :event_name).each {|a,b| puts "#{a} #{b}"}
+  
+  def self.for_event(event_id)
+    where(:event_id => event_id)
+  end
+  
+  def self.purchased_today
+    today = Time.zone.now
+    purchased_between(today.beginning_of_day, today.end_of_day)
+  end
+  
+  def self.purchased_yesterday
+    yesterday = Time.zone.now - 1.day
+    purchased_between(yesterday.beginning_of_day, yesterday.end_of_day)
+  end
+  
+  def self.purchased_this_week
+    start_time = (Time.zone.now - 1.week).beginning_of_day
+    end_time = Time.zone.now
+    purchased_between(start_time, end_time)
+  end
+  
   
   
   
@@ -69,19 +97,6 @@ class Ticket < ActiveRecord::Base
     base + service
   end
     
-    
-  def cache_info
-   puts  "CACHING ATTRS"
-   self.update_attributes({
-      :event_name => event.name,
-      :event_artists => event.artists_str,
-      :event_starts_at => area.section.chart.event.starts_at,
-      :section_label => area.section.label,
-      :area_label => area.label,
-      :base_price => area.section.current_price.base,
-      :service_charge => area.section.current_price.service
-    })
-  end
     
   def set_info
     puts "setting self.event_name = event.name"
@@ -122,9 +137,16 @@ class Ticket < ActiveRecord::Base
   
   private 
   
-  
-  
-  
+  def set_attributes
+    self.event_name = event.name
+    self.event_id = event.id
+    self.event_artists = event.artists_str
+    self.event_starts_at = area.section.chart.event.starts_at
+    self.section_label = area.section.label
+    self.area_label = area.label
+    self.base_price = area.section.current_price.base
+    self.service_charge = area.section.current_price.service
+  end
   
   
     

@@ -36,6 +36,6 @@ class Ckeditor::Picture < Ckeditor::Asset
   
 
 	def url_content
-	  url(:medium)
+	  url(:original)
 	end
 end

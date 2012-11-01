@@ -1,16 +1,10 @@
 
--if local_assigns[:show_event_info] && show_event_info == true
-  %a.btn.btn-large.buy_tix{:href => front_event_path(event)} Info
-
--if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
-  %a.btn.btn-large.edit{:href => edit_event_url(event), :target => '_blank'} Edit
-
 -# IF SOLD OUT OVERRIDE IS TRUE
 -if event.sold_out
-  %a.btn.btn-large.buy_tix{:href => "#"}Sold Out!
+  %a.btn.btn-large.sold-out{:href => "javascript:;" }Sold Out!
   -# ELSIF EXTERNAL SITE URL is SET
 -elsif !event.external_ticket_url.blank?  
-  %a.btn.btn-large.buy_tix{:href => event.external_ticket_url, :target=>'_blank'} Buy Tix »
+  %a.btn.btn-large.buy-tix{:href => event.external_ticket_url, :target=>'_blank'} Buy Tix
   -# ELSIF EVENT IS ON SALE AND CHART IS NOT BLANK
 -elsif event.on_sale? && ( ! event.chart.blank? )
 
@@ -18,3 +12,8 @@
   
 -else
   %span Event not yet on sale.
+
+
+
+-if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
+  %a.btn.btn-large.edit{:href => edit_event_url(event), :target => '_blank'} Edit

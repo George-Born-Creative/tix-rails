@@ -14,7 +14,6 @@
     .span9
 
       -events.each do |event|
-        %hr.red-thin
         
         .item
           .row
@@ -39,7 +38,8 @@
           
               .controls
                 =render :partial => 'front/events/buttons', :locals => {:event => event, :show_event_info => true  }
-          
+        %hr.red-thin
+        
       
 
 .row

@@ -14,7 +14,7 @@
   -if @page.slug == 'home'
   
     .today
-      =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/041/medium/tonight_header.png?1351461213',  width: '100%')
+      =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/042/original/today.png?1351699284',  width: '100%')
       .set-times
         -@current_account.events.today.order('starts_at ASC').each do |event|
           =event.set_times.html_safe unless event.set_times.blank?

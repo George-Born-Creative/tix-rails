@@ -23,8 +23,8 @@
         
         %h5
           ="#{ticket.section_label}"
-          -unless ticket.area.label.blank?
-            =" / #{ticket.area.label}"
+          -unless ticket.area_label.blank?
+            =" / #{ticket.area_label}"
         =image_tag('http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=#{front_event_path(ticket.event)}&chld=H|0')
           
       .span

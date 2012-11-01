@@ -34,8 +34,8 @@ class Ticket < ActiveRecord::Base
                   :area_label, :section_label, :base_price,
                   :service_charge, :event_artists, :event_starts_at
   
-  before_save :set_info
-  before_create :set_info
+  # before_save :set_info
+  # before_create :set_info
   
   # before_create :set_initial_state
 
@@ -69,46 +69,59 @@ class Ticket < ActiveRecord::Base
     base + service
   end
     
+    
+  def cache_info
+   puts  "CACHING ATTRS"
+   self.update_attributes({
+      :event_name => event.name,
+      :event_artists => event.artists_str,
+      :event_starts_at => area.section.chart.event.starts_at,
+      :section_label => area.section.label,
+      :area_label => area.label,
+      :base_price => area.section.current_price.base,
+      :service_charge => area.section.current_price.service
+    })
+  end
+    
+  def set_info
+    # puts "setting self.event_name = event.name"
+    # self.event_name = event.name
+    # puts self.event_name
+    # 
+    # puts "setting self.event_artists = event.artists_str"
+    # self.event_artists = event.artists_str
+    # puts self.event_artists
+    # 
+    # puts "setting self.event_starts_at = area.section.chart.event.starts_at"
+    # self.event_starts_at = area.section.chart.event.starts_at
+    # puts self.event_starts_at
+    # 
+    # puts "setting self.section_label = area.section.label"
+    # self.section_label = area.section.label
+    # puts self.section_label
+    # 
+    # puts "setting self.area_label = self.area.label"
+    # self.area_label = "#{self.area.label}"
+    # puts "self.area.label"
+    # puts self.area.label
+    # puts "self.area_label"
+    # puts self.area_label
+    # 
+    # puts "self.base_price = area.section.current_price."
+    # self.base_price = area.section.current_price.base
+    # puts self.base_price
+    # 
+    # puts "self.service_charge = area.section.current_price.service"
+    # self.service_charge = area.section.current_price.service
+    # puts self.service_charge
+    # 
+    # puts "SERVICE CHARGE IS #{self.service_charge}"
+    # puts "AREA LABEL IS #{self.area_label}"
+    
+  end
   
   private 
   
-  def set_info
-    puts "setting self.event_name = event.name"
-    self.event_name = event.name
-    puts self.event_name
-    
-    puts "setting self.event_artists = event.artists_str"
-    self.event_artists = event.artists_str
-    puts self.event_artists
-    
-    puts "setting self.event_starts_at = area.section.chart.event.starts_at"
-    self.event_starts_at = area.section.chart.event.starts_at
-    puts self.event_starts_at
-    
-    puts "setting self.section_label = area.section.label"
-    self.section_label = area.section.label
-    puts self.section_label
-    
-    puts "setting self.area_label = self.area.label"
-    self.area_label = "#{self.area.label}"
-    puts "self.area.label"
-    puts self.area.label
-    puts "self.area_label"
-    puts self.area_label
-    
-    puts "self.base_price = area.section.current_price."
-    self.base_price = area.section.current_price.base
-    puts self.base_price
-    
-    puts "self.service_charge = area.section.current_price.service"
-    self.service_charge = area.section.current_price.service
-    puts self.service_charge
-    
-    puts "SERVICE CHARGE IS #{self.service_charge}"
-    puts "AREA LABEL IS #{self.area_label}"
-    
-    
-  end
   
   
   

@@ -8,14 +8,14 @@
             .span2
               %h3 Event
             .span4
-              %h2=ticket.section.chart.event.name
+              %h2=ticket.event_name
             
           .row
             %hr
             .span2
               %h3 Date
             .span4            
-              =ticket.section.chart.event.starts_at.to_formatted_s
+              =ticket.event_starts_at.to_formatted_s(:jammin_java)
 
           .row
             %hr

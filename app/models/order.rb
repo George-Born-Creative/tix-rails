@@ -103,21 +103,23 @@ class Order < ActiveRecord::Base
   
   def purchase
     # raise credit_card.to_s
-    puts "price_in_cents #{price_in_cents}"
-    puts "credit_card #{credit_card}"
-    puts "credit_card #{credit_card.valid?}"
-    puts "purchase_options #{purchase_options.to_s}"
+    #puts "price_in_cents #{price_in_cents}"
+    #puts "credit_card #{credit_card}"
+    #puts "credit_card #{credit_card.valid?}"
+    #puts "purchase_options #{purchase_options.to_s}"
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     if response.success?
       update_attribute(:purchased_at, Time.now) 
       self.save # to trigger before_saves (cache_state)
-      TicketMailer.delay.send_tickets(self.account.id, self.id, true) # true=send_tickets
+      email_tickets
     end
     response.success?
   end
   
- 
+ def email_tickets
+   TicketMailer.delay.send_tickets(self.account.id, self.id, true) # true=send_tickets
+ end
 
   def price_in_cents
     (total*100).round

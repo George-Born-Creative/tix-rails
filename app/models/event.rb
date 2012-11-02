@@ -183,6 +183,14 @@ class Event < ActiveRecord::Base
     str
   end
   
+  def title_with_artists
+    if self.disable_event_title
+      artists_str
+    else
+      "#{(self.title + " ") unless self.title.blank?}#{headliners_str unless self.headliners_str.blank?}"
+    end
+  end
+  
   
   private
   

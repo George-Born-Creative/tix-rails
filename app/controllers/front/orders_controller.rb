@@ -28,7 +28,7 @@ class Front::OrdersController < ApplicationController
       end
     end
   end
-  
+    
 
   def remove_from_cart # POST /orders/remove_from_cart/:area_id 
     area_id = params[:area_id]
@@ -61,7 +61,6 @@ class Front::OrdersController < ApplicationController
        render :inline => response.body, :status => response.code
      end
    end
-   
    
   
 

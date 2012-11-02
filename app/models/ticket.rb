@@ -138,7 +138,7 @@ class Ticket < ActiveRecord::Base
   private 
   
   def set_attributes
-    self.event_name = event.name
+    self.event_name = event.title_with_artists
     self.event_id = event.id
     self.event_artists = event.artists_str
     self.event_starts_at = area.section.chart.event.starts_at

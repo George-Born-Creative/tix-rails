@@ -62,9 +62,9 @@
 
                   %tr
                     %td{:style => "padding:20px 10px 5px 10px;border-bottom:1px solid #cccccc;font-size:12px;font-weight:bold", :valign => "top"}
-                      %p Show
+                      %p Time
                     %td{:style => "padding:20px 10px 5px 10px;border-bottom:1px solid #cccccc;font-size:12px;font-weight:bold", :valign => "top"}
-                      %p Artists
+                      %p Show
                     %td{:style => "padding:20px 10px 5px 10px;border-bottom:1px solid #cccccc;font-size:12px;font-weight:bold", :valign => "top"}
                       %p Base
                     %td{:style => "padding:20px 10px 5px 10px;border-bottom:1px solid #cccccc;font-size:12px;font-weight:bold", :valign => "top"}
@@ -77,10 +77,11 @@
                   -@order.tickets.each do |ticket|
                     %tr
                       %td{:style => "padding:10px 5px 10px 10px;font-size:12px", :valign => "top"}
-                        %p=ticket.event_name
+                        %p=ticket.event_starts_at.to_formatted_s(:jammin_java)
                       %td{:style => "padding:10px 5px 10px 10px;font-size:12px", :valign => "top"}
                         %p
-                          %span.il=ticket.event_artists
+                          %span.il=ticket.event_name
+                          
                       %td{:style => "padding:10px 5px 10px 10px;font-size:12px", :valign => "top"}
                         %p=number_to_currency ticket.base_price
                       %td{:style => "padding:10px 5px 10px 10px;font-size:12px", :valign => "top"}

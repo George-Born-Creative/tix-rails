@@ -17,8 +17,8 @@
         .span6.offset-by-one
           %i.icon-ok.icon-white
           ="Sent via Email"#, '#' #, :class => 'btn btn btn-large'
-          %br/
-          =link_to "<i class='icon-white icon-qrcode'></i> Send via Text Mesage »".html_safe, '#' , :class => 'btn'
+          /%br/
+          /=link_to "<i class='icon-white icon-qrcode'></i> Send via Text Mesage »".html_safe, '#' , :class => 'btn'
           %br/
           =link_to "<i class='icon-white icon-print'></i> Print at Home »".html_safe, front_order_path(@order, :format => :pdf), :class => 'btn '
     

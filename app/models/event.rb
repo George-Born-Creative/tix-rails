@@ -111,7 +111,6 @@ class Event < ActiveRecord::Base
   }}
 
 
-
   def announced?
     now = Time.zone.now
     now > self.announce_at && (self.remove_at.nil? || now < self.remove_at)

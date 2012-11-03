@@ -4,11 +4,11 @@
   %a.btn.btn-large.sold-out{:href => "javascript:;" }Sold Out!
   -# ELSIF EXTERNAL SITE URL is SET
 -elsif !event.external_ticket_url.blank?  
-  %a.btn.btn-large.buy-tix{:href => event.external_ticket_url, :target=>'_blank'} Buy Tix
+  %a.btn.btn-large.buy-tix{:href => event.external_ticket_url, :target=>'_blank'} Buy Tickets
   -# ELSIF EVENT IS ON SALE AND CHART IS NOT BLANK
 -elsif event.on_sale? && ( ! event.chart.blank? )
 
-  %a.btn.btn-large.buy_tix{:href => front_chart_path(event.chart)} Buy Tix
+  %a.btn.btn-large.buy_tix{:href => front_chart_path(event.chart)} Buy Tickets
   
 -else
   %span Event not yet on sale.

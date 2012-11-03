@@ -17,7 +17,7 @@
     
     
     .buy.box.g4.padded.col.omega
-      %a.button.buy_tix{:href => ('/#/tickets/' + @escape('id')) } Buy Tix »
+      %a.button.buy_tix{:href => ('/#/tickets/' + @escape('id')) } Buy Tickets »
     
     
       .prices      

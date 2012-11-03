@@ -30,7 +30,7 @@ module PagesHelper
   
   def apply_events_list(html)
     #events_list_regex = /\[events_list cat=\&[a-z]+;([a-z0-9]+)\&[a-z]+;\]/
-    regex = /\[(events_list) cat=\&[a-z]+;([a-z0-9|]+[|]?)+\&[a-z]+;\]/
+    regex = /\[(events_list) cat=\&[a-z]+;([a-z0-9|_]+[|]?)+\&[a-z]+;\]/
 
     html.gsub!(regex) do |match|
       cats = $2.split('|').map{|c| c.to_sym}
@@ -39,6 +39,7 @@ module PagesHelper
     end
     
     html
+    
   end
   
   

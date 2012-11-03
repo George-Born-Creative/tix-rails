@@ -3,6 +3,10 @@
 
 .row  
   .span6
+    =simple_form_for User.new, :as => :user, :url => registration_path(:user)
+    = devise_error_messages
+    f.input :submit
+  
     =form_tag '/checkout', :method => 'post' do
       .row
         .span6

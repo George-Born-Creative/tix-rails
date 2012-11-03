@@ -42,10 +42,19 @@
         
       .event-title
         -if @event.disable_event_title
-          %h1= @event.headliners_str
+          -if @event.headliners_str.length < 60
+            %h1= @event.headliners_str
+          -else
+            %h2= @event.headliners_str
+            
+            
         -else
-          %h1= @event.title
-          %h2= @event.headliners_str
+          -if @event.title.length < 60
+            %h1= @event.title
+            %h2= @event.headliners_str
+          -else
+            %h2= @event.title
+            %h3= @event.headliners_str
     
         -unless @event.supporting_acts_str.blank?
           %h3=@event.supporting_acts_str

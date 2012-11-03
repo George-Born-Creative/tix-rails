@@ -33,7 +33,6 @@ class Section < ActiveRecord::Base
   
   attr_accessible :chart_id, :label, :seatable, :color, :account_id, :index#, :presale_price, :dayof_price
   
-  
   def current_price
     return nil if self.chart.nil? || self.chart.event.nil?
     _day_of?(self.chart.event.starts_at) ? self.dayof_price : self.presale_price

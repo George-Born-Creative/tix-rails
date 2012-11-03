@@ -34,7 +34,7 @@ class Chart < ActiveRecord::Base
   before_save :set_default_background_color
   DEFAULT_BACKGROUND_COLOR = '#000000'
   belongs_to :account
-  has_many :sections, :dependent => :destroy, :order => 'index ASC'
+  has_many :sections, :dependent => :destroy#, :order => 'index ASC'
   
   has_one :event
   
@@ -42,7 +42,7 @@ class Chart < ActiveRecord::Base
   
   scope :masters, :conditions => { :master => true }
   scope :slaves, :conditions => { :master => false }
-
+  scope :indexed, :order => 'index ASC'
   
   
   has_attached_file :svg_file,

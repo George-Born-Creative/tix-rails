@@ -1,5 +1,5 @@
 -is_detail_page = (local_assigns[:context] && local_assigns[:context] == :detail) 
--detail_page_link = is_detail_page ? 'javascript:;' : front_event_path(event)
+-detail_page_link = is_detail_page ? '#' : front_event_path(event)
 
 -# IF FREE EVENT
 -if event.hide_buttons

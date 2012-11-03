@@ -8,12 +8,32 @@ window.TixLib =
     
   Dispatcher: _.clone(Backbone.Events)
   
-  init: ->
-    # http://railscasts.com/episodes/340-datatables?view=asciicast
+  
+  openExternalLinksInNewWindow: ->
+    # http://css-tricks.com/snippets/jquery/open-external-links-in-new-window/
+    $("a[href^='http://']").each ->
+      a = new RegExp("/" + window.location.host + "/")
+      unless a.test(@href)
+        $(this).click (event) ->
+          event.preventDefault()
+          event.stopPropagation()
+          window.open @href, "_blank"
+
     
-    console.log '$.ajaxSetup'
-    
+  setupAjax: ->
     $.ajaxSetup
       beforeSend: (xhr)->
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
       
+
+  dontJumpOnBlankAnchors: ->
+    $('a[href="#"]').click (e)->
+      e.preventDefault()
+    
+  
+  init: ->
+    # http://railscasts.com/episodes/340-datatables?view=asciicast
+    
+    @openExternalLinksInNewWindow()
+    @dontJumpOnBlankAnchors()
+    @setupAjax()

@@ -1,4 +1,5 @@
 class Front::PagesController < ApplicationController
+  caches_page :index
   
   # GET /pages
   # GET /pages.json

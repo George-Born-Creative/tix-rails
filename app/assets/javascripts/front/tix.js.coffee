@@ -10,13 +10,28 @@ window.Tix =
       return '$' + parseFloat(price).toFixed(2).toString()
     
   init: (data)->
+    self = this
     console.log 'ThinTix App Initialized'
-    
     TixLib.init()
-    @initCart()
-    @initCartMiniView()
-    @initCartView(data)
-    @initChart()
+    
+    $.ajax 
+      url: '/users/env'
+      type: 'post'
+      dataType: 'json'
+      success: (data)->
+        console.log data
+        self.initCart()
+        self.initCartMiniView()
+        self.initCartView(data)
+        self.initChart()
+        
+        if data.role == 'employee' || data.role == 'owner' || data.role == 'manager'
+          self.initEditButtons()
+      
+    
+  initEditButtons: ->
+    $('.admin-button').fadeIn()
+    
     
   initCart: ->
     Tix.Cart = new Tix.Collections.Cart()

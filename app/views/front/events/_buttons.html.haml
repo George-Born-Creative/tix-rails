@@ -24,5 +24,7 @@
 
 -# SHOW EDIT BUTTONS ONLY TO ADMINS
 -# TODO: INJECT THIS VIA JAVASCRIPT SO PAGE CAN BE CACHED
--if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
+-#if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
+
+%span.admin-button.hide
   %a.btn.btn-large.edit{:href => edit_event_url(event), :target => '_blank'} Edit

@@ -65,8 +65,5 @@
     :javascript
 
       $(function(){
-        Tix.init({
-          env: "#{ENV['RAILS_ENV']}",
-          order: #{ @current_order.blank? ? 'null' : render('front/orders/order', :object => @current_order, :format => :json)  }
-        });
+        Tix.init();
       });

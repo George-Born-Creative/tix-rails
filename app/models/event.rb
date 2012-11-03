@@ -31,6 +31,8 @@
 #  buytix_url_old         :string(255)
 #  slug                   :string(255)
 #  disable_event_title    :boolean          default(FALSE)
+#  external_ticket_url    :string(255)
+#  sold_out               :boolean
 #
 
 

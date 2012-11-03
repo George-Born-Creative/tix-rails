@@ -8,6 +8,9 @@ Tix::Application.routes.draw do
   match '/', :controller => 'Front::Pages', :action => :show
 
   devise_for :users
+  post '/users/env' => 'users#env'
+  get '/users/one_liner' => 'users#one_liner'
+  
   
   match '/page/:slug', :action => :show, :controller => 'Front::Pages'
   match '/page/:id/edit', :action => :edit, :controller => 'Pages'

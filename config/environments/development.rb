@@ -1,5 +1,6 @@
 Tix::Application.configure do
   # config.action_controller.consider_all_requests_local = false
+  config.action_controller.perform_caching = true
   
   # Settings specified here will take precedence over those in config/application.rb
 

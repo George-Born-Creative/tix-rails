@@ -1,19 +1,28 @@
+-is_detail_page = (local_assigns[:context] && local_assigns[:context] == :detail) 
+-detail_page_link = is_detail_page ? 'javascript:;' : front_event_path(event)
 
--# IF SOLD OUT OVERRIDE IS TRUE
--if event.sold_out
+-# IF FREE EVENT
+-if event.hide_buttons
+  -# BLANK
+-elsif event.free_event
+  %a.btn.btn-large{:href => detail_page_link } Free!
+
+  -# IF SOLD OUT OVERRIDE IS TRUE
+-elsif event.sold_out
   %a.btn.btn-large.sold-out{:href => "javascript:;" }Sold Out!
+  
   -# ELSIF EXTERNAL SITE URL is SET
 -elsif !event.external_ticket_url.blank?  
   %a.btn.btn-large.buy-tix{:href => event.external_ticket_url, :target=>'_blank'} Buy Tickets
+  
   -# ELSIF EVENT IS ON SALE AND CHART IS NOT BLANK
 -elsif event.on_sale? && ( ! event.chart.blank? )
-
   %a.btn.btn-large.buy_tix{:href => front_chart_path(event.chart)} Buy Tickets
   
 -else
-  %span Event not yet on sale.
+  %a.btn.btn-large{:href =>  detail_page_link} On Sale Soon
 
-
-
+-# SHOW EDIT BUTTONS ONLY TO ADMINS
+-# TODO: INJECT THIS VIA JAVASCRIPT SO PAGE CAN BE CACHED
 -if current_user && current_user.has_at_least_role(:employee) # If admin signed in, show the edit control editable
   %a.btn.btn-large.edit{:href => edit_event_url(event), :target => '_blank'} Edit

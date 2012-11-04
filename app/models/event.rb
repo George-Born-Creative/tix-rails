@@ -149,7 +149,7 @@ class Event < ActiveRecord::Base
   def current_prices_arr
     return nil if self.chart.nil?
     
-    prices = self.chart.sections.map do |section|
+    prices = self.chart.sections.seatable.map do |section|
       unless section.current_price.nil? || section.current_price.base.nil?
         section.current_price.base
       end

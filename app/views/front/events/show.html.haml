@@ -46,8 +46,6 @@
             %h1= @event.headliners_str
           -else
             %h2= @event.headliners_str
-            
-            
         -else
           -if @event.title.length < 60
             %h1= @event.title
@@ -62,7 +60,7 @@
     
     .set-times
       -unless @event.set_times.empty?
-        %p=@event.set_times.gsub(/([0-9]+[:]?[apmAPM]+)/, "<br/>\\1").html_safe
+        %p=@event.set_times_formatted.html_safe
       
         %p After the show -- The lobby bar stays open!
     

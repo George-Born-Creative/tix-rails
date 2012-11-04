@@ -199,6 +199,12 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def set_times_formatted
+    return nil if self.set_times.blank?
+    
+    set_times.gsub(/\n/, '<br/>')
+  end
+  
   
   private
   

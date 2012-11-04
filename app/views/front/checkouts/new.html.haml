@@ -3,21 +3,56 @@
 
 .row  
   .span6
-    =# simple_form_for User.new, :as => :user, :url => registration_path(:user)
-    =#  devise_error_messages
+  
+    .sign-in.step.hide
+      %h2 Sign in
+      = form_tag user_session_path do
+        %h5 What is your email address?
+        = text_field_tag 'user[email]', attr_or_nil(:user_email), :placeholder =>  'you@email.com'
+        %h5 Do you have a Jammin' Java password?
+      
+      
+        =radio_button_tag 'new_customer', 'no'
+        No, I am a new customer.
+        %br/
+      
+        =radio_button_tag 'new_customer', 'no'
+        Yes, I have a password
+        = password_field_tag 'user[password]'
+      
+        %button.btn.btn-primary Sign in using our secure server
+        %br/
+        = link_to "Forgot your password?", new_password_path('user')
+    
+    
     
   
-    =form_tag '/checkout', :method => 'post' do
-      .row
-        .span6
-          %h2 Your Information
+    .create-account.step.hide
+      =form_tag '/checkout', :method => 'post' do
+        .row
+          .span6
+            %h2 Your Information
       
-          %hr/
-        .span2=text_field_tag 'user[first_name]', attr_or_nil(:user_first_name), :placeholder =>  'first name'
-        .span2=text_field_tag 'user[last_name]', attr_or_nil(:user_last_name), :placeholder =>  'last name'
-        .span2=text_field_tag 'user[email]', attr_or_nil(:user_email), :placeholder =>  'email'
+            %hr/
+          .span2=text_field_tag 'user[first_name]', attr_or_nil(:user_first_name), :placeholder =>  'first name'
+          .span2=text_field_tag 'user[last_name]', attr_or_nil(:user_last_name), :placeholder =>  'last name'
+        
+          .span2=text_field_tag 'user[email]', attr_or_nil(:user_email), :placeholder =>  'email (confirm)'
       
-      
+        %h2 Phone
+        %hr/
+        .row
+          .span3=text_field_tag 'phone[number]', attr_or_nil(:phone_number), :placeholder =>  'XXX-XXX-XXXX'
+    
+        %h2 Password
+        %hr/
+        .row
+          .span3=text_field_tag 'phone[number]', attr_or_nil(:phone_number), :placeholder =>  'password'
+          .span3=text_field_tag 'phone[number]', attr_or_nil(:phone_number), :placeholder =>  'password confirm'
+
+        =button_to 'Create Account', '#'
+    
+    .step3.step.payment
       %h2 Billing Address
       %hr/
       .row
@@ -27,11 +62,7 @@
         .span2=text_field_tag 'address[city]', attr_or_nil(:address_city), :placeholder =>  'city',  :size => 15
         .span2=text_field_tag 'address[state]', attr_or_nil(:address_state), :placeholder => 'state', :size => 3
         .span2=text_field_tag 'address[zip]', attr_or_nil(:address_zip), :placeholder => 'zip',  :size => 15
-      %h2 Phone
-      %hr/
-      .row
-        .span3=text_field_tag 'phone[number]', attr_or_nil(:phone_number), :placeholder =>  'XXX-XXX-XXXX'
-  
+
       %h2 Credit Card Information
       %hr
       .row
@@ -41,7 +72,7 @@
         -#    :start_year => Date.today.year, :end_year => (Date.today.year+10), |
         -#    :order => [:month, :year], :add_month_numbers => true) 
         .span1=text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv'
-      
+    
       %hr/
       =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'
   

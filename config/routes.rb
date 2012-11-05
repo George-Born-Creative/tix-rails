@@ -7,9 +7,12 @@ Tix::Application.routes.draw do
   # root :to => "pages#show", :controller => 'Front::Pages'
   match '/', :controller => 'Front::Pages', :action => :show
 
-  devise_for :users
-  post '/users/env' => 'users#env'
+  
+  post '/users/user_env' => 'users#user_env'
   get '/users/one_liner' => 'users#one_liner'
+  get '/users/my_account' => 'users#my_account'
+  
+  devise_for :users
   
   
   match '/page/:slug', :action => :show, :controller => 'Front::Pages'
@@ -18,7 +21,6 @@ Tix::Application.routes.draw do
   #  match '/cat/:slug', :controller => :cms, :action => :cat, :controller => 'Front::Pages'
   
   scope '/manager' do
-    
     
     resources :carousels do
       resources :carousel_items#, :as => :items
@@ -32,6 +34,7 @@ Tix::Application.routes.draw do
     resources :customer_imports
     
     resources :users
+    
     get "/artists/search" => "artists#search", :as => :search
     
     resources :artists
@@ -93,7 +96,6 @@ Tix::Application.routes.draw do
   resources :checkouts, :as => 'front_checkouts', :only => [:show, :new, :create], :controller => 'Front::Checkouts'
   
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
-  # resources :artists, :as => 'front_artists', :only => [:index, :show]
   resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
   
   match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
@@ -101,8 +103,7 @@ Tix::Application.routes.draw do
   
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
-  
-  
+    
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   
   # mount Resque::Server.new, :at => "/resque"

@@ -15,7 +15,7 @@ window.Tix =
     TixLib.init()
     
     $.ajax 
-      url: '/users/env'
+      url: '/users/user_env'
       type: 'post'
       dataType: 'json'
       success: (data)->

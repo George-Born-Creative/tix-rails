@@ -20,7 +20,7 @@ class UsersController < InheritedResources::Base
   end
   
   # POST /users/env(.js)
-  def env
+  def user_env
     rl = user_signed_in? ?  @current_user.role : 'guest'
     order = @current_order.blank? ? nil : Rabl.render(@current_order, 'front/orders/order', :view_path => 'app/views', :format => :hash)#.render#'front/orders/order', :object => @current_order, :format => :json)
     
@@ -30,6 +30,16 @@ class UsersController < InheritedResources::Base
       }
     end
   end
+  
+  # GET /users/my_account
+  def my_account
+    unless user_signed_in?
+      redirect_to '/users/sign_in', :alert => 'Please sign in first'
+      return
+    end
+    @orders = @current_user.orders
+  end
+  
   
   # POST /users/one_liner(.js)
   def one_liner

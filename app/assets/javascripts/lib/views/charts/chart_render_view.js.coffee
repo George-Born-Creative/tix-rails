@@ -3,10 +3,12 @@ class TixLib.Views.ChartRenderView extends Backbone.View
     initialize: (data)->
       #console.log 'initialized TixLib.Views.ChartRenderView'
       @chartdata = data.chart
+      @mode = data.mode || 'front'
+      # console.log ['mode', @mode]
       @setupEvents()
       @setBySectionID = {} # map Raphaël Set to Rails Section ID
       @elemByAreaID = {} # map of Raphaël elements to Tix area IDs
-      #console.log data
+
       @textElements = []
       @setupTooltip()
       @render()
@@ -25,7 +27,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         self.renderSection( section)
         set = @paper.setFinish()
         set.toFront()
-        console.log 'Bringing ' + section.label + "to front"
+        #   console.log 'Bringing ' + section.label + "to front"
         if section.label == 'Background-Above' then set.attr('fill', '#000')
         @setBySectionID[section.id] = set
       , this
@@ -35,7 +37,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         _.each @setBySectionID, (set)->
           set.exclude(el)
       
-      console.log @elemByAreaID
+      # console.log @elemByAreaID
       
       
     disableArea: (area_id)->
@@ -76,7 +78,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       $(elem.node).mouseenter ->
         
-        tmpl = _.template("<strong>{{ section_label }} <br/><strong>Area: {{ area_label }} <br/>")
+        tmpl = _.template("<strong>{{ section_label.toUpperCase() }}  </strong>{{ area_label }} ")
         rendered = tmpl
           section_label: section.label
           area_label: area.label
@@ -95,19 +97,21 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       
     setupTooltip: ->
+      self = this
       tip = $('<div id="tooltip"></div>')
       $('#chart_container').parent().prepend(tip)
       $('#tooltip').css
-        position : "absolute"
-        border : "1px solid gray"
-        'background-color' : '#efefef'
-        color: 'black'
-        'font-family: "lucida-grande", helvetica'
-        padding : "10px"
-        margin: '10px'
+        "padding" : "5px"
+        'position' : "absolute"
+        'border' : "1px solid gray"
+        'border-radius': "5px"
+        'background' : "rgba(255, 255, 255, 0.9)"
+        'color': 'black'
+        'font-family: "lucida-grande, helvetica'
+        "margin": '0'
         'z-index': "5000"
         'max-width': "200px"
-        display: "none"
+        'display': "none"
       .text('')
       
       $(document).mousemove (e)->
@@ -121,14 +125,16 @@ class TixLib.Views.ChartRenderView extends Backbone.View
           
         #console.log $('#chart_container').offset().left
         offLeft = e.pageX  -  $('#chart_container').offset().left + 20
-        offTop  = e.pageY  - $('#chart_container').offset().top  + 200
-        offLeft = if offLeft >= 200 then offLeft - 160 else offLeft
+        offTop  = e.pageY  - $('#chart_container').offset().top  + 150
+        offLeft = if offLeft >= 200 then offLeft - 130 else offLeft
         
+        if self.mode != 'front'
+          offTop -= 60
+          
         $('#tooltip')
           .css
             "left" : offLeft
             "top": offTop
-        
         
         
     showTooltip: (text)->
@@ -173,8 +179,8 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       section_id = section.id
 
-      console.log '[SR] Rendering Section ' + section.label
-      console.log 'Section seatable?' + section.seatable
+      # console.log '[SR] Rendering Section ' + section.label
+      # console.log 'Section seatable?' + section.seatable
       _.each section.areas, (area)->
         self.renderArea(area, section)
         
@@ -218,8 +224,12 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       raf_shape.data('area', area)
       
       self.elemByAreaID[area.id] = raf_shape
-          
-      if section.seatable && (area.inventory > 0) && area.type != 'text'
+      
+      # ENABLE area if it's 
+      # 1) in a seatable section, 
+      # 2) not a text area and
+      # 3) postitive inventory for front end (doesn't apply on back end)
+      if section.seatable && area.type != 'text' && ( area.inventory > 0  || @mode != 'front' )
         self.enableArea(area.id)
       else
         self.disableArea(area.id)

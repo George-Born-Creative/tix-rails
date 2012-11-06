@@ -11,4 +11,10 @@ class TixMgr.Routers.ImagesRouter extends Support.SwappingRouter
     
   index: ->
     
+  
+  ########
+  disableOther: ->
+    $('input[type="checkbox"].disable-other').change ->
+      alert('changed', this.val())
+    
     

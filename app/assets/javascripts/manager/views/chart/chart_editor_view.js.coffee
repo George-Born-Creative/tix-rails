@@ -5,7 +5,7 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
   
   
   initialize: (data)->
-    console.log 'TixMgr.Views.ChartEditorView initialized'
+    # console.log 'TixMgr.Views.ChartEditorView initialized'
     chart = data.chart
     @model = new TixMgr.Models.Chart(chart)
     
@@ -15,14 +15,13 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
     chart = @associateAreaPricesWithSectionPrices(chart) 
     
     # RENDER Raphael Chart
-    new TixLib.Views.ChartRenderView({el: $( '#chart_container'), chart: chart})    
+    new TixLib.Views.ChartRenderView({el: $( '#chart_container'), chart: chart, mode: 'mgr'})    
 
     # After rendering
     @fireChartColorChange()
         
     # _.bindAll this, 
     
-    console.log 'TixMgr.Views.ChartEditorView initialized'
   
   associateAreaPricesWithSectionPrices: (chart)->
     

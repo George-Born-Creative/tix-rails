@@ -14,6 +14,22 @@ Tix::Application.routes.draw do
   
   devise_for :users
   
+  resources :users, :controller => 'Front::Users', :as => 'front_user' do
+    resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
+  end
+  
+  
+  resources :checkouts, :as => 'front_checkouts', :only => [:show, :new, :create], :controller => 'Front::Checkouts'
+  match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
+  match '/orders/remove_from_cart/:area_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
+  resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
+  resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
+  mount Ckeditor::Engine => "/ckeditor"
+  resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
+  
+  
+  
   
   match '/page/:slug', :action => :show, :controller => 'Front::Pages'
   match '/page/:id/edit', :action => :edit, :controller => 'Pages'
@@ -92,23 +108,8 @@ Tix::Application.routes.draw do
   get '/checkout' => 'front::checkouts#new'
   post '/checkout' => 'front::checkouts#create'
   
-    
-  resources :checkouts, :as => 'front_checkouts', :only => [:show, :new, :create], :controller => 'Front::Checkouts'
+
   
-  resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
-  resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
-  
-  match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
-  match '/orders/remove_from_cart/:area_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
-  
-  resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
-  resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
-    
-  match "/delayed_job" => DelayedJobWeb, :anchor => false
-  
-  # mount Resque::Server.new, :at => "/resque"
-  
-  mount Ckeditor::Engine => "/ckeditor"
   
   
 end

@@ -3,6 +3,8 @@
   %h1="#{@current_user.first_name}'s Orders"
   %br/
 
+
+  
   %table.table
     %thead
       %th Order number
@@ -14,16 +16,20 @@
       %th Total
       %th Where?
     %tbody
+        
       -@orders.each do |order|
         %tr
-          %td=link_to order.id, '#'#, front_order_path(order)
+          %td=link_to order.id,  front_order_path(order)
           %td=order.purchased_at.to_formatted_s(:date_slashes) if order.purchased_at
           %td=order.purchased_at.to_formatted_s(:time) if order.purchased_at
           %td=order.events_uniq_with_counts.map{|event_name, qty| event_name}.join('<br/>').html_safe
           %td=order.tickets.count
           %td=number_to_currency order.total
           %td Online
-      
+  -if @orders.count == 0
+    %em No orders yet.
+    
+  %hr.red-thin
 
 
   %p 

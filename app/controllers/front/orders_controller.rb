@@ -2,17 +2,18 @@ class Front::OrdersController < InheritedResources::Base
   layout 'front_user'
   
   before_filter :set_current_order
+  before_filter :authenticate_user!
+  before_filter :check_authorized
 
-  def create
-    
-  end
 
   def show
-    @order = Order.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.pdf { doc_raptor_send }
+    @order = @current_user.orders.where(:id => params[:id]).first
+    
+    unless @order
+      redirect_to '/', :notice => "You are not authorized to access this order."
     end
+    
+    
   end
   
   def new
@@ -74,5 +75,10 @@ class Front::OrdersController < InheritedResources::Base
   def begin_of_association_chain
     @current_user
   end
+  
+  def check_authorized
+    
+  end
+
   
 end

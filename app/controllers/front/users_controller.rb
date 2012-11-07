@@ -2,7 +2,8 @@ class Front::UsersController < InheritedResources::Base
   layout 'front_user'
   
   def index
-    redirect_to front_user_path(@current_user)
+    @user = @current_user
+    #redirect_to front_user_path(@current_user)
   end
 
   # POST /users/env(.js)

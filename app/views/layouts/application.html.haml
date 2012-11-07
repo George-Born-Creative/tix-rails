@@ -50,7 +50,9 @@
             %p.alert= alert
           
         .container
-          =yield(:layout) if content_for?(:layout)
+
+          -if (content_for?(:layout) == true)
+            =yield(:layout)
 
               
               

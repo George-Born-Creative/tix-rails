@@ -1,11 +1,13 @@
 -content_for :content do
-  =simple_form_for @address, :url => front_address_path do |f|
+  =simple_form_for @address, :url => front_address_path(@address.id) do |f|
     =f.input :address_line_1
     =f.input :address_line_2
     =f.input :locality, :label => 'City'
     =f.input :admin_area, :label => 'State'
     =f.input :postal_code, :label => 'Zip'
-  
+    =hidden_field_tag('address[addressable_id]', @current_user.id)
+    =hidden_field_tag('address[addressable_type]', 'User')
+    =f.submit
   
   -#
     #  updated_at       :datetime

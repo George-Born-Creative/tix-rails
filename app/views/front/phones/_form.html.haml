@@ -1,7 +1,10 @@
 -content_for :content do
-  =simple_form_for @phone, :url => front_address_path do |f|
+  =simple_form_for @phone, :url => front_phone_path(@phone) do |f|
     =f.input :number
-  
+    =hidden_field_tag('phone[phonable_id]', @current_user.id)
+    =hidden_field_tag('phone[phonable_type]', 'User')
+    
+    =f.submit
   -#
     #  updated_at       :datetime
     #  addressable_id   :integer          not null

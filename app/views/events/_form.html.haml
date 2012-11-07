@@ -42,8 +42,8 @@
               .control-group
                 %label.control-label
                 .controls
-                  =f.input :title, :input_html => { :style => 'width: 100%; font-size: 30px; height: 40px'}
-                  =f.input :slug#, :input_html => { :style => 'width: 100%; font-size: 30px; height: 40px'}
+                  =f.input :title, :input_html => { :style => 'width: 90%; font-size: 30px; height: 40px'}
+                  =f.input :slug, :input_html => { :style => 'width: 90%; '}
                   
                   =f.input :disable_event_title#, :as => :checkbox
       
@@ -70,10 +70,6 @@
             
 
        
-      -#.accordion#event_edit_accordion
-      -#  .accordion-group
-      -#    .accordion-heading
-      -#      .accordion-toggle{:data => {'toggle' => 'collapse'} }
       .widget
         .widget-content
           #event_edit_accordion.accordion

@@ -3,21 +3,20 @@ class Checkout
   include ActiveModel::Naming
     
   attr_accessor :user_first_name, :user_last_name, :user_email,
-                :card_number, :card_expiration, :card_cvv,
+                :card_number, :card_cvv,
                 :address_line_1, :address_line_2,
                 :address_city, :address_state, :address_zip,
-                :card_expiration,
                 :card_expiration_month, :card_expiration_year,
                 :phone_number
                 
   attr_reader :card_type
   
-  validates_presence_of :user_first_name, :user_last_name, :user_email
+  # validates_presence_of :user_first_name, :user_last_name, :user_email
   
   validates_presence_of :card_number,  :card_cvv
   
-  # validates_presence_of :card_expiration_month, :message => 'Card Expiration Month'
-  # validates_presence_of :card_expiration_month, :message => 'Card Expiration Year'
+  validates_presence_of :card_expiration_month, :message => 'Card Expiration Month'
+  validates_presence_of :card_expiration_year, :message => 'Card Expiration Year'
   
   validates_presence_of :address_line_1, :address_city, :address_state, :address_zip
   
@@ -44,14 +43,6 @@ class Checkout
 
   
   
-  def card_expiration_month
-    card_expiration.split('/')[0] if card_expiration
-  end
-  
-  def card_expiration_year
-    card_expiration.split('/')[1] if card_expiration
-    
-  end
 
   private
   

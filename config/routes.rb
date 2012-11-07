@@ -6,17 +6,18 @@ Tix::Application.routes.draw do
   
   # root :to => "pages#show", :controller => 'Front::Pages'
   match '/', :controller => 'Front::Pages', :action => :show
-
   
-  post '/users/user_env' => 'users#user_env'
-  get '/users/one_liner' => 'users#one_liner'
-  get '/users/my_account' => 'users#my_account'
+  post '/users/user_env' => 'Front::Users#user_env'
+  get '/users/one_liner' => 'Front::Users#one_liner'
+  get '/users/my_account' => 'Front::Users#my_account'
   
   devise_for :users
   
-  resources :users, :controller => 'Front::Users', :as => 'front_user' do
-    resources :orders, :as => "front_orders", :only => [:create, :show, :new], :controller => 'Front::Orders'
-  end
+  resources :users, :controller => 'Front::Users', :as => 'front_users'
+  resources :orders, :as => "front_orders", :only => [:index, :create, :show], :controller => 'Front::Orders'
+  resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
+  resources :phones, :as => "front_phones",  :controller => 'Front::Phones'
+  #end
   
   
   resources :checkouts, :as => 'front_checkouts', :only => [:show, :new, :create], :controller => 'Front::Checkouts'
@@ -27,8 +28,6 @@ Tix::Application.routes.draw do
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
-  
-  
   
   
   match '/page/:slug', :action => :show, :controller => 'Front::Pages'
@@ -42,7 +41,7 @@ Tix::Application.routes.draw do
       resources :carousel_items#, :as => :items
     end
     
-    resources :events# , :as => 'manager_events'
+    resources :events
     
     match '/', :controller => :manager, :action => :index
     get '/tickets/:id/checkin' => 'tickets#check_in'

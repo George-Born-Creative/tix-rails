@@ -44,7 +44,7 @@ Tix::Application.configure do
   Pusher.key = ENV['PUSHER_KEY']
   Pusher.secret = ENV['PUSHER_SECRET']
   
-  config.action_mailer.default_url_options = {:host => 'localhost'}
+  config.action_mailer.default_url_options = {:host => 'http://localhost:5000'}
   
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test 

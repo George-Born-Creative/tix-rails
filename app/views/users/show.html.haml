@@ -44,16 +44,15 @@
       
         .widget
           .widget-header
-            %h3="#{@user.first_name}'s Addresses"
+            %h3="#{@user.first_name}'s Address"
           .widget-content
-            -if @user.addresses.empty?
+            -if @user.address.nil?
               %em
                 =@user.first_name
                 doesn't have any addresses saved
             -else
               %ul
-              -@user.addresses.each do |address|
-                %li=link_to address.address, '#'
+                %li=link_to @user.address.address, '#'
                 
         .widget
           .widget-header

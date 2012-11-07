@@ -100,12 +100,8 @@ class Order < ActiveRecord::Base
   end
 
   
-  def purchase
-    # raise credit_card.to_s
-    #puts "price_in_cents #{price_in_cents}"
-    #puts "credit_card #{credit_card}"
-    #puts "credit_card #{credit_card.valid?}"
-    #puts "purchase_options #{purchase_options.to_s}"
+  def purchase(user=nil)
+    update_attribute(:user, user) unless user.blank?
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     if response.success?
@@ -164,9 +160,15 @@ class Order < ActiveRecord::Base
     self.tickets.reduce(0) {|memo, ticket| memo += ticket.total || 0}
   end
   
-  def tickets_uniq_with_counts
+  # TODO: put this into ticket
+  # def sections_uniq_with_counts # returns has of section => qty
+  #   return nil if self.tickets.nil?
+  #   self.tickets.reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
+  # end
+  
+  def events_uniq_with_counts # returns has of section => qty
     return nil if self.tickets.nil?
-    self.tickets.reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
+    self.tickets.reduce(Hash.new(0)){|h, t| h[t.event.name]+=1;h }
   end
   
   #

@@ -1,0 +1,38 @@
+=form_tag '/checkouts', :method => 'post' do
+
+
+  %h2 Phone
+  %hr/
+  .row
+    .span3=text_field_tag 'phone[number]', (@current_user.phone.blank? ? nil : @current_user.phone.number), :placeholder =>  'xxx-xxx-xxxx'
+  
+  %h2 Name on Card
+  .row
+    .span3=text_field_tag 'user[first_name]', @current_user.first_name
+    .span3=text_field_tag 'user[last_name]', @current_user.last_name
+    
+  
+  %h2 Billing Address
+  %hr/
+  .row
+    .span3=text_field_tag 'address[address_line_1]', (@current_user.address.blank? ? nil : @current_user.address.address_line_1), :placeholder =>  'address 1'
+    .span3=text_field_tag 'address[address_line_2]', (@current_user.address.blank? ? nil : @current_user.address.address_line_2), :placeholder =>  'address 2'
+  .row
+    .span2=text_field_tag 'address[city]', (@current_user.address.blank? ? nil : @current_user.address.city), :placeholder =>  'city',  :size => 15
+    .span2=text_field_tag 'address[state]', (@current_user.address.blank? ? nil : @current_user.address.state), :placeholder => 'state', :size => 3
+    .span2=text_field_tag 'address[zip]',(@current_user.address.blank? ? nil : @current_user.address.zip), :placeholder => 'zip',  :size => 15
+
+  %h2 Credit Card Information
+  %hr
+  .row
+    .span3=text_field_tag 'credit_card[card_number]', attr_or_nil(:card_number), :placeholder =>  'credit card number'
+    -#.span2
+    -#  =text_field_tag 'credit_card[expiration]', attr_or_nil(:card_expiration), :placeholder =>  'expiration date (mm/yyyy)'
+    
+    .span2=date_select( 'credit_card', 'expires', :discard_day => true, |
+      :start_year => Date.today.year, :end_year => (Date.today.year+10), |
+      :order => [:month, :year], :add_month_numbers => true) 
+    .span1=text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv'
+
+  %hr/
+  =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'

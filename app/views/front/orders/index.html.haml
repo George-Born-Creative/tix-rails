@@ -1,0 +1,35 @@
+-content_for :content do
+
+  %h1="#{@current_user.first_name}'s Orders"
+  %br/
+
+  %table.table
+    %thead
+      %th Order number
+      %th Order Date
+      %th Order Time
+      
+      %th Event(s)
+      %th Qty
+      %th Total
+      %th Where?
+    %tbody
+      -@orders.each do |order|
+        %tr
+          %td=link_to order.id, '#'#, front_order_path(order)
+          %td=order.purchased_at.to_formatted_s(:date_slashes) if order.purchased_at
+          %td=order.purchased_at.to_formatted_s(:time) if order.purchased_at
+          %td=order.events_uniq_with_counts.map{|event_name, qty| event_name}.join('<br/>').html_safe
+          %td=order.tickets.count
+          %td=number_to_currency order.total
+          %td Online
+      
+
+
+  %p 
+    %strong Note:
+    We launched a new website and ticketing system in Late 2012.
+    Prior purchase history for your account is available by contacting
+    %strong
+      =succeed '.' do
+        =link_to 'info@jamminjava.com', '#'

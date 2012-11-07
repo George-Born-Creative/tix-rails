@@ -5,7 +5,9 @@
     = f.input :password, :required => false
     = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
     = f.input :account_id, :as => :hidden, :input_html => {:value => @current_account.id }
-    
+    -if params[:after_sign_in_path]
+      = hidden_field_tag( 'after_sign_in_path', params[:after_sign_in_path] )
+      
   .form-actions
     = f.button :submit, "Sign in"
 = render "devise/shared/links"

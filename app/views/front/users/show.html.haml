@@ -1,0 +1,62 @@
+-content_for :content do
+
+
+  %h1=@user.full_name
+  =link_to 'Edit', edit_front_user_path(@user), :class => 'btn'
+
+  %h3 Account Balance
+  =number_to_currency( @user.balance )
+
+  %h3 Email
+  =@user.email
+
+  %h3 Address
+  -unless @user.address
+    %em No address on file.
+  -else
+    =@user.address.address 
+
+  %h3 Mobile Phone
+  -unless @user.phone
+    %em No address on file.
+  -else
+    =@user.phone.number
+
+  %h3 Sign ins
+  =@user.sign_in_count
+    
+  %h3 Last sign in from
+  =@user.last_sign_in_ip
+  at
+  =@user.last_sign_in_at.to_formatted_s(:jammin_java)
+  
+  -#  
+    id                     :integer          not null, primary key
+    email                  :string(255)      default(""), not null
+    encrypted_password     :string(255)      default(""), not null
+    reset_password_token   :string(255)
+    reset_password_sent_at :datetime
+    remember_created_at    :datetime
+    sign_in_count          :integer          default(0)
+    current_sign_in_at     :datetime
+    last_sign_in_at        :datetime
+    current_sign_in_ip     :string(255)
+    last_sign_in_ip        :string(255)
+    created_at             :datetime         not null
+    updated_at             :datetime         not null
+    account_id             :integer          default(0), not null
+    first_name             :string(255)
+    middle_name            :string(255)
+    last_name              :string(255)
+    salutation             :string(255)
+    title                  :string(255)
+    role                   :string(255)      default("customer")
+    balance                :decimal(8, 2)    default(0.0), not null
+    confirmation_token     :string(255)
+    confirmed_at           :datetime
+    confirmation_sent_at   :datetime
+    unconfirmed_email      :string(255)
+    failed_attempts        :integer          default(0)
+    unlock_token           :string(255)
+    locked_at              :datetime
+    authentication_token   :string(255)

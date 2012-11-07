@@ -36,14 +36,28 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource)
-    if resource.is_a?(User) && resource.has_at_least_role(:employee)
-      '/manager'
+    # if resource.is_a?(User) && resource.has_at_least_role(:employee)
+    #   '/manager'
+    # else
+    #   super
+    # end
+    if params.has_key?(:after_sign_in_path) 
+      params[:after_sign_in_path]
     else
       super
     end
+      
+    
   end
   
-  
+  # def after_sign_in_path_for(resource)                                                                                                                      
+  #   sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')                                            
+  #   if request.referer == sign_in_url                                                                                                                    
+  #     super                                                                                                                                                 
+  #   else                                                                                                                                                    
+  #     stored_location_for(resource) || request.referer || root_path                                                                                         
+  #   end                                                                                                                                                     
+  # end
   
   
   def authenticate_admin!
@@ -61,7 +75,7 @@ class ApplicationController < ActionController::Base
      # Must be employee or higher
      # If not, take home
      unless current_user.has_at_least_role(:employee)
-       redirect_to root_path, :notice => 'Insufficient permissions'
+       redirect_to '/', :notice => 'Insufficient permissions'
        return false       
      end
 

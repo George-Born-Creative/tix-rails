@@ -43,6 +43,7 @@ p
   padding: 10px
   margin-top: 10px
   text-shadow: none
+  color: white
   &:hover
     background: $red + #222222 !important
     color: white
@@ -87,6 +88,8 @@ table
     vertical-align: middle
     border: 1px solid transparentize( $alpha, .8)
   
+.table tbody tr:hover td, .table tbody tr:hover th
+  background: inherit
 
   
 h1, h2, h3, h4, h5
@@ -152,6 +155,7 @@ h5.minor
   background-color: transparentize($omega, .1)
   margin: 20px auto 0
   padding: 20px
+  min-height: 550px
   
 
 #header

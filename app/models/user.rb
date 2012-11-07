@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name,  :middle_name, :last_name, :salutation, :title,
-                  :role, :account_id
+                  :role, :account_id, :phone
    
   attr_accessor :full_name
 
@@ -60,8 +60,8 @@ class User < ActiveRecord::Base
 
   has_many :orders
   
-  has_many :addresses, :as => :addressable, :dependent => :destroy
-  has_many :phones, :as => :phonable, :dependent => :destroy
+  has_one :address, :as => :addressable, :dependent => :destroy
+  has_one :phone, :as => :phonable, :dependent => :destroy
   
   has_many :tickets, :through => :orders
   belongs_to :account

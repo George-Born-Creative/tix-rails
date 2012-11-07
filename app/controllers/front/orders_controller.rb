@@ -1,4 +1,5 @@
-class Front::OrdersController < ApplicationController
+class Front::OrdersController < InheritedResources::Base
+  layout 'front_user'
   
   before_filter :set_current_order
 
@@ -66,5 +67,12 @@ class Front::OrdersController < ApplicationController
 
   private
  
+  def collection
+     @orders ||= end_of_association_chain.complete # ensure complete orders only
+  end
+
+  def begin_of_association_chain
+    @current_user
+  end
   
 end

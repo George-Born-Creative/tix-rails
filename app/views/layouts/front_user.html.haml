@@ -1,0 +1,16 @@
+
+-content_for :layout do
+  .row
+    .span2
+      %ul{:style => 'margin: 0; list-style: none'}
+        %li=link_to 'My Orders', front_orders_path
+        %li=link_to 'My Account', edit_user_registration_path
+        %li= link_to 'My Address', edit_front_address_path(@current_user.address)
+        %li= link_to 'My Phone', edit_front_phone_path(@current_user.phone)
+        -#%li=link_to 'Email Subscriptions', '#'
+        -#%li=link_to 'Change Password', edit_user_registration_path
+        
+    .span10
+      =yield :content
+
+=render :template => 'layouts/application'

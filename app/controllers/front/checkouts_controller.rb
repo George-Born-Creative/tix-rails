@@ -4,6 +4,8 @@ class Front::CheckoutsController < InheritedResources::Base
   def new
   end
   
+  # Register
+  
   # POST /checkout
   def create
     
@@ -12,7 +14,8 @@ class Front::CheckoutsController < InheritedResources::Base
       :user_last_name => params[:user][:last_name],
       :user_email => params[:user][:email],
       :card_number => params[:credit_card][:card_number],
-      :card_expiration => params[:credit_card][:expiration],
+      :card_expiration_month => convert_date(params[:credit_card], :expires).month,
+      :card_expiration_year => convert_date(params[:credit_card], :expires).year,
       :card_cvv => params[:credit_card][:cvv],
       :address_line_1 => params[:address][:address_line_1],
       :address_line_2 => params[:address][:address_line_2],
@@ -29,7 +32,7 @@ class Front::CheckoutsController < InheritedResources::Base
     respond_to do |format|
       format.html{ 
         if @checkout.valid?
-          if @order.purchase
+          if @order.purchase(@current_user)
             redirect_to front_order_path(@order), :notice => 'Order successful!'
           else
             flash[:message] = @order.transactions.first.message
@@ -87,5 +90,12 @@ class Front::CheckoutsController < InheritedResources::Base
     
   end
   
+  private
+
+  def convert_date(hash, date_symbol_or_string)
+    attribute = date_symbol_or_string.to_s
+    return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
+  end
+
   
 end

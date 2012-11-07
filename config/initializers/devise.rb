@@ -7,7 +7,7 @@ Devise.setup do |config|
   config.mailer_sender = "shaun@squiid.com"
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -214,4 +214,22 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+end
+
+# So devise emails will be enqueued in DJ
+
+module Devise
+  module Models
+    module Confirmable
+      handle_asynchronously :send_confirmation_instructions
+    end
+
+    module Recoverable
+      handle_asynchronously :send_reset_password_instructions
+    end
+
+    module Lockable
+      handle_asynchronously :send_unlock_instructions
+    end
+  end
 end

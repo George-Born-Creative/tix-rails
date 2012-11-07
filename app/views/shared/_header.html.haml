@@ -37,20 +37,28 @@
           
           %span.login
 
-
           -if user_signed_in?
             Hello
-            %strong=link_to current_user.email, edit_user_path(current_user)
+            
+            %strong= current_user.email
+            
             -if current_user.has_at_least_role :employee
               |
               =link_to 'Manager', '/manager'
-
               | 
-              =link_to 'Logout', destroy_user_session_path, :method => :delete
-              ="<!--Role: #{current_user.role}-->".html_safe
-            -else
-              =link_to 'Login', new_user_session_path
+            
+            =link_to 'My Account', front_user_path(@current_user)
+            |
 
+            =#new_user_session_path
+            =#destroy_user_session_path
+            =link_to 'Logout', '/users/sign_out', :method => :delete
+            ="<!--Role: #{current_user.role}-->".html_safe
+          -else
+            =link_to 'Sign In', new_user_session_path
+            |
+            =link_to 'Sign Up', new_user_registration_path
+            
         
         %br/
         .small.contact

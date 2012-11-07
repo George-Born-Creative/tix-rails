@@ -40,20 +40,17 @@
             %li=link_to 'Store', '/page/store'
             %li=link_to 'The Story', '/page/about', :class => 'highlighted'        
             %li=link_to 'Brindley Brothers Present', '/page/brindley-bros-present'
-          
-        // #modules
-        /  .event_chart
-        /  .event_cart
-        /  .event_checkout
-        .container
-          -unless notice.blank?
+
+        -unless notice.blank?
+          .container
             %p.alert= notice
-            
-          -unless alert.blank?          
+          
+        -unless alert.blank?          
+          .container
             %p.alert= alert
-            
+          
         .container
-          =yield :layout if content_for?(:layout)
+          =yield(:layout) if content_for?(:layout)
 
               
               
@@ -67,3 +64,5 @@
       $(function(){
         Tix.init();
       });
+    
+    =yield :javascript_after_init if content_for?(:javascript_after_init)

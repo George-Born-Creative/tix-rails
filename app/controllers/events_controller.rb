@@ -104,17 +104,11 @@ class EventsController < ApplicationController
   
   def convert_datetimes(parameters)
     Event::TIMES.each do |field|
-      puts "#### Converting time #{field}"
       date = parameters[field][:date]
       time = parameters[field][:time]
-      puts "#### Date #{date}"
-      puts "#### Time #{time}"
       # Bug in Rails http://www.elabs.se/blog/36-working-with-time-zones-in-ruby-on-rails
       # https://github.com/rails/rails/issues/5559
-      datetime = ActiveSupport::TimeWithZone.new(nil, Time.zone, Time.strptime("#{date} #{time}", "%m-%d-%Y %I:%M %p"))
-
-      puts "#### Datetime #{datetime}"
-      
+      datetime = ActiveSupport::TimeWithZone.new(nil, Time.zone, Time.strptime("#{date} #{time}", "%m-%d-%Y %I:%M %p"))      
       parameters[field] = datetime
     end
     parameters

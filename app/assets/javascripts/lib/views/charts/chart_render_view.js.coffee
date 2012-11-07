@@ -115,15 +115,6 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       .text('')
       
       $(document).mousemove (e)->
-         
-        # console.log ['left', $('#chart_container').offset().left]
-        # console.log ['top', $('#chart_container').offset().top]
-        # console.log ['e.pageX', e.pageX]
-        # console.log ['e.pageY', e.pageY]
-
-          
-          
-        #console.log $('#chart_container').offset().left
         offLeft = e.pageX  -  $('#chart_container').offset().left + 20
         offTop  = e.pageY  - $('#chart_container').offset().top  + 150
         offLeft = if offLeft >= 200 then offLeft - 130 else offLeft
@@ -237,12 +228,4 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         
       if area.type == 'text'
         raf_shape.attr('fill', '#ffffff')
-      
         
-      
-          
-    # drawCircle: ->
-    #   
-    # drawPoly: ->
-    #   
-    # drawRect: ->

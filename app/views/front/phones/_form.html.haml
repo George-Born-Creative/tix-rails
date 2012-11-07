@@ -1,0 +1,15 @@
+-content_for :content do
+  =simple_form_for @phone, :url => front_address_path do |f|
+    =f.input :number
+  
+  -#
+    #  updated_at       :datetime
+    #  addressable_id   :integer          not null
+    #  addressable_type :string(255)      not null
+    #  tag_for_address  :string(255)
+    #  country          :string(255)
+    #  address_line_1   :string(255)
+    #  address_line_2   :string(255)
+    #  locality         :string(255)
+    #  admin_area       :string(255)
+    #  postal_code      :string(255)

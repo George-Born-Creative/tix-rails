@@ -25,11 +25,10 @@
     %h1 Customer Relationship Manager
     
   .span8.last
-    =link_to 'Import Customers as CSV', new_customer_import_path, :class => "button"
+    =#link_to 'Import Customers as CSV', new_customer_import_path, :class => "button"
 
   .widget.widget-table.action-table
     %table#customers.table.table-striped.table-bordered.display{:data => {:source => users_url(format: 'json') }}
-
       %thead
         %td 
         %td First Name

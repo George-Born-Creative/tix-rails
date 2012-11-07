@@ -16,8 +16,7 @@
     .today
       =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/050/medium/today-1.png?1351803066',  width: '100%')
       .set-times
-        -@current_account.events.today.order('starts_at DESC').each do |event|
-          %br/
+        -@current_account.events.today.order('starts_at ASC').each do |event|
           =event.set_times_formatted.html_safe unless event.set_times.blank?
           %br/
     %br/

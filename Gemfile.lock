@@ -392,6 +392,7 @@ DEPENDENCIES
   rabl
   railroady
   rails (= 3.2.8)
+  redis
   resque_spec
   rspec-rails (~> 2.6)
   sass

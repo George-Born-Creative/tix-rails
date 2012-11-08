@@ -12,7 +12,6 @@
   
 =content_for :sidebar do 
   -if  @page && @page.slug == 'home'
-
     .today
       =image_tag('http://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/050/medium/today-1.png?1351803066',  width: '100%')
       .set-times
@@ -21,4 +20,4 @@
           %br/
     %br/
   
-    =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}
+  =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

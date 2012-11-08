@@ -8,7 +8,7 @@ Tix::Application.routes.draw do
   match '/', :controller => 'Front::Pages', :action => :show
   
   post '/users/user_env' => 'Front::Users#user_env'
-  get '/users/one_liner' => 'Front::Users#one_liner'
+  post '/users/login_env' => 'Front::Users#login_env'
   get '/users/my_account' => 'Front::Users#my_account'
   
   devise_for :users

@@ -29,10 +29,10 @@ class Front::UsersController < InheritedResources::Base
 
 
   # POST /users/one_liner(.js)
-  def one_liner
+  def login_env
     respond_to do |format|
-      format.html {
-        render 'users/one_liner' 
+      format.json {
+        render :json => {:html => render_to_string('front/users/login_env.html.haml') }
       }
     end
   end

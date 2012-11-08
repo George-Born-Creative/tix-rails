@@ -24,7 +24,7 @@ window.Tix =
         self.initCartMiniView()
         self.initCartView(data)
         self.initChart()
-        
+        self.initLogin()
         if data.role == 'employee' || data.role == 'owner' || data.role == 'manager'
           self.initEditButtons()
       
@@ -32,6 +32,15 @@ window.Tix =
   initEditButtons: ->
     $('.admin-button').fadeIn()
     
+    
+  initLogin: ->
+    $.ajax 
+      url: '/users/login_env'
+      type: 'post'
+      dataType: 'json'
+      success: (data)->
+        $('.login').hide().append(data.html).fadeIn('fast')
+  
     
   initCart: ->
     Tix.Cart = new Tix.Collections.Cart()

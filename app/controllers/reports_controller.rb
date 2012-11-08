@@ -2,8 +2,20 @@ class ReportsController < ApplicationController
   respond_to :json, :html
 
   def index
+    
+    
     @events = @current_account.events
+    
+    if params[:time] == 'historical'
+      @events = @events.historical
+    elsif params[:time] == 'current'
+      @events = @events.current
+    end
+      
+    @events = @events
           .select('title, id, starts_at, announce_at, on_sale_at, off_sale_at, remove_at, slug').order('starts_at ASC')
+  
+  
   end
   
   def event_guestlist

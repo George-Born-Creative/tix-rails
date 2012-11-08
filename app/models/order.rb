@@ -63,6 +63,7 @@ class Order < ActiveRecord::Base
   scope :complete, lambda { where("purchased_at < ?", Time.zone.now)}
   
   
+  
   scope :purchased_between, lambda { |start_time, end_time| where(:purchased_at => (start_time...end_time)) }
 
   

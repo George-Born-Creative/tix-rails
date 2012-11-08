@@ -106,12 +106,17 @@ class Event < ActiveRecord::Base
   scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.zone.now, Time.zone.now] }}
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.zone.now, Time.zone.now] }}  
   scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.zone.now] }}  
+  scope :historical, lambda {{ :conditions => ["starts_at < ?", Time.zone.now] }}  
+  scope :past, lambda {{ :conditions => ["starts_at < ?", Time.zone.now] }}  
+
   scope :today, lambda {{ :conditions => ["starts_at BETWEEN ? AND ?", Time.zone.today.beginning_of_day, Time.zone.today.end_of_day ] }}  
   
   
   scope :cat, lambda { |*cats| {
     :conditions => ['cat IN (?)', cats.flatten.map{|c| c.to_s} ]
   }}
+
+
 
 
   def announced?

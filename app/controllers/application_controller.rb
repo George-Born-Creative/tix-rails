@@ -129,6 +129,11 @@ class ApplicationController < ActionController::Base
   # Otherwise, create a new order and attach to current session
   # (Order becomes abandonded (expired_at > Now + LIFESPAN)
   
+  def ensure_employee
+    return @current_user.has_at_least_role(:employee)
+  end
+  
+  
   def set_current_order
     # For case when order is deleted (mostly in early development) 
     # clear session if order is blank. TODO: remove this

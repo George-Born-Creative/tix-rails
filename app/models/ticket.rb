@@ -35,6 +35,9 @@ class Ticket < ActiveRecord::Base
                   :service_charge, :event_artists, :event_starts_at
   
   before_save :set_attributes
+  belongs_to :account
+  belongs_to :order
+  
   # before_create :set_info
   
   # before_create :set_initial_state
@@ -82,7 +85,14 @@ class Ticket < ActiveRecord::Base
   end
   
   
-  
+  def checkin!
+    unless checked_in_at.nil?
+      return false
+    else
+      update_attribute(:checked_in_at, Time.zone.now)
+      return true
+    end
+  end
   
   def event
     area.section.chart.event
@@ -138,6 +148,7 @@ class Ticket < ActiveRecord::Base
   private 
   
   def set_attributes
+    self.account = self.order.account
     self.event_name = event.title_with_artists
     self.event_id = event.id
     self.event_artists = event.artists_str

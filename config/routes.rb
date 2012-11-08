@@ -1,6 +1,7 @@
 Tix::Application.routes.draw do
 
   match '/manager', :controller => :manager, :action => :index
+  get '/tickets/:id/checkin' => 'Front::Tickets#checkin'
   
   # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
@@ -44,7 +45,6 @@ Tix::Application.routes.draw do
     resources :events
     
     match '/', :controller => :manager, :action => :index
-    get '/tickets/:id/checkin' => 'tickets#check_in'
     
     resources :customer_imports
     

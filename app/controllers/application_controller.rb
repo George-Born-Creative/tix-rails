@@ -130,7 +130,9 @@ class ApplicationController < ActionController::Base
   # (Order becomes abandonded (expired_at > Now + LIFESPAN)
   
   def ensure_employee
-    return @current_user.has_at_least_role(:employee)
+    unless @current_user.has_at_least_role(:employee)
+      redirect_to '/', :notice => 'Only employees of Jammin\' Java may check you in!'
+    end
   end
   
   

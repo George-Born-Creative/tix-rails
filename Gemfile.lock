@@ -123,6 +123,7 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     daemons (1.1.9)
+    dalli (2.3.0)
     deep_cloneable (1.4.1)
       rails
     delayed_job (3.0.3)
@@ -360,6 +361,7 @@ DEPENDENCIES
   codemirror-rails
   coffee-rails (~> 3.2.1)
   compass-rails
+  dalli
   deep_cloneable
   delayed_job_active_record
   delayed_job_web
@@ -390,7 +392,6 @@ DEPENDENCIES
   rabl
   railroady
   rails (= 3.2.8)
-  redis
   resque_spec
   rspec-rails (~> 2.6)
   sass

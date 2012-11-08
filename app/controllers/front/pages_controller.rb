@@ -1,16 +1,10 @@
 class Front::PagesController < ApplicationController
   caches_page :index
+  caches_page :show
   
   # GET /pages
   # GET /pages.json
   def index
-    # @pages = @current_account.pages.all
-    # # @sidebars = @current_account.sidebars.all
-    # # @widgets =  @current_account.widgets.all
-    # respond_to do |format|
-    #   format.html { }# index.html.erb
-    #   format.json { render json: @pages }
-    # end
     @page = @current_account.pages.find_by_slug('home')
     respond_to do |format|
       format.html { render(:layout => 'sidebar_right', :action => :show) } # show.html.erb
@@ -20,8 +14,7 @@ class Front::PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
-    # @page = @current_account.pages.find(params[:id]) if params[:id]
-    # params[:slug] = 'home' if params[:slug].nil?
+
     slug = params[:slug] || 'home'
     @page = @current_account.pages.find_by_slug(slug)
 

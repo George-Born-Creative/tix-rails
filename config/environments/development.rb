@@ -39,6 +39,8 @@ Tix::Application.configure do
   config.assets.debug = true
   
   require 'pusher'  
+  
+  config.cache_store = :dalli_store
     
   Pusher.app_id = ENV['PUSHER_APP_ID']
   Pusher.key = ENV['PUSHER_KEY']

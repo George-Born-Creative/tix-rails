@@ -67,9 +67,10 @@ gem 'phone', :git => 'https://github.com/carr/phone.git'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 # messaging
 gem 'pusher'
+gem 'dalli'
 
 # key value store
-gem 'redis'
+# gem 'redis'
 # gem 'redis-objects', :require => 'redis/objects'
 gem "moonshado-sms"
 #gem 'postmark-rails', '>= 0.4.1'

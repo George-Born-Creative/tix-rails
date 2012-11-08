@@ -10,6 +10,7 @@ Tix::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
+  config.static_cache_control = "public, max-age=2592000"
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -42,7 +43,7 @@ Tix::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-
+  config.cache_store = :dalli_store
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
@@ -68,6 +69,12 @@ Tix::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
     
+  
+  config.action_dispatch.rack_cache = {
+    :metastore    => Dalli::Client.new,
+    :entitystore  => 'file:tmp/cache/rack/body',
+    :allow_reload => false
+  }
   
   config.action_mailer.smtp_settings = {
     :address   => "smtp.mandrillapp.com",

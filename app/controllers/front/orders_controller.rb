@@ -12,7 +12,6 @@ class Front::OrdersController < InheritedResources::Base
       redirect_to '/', :notice => "You are not authorized to access this order."
     end
     
-    
   end
   
   def new

@@ -3,8 +3,6 @@ class Front::OrdersController < InheritedResources::Base
   
   before_filter :set_current_order
   before_filter :authenticate_user!
-  before_filter :check_authorized
-
 
 
   def show
@@ -77,9 +75,5 @@ class Front::OrdersController < InheritedResources::Base
     @current_user
   end
   
-  def check_authorized
-    
-  end
-
   
 end

@@ -1,6 +1,7 @@
 class Front::PhonesController < InheritedResources::Base
   layout 'front_user'
   before_filter :get_or_create_phone
+  before_filter :authenticate_user!
 
   
   def show

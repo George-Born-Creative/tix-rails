@@ -1,5 +1,6 @@
 class Front::AddressesController < InheritedResources::Base
   layout 'front_user'
+  before_filter :authenticate_user!
   before_filter :get_or_create_address
   
   def show

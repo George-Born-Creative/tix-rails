@@ -1,5 +1,4 @@
 class Front::PagesController < ApplicationController
-  caches_action :index, :show
 
   
   # GET /pages

@@ -132,7 +132,7 @@ class ApplicationController < ActionController::Base
   def set_current_order
     # For case when order is deleted (mostly in early development) 
     # clear session if order is blank. TODO: remove this
-    
+
     session[:order_id] = nil if @current_account.orders.where(:id => session[:order_id]).empty?
 
     if session[:order_id]

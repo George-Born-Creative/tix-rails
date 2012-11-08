@@ -2,7 +2,7 @@ class Front::OrdersController < InheritedResources::Base
   layout 'front_user'
   
   before_filter :set_current_order
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:add_to_cart, :remove_from_cart]
 
 
   def show

@@ -201,9 +201,14 @@ class Event < ActiveRecord::Base
   
   def set_times_formatted
     return nil if self.set_times.blank?
-    
     set_times.gsub(/\n/, '<br/>')
   end
+  
+  def info_formatted
+     return nil if self.info.blank?
+     info.gsub(/\n/, '<br/>')
+   end
+  
   
   
   private

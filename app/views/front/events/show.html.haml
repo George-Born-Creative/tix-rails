@@ -118,7 +118,7 @@
       -unless @event.info.blank?
         %h2 Additional Info
         %hr.red
-        %p=@event.info.html_safe 
+        %p=@event.info_formatted.html_safe unless @event.info.blank?
         %hr.red
     .videos
       

@@ -1,0 +1,33 @@
+%h1= "Tickets for #{@event.name}"
+%h2=@event.starts_at.to_formatted_s(:jammin_java)
+
+%hr/
+%h2 
+%table.table
+  %thead
+    %th id
+    %th Name
+    %th Section
+    %th Seat
+    %th Price
+    %th Service
+    %th Checked in yet?
+    -@tickets.order('created_at DESC').each_with_index do |ticket, index|
+      %tr
+        %td=index
+        
+        %td=ticket.full_name
+        %td=ticket.section.label.gsub(/General Admission/, 'GA')
+        %td=ticket.area.label.gsub(/General Admission/, 'GA')
+        %td=number_to_currency ticket.base_price
+        %td=number_to_currency ticket.service_charge
+        %td=number_to_currency ticket.total
+        %td
+          -if ticket.can_check_in?
+            =link_to 'checkin', ticket_checkin_path(ticket), :class => 'btn btn-primary'#, :target => '_blank'
+          -if ticket.checked_in?
+            Yes!
+            
+            
+            
+        %td=link_to 'View ticket', (order_path(ticket.order_id) + '/tickets')

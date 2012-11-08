@@ -37,7 +37,7 @@
         %th Total
         %th Customer
         %th # Tickets
-        %th By Section
+        %th{:width => '200'} By Section
         %th Status
         %th 
 
@@ -56,9 +56,9 @@
             
           %td= order.tickets.count
           %td
-            -unless order.tickets_uniq_with_counts.blank?
-              -order.tickets_uniq_with_counts.each do |section,count|
-                ="#{count}x #{section} "
+            -unless order.events_uniq_with_counts.blank?
+              -order.events_uniq_with_counts.each do |event,count|
+                ="#{count}x #{event} "
       
           %td=order.state
           %td

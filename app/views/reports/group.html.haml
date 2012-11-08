@@ -1,0 +1,56 @@
+.row
+  .span7.offset2
+    .well{:style => 'background-color: white'}
+      render 'totals_for_day', :locals => 
+
+
+      %h2 Totals by Group
+      %table.table
+        %tr
+          %td Base
+        
+          %td=number_to_currency @current_account.orders.purchased_today.sum('base')
+        %tr
+          %td Service
+          %td=number_to_currency @current_account.orders.purchased_today.sum('service_charge')
+        %tr
+          %td Total
+          %td=number_to_currency @current_account.orders.purchased_today.sum('total')
+        
+        
+
+      %h2 Ticket Sales by Event
+      %table.table
+        -Ticket.purchased_today.sum(:base_price, :group => :event_name).each do |event_name, base_price|
+          %tr
+            %td=event_name
+            %td=number_to_currency base_price
+  
+    %br/
+.row
+  .span7.offset2
+    .well{:style => 'background-color: white'}
+
+      %h3
+        Yesterday
+        ="(" + Time.zone.now.to_formatted_s(:short_ordinal) + ")"
+
+
+      %h2 Totals by Group
+      %table.table
+        %tr
+          %td Base
+          %td=number_to_currency @current_account.orders.purchased_yesterday.sum('base')
+        %tr
+          %td Service
+          %td=number_to_currency @current_account.orders.purchased_yesterday.sum('service_charge')
+        %tr
+          %td Total
+          %td=number_to_currency @current_account.orders.purchased_yesterday.sum('total')
+
+      %h2 Ticket Sales by Event
+      %table.table
+        -Ticket.purchased_yesterday.sum(:base_price, :group => :event_name).each do |event_name, base_price|
+          %tr
+            %td=event_name
+            %td=number_to_currency base_price

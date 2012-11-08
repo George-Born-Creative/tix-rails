@@ -57,6 +57,7 @@ class Ticket < ActiveRecord::Base
   scope :cart, lambda { joins(:order).where('orders.expires_at > ? AND purchased_at IS ?', Time.zone.now, nil) }
   scope :complete, lambda { joins(:order).where("orders.purchased_at < ?", Time.zone.now)}
   scope :purchased_between, lambda { |start_time, end_time| joins(:order).where('orders.purchased_at BETWEEN ? AND ?', start_time, end_time) }
+  scope :checked_in, lambda { joins(:order).where("checked_in_at < ?", Time.zone.now)}
   
 
 
@@ -108,6 +109,14 @@ class Ticket < ActiveRecord::Base
   end
     
     
+  def checked_in?
+    !checked_in_at.nil?
+  end
+  
+  def can_check_in?
+    !checked_in?
+  end
+    
   def set_info
     puts "setting self.event_name = event.name"
     self.event_name = event.name
@@ -144,6 +153,7 @@ class Ticket < ActiveRecord::Base
     puts "AREA LABEL IS #{self.area_label}"
     
   end
+  
   
   private 
   

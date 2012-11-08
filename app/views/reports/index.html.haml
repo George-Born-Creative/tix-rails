@@ -1,56 +1,30 @@
 .row
-  .span7.offset2
-    .well{:style => 'background-color: white'}
-      render 'totals_for_day', :locals => 
+  .span2
+    - 1.upto(30).each do |i|
+      -day = Time.zone.today - i
+      =link_to day, "/manager/reports/sales_over_time?day=#{day}"
+      %br/
 
-
-      %h2 Totals by Group
-      %table.table
-        %tr
-          %td Base
+  .span10
+    -@events.each do |event|
+      .row
+        .span4
+          %h3= event.title
+          =event.starts_at.to_formatted_s(:jammin_java)
+          %br/
+          %br/
+        .span1
+          %h1=event.tickets.complete.count
+        .span1
+          %h1=event.tickets.checked_in.count
+        .span2
+          -if event.tickets.count > 0
+            =link_to 'Guestlist', "/manager/reports/event_guestlist/#{event.id}"
+            |
+            =link_to 'Sales', "/manager/reports/event_sales/#{event.id}"
+            |
+          =link_to 'Edit', edit_event_path(event)
+          |
+          =link_to 'View', front_event_path(event)
         
-          %td=number_to_currency @current_account.orders.purchased_today.sum('base')
-        %tr
-          %td Service
-          %td=number_to_currency @current_account.orders.purchased_today.sum('service_charge')
-        %tr
-          %td Total
-          %td=number_to_currency @current_account.orders.purchased_today.sum('total')
-        
-        
-
-      %h2 Ticket Sales by Event
-      %table.table
-        -Ticket.purchased_today.sum(:base_price, :group => :event_name).each do |event_name, base_price|
-          %tr
-            %td=event_name
-            %td=number_to_currency base_price
-  
-    %br/
-.row
-  .span7.offset2
-    .well{:style => 'background-color: white'}
-
-      %h3
-        Yesterday
-        ="(" + Time.zone.now.to_formatted_s(:short_ordinal) + ")"
-
-
-      %h2 Totals by Group
-      %table.table
-        %tr
-          %td Base
-          %td=number_to_currency @current_account.orders.purchased_yesterday.sum('base')
-        %tr
-          %td Service
-          %td=number_to_currency @current_account.orders.purchased_yesterday.sum('service_charge')
-        %tr
-          %td Total
-          %td=number_to_currency @current_account.orders.purchased_yesterday.sum('total')
-
-      %h2 Ticket Sales by Event
-      %table.table
-        -Ticket.purchased_yesterday.sum(:base_price, :group => :event_name).each do |event_name, base_price|
-          %tr
-            %td=event_name
-            %td=number_to_currency base_price
+          

@@ -1,7 +1,7 @@
 Tix::Application.routes.draw do
 
   match '/manager', :controller => :manager, :action => :index
-  get '/tickets/:id/checkin' => 'Front::Tickets#checkin'
+  get '/tickets/:id/checkin' => 'Front::Tickets#checkin', :as => 'ticket_checkin'
   
   # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
@@ -38,6 +38,14 @@ Tix::Application.routes.draw do
   
   scope '/manager' do
     
+    
+   get '/reports' => 'reports#index'
+   get '/reports/event_guestlist/:event_id' => 'reports#event_guestlist'
+   get '/reports/event_sales/:event_id' => 'reports#event_sales'
+   get '/reports/sales_over_time' => 'reports#sales_over_time'
+
+    
+    
     resources :carousels do
       resources :carousel_items#, :as => :items
     end
@@ -67,7 +75,7 @@ Tix::Application.routes.draw do
     resources :ticket_templates
     resources :newsletters
     resources :pages
-    resources :reports
+
     resources :prices
     resources :sections
     resources :areas
@@ -97,6 +105,7 @@ Tix::Application.routes.draw do
     # and finally,
     match '/:action', :controller => :manager
 
+    
   end
   
   scope '/admin' do

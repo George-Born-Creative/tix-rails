@@ -6,6 +6,7 @@ class Front::OrdersController < InheritedResources::Base
   before_filter :check_authorized
 
 
+
   def show
     @order = @current_user.orders.where(:id => params[:id]).first
     
@@ -69,7 +70,7 @@ class Front::OrdersController < InheritedResources::Base
   private
  
   def collection
-     @orders ||= end_of_association_chain.complete # ensure complete orders only
+     @orders ||= end_of_association_chain.complete.order('purchased_at DESC') # ensure complete orders only
   end
 
   def begin_of_association_chain

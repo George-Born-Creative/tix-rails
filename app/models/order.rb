@@ -102,6 +102,11 @@ class Order < ActiveRecord::Base
   
   def purchase(user=nil)
     update_attribute(:user, user) unless user.blank?
+    # UPDATE USERS ADDRESS and PHONE TO be their LATEST ORDER
+    user.address = address.dup
+    user.address.save
+    user.phone = phone.dup 
+    user.phone.save
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     if response.success?

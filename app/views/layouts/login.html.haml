@@ -26,3 +26,17 @@
                 .span6.offset3
                   %div{:style => 'padding-top: 40px; background-color: black; padding: 40px; color: white; '}
                     = yield
+                    
+    
+
+    <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript"></script>
+
+    = javascript_include_tag "application"
+    =yield :javascript if content_for?(:javascript)
+    :javascript
+
+      $(function(){
+        Tix.init();
+      });
+
+    =yield :javascript_after_init if content_for?(:javascript_after_init)

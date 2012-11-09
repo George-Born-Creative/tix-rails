@@ -116,7 +116,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       $(document).mousemove (e)->
         offLeft = e.pageX  -  $('#chart_container').offset().left + 20
-        offTop  = e.pageY  - $('#chart_container').offset().top  + 150
+        offTop  = e.pageY  - $('#chart_container').offset().top  + 170
         offLeft = if offLeft >= 200 then offLeft - 130 else offLeft
         
         if self.mode != 'front'

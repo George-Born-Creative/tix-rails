@@ -143,9 +143,6 @@ class Event < ActiveRecord::Base
     future? self.starts_at
   end
 
-  def inspect
-    debug
-  end
   
   def day_of? # is today within 24 hours of midnight of the start price
     _day_of? self.starts_at
@@ -245,15 +242,6 @@ class Event < ActiveRecord::Base
     
   end
     
-  def debug
-    puts %{
-      # =>   announced  #{self.announce_at} days: #{days_ago self.announce_at}
-      # =>   on sale    #{self.on_sale_at} days: #{days_ago self.on_sale_at}
-      # =>   starts     #{self.starts_at} days: #{days_ago self.starts_at}
-      # =>   off_sale   #{self.off_sale_at} days: #{days_ago self.off_sale_at}
-      # =>   remove     #{self.remove_at} days: #{days_ago self.remove_at}
-    }
-  end
   
   private 
   def future?(time)

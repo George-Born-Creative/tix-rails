@@ -33,7 +33,7 @@ window.TixLib =
   
   init: ->
     # http://railscasts.com/episodes/340-datatables?view=asciicast
-    
+
     @openExternalLinksInNewWindow()
     @dontJumpOnBlankAnchors()
     @setupAjax()

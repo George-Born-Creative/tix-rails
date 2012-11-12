@@ -11,8 +11,10 @@ window.Tix =
     
   init: (data)->
     self = this
-    console.log 'ThinTix App Initialized'
+
     TixLib.init()
+    
+    
     
     $.ajax 
       url: '/users/user_env'
@@ -20,6 +22,7 @@ window.Tix =
       dataType: 'json'
       success: (data)->
         console.log data
+        self.setupConsole(data)
         self.initCart()
         self.initCartMiniView()
         self.initCartView(data)
@@ -27,7 +30,10 @@ window.Tix =
         self.initLogin()
         if data.role == 'employee' || data.role == 'owner' || data.role == 'manager'
           self.initEditButtons()
-      
+  
+  setupConsole: (data)->
+    #data.env == 'development'
+    #  console.log = ->
     
   initEditButtons: ->
     $('.admin-button').fadeIn()

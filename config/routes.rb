@@ -6,7 +6,6 @@ Tix::Application.routes.draw do
   # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
   # root :to => "pages#show", :controller => 'Front::Pages'
-  match '/', :controller => 'Front::Pages', :action => :show
   
   post '/users/user_env' => 'Front::Users#user_env'
   post '/users/login_env' => 'Front::Users#login_env'
@@ -25,7 +24,6 @@ Tix::Application.routes.draw do
   match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
   match '/orders/remove_from_cart/:area_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
-  resources :pages, :as => "front_pages", :only => [:show], :controller => 'Front::Pages'
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
@@ -116,7 +114,9 @@ Tix::Application.routes.draw do
   get '/checkout' => 'front::checkouts#new'
   post '/checkout' => 'front::checkouts#create'
   
-
+  match '/', :controller => 'Front::Pages', :action => :show
+  match '/:slug', :action => :show, :controller => 'Front::Pages', :as =>  "front_pages"
+  resources :pages, :only => [:show], :controller => 'Front::Pages'
   
   
   

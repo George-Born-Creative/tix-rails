@@ -41,18 +41,7 @@
         %p.current-prices=@event.current_prices_str
         
       .event-title
-        -if @event.disable_event_title
-          -if @event.headliners_str.length < 60
-            %h1= @event.headliners_str
-          -else
-            %h2= @event.headliners_str
-        -else
-          -if @event.title.length < 60
-            %h1= @event.title
-            %h2= @event.headliners_str
-          -else
-            %h2= @event.title
-            %h3= @event.headliners_str
+        =render :partial => 'event_title', :locals => {:event => @event}
     
         -unless @event.supporting_acts_str.blank?
           %h3=@event.supporting_acts_str

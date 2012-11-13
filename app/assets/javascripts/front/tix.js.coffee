@@ -1,3 +1,6 @@
+if typeof console is "undefined"
+  window.console = log: -> {} 
+
 window.Tix =
   Models: {}
   Collections: {} 
@@ -22,7 +25,6 @@ window.Tix =
       dataType: 'json'
       success: (data)->
         console.log data
-        self.setupConsole(data)
         self.initCart()
         self.initCartMiniView()
         self.initCartView(data)
@@ -31,10 +33,6 @@ window.Tix =
         if data.role == 'employee' || data.role == 'owner' || data.role == 'manager'
           self.initEditButtons()
   
-  setupConsole: (data)->
-    #data.env == 'development'
-    #  console.log = ->
-    
   initEditButtons: ->
     $('.admin-button').fadeIn()
     

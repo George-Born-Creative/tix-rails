@@ -1,42 +1,35 @@
-%table
-  %tr
-    %td Tickets
-    %td.align.right
-      %strong= number_to_currency current_order.total_base_price
-  %tr
-    %td Service Charge
-    %td.align.right
-      %strong= number_to_currency current_order.total_service_charge
-  %tr
-    %td TOTAL
-    %td.align.right
-      %strong= number_to_currency current_order.total
+.row
+  .span3.offset-by-four
+    %table
+      %tr
+        %td Tickets
+        %td
+          %strong= number_to_currency current_order.total_base_price
+      %tr
+        %td Service Charge
+        %td
+          %strong= number_to_currency current_order.total_service_charge
+      %tr
+        %td TOTAL
+        %td
+          %strong= number_to_currency current_order.total
 
 
 
 -current_order.tickets.each do |ticket|
   .cart-item
     .row
-      .span3
-        %h4=link_to ticket.event.name, front_event_path(ticket.event)
-        %p=ticket.event.starts_at.to_s(:jammin_java)
+      .span6
+        %p.starts-at=ticket.event.starts_at.to_s(:jammin_java)
+      
+        %p.event-name=link_to ticket.event.name, front_event_path(ticket.event)
         
-        %h5
+        %p.seat-price
           ="#{ticket.section_label}"
           -unless ticket.area_label.blank?
-            =" / #{ticket.area_label}"
-        =image_tag('http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=#{front_event_path(ticket.event)}&chld=H|0')
+            =" / #{ticket.area_label} /"
           
-      .span
-        %span.mono Base
-        =number_to_currency ticket.base_price
-        %br/
-        %span.mono Service
-        =number_to_currency ticket.service_charge
-        %br/
-        %span.mono Total
-        =number_to_currency ticket.total
-        %br/
+          =number_to_currency ticket.base_price
 
-        =link_to 'Remove', "/orders/remove_from_cart/#{ticket.area.id}", :class => '', :method => 'post'
+        =link_to 'x', "/orders/remove_from_cart/#{ticket.area.id}", :class => 'remove', :method => 'post'
 

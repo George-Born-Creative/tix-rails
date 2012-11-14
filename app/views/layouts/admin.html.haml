@@ -25,12 +25,10 @@
       = yield
         
     
-    <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript"></script>
     
     :javascript
       $(function(){
         Tix.init( {
           events: #{ render('events/events', :object => @events, :format => :json) },
-          pusherAPIKey: "#{Pusher.key}",
           env: "#{ENV['RAILS_ENV']}"}  );
       });

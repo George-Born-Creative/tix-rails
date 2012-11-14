@@ -7,6 +7,10 @@
     = f.input :password_confirmation, :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
+    = f.input :account_id, :as => :hidden, :input_html => {:value => @current_account.id }
+    -if params[:after_sign_in_path]
+      = hidden_field_tag( 'after_sign_in_path', params[:after_sign_in_path] )
+    
   .form-actions
     = f.button :submit, "Sign up"
 = render "devise/shared/links"

@@ -91,8 +91,8 @@ class Order < ActiveRecord::Base
     area = Area.find(area_id)
     if area.ticketable?
       ticket = self.tickets.create(:area => area)
-      # If this is the first ticket, reset order expiration
-      set_expires_at() # if self.tickets.count == 1
+      # Renew order expiration as new tickets are added
+      set_expires_at()
       
       return true
     else
@@ -165,12 +165,6 @@ class Order < ActiveRecord::Base
   def total
     self.tickets.reduce(0) {|memo, ticket| memo += ticket.total || 0}
   end
-  
-  # TODO: put this into ticket
-  # def sections_uniq_with_counts # returns has of section => qty
-  #   return nil if self.tickets.nil?
-  #   self.tickets.reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
-  # end
   
   def events_uniq_with_counts # returns has of section => qty
     return nil if self.tickets.nil?

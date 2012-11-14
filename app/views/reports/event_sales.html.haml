@@ -1,0 +1,84 @@
+.row
+  .span3{:style => 'text-align: left'}
+    -@current_account.events.all.each do |event|
+      -if event.tickets.complete.count > 0
+        %a{:href => "/manager/reports/event_sales/#{event.id}", :style => 'background-color: white; display: block; margin-bottom: 3px; border: 1px solid #ccc; padding: 4px' }
+          =event.name
+          %br/
+          =event.starts_at.to_formatted_s(:date_slashes)
+          %strong
+            ="(#{event.tickets.checked_in.count}/#{event.tickets.count})"
+          %br/
+    
+    
+  .span8
+    .row
+    .widget-content
+      %h3 
+        Sales for
+        =@event.name
+    
+      .span3
+        %h5 Show Time
+        %h4=@event.starts_at.to_formatted_s(:shorty)
+      .span4
+        %h5 Report Run Time
+        %h4=Time.zone.now.to_formatted_s(:shorty)
+        %br/
+        
+      .widget
+        .widget-header
+          %h3 Grand Total
+        .widget-content
+          
+
+          %table.table.table-bordered.table-striped
+            %thead
+              %td Base Price
+              %td Service Charge
+              %td Total
+            %tr
+              %td=number_to_currency @event.tickets.complete.total_service
+              %td=number_to_currency @event.tickets.complete.total_base
+              %td=number_to_currency @event.tickets.complete.total
+
+      .widget
+        .widget-header
+          %h3 By Section
+        .widget-content
+          %table.table.table-bordered.table-striped
+            %thead
+              %tr
+                %td Section
+                %td Max Tickets
+                %td Sold
+                %td Available
+                %td Checked In
+            %tbody
+              -@event.chart.sections.seatable.each do |section|
+                %tr
+                  %td=section.label
+                  %td=section.areas.reduce(0){|memo, a| memo += a.max_tickets}
+                  %td=section.areas.reduce(0){|memo, a| memo += a.tickets.complete.count}
+                  %td=section.areas.reduce(0){|memo, a| memo += a.inventory}
+                  %td=section.areas.reduce(0){|memo, a| memo += a.tickets.checked_in.count}
+
+
+      .widget
+        .widget-header
+          %h3 By Tickets
+        .widget-content
+          %table.table.table-bordered.table-striped
+            %thead
+              %tr
+                %td Name
+                %td Total
+                %td Purchased At
+                %td Checked in?
+            -@event.tickets.complete.order('purchased_at DESC').each do |ticket|
+              %tr
+                %td=ticket.order.user.full_name unless ticket.order.nil? || ticket.order.user.nil?
+                %td=number_to_currency ticket.base_price
+                %td=ticket.order.purchased_at.to_formatted_s(:jammin_java)
+                %td=ticket.checked_in? ? 'checked in' : ''
+              

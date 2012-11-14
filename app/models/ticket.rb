@@ -52,7 +52,8 @@ class Ticket < ActiveRecord::Base
     
   validates_presence_of :area
   validates_presence_of :order
-    
+  
+  
   scope :expired, lambda { joins(:order).where('orders.expires_at <= ? AND purchased_at IS ?', Time.zone.now, nil) }  
   scope :cart, lambda { joins(:order).where('orders.expires_at > ? AND purchased_at IS ?', Time.zone.now, nil) }
   scope :complete, lambda { joins(:order).where("orders.purchased_at < ?", Time.zone.now)}
@@ -168,6 +169,22 @@ class Ticket < ActiveRecord::Base
     self.base_price = area.section.current_price.base
     self.service_charge = area.section.current_price.service
   end
+  
+  def self.total
+    self.total_service + self.total_base
+  end
+  
+  
+  def self.total_service
+    sum(:service_charge) # TODO ADD TAX?
+  end
+  
+  
+  def self.total_base
+    sum(:base_price) # TODO ADD TAX?
+  end
+  
+  
   
   
     

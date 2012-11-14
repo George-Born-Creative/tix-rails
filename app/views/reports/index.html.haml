@@ -23,62 +23,70 @@
 
 .row
   .span2
-    %h4 Business Days
-    %span.badge=link_to 'Day', '#'
-    %span.badge=link_to 'Wk', '#'
-    %span.badge=link_to 'Mon', '#'
+    .widget
+      .widget-header
+        %h3 Business Days
+      .widget-content
+        %span.badge=link_to 'Day', '#'
+        %span.badge=link_to 'Wk', '#'
+        %span.badge=link_to 'Mon', '#'
   
-    %hr/
+        %hr/
     
-    - 1.upto(30).each do |i|
-      -day = Time.zone.today - i
-      =link_to day, "/manager/reports/sales_over_time?day=#{day}"
-      %br/
+        - 1.upto(30).each do |i|
+          -day = Time.zone.today - i
+          =link_to day, "/manager/reports/sales_over_time?day=#{day}"
+          %br/
 
   .span10
-    .row
-      .span4 
-        %h4 By Show
-        %span.badge=link_to 'On the Books', '/manager/reports?time=current'
-        %span.badge=link_to 'Historical', '/manager/reports?time=historical'
+    .widget
+      .widget-header
+        %h3 By Show
+      .widget-content
+        .row
+          .span3
+            %span.badge=link_to 'On the Books', '/manager/reports?time=current'
+            %span.badge=link_to 'Historical', '/manager/reports?time=historical'
         
         
-      .span1
-        %h4
-          %i.icon-list-alt{:style => 'zoom: 200%'}
+          .span1
+            %h4
+              %i.icon-list-alt{:style => 'zoom: 200%'}
           
-      .span4  
-        %h4
-          %i.icon-check{:style => 'zoom: 200%'}
+          .span4  
+            %h4
+              %i.icon-check{:style => 'zoom: 200%'}
       
     
-    %hr/
+        %hr/
   
-    -@events.each do |event|
-      .row
-        .span4
-          %h4= event.title
-          =event.starts_at.to_formatted_s(:jammin_java)
-          %br/
-          %br/
-        .span1
-          %h1=event.tickets.complete.count
-        .span1
-          %h1=event.tickets.checked_in.count
-        .span1
-          -if event.tickets.checked_in.count > 0
-            %span.badge.badge-inverse=link_to 'Guestlist', "/manager/reports/event_guestlist/#{event.id}"
-          -else
-            &nbsp;
-        .span1
-          -if event.tickets.checked_in.count > 0
-            %span.badge.badge-info=link_to 'Sales', "/manager/reports/event_sales/#{event.id}"
-          -else
-            &nbsp;
-        .span1
-          %span.badge.badge-warning=link_to 'Edit', edit_event_path(event)
-        .span1
-          %span.badge.badge-success=link_to 'View', front_event_path(event)
+        -@events.each do |event|
+          -if event.tickets.complete.count > 0
+            .row
+              .span3
+                %strong=event.title
+                %br/
+                =event.starts_at.to_formatted_s(:shorty)
+                %br/
+                %br/
+              .span1
+                %h1=event.tickets.complete.count
+              .span1
+                %h1=event.tickets.checked_in.count
+              .span1
+                -if event.tickets.complete.count > 0
+                  %span.badge.badge-inverse=link_to 'Guestlist', "/manager/reports/event_guestlist/#{event.id}"
+                -else
+                  &nbsp;
+              .span1
+                -if event.tickets.complete.count > 0
+                  %span.badge.badge-info=link_to 'Sales', "/manager/reports/event_sales/#{event.id}"
+                -else
+                  &nbsp;
+              .span1
+                %span.badge.badge-warning=link_to 'Edit', edit_event_path(event)
+              .span1
+                %span.badge.badge-success=link_to 'View', front_event_path(event)
  
         
           

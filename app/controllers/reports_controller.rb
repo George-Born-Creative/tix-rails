@@ -3,7 +3,6 @@ class ReportsController < ApplicationController
 
   def index
     
-    
     @events = @current_account.events
     
     if params[:time] == 'historical'
@@ -26,6 +25,8 @@ class ReportsController < ApplicationController
   
   def event_sales  # by day, by week, by month (start, stop)
     # params[:event_id]
+    @event = @current_account.events.find(params[:event_id])
+    
   end
   
   def sales_over_time

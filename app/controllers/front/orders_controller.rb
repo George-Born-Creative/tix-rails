@@ -12,6 +12,12 @@ class Front::OrdersController < InheritedResources::Base
       redirect_to '/', :notice => "You are not authorized to access this order."
     end
     
+    respond_to do |format|
+      format.html
+      format.pdf { doc_raptor_send }
+     end
+     
+    
   end
   
   def new

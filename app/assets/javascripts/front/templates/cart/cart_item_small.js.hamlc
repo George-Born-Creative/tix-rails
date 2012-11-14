@@ -1,11 +1,10 @@
-%ul.event_cart.span2
-  %li
-    %span.event_name= @seat.get('event_name')
-    %span.seat_info
-      %span.seat= @seat.get('section').label
-      - 
-      %span.section= @seat.get('area').label
-      %span.price= Tix.utils.formatCurrency( @seat.get('base'), 0 )
-    
-    %a.close{:href => "javascript:;"} [x]
+.event_cart_item
+  %a.close{:href => "javascript:;"} [x]
+  %span.event_name= @seat.get('event_name')
+  %span.seat_info
+    %span.seat= @seat.get('section').label
+    - 
+    %span.section= @seat.get('area').label
+    %span.price= Tix.utils.formatCurrency( @seat.get('base'), 0 )
+  
 

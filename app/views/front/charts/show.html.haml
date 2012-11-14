@@ -22,15 +22,14 @@
         =render :partial => 'front/events/event_title', :locals => {:event => @event}
       
       %p.small=@event.current_prices_str
-      =image_tag '/images/interface/social_mini.png'
 
     
     .span4
-      #cart_totals_container
+      
       -# .alert
       -#   Timer
       -#   %h1 10:00
-      
+  %hr.red-thin
   .row
     -# YOUR SELECTIONS
    
@@ -38,14 +37,20 @@
   
   .row
     .span5
+      %h2 Seating Chart
+      %p Click on the map to select your seats.
+    
       #chart_container
-      
+        
     .span7
-      %h2 Your Selections
+      .row{:style => 'margin-bottom: 0px'}
+        .span3
+          %h2 Your Selections
+        .span4
+          #cart_totals_container
+      
       #cart_container
       
       
-    /.span3
-    /#cart_totals_container
      
     

@@ -1,11 +1,7 @@
-%span
-  
-  .alpha.columns.left.two
-    %h3 Total
-  .columns.omega.right.total.two
-    %h3= @cart.subtotal()
-  %br/
-  %br/
-  %br/
-%a.button.checkout{:href => '/checkout'} Checkout »
+.row
+  .span2.total
+    Total
+    %span.subtotal=@cart.subtotal()
+  .span2
+    %a.button.checkout{:href => '/checkout', :style => 'border: 0; text-align: right !important;'} Checkout »
 

@@ -92,7 +92,7 @@ class Order < ActiveRecord::Base
     if area.ticketable?
       ticket = self.tickets.create(:area => area)
       # If this is the first ticket, reset order expiration
-      set_expires_at() if self.tickets.count == 1
+      set_expires_at() # if self.tickets.count == 1
       
       return true
     else

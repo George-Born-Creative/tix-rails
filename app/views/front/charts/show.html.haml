@@ -7,43 +7,45 @@
       // Tix = Tix || {}
       Tix.Chart = #{render('charts/chart', :object => @chart, :format => :json)};
     });
+  
+.front-chart-view
+  %h1 Select Your Seats
+  .row
+    .span2
+      %h2=image_tag( @event.photo(:thumb), :width => '100%')
     
+    .span6
     
-.row
-  .span2
-    %h2=image_tag( @event.photo(:thumb), :width => '100%')
+      %p.artists
+        %h5=@event.starts_at.to_formatted_s(:jammin_java)
     
-  .span4
-    %h4=@event.name
-    
-    %p.artists
-      %span.headliner
-        =@event.headliner.name
-      -unless @event.secondary_headliner.nil?
-        %span.headliner-secondary.secondary-headlinr
-          ="+ " + @event.secondary_headliner.name
+        =render :partial => 'front/events/event_title', :locals => {:event => @event}
       
-    %h5=@event.starts_at.to_formatted_s(:jammin_java)
-    %p.small=@event.current_prices_str
-    =image_tag '/images/interface/social_mini.png'
+      %p.small=@event.current_prices_str
+      =image_tag '/images/interface/social_mini.png'
 
-  .span4
-    =@event.info.html_safe
     
-    
-  .span2
-    .alert
-      Timer
-      %h1 10:00
+    .span4
+      #cart_totals_container
+      -# .alert
+      -#   Timer
+      -#   %h1 10:00
       
-.row
-  .span5
-    #chart_container
+  .row
+    -# YOUR SELECTIONS
+   
     
-  .span4
-    #cart_container
-        
-  .span3
-    #cart_totals_container
+  
+  .row
+    .span5
+      #chart_container
+      
+    .span7
+      %h2 Your Selections
+      #cart_container
+      
+      
+    /.span3
+    /#cart_totals_container
      
     

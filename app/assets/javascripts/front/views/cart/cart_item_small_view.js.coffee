@@ -12,5 +12,6 @@ class Tix.Views.CartItemSmall extends Backbone.View
     
   render: ->
     @$el.html( @template( {seat: @model})  )
-    
+    # TODO Set BG Color
+    # @$el.find('li').css('background-color', 'orange')
     @

@@ -9,8 +9,8 @@ window.Tix =
   # Dispatcher: _.clone(Backbone.Events)
   
   utils: 
-    formatCurrency: (price)->
-      return '$' + parseFloat(price).toFixed(2).toString()
+    formatCurrency: (price, digits=2)->
+      return '$' + parseFloat(price).toFixed(digits).toString()
     
   init: (data)->
     self = this
@@ -96,7 +96,8 @@ window.Tix =
       
   renderCartItem: (seat)->
     view = new Tix.Views.CartItemSmall({model: seat})
-    $('#cart_container').prepend(view.render().el)
+    $el = $(view.render().el)
+    $el.prependTo('#cart_container').hide().fadeIn('fast')
     
     
   initChart: ->

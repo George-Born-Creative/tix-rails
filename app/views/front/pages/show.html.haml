@@ -6,6 +6,7 @@
     =raw render_shortcodes('[carousel name=&quot;home&quot;]')
     
   -if @page && @page.body
+    -#cache("/page/#{@page.slug}" ) do 
     =raw render_shortcodes( @page.body )
     %br/
   

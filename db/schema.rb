@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103150556) do
+ActiveRecord::Schema.define(:version => 20121114032915) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -78,14 +78,14 @@ ActiveRecord::Schema.define(:version => 20121103150556) do
     t.string   "twitter"
     t.text     "youtube1"
     t.text     "youtube2"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.decimal  "id_old"
-    t.integer  "account_id",              :default => 0, :null => false
+    t.integer  "account_id",              :null => false
     t.integer  "id_old_image"
     t.string   "audio_sample_title"
     t.integer  "artist_id_old_secondary"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(:version => 20121103150556) do
     t.text     "info"
     t.text     "set_times"
     t.string   "price_freeform"
-    t.integer  "account_id",             :default => 0,     :null => false
+    t.integer  "account_id",                                :null => false
     t.string   "chart"
     t.integer  "artist_id_old"
     t.string   "cat"
@@ -246,7 +246,7 @@ ActiveRecord::Schema.define(:version => 20121103150556) do
     t.string   "status",                                              :default => "pending", :null => false
     t.datetime "created_at",                                                                 :null => false
     t.datetime "updated_at",                                                                 :null => false
-    t.integer  "account_id",                                          :default => 0,         :null => false
+    t.integer  "account_id",                                                                 :null => false
     t.integer  "user_id"
     t.decimal  "total",                 :precision => 8, :scale => 2, :default => 0.0,       :null => false
     t.decimal  "tax",                   :precision => 8, :scale => 2, :default => 0.0,       :null => false
@@ -385,10 +385,10 @@ ActiveRecord::Schema.define(:version => 20121103150556) do
     t.decimal  "price"
     t.integer  "event_id"
     t.integer  "area_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "order_id"
-    t.integer  "account_id",      :default => 0, :null => false
+    t.integer  "account_id",      :null => false
     t.decimal  "base_price"
     t.decimal  "service_charge"
     t.string   "area_label"
@@ -413,7 +413,7 @@ ActiveRecord::Schema.define(:version => 20121103150556) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                                                   :null => false
     t.datetime "updated_at",                                                                   :null => false
-    t.integer  "account_id",                                           :default => 0,          :null => false
+    t.integer  "account_id",                                                                   :null => false
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"

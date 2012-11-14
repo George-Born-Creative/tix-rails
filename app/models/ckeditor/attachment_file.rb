@@ -21,6 +21,7 @@ class Ckeditor::AttachmentFile < Ckeditor::Asset
   has_attached_file :data,
     :storage => :s3,
     :bucket => ENV['S3_BUCKET_NAME'],
+    :s3_protocol => :https,
     :s3_credentials => S3_CREDENTIALS,
     # :styles => { :large => "600x600", :medium => "300x300>", :thumb => "100x100>" },
 	  :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename",

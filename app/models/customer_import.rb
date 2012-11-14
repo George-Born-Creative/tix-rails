@@ -18,7 +18,7 @@ class CustomerImport < ActiveRecord::Base
   default_scope :order => 'created_at DESC'
   belongs_to :account
   
-  has_attached_file :data, :storage => :s3, :s3_credentials => S3_CREDENTIALS
+  has_attached_file :data, :storage => :s3, :s3_credentials => S3_CREDENTIALS, :s3_protocol => :https
   
   #after_save :queue_import_job
   

@@ -26,6 +26,7 @@ class TicketTemplate < ActiveRecord::Base
       :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     },
+    :s3_protocol => :https,
     :styles => { :medium => "300x300>", :thumb => "100x100>" },
     :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
     

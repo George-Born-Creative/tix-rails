@@ -15,7 +15,7 @@
 
 class Page < ActiveRecord::Base
   attr_accessible :body, :slug, :title, :sidebar_id
-  
+    
   belongs_to :account
   belongs_to :parent, :class_name => 'Page'
   belongs_to :sidebar

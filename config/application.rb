@@ -16,7 +16,7 @@ module Tix
     config.assets.precompile += ['manager.js', 'manager.css']
     config.assets.precompile += Ckeditor.assets
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
-    
+    config.force_ssl = false
     config.time_zone = 'Eastern Time (US & Canada)'
     config.assets.paths << Rails.root.join("app", "assets", "lib")
     # Settings in config/environments/* take precedence over those specified here.

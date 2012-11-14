@@ -72,4 +72,4 @@ class Tix.Collections.Cart extends Backbone.Collection
     , 0
     
   _sumFormatted: (propName)->
-    return Tix.utils.formatCurrency(@_sum(propName))
+    return Tix.utils.formatCurrency(@_sum(propName), 0)

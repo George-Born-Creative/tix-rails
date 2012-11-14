@@ -3,7 +3,7 @@
   .alpha.columns.left.two
     %h3 Total
   .columns.omega.right.total.two
-    %h3= @cart.total()
+    %h3= @cart.subtotal()
   %br/
   %br/
   %br/

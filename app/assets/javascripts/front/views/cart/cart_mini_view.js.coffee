@@ -10,5 +10,5 @@ class Tix.Views.CartMiniView extends Backbone.View
     
     
   render: ->
-    @$el.find('.cart-total').text(@model.total)
+    @$el.find('.cart-total').text(@model.subtotal())
     @

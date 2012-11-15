@@ -62,7 +62,13 @@
                   %td=section.areas.reduce(0){|memo, a| memo += a.tickets.complete.count}
                   %td=section.areas.reduce(0){|memo, a| memo += a.inventory}
                   %td=section.areas.reduce(0){|memo, a| memo += a.tickets.checked_in.count}
-
+            %tfoot
+              %tr
+                %td
+                %td
+                %td
+                %td
+                %td
 
       .widget
         .widget-header

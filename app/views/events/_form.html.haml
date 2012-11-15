@@ -9,7 +9,7 @@
         #big_stats.cf
           .stat
             %h4 Total Tickets Sold
-            %span.value=@event.tickets.count
+            %span.value=link_to @event.tickets.complete.count, "/manager/reports/event_guestlist/#{@event.id}"
 
           .stat
             %h4 Sold Tickets Checked in

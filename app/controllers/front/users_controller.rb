@@ -3,7 +3,7 @@ class Front::UsersController < InheritedResources::Base
   
   def index
     @user = @current_user
-    #redirect_to front_user_path(@current_user)
+    redirect_to front_orders_path #'/orders'# front_user_path(@current_user)
   end
 
   # POST /users/env(.js)

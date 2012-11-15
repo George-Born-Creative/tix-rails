@@ -1,6 +1,5 @@
 object @order
-attributes :id, :created_at, :expires_at, :service_charge, :state, :tax, :total
-
+attributes :id, :created_at, :expires_at, :service_charge, :state, :tax, :total, :expires_in_seconds
 child( :tickets) do
   attributes :id, :area_id, :event_id, :state, :label, :base_price, :service_charge
   

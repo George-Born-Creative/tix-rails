@@ -29,7 +29,7 @@ class Order < ActiveRecord::Base
   # before_save :calc_and_save_totals
   LIFESPAN = 10.minutes
   
-  before_create :set_expires_at
+  after_create :set_expires_at
   before_save :cache_state
   before_save :set_totals
   
@@ -93,17 +93,22 @@ class Order < ActiveRecord::Base
       ticket = self.tickets.create(:area => area)
       # Renew order expiration as new tickets are added
       set_expires_at()
-      
       return true
     else
       return false
     end
   end
 
+  # Convienience method for getting order expiration in seconds
+  # A negative value means order has expired
+  
+  def expires_in_seconds
+    '%.0f' % ( expires_at - Time.now )
+  end
   
   def purchase(user=nil)
     update_attribute(:user, user) unless user.blank?
-    # UPDATE USERS ADDRESS and PHONE TO be their LATEST ORDER
+    # UPDATE USERS ADDRESS and PHONE TO match user's LATEST ORDER
     user.address = address.dup
     user.address.save
     user.phone = phone.dup 
@@ -224,7 +229,7 @@ class Order < ActiveRecord::Base
   private
   
   def set_expires_at
-    self.expires_at = DateTime.now + LIFESPAN
+    self.update_attribute(:expires_at, DateTime.now + LIFESPAN)
   end
 
 

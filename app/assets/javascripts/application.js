@@ -30,6 +30,7 @@
 
 // require_tree ./lib/templates/
 //= require ./lib/tixlib
+//= require ./lib/tixlib.timer
 // require_tree ./lib/models
 // require_tree ./lib/collections
 //= require_tree ./lib/views

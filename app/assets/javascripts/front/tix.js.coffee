@@ -24,7 +24,6 @@ window.Tix =
       type: 'post'
       dataType: 'json'
       success: (data)->
-        console.log data
         self.initCart()
         self.initCartMiniView()
         self.initCartView(data)
@@ -54,14 +53,31 @@ window.Tix =
     Tix.Cart.on 'add', -> cartMiniView.render()
     Tix.Cart.on 'remove', -> cartMiniView.render()
     
+  initTimer: (data)->
+    self = this
+    seconds_til_expiration = data.order.expires_in_seconds
+    
+    # console.log ['initTimer(data)', seconds_til_expiration]
+    @timer = new TixLib.Timer()
+    @timer.init(seconds_til_expiration)
+    
+    TixLib.Dispatcher.on 'tick', (data)->
+      $('.countdown .time').text(data.time)
+      
+    Tix.Cart.on 'add', ->
+      self.timer.init(600) # 10 minutes
+    
+    
   initCartView: (data)->
     self = @
+    
     # When cart changes, add item
     order = data.order
     if order
-      console.log ["ORDER EXISTS", data.order] 
+      console.log ["ORDER EXISTS!", data.order] 
+      
       _.each data.order.tickets, (ticket)->
-        console.log ['ticket', ticket]
+
         seat = new Tix.Models.Seat
           ticket_id: ticket.id
           event_name:  ticket.event_name
@@ -75,24 +91,13 @@ window.Tix =
           
         Tix.Cart.add(seat)
         self.renderCartItem(seat)
-        
-        
-        
-        # @renderCartItem(seat)
-        
-        # event_name
-        # section.label
-        # area.label
-        # base
-
-        
-        
-          
-          
           
     Tix.Cart.on 'add', (seat)->
       @renderCartItem(seat)
     , this
+    
+    @initTimer(data)
+    
       
   renderCartItem: (seat)->
     view = new Tix.Views.CartItemSmall({model: seat})

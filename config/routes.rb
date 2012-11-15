@@ -11,7 +11,7 @@ Tix::Application.routes.draw do
   post '/users/login_env' => 'Front::Users#login_env'
   get '/users/my_account' => 'Front::Users#my_account'
   
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   
   resources :users, :controller => 'Front::Users', :as => 'front_users'
   resources :orders, :as => "front_orders", :only => [:index, :create, :show], :controller => 'Front::Orders'

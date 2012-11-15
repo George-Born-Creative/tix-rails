@@ -30,7 +30,7 @@ class TixLib.Timer
     
   trigger: (key, data)->
     TixLib.Dispatcher.trigger key, data
-    console.log ['trigger:', key, data.time]
+    # console.log ['trigger:', key, data.time]
       
       
   countDown: ->

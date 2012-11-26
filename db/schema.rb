@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114155218) do
+ActiveRecord::Schema.define(:version => 20121126185546) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -429,6 +429,7 @@ ActiveRecord::Schema.define(:version => 20121114155218) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+    t.boolean  "newsletter_opt_in",                                    :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

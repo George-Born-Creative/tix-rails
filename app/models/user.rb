@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name,  :middle_name, :last_name, :salutation, :title,
-                  :role, :account_id, :phone
+                  :role, :account_id, :phone, :newsletter_opt_in, :accept_terms_conditions
    
   attr_accessor :full_name
 
@@ -92,6 +92,8 @@ class User < ActiveRecord::Base
   
   
   validates_inclusion_of :role, :in => ROLES.map{|r| r.to_sym}
+  validates :accept_terms_conditions, :acceptance => true
+  
   
   def role
     read_attribute(:role).to_sym

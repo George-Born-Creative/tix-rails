@@ -10,7 +10,6 @@
     .span2=f.input :first_name, :required => true # 'user[first_name]', attr_or_nil(:user_first_name), :placeholder =>  'first name'
     .span2=f.input :last_name, :required => true # 'usertext_field_tag 'user[last_name]', attr_or_nil(:user_last_name), :placeholder =>  'last name'
     .span2=f.input :email, :required => true# 'user, attr_or_nil(:user_email), :placeholder =>  'email (confirm)'
-    = f.input :account_id, :as => :hidden, :input_html => {:value => @current_account.id }
     
   .row
     .span3
@@ -19,7 +18,11 @@
       =f.input :password_confirmation, :required => true
       -#if params[:after_sign_in_path]
       = hidden_field_tag( 'after_sign_in_path', '/checkout' )
-      
+  .row
+    = f.input :newsletter_opt_in, :label => 'Send me information about new shows, venues and news from Jammin\' Java', :input_html => {:checked => true} 
+    = f.input :accept_terms_conditions, :as => :boolean, :label => 'I agree to the <a href="#">Terms and Conditions</a>', :input_html => {:checked => false} 
+    = f.input :account_id, :as => :hidden, :input_html => {:value => @current_account.id }
+    
   %button Create account
     
 -#   %h2 Phone

@@ -1,5 +1,5 @@
 .event_cart_item
-  %a.close{:href => "javascript:;"} [x]
+  %a.close{:href => "javascript:;"} x
   %span.event_name= @seat.get('event_name')
   %span.seat_info
     %span.seat= @seat.get('section').label

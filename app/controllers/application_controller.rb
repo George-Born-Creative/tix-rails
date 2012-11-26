@@ -165,7 +165,7 @@ class ApplicationController < ActionController::Base
     if @current_order.complete?
       order_path = front_order_path(@current_order)
       session[:order_id] = nil
-      redirect_to order_path
+      redirect_to '/orders/success'
     end
   end
   

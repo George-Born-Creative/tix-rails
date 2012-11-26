@@ -1,5 +1,7 @@
 class Front::PagesController < ApplicationController
-
+  # cache_sweeper :page_sweeper
+  
+  #caches_action :show, :expires_in => 1.hour#, :cache_path => { :page => params[:slug] }
   
   # GET /pages
   # GET /pages.json
@@ -16,7 +18,7 @@ class Front::PagesController < ApplicationController
 
     slug = params[:slug] || 'home'
     @page = @current_account.pages.find_by_slug(slug)
-
+    
     respond_to do |format|
       unless @page.nil?
         format.html { render :layout => 'sidebar_right' } # show.html.erb

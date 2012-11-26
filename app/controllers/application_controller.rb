@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def layout
     if devise_controller? || action_name == 'sign_in' || action_name == 'sign_up'
-     "login"
+     "front_user"
     elsif request.fullpath.slice(0,8) == '/manager'
       "manager"
     elsif request.fullpath.slice(0,6) == '/admin'

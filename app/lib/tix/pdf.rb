@@ -8,9 +8,6 @@ module Tix
         text "Hello World!"
       end
       
-      
-      
-      
     end
     
   end

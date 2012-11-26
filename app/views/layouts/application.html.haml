@@ -48,12 +48,8 @@
             %p.alert= alert
           
         .container
+          =content_for?(:content) ? yield(:content) : yield
 
-          -if (content_for?(:layout) == true)
-            =yield(:layout)
-
-              
-              
     
     
     = javascript_include_tag "application"

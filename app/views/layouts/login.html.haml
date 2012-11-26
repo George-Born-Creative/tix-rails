@@ -1,40 +1,10 @@
-!!!
-%html
-  %head
-    %title Jammin' Java
-    = stylesheet_link_tag    "application", :media => "all"
-    = csrf_meta_tags
-    =raw '<!-- current subdomain: ' + @current_account.subdomain + '-->'
-    =render 'front/shared/theme'
     
-  %body
-    #wrap
-      .container
-        .row
-          #header.span16
-            =render 'shared/header'
-  
-          .row
-            .span12
-              .row
-                <br/>
-                .span6.offset3
-                  -unless notice.blank?
-                    %p.notice= notice
-                  -unless alert.blank?
-                    %p.alert= alert
-                .span6.offset3
-                  %div{:style => 'padding-top: 40px; background-color: black; padding: 40px; color: white; '}
-                    = yield
-                    
-    
+-content_for :content do
+  .span6.offset3
+    %div{:style => 'padding-top: 40px; background-color: black; padding: 40px; color: white; '}
+      = yield
 
-    = javascript_include_tag "application"
-    =yield :javascript if content_for?(:javascript)
-    :javascript
+      
 
-      $(function(){
-        Tix.init();
-      });
+=render :template => 'layouts/application'
 
-    =yield :javascript_after_init if content_for?(:javascript_after_init)

@@ -1,0 +1,27 @@
+-content_for :content do
+  .order-success
+    .row
+      .span12
+
+        %h1 Success!
+      
+        %p
+          .row
+            .span6
+              %p
+                Check your email! Your tickets have been emailed to you. Bring
+                the email on your smartphone to show for a fast check-in or
+                simply give us your name and we'll pull up your order. Email
+                =mail_to 'tickets@jamminjava.com'
+                with
+                any questions. 
+            
+              %p
+                See you at the show!
+              .site-signature
+                -# TODO paramaterize this
+                =image_tag '/images/jj-brindley-bros-signature.png', :style => 'margin-top: 10px'
+              
+        %p
+
+      -#render :partial => 'tickets/tickets', :locals => {:tickets => @order.tickets, :show_artwork => false}

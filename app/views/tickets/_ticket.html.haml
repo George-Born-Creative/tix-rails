@@ -61,7 +61,7 @@
                 
                 .span2
                   =image_tag qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 150
-                
+
                   -#-if ticket.checked_in?
                   -#  Checked in
                   -#-else

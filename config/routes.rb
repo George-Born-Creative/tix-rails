@@ -14,6 +14,8 @@ Tix::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   
   resources :users, :controller => 'Front::Users', :as => 'front_users'
+  get '/orders/success' => 'Front::Orders#success'
+  
   resources :orders, :as => "front_orders", :only => [:index, :create, :show], :controller => 'Front::Orders'
   resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
   resources :phones, :as => "front_phones",  :controller => 'Front::Phones'

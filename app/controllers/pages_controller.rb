@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   layout 'manager_cms'
+  cache_sweeper :page_sweeper
+    
   
   # GET /pages
   # GET /pages.json
@@ -47,7 +49,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to "/page/#{@page.slug}", notice: 'Page was successfully created.' }
+        format.html { redirect_to "/#{@page.slug}", notice: 'Page was successfully created.' }
         format.json { render json: @page, status: :created, location: @page }
       else
         format.html { render action: "new" }
@@ -63,7 +65,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
-        format.html { redirect_to "/page/#{@page.slug}", notice: 'Page was successfully updated.' }
+        format.html { redirect_to  "/#{@page.slug}", notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

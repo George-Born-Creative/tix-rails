@@ -1,16 +1,11 @@
 .event-title
   -if event.disable_event_title
-    -if event.headliners_str.length < 60
-      %h1= event.headliners_str
-    -else
-      %h2= event.headliners_str
+    %div{:class => (event.headliners_str.size > 60 ? 'long' : '') }
+      .event-name=link_to event.headliners_str, front_event_path(event)
+      .event-artists=event.supporting_acts_str
+  
   -else
-    -if event.title.length < 60
-      %h1= event.title
-      %h2= event.headliners_str
-    -else
-      %h2= event.title
-      %h3= event.headliners_str
+    %div{:class => (event.title.size > 60 ? 'long' : '') }
     
-    
-    
+    .event-name=link_to event.title, front_event_path(event)
+    .event-artists= event.artists_str

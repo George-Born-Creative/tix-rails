@@ -16,10 +16,9 @@
     
     .span6
     
-      %p.artists
-        %h5=@event.starts_at.to_formatted_s(:jammin_java)
+      .event-starts-at=@event.starts_at.to_formatted_s(:jammin_java)
     
-        =render :partial => 'front/events/event_title', :locals => {:event => @event}
+      =render :partial => 'front/events/event_title', :locals => {:event => @event}
       
       %p.small=@event.current_prices_str
 

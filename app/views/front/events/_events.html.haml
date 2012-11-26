@@ -25,16 +25,11 @@
                 =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
                 =#image_tag('http://placehold.it/300x230', :width => '100%') 
         
-            .span6
+            .span7
               .starts-at=event.starts_at.to_formatted_s(:jammin_java)
               
-              -if event.disable_event_title
-                .event-name=link_to event.headliners_str, front_event_path(event)
-                .artists=event.supporting_acts_str
-                
-              -else
-                .event-name=link_to event.title, front_event_path(event)
-                .artists= event.artists_str
+              =render :partial => 'front/events/event_title', :locals => {:event => event}
+              
                 
           
               .controls

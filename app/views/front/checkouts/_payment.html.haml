@@ -1,18 +1,18 @@
 =form_tag '/checkouts', :method => 'post' do
 
 
-  %h2 Phone
+  %h3 Phone
   %hr/
   .row
     .span3=text_field_tag 'phone[number]', (@current_user.phone.blank? ? nil : @current_user.phone.number), :placeholder =>  'xxx-xxx-xxxx'
   
-  %h2 Name on Card
+  %h3 Name on Card
   .row
     .span3=text_field_tag 'user[first_name]', @current_user.first_name
     .span3=text_field_tag 'user[last_name]', @current_user.last_name
     
   
-  %h2 Billing Address
+  %h3 Billing Address
   %hr/
   .row
     .span3=text_field_tag 'address[address_line_1]', (@current_user.address.blank? ? nil : @current_user.address.address_line_1), :placeholder =>  'address 1'
@@ -22,7 +22,7 @@
     .span2=text_field_tag 'address[state]', (@current_user.address.blank? ? nil : @current_user.address.state), :placeholder => 'state', :size => 3
     .span2=text_field_tag 'address[zip]',(@current_user.address.blank? ? nil : @current_user.address.zip), :placeholder => 'zip',  :size => 15
 
-  %h2 Credit Card Information
+  %h3 Credit Card Information
   %hr
   .row
     .span3=text_field_tag 'credit_card[card_number]', attr_or_nil(:card_number), :placeholder =>  'credit card number'

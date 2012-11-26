@@ -2,28 +2,31 @@
 -content_for :layout do
   .row
     .span2
-      %ul{:style => 'margin: 0; list-style: none'}
-        -if @current_order && @current_order.total > 0
-          %li=link_to "Cart (#{number_to_currency(@current_order.total)})", '/checkout'
+      -unless user_signed_in?
+        &nbsp;hi
+      -else
+        %ul{:style => 'margin: 0; list-style: none'}
+          -if @current_order && @current_order.total > 0
+            %li=link_to "Cart (#{number_to_currency(@current_order.total)})", '/checkout'
+
+          %li=link_to 'My Orders', front_orders_path
+          %li=link_to 'My Account', edit_user_registration_path
+
+          -if @current_user.address
+            %li= link_to 'My Address', edit_front_address_path(@current_user.address)
+          -else
+            %li= link_to 'My Address', new_front_address_path
+
+
+
+          -if @current_user.phone
+            %li= link_to 'My Phone', edit_front_phone_path(@current_user.phone)
+          -else
+            %li= link_to 'My Phone', new_front_phone_path
+
+          -#%li=link_to 'Email Subscriptions', '#'
+          -#%li=link_to 'Change Password', edit_user_registration_path
       
-        %li=link_to 'My Orders', front_orders_path
-        %li=link_to 'My Account', edit_user_registration_path
-        
-        -if @current_user.address
-          %li= link_to 'My Address', edit_front_address_path(@current_user.address)
-        -else
-          %li= link_to 'My Address', new_front_address_path
-        
-        
-          
-        -if @current_user.phone
-          %li= link_to 'My Phone', edit_front_phone_path(@current_user.phone)
-        -else
-          %li= link_to 'My Phone', new_front_phone_path
-          
-        -#%li=link_to 'Email Subscriptions', '#'
-        -#%li=link_to 'Change Password', edit_user_registration_path
-        
     .span10
       =yield( :content) 
 

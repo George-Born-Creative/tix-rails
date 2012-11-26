@@ -16,8 +16,7 @@ class Front::OrdersController < InheritedResources::Base
       format.html
       format.pdf { doc_raptor_send }
      end
-     
-    
+  
   end
   
   def new
@@ -35,6 +34,9 @@ class Front::OrdersController < InheritedResources::Base
     end
   end
     
+  def success
+    #@order = @current_user.orders.last
+  end
 
   def remove_from_cart # POST /orders/remove_from_cart/:area_id 
     area_id = params[:area_id]
@@ -67,6 +69,8 @@ class Front::OrdersController < InheritedResources::Base
        render :inline => response.body, :status => response.code
      end
    end
+   
+   
    
   
 

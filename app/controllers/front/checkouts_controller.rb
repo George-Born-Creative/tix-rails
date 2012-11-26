@@ -33,7 +33,8 @@ class Front::CheckoutsController < InheritedResources::Base
       format.html{ 
         if @checkout.valid?
           if @order.purchase(@current_user)
-            redirect_to front_order_path(@order), :notice => 'Order successful!'
+            redirect_to '/orders/success', :notice => 'Order successful!'
+            
           else
             flash[:message] = @order.transactions.first.message
             flash[:checkout] = @checkout

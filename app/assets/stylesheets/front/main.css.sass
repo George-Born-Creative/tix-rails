@@ -34,19 +34,21 @@ p
   font-size: 18px
   line-height: 30px
 
-.button, a.btn, button.btn, button
+.button, a.btn, button.btn, button, input[type="submit"].btn, input[type="submit"], input[type="reset"], input[type="button"]
   //text-shadow: none
-  font-family: "freight-sans-pro"
   background: $red !important
   font-size: 1.3em
+  font-weight: 300
   border: 1px solid black
   padding: 10px
   margin-top: 10px
   text-shadow: none
   color: white
+  
   &:hover
     background: $red + #222222 !important
-    color: white
+    color: white !important
+    text-shadow: none
 
   
 strong

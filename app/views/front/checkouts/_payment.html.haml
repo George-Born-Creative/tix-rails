@@ -32,7 +32,8 @@
     .span2=date_select( 'credit_card', 'expires', :discard_day => true, |
       :start_year => Date.today.year, :end_year => (Date.today.year+10), |
       :order => [:month, :year], :add_month_numbers => true) 
-    .span1=text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv'
-
+    .span1
+      =text_field_tag 'credit_card[cvv]', attr_or_nil(:card_cvv), :placeholder =>  'cvv', :style => 'margin: 0'
+      =link_to '?', '/static/cvv_info', :target => '_blank'
   %hr/
   =submit_tag 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'

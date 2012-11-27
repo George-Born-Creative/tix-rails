@@ -22,7 +22,8 @@
       .span6
         %p.starts-at=ticket.event.starts_at.to_s(:jammin_java)
       
-        %p.event-name=link_to ticket.event.name, front_event_path(ticket.event)
+        /%p.event-name=link_to ticket.event.name, front_event_path(ticket.event)
+        =render :partial => 'front/events/event_title', :locals => {:event => ticket.event}
         
         %p.seat-price
           ="#{ticket.section_label}"

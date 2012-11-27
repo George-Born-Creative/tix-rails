@@ -96,7 +96,7 @@ gem 'inherited_resources'
 gem 'has_scope'
 # seed 
 # gem 'forgery' 
-gem 'doc_raptor'
+# gem 'doc_raptor'
 gem 'codemirror-rails'
 gem 'time_zone_ext'
 gem 'delayed_job_active_record'

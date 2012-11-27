@@ -10,6 +10,7 @@
 #  updated_at      :datetime         not null
 #  order_id        :integer
 #  account_id      :integer          default(0), not null
+#  account_id      :integer          not null
 #  base_price      :decimal(, )
 #  service_charge  :decimal(, )
 #  area_label      :string(255)
@@ -19,6 +20,8 @@
 #  event_name      :string(255)
 #  event_starts_at :datetime
 #  event_artists   :string(255)
+#  event_name_1    :string(255)
+#  event_name_2    :string(255)
 #
 
 # Ticket
@@ -33,6 +36,8 @@ class Ticket < ActiveRecord::Base
   attr_accessible :area, :order, :event_name,  :event_id,
                   :area_label, :section_label, :base_price,
                   :service_charge, :event_artists, :event_starts_at
+                  :service_charge, :event_artists, :event_starts_at,
+                  :event_name_1, :event_name_1
   
   before_save :set_attributes
   belongs_to :account

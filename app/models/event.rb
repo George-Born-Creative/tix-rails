@@ -20,7 +20,7 @@
 #  info                   :text
 #  set_times              :text
 #  price_freeform         :string(255)
-#  account_id             :integer          default(0), not null
+#  account_id             :integer          not null
 #  chart                  :string(255)
 #  artist_id_old          :integer
 #  cat                    :string(255)
@@ -33,6 +33,8 @@
 #  disable_event_title    :boolean          default(FALSE)
 #  external_ticket_url    :string(255)
 #  sold_out               :boolean
+#  free_event             :boolean
+#  hide_buttons           :boolean
 #
 
 

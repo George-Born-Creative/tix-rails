@@ -21,7 +21,7 @@
 #  photo_file_size         :integer
 #  photo_updated_at        :datetime
 #  id_old                  :decimal(, )
-#  account_id              :integer          default(0), not null
+#  account_id              :integer          not null
 #  id_old_image            :integer
 #  audio_sample_title      :string(255)
 #  artist_id_old_secondary :integer

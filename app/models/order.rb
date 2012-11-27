@@ -6,7 +6,7 @@
 #  status                :string(255)      default("pending"), not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  account_id            :integer          default(0), not null
+#  account_id            :integer          not null
 #  user_id               :integer
 #  total                 :decimal(8, 2)    default(0.0), not null
 #  tax                   :decimal(8, 2)    default(0.0), not null

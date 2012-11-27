@@ -1,6 +1,6 @@
 class Front::OrdersController < InheritedResources::Base
-  layout 'front_user', :except => :tickets
-  layout false, :only => :tickets
+  layout nil, :only => [:tickets]
+  layout 'front_user', :except => [:tickets]
   
   before_filter :set_current_order
   before_filter :authenticate_user!, :except => [:add_to_cart, :remove_from_cart]
@@ -49,6 +49,11 @@ class Front::OrdersController < InheritedResources::Base
   
   def tickets
     @order = @current_account.orders.find(params[:id])
+    
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+    
   end
 
   private

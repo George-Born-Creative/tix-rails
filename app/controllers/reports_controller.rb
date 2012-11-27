@@ -9,6 +9,8 @@ class ReportsController < ApplicationController
       @events = @events.historical
     elsif params[:time] == 'current'
       @events = @events.current
+    else
+      @events = @events.current
     end
       
     @events = @events

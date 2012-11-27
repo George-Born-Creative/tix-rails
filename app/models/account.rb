@@ -45,4 +45,12 @@ class Account < ActiveRecord::Base
     
     
   end
+  
+  def root_url(prod=true) # [PROD=true, DEV=f]
+    if prod
+      "https://#{subdomain}.thintix.com/"
+    else
+      "http://#{subdomain}.localtix.com:5000/"
+    end
+  end
 end

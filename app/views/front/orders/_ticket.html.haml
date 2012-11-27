@@ -25,4 +25,4 @@
                   %a{:href => 'http://jamminjava.com', :style => 'color: #990000; '}jamminjava.com, 
                   %a{:href => 'mailto:tickets@jamminjava.com', :style => 'color: #990000; '}tickets@jamminjava.com
             %td{:align => "left", :height => "160", :style => "vertical-align: top;", :valign => "bottom", :width => "142"}
-              =image_tag( qr( "#{request.protocol + request.host_with_port}/tickets/#{ticket.id}/checkin"), :width => 150)
+              =image_tag( qr( "#{account.root_url(ENV['RAILS_ENV'] == 'production')}/tickets/#{ticket.id}/checkin"), :width => 150)

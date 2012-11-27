@@ -123,7 +123,7 @@ class Order < ActiveRecord::Base
   end
   
  def email_tickets
-   TicketMailer.delay.send_tickets(self.account.id, self.id, true) # true=send_tickets
+   TicketMailer.delay.send_tickets(self.account.id, self.id)
  end
 
   def price_in_cents

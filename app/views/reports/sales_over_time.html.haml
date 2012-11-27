@@ -1,1 +1,8 @@
 %h1 Sales over Time
+
+
+%table.table
+  -@orders.each do |order|
+    %tr
+      %td=order.purchased_at
+      %td=number_to_currency(order.total)

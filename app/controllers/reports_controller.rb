@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
   end
   
   def sales_over_time
-    
+    @orders = @current_account.orders.purchased_on_date(params[:day])
   end
   
   

@@ -3,7 +3,7 @@ class Tix.Routers.FrontCheckoutRouter extends Support.SwappingRouter
   routes: 
     '': 'index'
     'register': 'register'
-  
+    #'cvv_info': 'cvv_info'
     
   initialize: (data)->
     console.log 'Initialized Tix.Routers.FrontCheckoutRouter'
@@ -11,8 +11,6 @@ class Tix.Routers.FrontCheckoutRouter extends Support.SwappingRouter
     @setupSignInForm()
     Backbone.history.start()
 
-  
-  index: ->
 
     
   register: ->

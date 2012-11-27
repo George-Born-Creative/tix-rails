@@ -9,7 +9,6 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  order_id        :integer
-#  account_id      :integer          default(0), not null
 #  account_id      :integer          not null
 #  base_price      :decimal(, )
 #  service_charge  :decimal(, )
@@ -35,7 +34,6 @@
 class Ticket < ActiveRecord::Base
   attr_accessible :area, :order, :event_name,  :event_id,
                   :area_label, :section_label, :base_price,
-                  :service_charge, :event_artists, :event_starts_at
                   :service_charge, :event_artists, :event_starts_at,
                   :event_name_1, :event_name_1
   
@@ -126,22 +124,20 @@ class Ticket < ActiveRecord::Base
   def set_info
     #puts "setting self.event_name = event.name"
     self.event_name = event.name
+    #puts self.event_name
     
-    puts "setting self.event_artists = event.artists_str"
     #puts "setting self.event_artists = event.artists_str"
     self.event_artists = event.artists_str
     puts self.event_artists
     
     #puts "setting self.event_starts_at = area.section.chart.event.starts_at"
     self.event_starts_at = area.section.chart.event.starts_at
-    puts self.event_starts_at
     #puts self.event_starts_at
     
     #puts "setting self.section_label = area.section.label"
     self.section_label = area.section.label
     #puts self.section_label
     
-    puts "setting self.area_label = self.area.label"
     #puts "setting self.area_label = self.area.label"
     self.area_label = "#{self.area.label}"
     #puts "self.area.label"
@@ -167,6 +163,13 @@ class Ticket < ActiveRecord::Base
   # i.e. ticket.table_seat[0] if ticket.table_seat
   #      ticket.table_seat[1] if ticket.table_seat
   
+  def table_seat 
+    return false if self.area_label.blank?
+    match = /^([A-Za-z]+)([0-9]+)/.match(self.area_label)
+    return false if match.nil?
+    return [match[1], match[2]] if match.size == 3
+    return false
+  end
   
   private 
   

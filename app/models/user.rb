@@ -15,7 +15,7 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  account_id             :integer          default(0), not null
+#  account_id             :integer          not null
 #  first_name             :string(255)
 #  middle_name            :string(255)
 #  last_name              :string(255)
@@ -31,6 +31,7 @@
 #  unlock_token           :string(255)
 #  locked_at              :datetime
 #  authentication_token   :string(255)
+#  newsletter_opt_in      :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base

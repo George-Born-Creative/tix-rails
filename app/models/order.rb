@@ -62,10 +62,9 @@ class Order < ActiveRecord::Base
   # COMPLETE (  purchased_at < Time.now   
   scope :complete, lambda { where("purchased_at < ?", Time.zone.now)}
   
-  
-  
   scope :purchased_between, lambda { |start_time, end_time| where(:purchased_at => (start_time...end_time)) }
-
+  
+  
   
   def expired?
     self.class.send('expired').exists?(self)
@@ -171,10 +170,12 @@ class Order < ActiveRecord::Base
     self.tickets.reduce(0) {|memo, ticket| memo += ticket.total || 0}
   end
   
-  def events_uniq_with_counts # returns has of section => qty
+  def events_uniq_with_counts # returns has of event name => qty
     return nil if self.tickets.nil?
     self.tickets.reduce(Hash.new(0)){|h, t| h[t.event.name]+=1;h }
   end
+  
+
   
   #
   #
@@ -182,11 +183,6 @@ class Order < ActiveRecord::Base
   #
   #
   
-  def self.uniq_shows_with_counts
-    # scope :expired, lambda { joins(:order).where('orders.expires_at <= ? AND purchased_at IS ?', Time.zone.now, nil) }  
-    self.joins(:tickets).joins(:events)
-    #self.joins(:).reduce(Hash.new(0)){|h, t| h[t.area.section.label]+=1;h }
-  end
   
   
   def self.total
@@ -218,6 +214,10 @@ class Order < ActiveRecord::Base
     purchased_between(yesterday.beginning_of_day, yesterday.end_of_day)
   end
   
+  def self.purchased_on_date(date) # e.g. 2012-10-15 for Oct 15th
+    d = (DateTime.strptime(date, "%Y-%m-%d")+1).in_time_zone
+    purchased_between(d.beginning_of_day, d.end_of_day)
+  end
   
   def self.purchased_this_week
     start_time = (Time.zone.now - 1.week).beginning_of_day

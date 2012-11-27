@@ -124,41 +124,48 @@ class Ticket < ActiveRecord::Base
   end
     
   def set_info
-    puts "setting self.event_name = event.name"
+    #puts "setting self.event_name = event.name"
     self.event_name = event.name
-    puts self.event_name
     
     puts "setting self.event_artists = event.artists_str"
+    #puts "setting self.event_artists = event.artists_str"
     self.event_artists = event.artists_str
     puts self.event_artists
     
-    puts "setting self.event_starts_at = area.section.chart.event.starts_at"
+    #puts "setting self.event_starts_at = area.section.chart.event.starts_at"
     self.event_starts_at = area.section.chart.event.starts_at
     puts self.event_starts_at
+    #puts self.event_starts_at
     
-    puts "setting self.section_label = area.section.label"
+    #puts "setting self.section_label = area.section.label"
     self.section_label = area.section.label
-    puts self.section_label
+    #puts self.section_label
     
     puts "setting self.area_label = self.area.label"
+    #puts "setting self.area_label = self.area.label"
     self.area_label = "#{self.area.label}"
-    puts "self.area.label"
-    puts self.area.label
-    puts "self.area_label"
-    puts self.area_label
+    #puts "self.area.label"
+    #puts self.area.label
+    #puts "self.area_label"
+    #puts self.area_label
     
-    puts "self.base_price = area.section.current_price."
+    #puts "self.base_price = area.section.current_price."
     self.base_price = area.section.current_price.base
-    puts self.base_price
+    #puts self.base_price
     
-    puts "self.service_charge = area.section.current_price.service"
+    #puts "self.service_charge = area.section.current_price.service"
     self.service_charge = area.section.current_price.service
-    puts self.service_charge
+    #puts self.service_charge
     
-    puts "SERVICE CHARGE IS #{self.service_charge}"
-    puts "AREA LABEL IS #{self.area_label}"
+    #puts "SERVICE CHARGE IS #{self.service_charge}"
+    #puts "AREA LABEL IS #{self.area_label}"
     
   end
+  
+  # if the area label is a combo of letters and numbers, 
+  # provide them in a couplet array. otherwise rtn false
+  # i.e. ticket.table_seat[0] if ticket.table_seat
+  #      ticket.table_seat[1] if ticket.table_seat
   
   
   private 

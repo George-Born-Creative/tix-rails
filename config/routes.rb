@@ -1,6 +1,8 @@
 Tix::Application.routes.draw do
 
   match '/manager', :controller => :manager, :action => :index
+  match '/static/:action', :controller => 'Front::Static'
+  
   get '/tickets/:id/checkin' => 'Front::Tickets#checkin', :as => 'ticket_checkin'
   
   # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
@@ -15,7 +17,7 @@ Tix::Application.routes.draw do
   
   resources :users, :controller => 'Front::Users', :as => 'front_users'
   get '/orders/success' => 'Front::Orders#success'
-  
+  get '/orders/:id/tickets' => 'Front::Orders#tickets'
   resources :orders, :as => "front_orders", :only => [:index, :create, :show], :controller => 'Front::Orders'
   resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
   resources :phones, :as => "front_phones",  :controller => 'Front::Phones'

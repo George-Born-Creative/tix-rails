@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %title
+      =yield :title if content_for?(:title)
+    /[if IE]
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  %body
+    .wrap
+      =yield
+  
+  %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js", :type => "text/javascript"}
+  

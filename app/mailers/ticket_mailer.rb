@@ -26,15 +26,5 @@ class TicketMailer < ActionMailer::Base
     ENV['RAILS_ENV'] == 'production' ? @order.email : DEV_EMAIL
   end
   
-  def gen_pdf
-    DocRaptor.api_key ||= ENV["DOCRAPTOR_API_KEY"]
-    pdf_html = render( :partial => 'front/orders/tickets.pdf.haml', :locals => {:order => @order, :account => @account})
-
-    response = DocRaptor.create(:document_content => pdf_html,
-                     :name             => "jammin_java_tickets.pdf",
-                     :document_type    => "pdf",
-                     :test             => true)
-    response.body
-  end
 
 end

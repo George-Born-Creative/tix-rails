@@ -1,11 +1,4 @@
 .event-title
-  -if event.disable_event_title
-    %div{:class => (event.headliners_str.size > 60 ? 'long' : '') }
-      .event-name=link_to event.headliners_str, front_event_path(event)
-      .event-artists=event.supporting_acts_str
-  
-  -else
-    %div{:class => (event.title.size > 60 ? 'long' : '') }
-    
-    .event-name=link_to event.title, front_event_path(event)
-    .event-artists= event.artists_str
+  %div{:class => (event.headliners_str.size > 60 ? 'long' : '') }
+    .event-name=link_to event.title_array[0], front_event_path(event)
+    .event-artists= event.title_array[1]

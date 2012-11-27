@@ -193,6 +193,14 @@ class Event < ActiveRecord::Base
     str
   end
   
+  def title_array # Returns the first and second headlines
+    if self.disable_event_title
+      return [ headliners_str, supporting_acts_str ]
+    else
+      return [ title, headliners_str + supporting_acts_str ]
+    end
+  end
+  
   def title_with_artists
     if self.disable_event_title
       artists_str

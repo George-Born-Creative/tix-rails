@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126185546) do
+ActiveRecord::Schema.define(:version => 20121127190123) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -398,6 +398,8 @@ ActiveRecord::Schema.define(:version => 20121126185546) do
     t.string   "event_name"
     t.datetime "event_starts_at"
     t.string   "event_artists"
+    t.string   "event_name_1"
+    t.string   "event_name_2"
   end
 
   create_table "users", :force => true do |t|

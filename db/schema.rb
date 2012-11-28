@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127190123) do
+ActiveRecord::Schema.define(:version => 20121128201237) do
 
   create_table "accounts", :force => true do |t|
     t.string   "subdomain",  :null => false
@@ -240,7 +240,12 @@ ActiveRecord::Schema.define(:version => 20121127190123) do
     t.text     "params"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "method"
+    t.string   "origin"
   end
+
+  add_index "order_transactions", ["method"], :name => "index_order_transactions_on_method"
+  add_index "order_transactions", ["origin"], :name => "index_order_transactions_on_origin"
 
   create_table "orders", :force => true do |t|
     t.string   "status",                                              :default => "pending", :null => false

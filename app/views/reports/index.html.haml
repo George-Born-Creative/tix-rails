@@ -33,7 +33,7 @@
   
         %hr/
     
-        - 1.upto(30).each do |i|
+        - 0.upto(30).each do |i|
           -day = Time.zone.today - i
           =link_to "#{day} (#{@current_account.orders.purchased_on_date(day.to_s).count}, #{number_to_currency(@current_account.orders.purchased_on_date(day.to_s).total)})", "/manager/reports/sales_over_time?day=#{day}"
           %br/

@@ -20,6 +20,7 @@ group :production do
   gem 'newrelic_rpm'
 end
 
+gem 'awesome_print'
 
 group :test, :development do 
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

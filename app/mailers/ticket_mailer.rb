@@ -1,6 +1,7 @@
 class TicketMailer < ActionMailer::Base
 
   DEV_EMAIL = 'shaun@squiid.com'
+  
   add_template_helper(ApplicationHelper)
 
   def send_tickets(account_id, order_id)
@@ -11,16 +12,13 @@ class TicketMailer < ActionMailer::Base
       mail(
         :subject => subject,
         :to      => get_email,
-        :from    => 'Jammin\' Java<memberservices@jamminjava.com>'
+        :from    => 'Jammin\' Java <tickets@jamminjava.com>'
       )
   end
   
   private
   
   def get_email
-    #puts "get_email CALLED"
-    #puts ENV['RAILS_ENV'] == 'production'
-    
     ENV['RAILS_ENV'] == 'production' ? @order.user.email : DEV_EMAIL
   end
   

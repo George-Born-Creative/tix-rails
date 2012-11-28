@@ -29,21 +29,10 @@ class Checkout
     end
   end
   
-  
   def persisted?
     false
   end
   
-  def process_order(order_id)
-    order = Order.find(order_id)
-    account = order.account
-    user = account.users.find_or_initialize_by_email(self.user_email)
-      
-  end
-
-  
-  
-
   private
   
   def validate_card
@@ -53,7 +42,6 @@ class Checkout
       end
     end
   end
-  
   
   def credit_card
     ActiveMerchant::Billing::CreditCard.new(
@@ -66,12 +54,6 @@ class Checkout
     )
   end
   
-  
-  # require 'ostruct'
-  # def card_expiration
-  #   date = Date.civil(card_expiration[:"start_date(1i)"].to_i,card_expiration[:"start_date(2i)"].to_i)
-  #   OpenStruct.new(:month => date.strftime("m").to_i, :year => date.strftime("%Y").to_i)
-  # end
   
 
 end

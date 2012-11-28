@@ -107,11 +107,13 @@ class Order < ActiveRecord::Base
   
   def purchase(user=nil)
     update_attribute(:user, user) unless user.blank?
+    
     # UPDATE USERS ADDRESS and PHONE TO match user's LATEST ORDER
     user.address = address.dup
     user.address.save
     user.phone = phone.dup 
     user.phone.save
+    
     response = GATEWAY.purchase(price_in_cents, credit_card, purchase_options)
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     if response.success?
@@ -122,29 +124,13 @@ class Order < ActiveRecord::Base
     response.success?
   end
   
- def email_tickets
-   TicketMailer.delay.send_tickets(self.account.id, self.id)
- end
+  def email_tickets
+    TicketMailer.delay.send_tickets(self.account.id, self.id)
+  end
 
   def price_in_cents
     (total*100).round
   end
-
-
-  def generate_and_email_tickets
-    puts "### Gen/Emailing tickets"
-  end
-  
-  
-  # def reserve(area_id)
-  #   area = Area.find(area_id)
-  #   if area.ticketable?
-  #     self.tickets.create(:area => area)
-  #     return true
-  #   else
-  #     return false
-  #   end
-  # end
   
   def full_name
     "#{self.first_name} #{self.last_name}"

@@ -11,9 +11,7 @@
         %h5 Color
       
         .chart-section-colorpicker.input-append.color{"data-color" => @section.color, "data-color-format" => "hex"}
-          %input.span2{:readonly => "", :type => "text", :value => @section.color}
-            %span.add-on
-              %i{:style => "background-color: " + @section.color}
+          %input.span2{:type => "text", :value => @section.color}
         .clear
   
         -_.each @section.prices, (price)->

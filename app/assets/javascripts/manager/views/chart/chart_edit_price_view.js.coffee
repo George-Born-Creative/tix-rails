@@ -38,7 +38,7 @@ class TixMgr.Views.ChartEditPriceView extends Backbone.View
     @$el.find('[data-type="field"]').each (i, field_el)->
       field_name = $(field_el).data('fieldname')
       field_val = $(field_el).val()
-      console.log [field_name, field_val]
+      # console.log [field_name, field_val]
       self.model.set(field_name, field_val)
       self.data.price[field_name] = field_val
       

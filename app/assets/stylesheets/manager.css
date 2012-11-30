@@ -4,7 +4,7 @@
 //*= require bootstrap/bootstrap-responsive
 //*= require bootstrap/base-admin.css
 //*= require bootstrap/base-admin-responsive.css
-//= require ../lib/bootstrap/colorpicker/css/colorpicker
+//= require ../lib/jquery.minicolors/jquery.miniColors
 //= require ../lib/bootstrap/datepicker/css/datepicker
 //= require ../lib/bootstrap/timepicker/css/timepicker
 //= require ../lib/tokeninput/styles/token-input-bootstrap

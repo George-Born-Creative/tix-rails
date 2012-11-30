@@ -19,9 +19,9 @@
 //= require hamlcoffee
 //= require ./manager/bootstrap/bootstrap
 //= require ./manager/bootstrap/base
-//= require ../lib/bootstrap/colorpicker/js/bootstrap-colorpicker
 //= require ../lib/bootstrap/datepicker/js/bootstrap-datepicker
 //= require ../lib/bootstrap/timepicker/js/bootstrap-timepicker
+//= require ../lib/jquery.minicolors/jquery.miniColors
 // require bootstrap/charts/area
 // require bootstrap/charts/donut
 //= require dataTables/jquery.dataTables

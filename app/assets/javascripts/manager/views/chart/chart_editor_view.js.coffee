@@ -38,12 +38,15 @@ class TixMgr.Views.ChartEditorView extends Backbone.View
     
   fireChartColorChange: ->
     self = this
-    $('.chart-colorpicker').colorpicker()
-      .off()
-      .on 'changeColor', (ev)->
+    $('.chart-colorpicker input').miniColors
+      change: (hex, rgb)->
         TixLib.Dispatcher.trigger('chartColorChange', {color: ev.color.toHex() })
-      .on 'hide', (ev)->
-        self.model.save({'background_color': ev.color.toHex()})
+        self.model.set('background_color', ev.color.toHex())
+    .on 'blur', ->
+      self.model.save {}, success: ->
+        $('.chart-colorpicker input').effect('highlight')
+        
+        
     
   save: ->
     console.log 'Save Called'

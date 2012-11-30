@@ -39,22 +39,31 @@ class TixMgr.Views.ChartEditSectionView extends Backbone.View
 
   initColorPickerIfExists: ->
     console.log '[SR] initColorPicker() in TixMgr.Views.ChartEditSectionView().'
-    $c = $('.chart-section-colorpicker').colorpicker()
+    $c = $('.chart-section-colorpicker')
+    
     if $c.size() > 0 && @cp_initialized != true
       @initColorPicker()
       @cp_initialized = true
 
   initColorPicker: ->
     self = this
-    $('.chart-section-colorpicker').colorpicker()
-      .off()
-      .on 'changeColor', (ev)->
-        TixLib.Dispatcher.trigger('sectionColorChange', {color: ev.color.toHex(), section: self.model.attributes })
-      .on 'show', (ev)->
-        return
-      .on 'hide', @onColorSelect
-      
-  onColorSelect: (ev)->
-    @model.save( {color: ev.color.toHex()} )
-    console.log "[SR] Called save for section"
+    $c = $('.chart-section-colorpicker')
+    $input = $c.find('input[type="text"]')
+    
+    $input.miniColors({
+      change: (hex, rgb)->
+        TixLib.Dispatcher.trigger('sectionColorChange', {color: hex, section: self.model.attributes })
+    })
+    
+    $input.on 'blur', ->
+      self.onColorSelect({hex:  $(this).val()} ) # trigger the ajax save
+    
+  onColorSelect: (data)->
+    self = this
+    @model.set('color',  data.hex )
+    
+    @model.save {},
+      success:  ->
+        $('.chart-section-colorpicker').parent().parent().effect('highlight')
+    
   

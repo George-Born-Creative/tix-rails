@@ -29,8 +29,8 @@ group :test, :development do
   gem 'railroady' # uml generation (http://railroady.prestonlee.com/) #rake diagram:all
   gem 'rspec-rails', "~> 2.6" 
   # gem 'cucumber'
-  # gem "factory_girl_rails", "~> 3.0"
-  # gem 'shoulda-matchers'
+  gem "factory_girl_rails"
+  gem 'shoulda-matchers'
   # gem 'rails-erd'
   # gem 'xml-simple' # for processing seed files
   gem 'foreman'
@@ -96,7 +96,7 @@ gem 'paper_trail', :git => 'https://github.com/airblade/paper_trail.git'
 gem 'inherited_resources'
 gem 'has_scope'
 # seed 
-# gem 'forgery' 
+gem 'forgery' 
 # gem 'doc_raptor'
 gem 'codemirror-rails'
 gem 'time_zone_ext'

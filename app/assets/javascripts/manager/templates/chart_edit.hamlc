@@ -2,6 +2,6 @@
   %h5 Chart Title
   %input{:type => 'text', :data => {'type' => 'field', :fieldname => 'name'}, :placeholder => 'Standing Room Only...', :value => @chart.name}
 
-.chart-colorpicker.color{"data-color" => @chart.background_color, "data-color-format" => "hex"}
+.chart-colorpicker.color{:style => 'float: left', "data-color" => @chart.background_color, "data-color-format" => "hex"}
   %h5 Background Color
   %input.span2{ :type => "text", :value => @chart.background_color {'type' => 'field', :fieldname => 'background_color'}}

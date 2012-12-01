@@ -1,9 +1,7 @@
 .row
-  .span1
-    &nbsp
-  .span10
+  .span10.offset-by-one
     .row
-      .span3
+      .span5
         %h1
           =@charts.count
           Chart Templates
@@ -12,65 +10,49 @@
     
     %br/
 
-    .row
-      .span7
-        .alert
-          %h2 Chart Masters
-          %h3 
-            Masters are templates. For each event, you'll "clone" 
-            one of the masters, creating a dedicated seating chart   
-            just for that event.
-            
-  
-    %hr/
-
-    .row
-      .span12
-        .row
+.row
+  .span10.offset-by-one
+    .alert
+      %h2 Chart Masters
+      %h4
+        Masters are templates. For each event, you'll "clone" 
+        one of the masters, creating a dedicated seating chart   
+        just for that event.
       
-          .span4
-            
-            -@charts.masters.each do |chart|
 
-              .well
-             
-                .row
-                  .span4
-                    %h3=chart.name
-                  .span4
-                    Last updated
-                    =chart.updated_at.to_formatted_s :default
-                  .span4
-                    = link_to 'Destroy', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
-                    = link_to 'Edit', edit_chart_path(chart), :class => 'btn btn-primary'
-    
+%hr/
 
-        .row
-          .span7
-            .alert
-              %h2 Chart Slaves
-              %h3 
-                Slaves are clones of Masters, but belong to Event. 
-                They have special rules that enforce the integrity 
-                of the ticket system. For example, once a ticket is 
-                sold against a Chart's Areas, those areas may not be changed.
+.row
+  .span10.offset-by-one
 
-      = "No chart slaves yet. Create these through Event." unless @charts.slaves
+    %table.table
+      -@charts.masters.each do |chart|
+        %tr
+          %td=chart.name
+          %td= distance_of_time_in_words_to_now(chart.updated_at) + ' ago'
+          %td= link_to 'Delete', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
+          %td= link_to 'Edit', edit_chart_path(chart), :class => 'btn btn-primary'
+
+
+.row
+  .span10.offset-by-one
+    .alert
+      %h2 Chart Slaves
+      %h4 
+        Slaves are clones of Masters, but belong to Event. 
+        They have special rules that enforce the integrity 
+        of the ticket system. For example, once a ticket is 
+        sold against a Chart's Areas, those areas may not be changed.
+
+.row
+  .span10.offset-by-one
+    %table.table
+  
       -@charts.slaves.each do |chart|
+        %tr
+          %td=chart.name
+          %td= distance_of_time_in_words_to_now(chart.updated_at) + ' ago'
+          %td= link_to 'Delete', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
+          %td= link_to 'Edit', edit_chart_path(chart), :class => 'btn btn-primary'
 
-        .span4
-          .well
-            .row
-              .span4
-                %h3=chart.name
-                %strong Event:
-                -if chart.event
-                  =link_to chart.event.title, chart.event
-                  =image_tag(chart.event.headliner.photo(:thumb)) if (chart.event.headliner && chart.event.headliner.photo?)
-                  
-              .span4
-                Updated 
-                %strong= distance_of_time_in_words_to_now(chart.updated_at) + ' ago'
-              .span4
-                = link_to 'Delete', chart, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger', :style => 'float: left'
-                = link_to 'Edit', edit_chart_path(chart), :class => 'btn'
+       

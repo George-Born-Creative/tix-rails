@@ -19,6 +19,9 @@
 //= require backbone-nested/backbone-nested
 //= require ./manager/bootstrap/bootstrap
 
+//= require lightbox/js/jquery-ui-1.8.18.custom.min
+//= require lightbox/js/jquery.smooth-scroll.min
+//= require lightbox/js/lightbox
 
 
 // require backbone.localStorage

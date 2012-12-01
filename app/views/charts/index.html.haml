@@ -66,7 +66,7 @@
                 %strong Event:
                 -if chart.event
                   =link_to chart.event.title, chart.event
-                  =image_tag(chart.event.headliner.photo(:thumb)) if (chart.event.headliner || chart.headliner.photo?)
+                  =image_tag(chart.event.headliner.photo(:thumb)) if (chart.event.headliner && chart.event.headliner.photo?)
                   
               .span4
                 Updated 

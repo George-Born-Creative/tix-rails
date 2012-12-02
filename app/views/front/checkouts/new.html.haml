@@ -25,13 +25,12 @@
     .step3.step.payment.hide
      
   .span6
-  
     -if flash[:message]  
-      .alert.errors
+      .warning
         =flash[:message]
 
     -if flash[:error]
-      .alert.errors
+      .warning
         %ul
           -flash[:error].full_messages.each do |message|
             %li=message

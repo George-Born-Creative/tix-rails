@@ -18,61 +18,23 @@
         
     -else
       %h1 Payment
-      
       !="Signed in as <strong>#{@current_user.full_name}</strong> (#{@current_user.email}</strong>)"
       
       =render 'front/checkouts/payment'
 
     .step3.step.payment.hide
      
-  
   .span6
+  
     -if flash[:message]  
-      .span6
-        .alert.errors
-          =flash[:message]
-    
+      .alert.errors
+        =flash[:message]
+
     -if flash[:error]
-      .span6
-        .alert.errors
-          %ul
-            -flash[:error].full_messages.each do |message|
-              %li=message
+      .alert.errors
+        %ul
+          -flash[:error].full_messages.each do |message|
+            %li=message
               
     =render :partial => 'front/checkouts/cart', :locals => {:current_order => @current_order}
               
-
-
--#.row      
--#  .span6
--#    %table
--#      %thead
--#        %th Event
--#        %th Section
--#        %th Seat
--#        %th Price
--#        %th Service
--#        %th Total
--#        %th remove
--#      %tr
--#        %td
--#        %td
--#        %td
--#        %td
--#          %strong= number_to_currency @current_order.total_base_price
--#        %td
--#          %strong= number_to_currency @current_order.total_service_charge
--#        %td
--#          %strong= number_to_currency @current_order.total
--#        %td
--#        
--#      %tbody
--#        -@current_order.tickets.each do |ticket|
--#          %tr
--#            %td=link_to ticket.event.name, front_event_path(ticket.event)
--#            %td=ticket.section_label
--#            %td=ticket.area.label
--#            %td=number_to_currency ticket.base_price
--#            %td=number_to_currency ticket.service_charge
--#            %td=number_to_currency ticket.total
--#            %td=link_to '[x]', "/orders/remove_from_cart/#{ticket.area.id}", :class => 'btn', :method => 'post'

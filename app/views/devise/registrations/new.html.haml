@@ -1,21 +1,26 @@
-%h2 Sign up
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, :required => true, :autofocus => true
-    = f.input :password, :required => true
-    = f.input :password_confirmation, :required => true
-    = f.input :first_name, :required => true
-    = f.input :last_name, :required => true
-    = f.input :newsletter_opt_in, :label => 'Send me information about new shows, venues and news from Jammin Java', :input_html => {:checked => true} 
-    = f.input :accept_terms_conditions, :as => :boolean, :label => 'I agree to the <a href="#">Terms and Conditions</a>', :input_html => {:checked => false} 
+.span4
+  %h2 Sign up
+  = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = f.error_notification
+    .form-inputs
+      = f.input :email, :required => true, :autofocus => true
+      = f.input :password, :required => true
+      = f.input :password_confirmation, :required => true
+      = f.input :first_name, :required => true
+      = f.input :last_name, :required => true
+      
+      %p * = required field
+      
+      
+      = f.input :newsletter_opt_in, :label => 'Please add me to the Jammin Java concert calendar email list! Email list subscribers are the first to know about new shows and special offers. We NEVER share your email address', :input_html => {:checked => true} 
+      = f.input :accept_terms_conditions, :as => :boolean, :label => 'I agree to the <a href="#">Terms and Conditions</a>', :input_html => {:checked => false} 
     
     
-    = f.input :account_id, :as => :hidden, :input_html => {:value => @current_account.id }
+      = f.input :account_id, :as => :hidden, :input_html => {:value => @current_account.id }
     
-    -if params[:after_sign_in_path]
-      = hidden_field_tag( 'after_sign_in_path', params[:after_sign_in_path] )
+      -if params[:after_sign_in_path]
+        = hidden_field_tag( 'after_sign_in_path', params[:after_sign_in_path] )
     
-  .form-actions
-    = f.button :submit, "Sign up"
-= render "devise/shared/links"
+    .form-actions
+      = f.button :submit, "Sign up"
+  = render "devise/shared/links"

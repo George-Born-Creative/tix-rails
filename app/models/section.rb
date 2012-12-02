@@ -58,10 +58,8 @@ class Section < ActiveRecord::Base
   
   
   def _day_of?(time) # check if time falls between  
-    # midnight today and
-    time.to_i >= Date.today.to_time.to_i &&
-    # midnight tomorrow
-    time.to_i < (Date.today+1).to_time.to_i
+    time > DateTime.now.in_time_zone(Time.zone).beginning_of_day &&
+    time <= DateTime.now.in_time_zone(Time.zone).end_of_day
   end
   
   

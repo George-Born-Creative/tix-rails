@@ -4,6 +4,7 @@ Tix::Application.routes.draw do
   match '/static/:action', :controller => 'Front::Static'
   
   get '/tickets/:id/checkin' => 'Front::Tickets#checkin', :as => 'ticket_checkin'
+  get '/orders/:id/checkin' => 'Front::Orders#checkin_tickets!', :as => 'order_checkin'
   
   # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
   
@@ -16,17 +17,18 @@ Tix::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   
   resources :users, :controller => 'Front::Users', :as => 'front_users'
+  
   get '/orders/success' => 'Front::Orders#success'
   get '/orders/:id/tickets' => 'Front::Orders#tickets'
-  resources :orders, :as => "front_orders", :only => [:index, :create, :show], :controller => 'Front::Orders'
-  resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
-  resources :phones, :as => "front_phones",  :controller => 'Front::Phones'
-  #end
-  
-  
-  resources :checkouts, :as => 'front_checkouts', :only => [:show, :new, :create], :controller => 'Front::Checkouts'
   match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
   match '/orders/remove_from_cart/:area_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
+  put '/orders', :controller => 'Front::Orders', :action => 'create'
+  
+  resources :orders, :as => "front_orders", :controller => 'Front::Orders'
+  
+  resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
+  resources :phones, :as => "front_phones",  :controller => 'Front::Phones'
+  
   resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
@@ -35,12 +37,8 @@ Tix::Application.routes.draw do
   
   match '/page/:slug', :action => :show, :controller => 'Front::Pages'
   match '/page/:id/edit', :action => :edit, :controller => 'Pages'
-  
-  #  match '/cat/:slug', :controller => :cms, :action => :cat, :controller => 'Front::Pages'
-  
+    
   scope '/manager' do
-    
-    
    get '/reports' => 'reports#index'
    get '/reports/event_guestlist/:event_id' => 'reports#event_guestlist'
    get '/reports/event_sales/:event_id' => 'reports#event_sales'
@@ -82,6 +80,8 @@ Tix::Application.routes.draw do
     resources :sections
     resources :areas
     
+    resources :accounts
+    
     resources :sidebars
     resources :widgets
     resources :widget_placements
@@ -114,10 +114,7 @@ Tix::Application.routes.draw do
     match '/', :controller => :admin, :action => :index, :via => :post,  :constraints => {:area_id => /^\d/}
     resources :accounts  
   end
-  
-  get '/checkout' => 'front::checkouts#new'
-  post '/checkout' => 'front::checkouts#create'
-  
+    
   match '/', :controller => 'Front::Pages', :action => :show
   match '/:slug', :action => :show, :controller => 'Front::Pages', :as =>  "front_pages"
   resources :pages, :only => [:show], :controller => 'Front::Pages'

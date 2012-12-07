@@ -96,6 +96,8 @@ class Event < ActiveRecord::Base
   
   belongs_to :chart, :autosave => true, :dependent => :destroy
   has_many :tickets
+  has_many :orders, :through => :tickets, :uniq => true
+  
   belongs_to :account
   belongs_to :headliner, :class_name => 'Artist'
   belongs_to :secondary_headliner, :class_name => 'Artist'

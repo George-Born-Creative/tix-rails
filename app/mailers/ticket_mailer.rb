@@ -19,7 +19,7 @@ class TicketMailer < ActionMailer::Base
   private
   
   def get_email
-    ENV['RAILS_ENV'] == 'production' ? @order.user.email : DEV_EMAIL
+    ENV['RAILS_ENV'] == 'production' ? @order.email : DEV_EMAIL
   end
   
 

@@ -1,29 +1,38 @@
 -content_for :title do
   Success » Order
-  
+
+
+
+
 .order-success
   .row
     .span12
 
       %h1 Success!
-    
-      %p
-        .row
-          .span6
-            %p
-              Check your email! Your tickets have been emailed to you. Bring
-              the email on your smartphone to show for a fast check-in or
-              simply give us your name and we'll pull up your order. Email
-              =mail_to 'tickets@jamminjava.com'
-              with
-              any questions. 
+  
+      -if @current_user.has_at_least_role(:employee)
+        %h3 Manager Options
+        %ul
+          -@current_account.orders.complete.where('agent_id = ?', @current_user.id).last.events.each do |event|
+            %li=link_to "Guestlist for #{event.name}", "/manager/reports/event_guestlist/#{event.id}"
+      -else
+        %p
+          .row
+            .span6
+              %p
+                Check your email! Your tickets have been emailed to you. Bring
+                the email on your smartphone to show for a fast check-in or
+                simply give us your name and we'll pull up your order. Email
+                =mail_to 'tickets@jamminjava.com'
+                with
+                any questions. 
+        
+              %p
+                See you at the show!
+              .site-signature
+                -# TODO paramaterize this
+                =image_tag '/images/jj-brindley-bros-signature.png', :style => 'margin-top: 10px'
           
-            %p
-              See you at the show!
-            .site-signature
-              -# TODO paramaterize this
-              =image_tag '/images/jj-brindley-bros-signature.png', :style => 'margin-top: 10px'
-            
       %p
 
     -#render :partial => 'tickets/tickets', :locals => {:tickets => @order.tickets, :show_artwork => false}

@@ -1,10 +1,13 @@
 class Front::OrdersController < InheritedResources::Base
   layout nil, :only => [:tickets]
-  layout 'front_user', :except => [:tickets]
+  layout 'application', :only => [:new]
+  
+  layout 'front_user', :except => [:tickets, :new]
   
   before_filter :set_current_order
-  before_filter :authenticate_user!, :except => [:add_to_cart, :remove_from_cart]
-
+  before_filter :ensure_order, :only => [:new, :create]
+  before_filter :authenticate_user!, :except => [:add_to_cart, :remove_from_cart, :new, :create]
+    
   def show
     @order = @current_user.orders.where(:id => params[:id]).first
     
@@ -15,12 +18,75 @@ class Front::OrdersController < InheritedResources::Base
     respond_to do |format|
       format.html
     end
-  
   end
   
   def new
-    
+    # @current_order = @current_order
+    @current_order.build_address if @current_order.address.nil?
+    @current_order.build_phone if @current_order.phone.nil?
   end
+  
+  def create
+
+     # @order = @current_order
+     
+     if params[:order][:agent_checkout]
+       params[:order][:agent] = @current_user
+     else
+       params[:order][:user] = @current_user
+       params[:order][:card_purchase] = true     
+       params[:order][:deliver_tickets] = true  
+     end
+
+     
+     params[:order][:card_expiration_month] = params[:order][:"card_expiration_date(2i)"].to_i
+     params[:order][:card_expiration_year] = params[:order][:"card_expiration_date(3i)"].to_i
+
+     params[:order].delete(:"card_expiration_date(1i)")
+     params[:order].delete(:"card_expiration_date(2i)")
+     params[:order].delete(:"card_expiration_date(3i)")       
+     
+     params[:order].keys.each do |key|
+       @current_order.update_attribute(key, params[:order][key] )
+     end
+
+      # render :text => params[:order][:service_charge_override]
+
+      redirect_path = params[:order][:agent_checkout] ? '/orders/new' : '/orders/new?checkout=customer'
+      
+      respond_to do |format|
+        format.html{ 
+          if @current_order.valid?
+            if @current_order.purchase! && @current_order.state == 'complete'
+              redirect_to '/orders/success', :notice => 'Order successful!'
+            else
+              flash[:message] = @current_order.errors.full_messages.join('<br/>').html_safe
+
+              # flash[:message] = @order.transactions.first.message
+              # flash[:order] = @order
+              redirect_to redirect_path
+            end
+          else # Checkout object did not pass validation
+            flash[:message] = @current_order.errors.full_messages.join('<br/>').html_safe
+            # flash[:order] = @order
+            
+            redirect_to redirect_path
+          end
+        }
+      end
+     
+  end
+  
+  # http://accidentaltechnologist.com/ruby-on-rails/damn-you-rails-multiparameter-attributes/
+  def parse_date!
+    params[:order][:card_expiration_month] = params[:order][:"card_expiration_date(2i)"].to_i,
+    params[:order][:card_expiration_year] = params[:order][:"card_expiration_date(3i)"].to_i,
+    
+    params[:order].delete(:"expiration_date(1i)")
+    params[:order].delete(:"expiration_date(2i)")
+    params[:order].delete(:"expiration_date(3i)")
+  end
+  
 
   def add_to_cart # POST /orders/add_to_cart/:area_id 
     area_id = params[:area_id]
@@ -41,7 +107,7 @@ class Front::OrdersController < InheritedResources::Base
     @current_order.tickets.find_by_area_id(area_id).delete
     
     respond_to do |format|
-      format.html{ redirect_to '/checkout' }
+      format.html{ redirect_to '/orders/new' }
       format.js { render :json => {:message => 'success', :order => @current_order} }
     end
   end
@@ -56,6 +122,13 @@ class Front::OrdersController < InheritedResources::Base
     
   end
 
+  def checkin_tickets!
+    @order = @current_account.orders.find(params[:id])
+    @order.checkin_tickets!
+    
+    redirect_to request.referer
+  end
+  
   private
  
   def collection
@@ -65,6 +138,13 @@ class Front::OrdersController < InheritedResources::Base
 
   def begin_of_association_chain
     @current_user
+  end
+  
+  def ensure_order
+    if @current_order.tickets.count == 0
+      redirect_to '/page/calendar', :notice => 'You have no items in your Shopping Cart!'
+    end
+    
   end
   
   

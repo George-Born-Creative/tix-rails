@@ -23,7 +23,6 @@ class Theme < ActiveRecord::Base
   scope :active, where("activated_at is NOT NULL").order('activated_at DESC')
   
   
-  
   has_attached_file :background_image,
     :storage => :s3,
     :bucket => ENV['S3_BUCKET_NAME'],
@@ -43,7 +42,7 @@ class Theme < ActiveRecord::Base
   
   
   def activate!
-    self.update_attributes(:activated_at => DateTime.now)
+    self.update_attributes(:activated_at => Time.zone.now)
   end
   
   def self.active_theme

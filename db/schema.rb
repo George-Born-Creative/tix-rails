@@ -11,12 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128201237) do
+ActiveRecord::Schema.define(:version => 20121207022757) do
 
   create_table "accounts", :force => true do |t|
-    t.string   "subdomain",  :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "subdomain",               :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "email_order_report_to"
+    t.string   "email_daily_report_to"
+    t.string   "email_weekly_report_to"
+    t.string   "email_monthly_report_to"
   end
 
   add_index "accounts", ["subdomain"], :name => "index_accounts_on_subdomain", :unique => true
@@ -215,6 +219,15 @@ ActiveRecord::Schema.define(:version => 20121128201237) do
     t.integer "artist_id"
   end
 
+  create_table "gateways", :force => true do |t|
+    t.string   "provider"
+    t.string   "login"
+    t.string   "password"
+    t.datetime "activated_at"
+    t.integer  "account_id"
+    t.string   "mode"
+  end
+
   create_table "images", :force => true do |t|
     t.string   "title"
     t.string   "caption"
@@ -240,23 +253,22 @@ ActiveRecord::Schema.define(:version => 20121128201237) do
     t.text     "params"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.string   "method"
+    t.string   "meth"
     t.string   "origin"
   end
 
-  add_index "order_transactions", ["method"], :name => "index_order_transactions_on_method"
+  add_index "order_transactions", ["meth"], :name => "index_order_transactions_on_meth"
   add_index "order_transactions", ["origin"], :name => "index_order_transactions_on_origin"
 
   create_table "orders", :force => true do |t|
-    t.string   "status",                                              :default => "pending", :null => false
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
-    t.integer  "account_id",                                                                 :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
+    t.integer  "account_id",                                                             :null => false
     t.integer  "user_id"
-    t.decimal  "total",                 :precision => 8, :scale => 2, :default => 0.0,       :null => false
-    t.decimal  "tax",                   :precision => 8, :scale => 2, :default => 0.0,       :null => false
-    t.decimal  "service_charge",        :precision => 8, :scale => 2, :default => 0.0,       :null => false
-    t.string   "state",                                               :default => "cart"
+    t.decimal  "total",                   :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "tax",                     :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "service_charge",          :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.string   "state"
     t.datetime "expires_at"
     t.string   "card_type"
     t.string   "card_expiration_month"
@@ -267,9 +279,16 @@ ActiveRecord::Schema.define(:version => 20121128201237) do
     t.string   "email"
     t.string   "ip_address"
     t.decimal  "base"
+    t.integer  "agent_id"
+    t.string   "payment_method_name"
+    t.string   "payment_origin_name"
+    t.boolean  "deliver_tickets"
+    t.boolean  "checkin_tickets"
+    t.decimal  "service_charge_override"
+    t.boolean  "agent_checkout"
+    t.datetime "tickets_delivered_at"
   end
 
-  add_index "orders", ["status"], :name => "index_orders_on_status"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "pages", :force => true do |t|
@@ -390,10 +409,10 @@ ActiveRecord::Schema.define(:version => 20121128201237) do
     t.decimal  "price"
     t.integer  "event_id"
     t.integer  "area_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.integer  "order_id"
-    t.integer  "account_id",      :null => false
+    t.integer  "account_id",              :null => false
     t.decimal  "base_price"
     t.decimal  "service_charge"
     t.string   "area_label"
@@ -405,6 +424,7 @@ ActiveRecord::Schema.define(:version => 20121128201237) do
     t.string   "event_artists"
     t.string   "event_name_1"
     t.string   "event_name_2"
+    t.decimal  "service_charge_override"
   end
 
   create_table "users", :force => true do |t|

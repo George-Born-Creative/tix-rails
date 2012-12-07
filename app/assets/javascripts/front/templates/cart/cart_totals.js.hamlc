@@ -3,5 +3,5 @@
     Total
     %span.subtotal=@cart.subtotal()
   .span2
-    %a.button.checkout{:href => '/checkout', :style => 'border: 0; text-align: right !important;'} Checkout »
+    %a.button.checkout{:href => '/orders/new', :style => 'border: 0; text-align: right !important;'} Checkout »
 

@@ -1,8 +1,48 @@
-%h1 Sales over Time
+%h1=@day
 
 
-%table.table
-  -@orders.each do |order|
-    %tr
-      %td=order.purchased_at
-      %td=number_to_currency(order.total)
+
+
+
+.widget
+  .widget-header
+    %h3 
+      Totals for Day
+  .widget-content
+    %table.table
+      %thead
+        %td Base
+        %td Service
+        %td Total
+      %tr
+        %td=number_to_currency@orders.sum('base')
+        %td=number_to_currency@orders.sum('service_charge')
+        %td=number_to_currency@orders.sum('total')
+        
+
+%p
+  Coming soon to this report
+  %ul
+    %li Totals by Event for day
+    %li Totals by Origin (web, box office)
+    %li Totals by Location (web, box office)
+    %li Totals by Agent (employees)
+    
+
+
+-# 
+  .widget
+    .widget-header
+      %h3 
+        Sales by Event 
+    .widget-content
+      %table.table
+        %thead
+          %td
+          %td
+          %td
+        -h = {}
+        =ap @orders.map { |o| h[o.events] = {:count = }, ] }.flatten.uniq.each do |event|
+          -#%tr
+          -#%td=event.name
+        

@@ -21,8 +21,8 @@ class ReportsController < ApplicationController
   
   def event_guestlist
     @event = @current_account.events.find(params[:event_id])
-    @tickets = @event.tickets.complete
-    @orders = @tickets.map{ |ticket| ticket.order } 
+    @orders = @current_account.orders.complete.joins(:tickets).where('tickets.event_id = ?', params[:event_id])
+    @tickets = @current_account.tickets.complete.where('tickets.event_id = ?', params[:event_id])
   end
   
   def event_sales  # by day, by week, by month (start, stop)
@@ -32,7 +32,8 @@ class ReportsController < ApplicationController
   end
   
   def sales_over_time
-    @orders = @current_account.orders.purchased_on_date(params[:day])
+    @day = params[:day]
+    @orders = @current_account.orders.purchased_on_date( params[:day] )
   end
   
   

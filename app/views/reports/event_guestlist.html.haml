@@ -1,33 +1,74 @@
 %h1= "Tickets for #{@event.name}"
 %h2=@event.starts_at.to_formatted_s(:jammin_java)
 
-%hr/
-%h2 
-%table.table
+.span3
+  .well
+    %strong Total Tickets Sold
+    %br/
+  
+    =@tickets.complete.count
+    ="(#{number_to_currency @tickets.complete.sum('total')})"
+  
+.span3
+  .well
+    %strong Total Tickets Checked In
+    %br/
+    =@tickets.complete.checked_in.count
+    ="(#{number_to_currency @tickets.complete.checked_in.sum('total')})"
+  
+.span3
+  .well
+    %strong Total Tickets Pending Checkin
+    %br/
+    =@tickets.complete.pending_checkin.count
+    ="(#{number_to_currency @tickets.complete.pending_checkin.sum('total')})"
+
+%br/
+%br/
+%br/
+
+%table.table.table-striped.table-bordered.display.dataTable#event_guestlist
   %thead
-    %th id
-    %th Name
+    %th ID
+    %th State
+    %th Last Name
+    %th First Name
     %th Section
     %th Seat
     %th Price
     %th Service
-    %th Checked in yet?
-    -@tickets.order('created_at DESC').each_with_index do |ticket, index|
-      %tr
-        %td=index
-        
-        %td=ticket.full_name
-        %td=ticket.section.label.gsub(/General Admission/, 'GA')
-        %td=ticket.area.label.gsub(/General Admission/, 'GA')
-        %td=number_to_currency ticket.base_price
-        %td=number_to_currency ticket.service_charge
-        %td=number_to_currency ticket.total
-        %td
-          -if ticket.can_check_in?
-            =link_to 'checkin', ticket_checkin_path(ticket), :class => 'btn btn-primary'#, :target => '_blank'
-          -if ticket.checked_in?
-            Yes!
+    %th Total
+    %th Agent?
+    %th Check in Order
+    %th Check in Tickets
+    %th View
+    
+    
+    -@event.orders.complete.order('orders.last_name DESC NULLS first, orders.id').each do |order|
+      -order.tickets.order('id desc').each_with_index do |ticket, index|
+        %tr
+          %td=order.id
+          %td=order.state
+          %td=order.last_name
+          %td=order.first_name
+          %td=ticket.section.label.gsub(/General Admission/, 'GA')
+          %td=ticket.area.label.gsub(/General Admission/, 'GA')
+          %td=number_to_currency ticket.base_price
+          %td=number_to_currency ticket.service_charge
+          %td=number_to_currency ticket.total
+          %td=order.agent.first_name unless order.agent.blank?
+          %td
+            -if index == 0 && !order.all_tickets_checked_in?
+              =link_to "checkin order (#{order.tickets.count})", order_checkin_path(order), :class => 'btn btn-primary'
+            
+          %td
+            -if ticket.can_check_in?
+              =link_to 'checkin', ticket_checkin_path(ticket), :class => 'btn'#, :target => '_blank'
+            -if ticket.checked_in?
+              %i.icon-check
             
             
-            
-        %td=link_to 'View ticket', (order_path(ticket.order_id) + '/tickets')
+          
+          %td
+            -if index == 0
+              =link_to 'View tickets', front_order_path(order) + '/tickets'

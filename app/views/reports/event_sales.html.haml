@@ -78,14 +78,17 @@
             %thead
               %tr
                 %td Name
-                %td Total
-                %td Section
+                %td Agent
+                
                 %td Label
+                %td Section
+                %td Total
                 %td Purchased At
                 %td Checked in?
             -@event.tickets.complete.order('purchased_at DESC').each do |ticket|
               %tr
                 %td=ticket.order.user.full_name unless ticket.order.nil? || ticket.order.user.nil?
+                %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
                 %td=ticket.area.label
                 %td=ticket.section.label
                 %td=number_to_currency ticket.base_price

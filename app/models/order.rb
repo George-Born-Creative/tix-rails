@@ -63,59 +63,54 @@ class Order < ActiveRecord::Base
   
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :phone
-  
-  validates :first_name, :last_name, :email, 
-            :address, :phone, 
-            :card_number, :card_verification, 
-            :card_expiration_month, :card_expiration_year,
-            :presence => true, :if => :card_purchase?
     
-  
-  def card_purchase?; @card_purchase; end  
+  def card_purchase?; self.card_purchase; end  
   def deliver_tickets?; deliver_tickets; end  
   def checkin_tickets?; checkin_tickets; end  
   def agent_checkout?; @agent_checkout; end
   
   state_machine :initial => :cart do
     
-    # around_transition do |order, transition, block|
-      # puts  ''
-      # puts  '#######'
-      # puts  " ####### START from #{transition.from} to #{transition.to}"
-      # block.call
-      # puts  " ####### END from #{transition.from} to #{transition.to}"
-      # puts  ''
-    # end
+    around_transition do |order, transition, block|
+      puts   ''
+      puts   '#######'
+      puts   " ####### START from #{transition.from} to #{transition.to}"
+
+      block.call
+      puts   " ####### END from #{transition.from} to #{transition.to}"
+      puts   ''
+    end
       
+    
       
-    before_transition [:err, :cart] => :processing, :do => :update_totals!
-    before_transition [:err, :cart] => :processing, :do => :update!
-    after_transition [:err, :cart] => :processing, :do => :purchase_with_card!, :if => :card_purchase?
-    after_transition [:err, :cart] => :processing, :do => :purchase_without_card!, :unless => :card_purchase?
+    before_transition [:err, :cart, :processing] => :processing, :do => :update_totals!
+    before_transition [:err, :cart, :processing] => :processing, :do => :update!
+    after_transition [:err, :cart, :processing] => :processing, :do => :purchase_with_card!, :if => :card_purchase?
+    after_transition [:err, :cart, :processing] => :processing, :do => :purchase_without_card!, :unless => :card_purchase?
      
     before_transition :processing => :complete do |order|
-      # puts  "START BEFORE PROCESSING > COMPLETE"
+      # # puts   "START BEFORE PROCESSING > COMPLETE"
       order.update_attribute :purchased_at, Time.zone.now
       order.update!
       order.update_totals!
       order.update_service_charges!
-      # puts  "END BEFORE PROCESSING > COMPLETE"
+      # # puts   "END BEFORE PROCESSING > COMPLETE"
     end
     
     after_transition :processing => :complete do |order|
-      # puts  "START AFTER PROCESSING > COMPLETE"
+      # # puts   "START AFTER PROCESSING > COMPLETE"
       
-      # puts  order.checkin_tickets?
+      # # puts   order.checkin_tickets?
       
       order.deliver_tickets! if order.deliver_tickets?
       order.checkin_tickets! if order.checkin_tickets?
       order.notify_agents!
-      # puts  "END AFTER PROCESSING > COMPLETE"
+      # # puts   "END AFTER PROCESSING > COMPLETE"
       
     end
                  
     event :purchase do 
-      transition [:cart, :err] => :processing
+      transition [:cart, :err, :processing] => :processing
     end 
 
     event :err do
@@ -131,12 +126,18 @@ class Order < ActiveRecord::Base
       validates :agent, :presence => true, :if => proc{ |obj| obj.user.nil? }
       validates :user, :presence => true, :if => proc{ |obj| obj.agent.nil? }
       validates :first_name, :last_name, :email, :presence => true, :if => :deliver_tickets?
+      
+      validates :first_name, :last_name, :email, 
+                :address, :phone, 
+                :card_number, :card_verification, 
+                :card_expiration_month, :card_expiration_year,
+                :presence => true, :if => :card_purchase?
     end
 
   end
   
   def update_service_charges!
-    puts  "updating service charge for all tickets"
+    # puts   "updating service charge for all tickets"
     tickets.each { |t| t.update_attribute(:service_charge_override, self.service_charge_override) }
   end
   
@@ -155,11 +156,11 @@ class Order < ActiveRecord::Base
   end
   
   def notify_agents!
-    # puts  'Order.notify_agents! called'
+    # # puts   'Order.notify_agents! called'
   end
   
   def update_totals!
-    # puts  "update_totals!"
+    # # puts   "update_totals!"
     _base = self.tickets.map(&:base_price).sum
     _service = self.tickets.map(&:service_charge).sum
     
@@ -186,8 +187,25 @@ class Order < ActiveRecord::Base
   # end
   
   def purchase_with_card!
-    # puts  "PURCHASE with card in amount:"
-    # puts  price_in_cents
+    puts  'purchase_with_card!'
+    unless validate_card 
+      puts 'card invalid'
+      puts 'calling err'
+      err!
+      puts 'state'
+      puts self.state
+      puts 'saving...'
+      self.save!
+      puts 'saved. state is'
+      puts self.state
+      puts 'valid?'
+      puts self.valid?
+      puts self.errors.full_messages
+      return false 
+    end
+    
+    # # puts   "PURCHASE with card in amount:"
+    # # puts   price_in_cents
 
 
 
@@ -198,18 +216,28 @@ class Order < ActiveRecord::Base
                          :response => response,
                          :meth => 'card',
                          :origin => 'web')
-                         
+    
+    puts "RESPONSE.success?"
+    puts response.success?
+               
     if response.success?
+      puts "calling FINALIZE"
       finalize!
-    else      
+      puts "STATE"
+      puts state
+    else
+      puts  "calling ERR!"
       err!
+      puts 'STATE:'
+      puts state
     end
-    response.success?
+    
+    # response.success?
   end
   
   def purchase_without_card!
-    # puts  "## PURCHASE without card in amount:"
-    # puts  price_in_cents
+    # # puts   "## PURCHASE without card in amount:"
+    # # puts   price_in_cents
     transactions.create!(:action => "purchase", 
                         :amount => price_in_cents, 
                         :success => true, 
@@ -247,13 +275,13 @@ class Order < ActiveRecord::Base
   end
   
   def checkin_tickets!
-    # puts  'Order.checkin_tickets! called' 
+    # # puts   'Order.checkin_tickets! called' 
     self.tickets.each{ |t| t.checkin! } # causing stack overflow / segmentation fault
     # self.tickets.each{ |t| t.update_column(:checked_in_at, Time.zone.now) }
   end
   
   def update_ticket_service_charges!
-    # puts  'update_ticket_service_charges! called' 
+    # # puts   'update_ticket_service_charges! called' 
     unless self.service_charge_override.nil?
       self.tickets.each{ |t| t.update_attribute(:service_charge_override, self.service_charge_override) }
     end
@@ -272,7 +300,7 @@ class Order < ActiveRecord::Base
   end
   
   def deliver_tickets!
-    # puts  'Order.deliver_tickets! called' 
+    # # puts   'Order.deliver_tickets! called' 
     TicketMailer.delay.send_tickets(self.account.id, self.id)
   end
 
@@ -336,15 +364,10 @@ class Order < ActiveRecord::Base
     purchased_between(start_time, end_time)
   end
   
-  private
-  
-  def set_expires_at!
-    self.update_attribute(:expires_at, DateTime.now + LIFESPAN)
-  end
   
   def credit_card
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new(
-      :brand               => nil,
+      :brand               => 'bogus',
       :number             => card_number,
       :verification_value => card_verification,
       :month              => card_expiration_month,
@@ -353,6 +376,13 @@ class Order < ActiveRecord::Base
       :last_name          => last_name
     )
    end
+   
+  private
+  
+  def set_expires_at!
+    self.update_attribute(:expires_at, DateTime.now + LIFESPAN)
+  end
+  
 
   def purchase_options
    {
@@ -363,17 +393,23 @@ class Order < ActiveRecord::Base
        :city     => address.city,
        :state    => address.state,
        :country  => "US",
-       :zip      => address.zip
+       :zip      => address.zip,
      }
    }
   end
 
   def validate_card
    unless credit_card.valid?
+     puts  "validate_card: card messages"
+     
      credit_card.errors.full_messages.each do |message|
-       errors.add_to_base message
+       puts  message
+       self.errors[:base] << message
+       self.errors.add(:base,  message)
      end
+     return false
    end
+   true
   end
 
    

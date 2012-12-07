@@ -35,39 +35,47 @@ class Front::OrdersController < InheritedResources::Base
      else
        params[:order][:user] = @current_user
        params[:order][:card_purchase] = true     
-       params[:order][:deliver_tickets] = true  
+       params[:order][:deliver_tickets] = true
+       params[:order][:payment_method_name] = 'card'
      end
-
      
-     params[:order][:card_expiration_month] = params[:order][:"card_expiration_date(2i)"].to_i
-     params[:order][:card_expiration_year] = params[:order][:"card_expiration_date(3i)"].to_i
-
-     params[:order].delete(:"card_expiration_date(1i)")
-     params[:order].delete(:"card_expiration_date(2i)")
-     params[:order].delete(:"card_expiration_date(3i)")       
+     
+     parse_date! 
      
      params[:order].keys.each do |key|
        @current_order.update_attribute(key, params[:order][key] )
      end
-
-      # render :text => params[:order][:service_charge_override]
 
       redirect_path = params[:order][:agent_checkout] ? '/orders/new' : '/orders/new?checkout=customer'
       
       respond_to do |format|
         format.html{ 
           if @current_order.valid?
-            if @current_order.purchase! && @current_order.state == 'complete'
+            # puts '@current_order.valid? IS TRUE'
+            if @current_order.purchase && @current_order.state == 'complete'
+              # puts 'purchase! is true and state == complete'
+              
               redirect_to '/orders/success', :notice => 'Order successful!'
             else
-              flash[:message] = @current_order.errors.full_messages.join('<br/>').html_safe
-
+              flash[:message] = 'purchase! is not true or state not complete. Errors'
+              flash[:message] += @current_order.errors.full_messages.to_s
+              flash[:message] += @current_order.credit_card.errors.full_messages.join('<br/>')
+              flash[:message] += @current_order.transactions.last.message unless @current_order.transactions.last.nil?
+              # puts 'current order errors full messages'
+              # @current_order.errors.full_messages
+              # if @current_order.transactions.last
+              #   puts 'current order errors full messages'
+              #   @current_order.transactions.last.message
+              # end
               # flash[:message] = @order.transactions.first.message
               # flash[:order] = @order
               redirect_to redirect_path
             end
           else # Checkout object did not pass validation
+            puts  '@current_order.valid? IS FALSE'
             flash[:message] = @current_order.errors.full_messages.join('<br/>').html_safe
+            puts 'messages'
+            puts @current_order.errors.full_messages
             # flash[:order] = @order
             
             redirect_to redirect_path
@@ -79,12 +87,12 @@ class Front::OrdersController < InheritedResources::Base
   
   # http://accidentaltechnologist.com/ruby-on-rails/damn-you-rails-multiparameter-attributes/
   def parse_date!
-    params[:order][:card_expiration_month] = params[:order][:"card_expiration_date(2i)"].to_i,
-    params[:order][:card_expiration_year] = params[:order][:"card_expiration_date(3i)"].to_i,
+    params[:order][:card_expiration_month] = params[:order][:"card_expiration_date(2i)"].to_i
+    params[:order][:card_expiration_year] = params[:order][:"card_expiration_date(1i)"].to_i
     
-    params[:order].delete(:"expiration_date(1i)")
-    params[:order].delete(:"expiration_date(2i)")
-    params[:order].delete(:"expiration_date(3i)")
+    params[:order].delete(:"card_expiration_date(1i)")
+    params[:order].delete(:"card_expiration_date(2i)")
+    params[:order].delete(:"card_expiration_date(3i)")
   end
   
 

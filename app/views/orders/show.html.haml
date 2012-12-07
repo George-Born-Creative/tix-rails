@@ -73,6 +73,14 @@
           %strong Amount
           =number_to_currency(transaction.amount/100)
           
+        %p
+          %strong Method
+          =transaction.meth
+        %p
+          %strong Origin
+          =transaction.origin
+          
+          
           -#     #<OrderTransaction id: 12
           -#      order_id: 132
           -#      action: "purchase"

@@ -6,7 +6,9 @@ class Front::TicketsController < ApplicationController
 
   def checkin
     @ticket = @current_account.tickets.find(params[:id])   
-    @success = @ticket.checkin!     
+    @success = @ticket.checkin!  
+    redirect_to request.referer
+       
   end
  
  

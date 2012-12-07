@@ -1,0 +1,17 @@
+.span8.offset2
+  .widget-content
+    =simple_form_for @account do |f|
+      =f.input :subdomain, :disabled => true
+      
+      %hr/
+      
+      %h5 Enter emails separated by commas
+      
+      =f.input :email_order_report_to, :input_html => {:style => 'width: 550px !important'}
+      =f.input :email_daily_report_to, :input_html => {:style => 'width: 550px !important'}
+      =f.input :email_weekly_report_to, :input_html => {:style => 'width: 550px !important'}
+      =f.input :email_monthly_report_to, :input_html => {:style => 'width: 550px !important'}
+      
+      =f.submit
+      
+      

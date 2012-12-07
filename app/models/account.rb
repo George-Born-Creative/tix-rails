@@ -26,14 +26,10 @@ class Account < ActiveRecord::Base
   has_many :themes, :dependent => :destroy
   has_many :gateways, :dependent => :destroy
   
-  has_one :payment_gateway, :dependent => :destroy
   attr_accessible :subdomain, 
           :email_order_report_to, :email_daily_report_to, :email_weekly_report_to,
           :email_monthly_report_to
   
-  # has_many :ckeditor_assets, :dependent => :destroy
-  
-  attr_accessible :subdomain
   
   validates_uniqueness_of :subdomain
   
@@ -56,6 +52,7 @@ class Account < ActiveRecord::Base
       "http://#{subdomain}.localtix.com:5000/"
     end
   end
+  
   def gateway
     return nil if gateways.nil?
     gateways.active

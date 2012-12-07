@@ -12,6 +12,8 @@
 #  params        :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  meth          :string(255)
+#  origin        :string(255)
 #
 
 require 'spec_helper'

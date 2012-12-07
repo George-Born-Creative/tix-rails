@@ -21,11 +21,11 @@
       !="Signed in as <strong>#{@current_user.full_name}</strong> (#{@current_user.email}</strong>)"
       
       %hr/
-      =render 'front/orders/checkout_agent_menu' if user_signed_in?
             
       -if user_signed_in? && @current_user.has_at_least_role(:employee) && params[:checkout] != 'customer'
+        =render 'front/orders/checkout_agent_menu' if user_signed_in?
         =render 'front/orders/checkout_agent'
-      -else
+      -else        
         =render 'front/orders/checkout_customer'
 
     .step3.step.payment.hide

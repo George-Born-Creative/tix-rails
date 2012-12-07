@@ -77,7 +77,7 @@ window.TixMgr =
   initColorPicker: ->
     if $('.chart-section-colorpicker').size() > 0
       $('.chart-section-colorpicker').colorpicker()
-      
+  
   initSVGHover: ->
     $('g#hot circle').hide()
       

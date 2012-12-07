@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
   has_many :tickets, :through => :orders
   belongs_to :account
   
-  
   def has_at_least_role(role)
     # owner manager employee customer guest
     case role

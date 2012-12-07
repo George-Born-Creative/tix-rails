@@ -6,7 +6,7 @@
       -else
         %ul{:style => 'margin: 0; list-style: none'}
           -if @current_order && @current_order.total > 0
-            %li=link_to "Cart (#{number_to_currency(@current_order.total)})", '/checkout'
+            %li=link_to "Cart (#{@current_order.tickets.count})", '/orders/new'
 
           %li=link_to 'My Orders', front_orders_path
           %li=link_to 'My Account', edit_user_registration_path

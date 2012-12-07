@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: charts
+#
+#  id                     :integer          not null, primary key
+#  name                   :string(255)
+#  background_image_url   :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  account_id             :integer          default(0), not null
+#  label                  :string(255)
+#  svg_file_file_name     :string(255)
+#  svg_file_content_type  :string(255)
+#  svg_file_file_size     :integer
+#  svg_file_updated_at    :datetime
+#  thumbnail_file_name    :string(255)
+#  thumbnail_content_type :string(255)
+#  thumbnail_file_size    :integer
+#  thumbnail_updated_at   :datetime
+#  svg_file_serialized    :text
+#  width                  :decimal(, )
+#  height                 :decimal(, )
+#  background_color       :string(255)
+#  master                 :boolean          default(FALSE)
+#
+
+ellis_paul: 
+  id: 1
+  name: "Ellis Paul chart JAMMIN JAVA SEATED"
+  account_id: 1
+  label: "Ellis Paul chart JAMMIN JAVA SEATED"
+  width: 398.417
+  height: 639.46
+  background_color: "#000000"
+  master: false

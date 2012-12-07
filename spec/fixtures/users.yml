@@ -1,0 +1,61 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  account_id             :integer          not null
+#  first_name             :string(255)
+#  middle_name            :string(255)
+#  last_name              :string(255)
+#  salutation             :string(255)
+#  title                  :string(255)
+#  role                   :string(255)      default("customer")
+#  balance                :decimal(8, 2)    default(0.0), not null
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
+#  failed_attempts        :integer          default(0)
+#  unlock_token           :string(255)
+#  locked_at              :datetime
+#  authentication_token   :string(255)
+#  newsletter_opt_in      :boolean          default(FALSE)
+#
+
+shaun: 
+  id: 1
+  email: "shaun@squiid.com"
+  sign_in_count: 95
+  current_sign_in_ip: "127.0.0.1"
+  last_sign_in_ip: "127.0.0.1"
+  account_id: 1
+  first_name: "Shaun"
+  last_name: "Robinson"
+  role: :owner
+  balance: 0.0
+  newsletter_opt_in: false
+  
+mei: 
+  id: 2
+  email: "mei@jamminjava.com"
+  sign_in_count: 1
+  current_sign_in_ip: "127.0.0.1"
+  last_sign_in_ip: "127.0.0.1"
+  account_id: 1
+  first_name: "Mei"
+  last_name: "Verba"
+  role: :employee
+  balance: 0.0
+  newsletter_opt_in: false

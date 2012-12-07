@@ -1,0 +1,46 @@
+# == Schema Information
+#
+# Table name: prices
+#
+#  id         :integer          not null, primary key
+#  label      :string(255)
+#  base       :decimal(8, 2)    default(0.0), not null
+#  service    :decimal(8, 2)    default(0.0), not null
+#  tax        :decimal(8, 2)    default(0.0), not null
+#  account_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+
+day_of:
+  id: 1
+  label: nil
+  base: 15.0
+  service: 4.0
+  tax: 0.0
+  account_id: nil
+
+pre_sale: 
+  id: 2
+  label: nil
+  base: 10.0
+  service: 3.0
+  tax: 0.0
+  account_id: nil
+
+day_of2:
+  id: 3
+  label: nil
+  base: 15.0
+  service: 4.0
+  tax: 0.0
+  account_id: nil
+
+pre_sale3: 
+  id: 4
+  label: nil
+  base: 10.0
+  service: 3.0
+  tax: 0.0
+  account_id: nil

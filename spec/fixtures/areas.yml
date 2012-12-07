@@ -1,0 +1,48 @@
+# == Schema Information
+#
+# Table name: areas
+#
+#  id            :integer          not null, primary key
+#  label         :string(255)
+#  label_section :string(255)
+#  polypath      :string(255)
+#  x             :decimal(, )
+#  y             :decimal(, )
+#  stack_order   :integer          default(0)
+#  chart_id      :integer
+#  type          :string(255)
+#  section_id    :integer
+#  cx            :decimal(, )
+#  cy            :decimal(, )
+#  r             :decimal(, )
+#  width         :decimal(, )
+#  height        :decimal(, )
+#  transform     :string(255)
+#  points        :string(255)
+#  max_tickets   :integer          default(1), not null
+#  text          :string(255)
+#
+
+k5:
+  id: 1
+  section_id: 1
+  label: "K5"
+  stack_order: 0
+  type: "circle"
+  cx: 134.196
+  cy: 366.698
+  r: 4.469
+  max_tickets: 1
+
+general_admission:
+  id: 2
+  section_id: 1
+  label: "GA"
+  label_section: nil
+  polypath: ''
+  stack_order: 0
+  type: "polypath"
+  cx: 134.196
+  cy: 366.698
+  r: 4.469
+  max_tickets: 100

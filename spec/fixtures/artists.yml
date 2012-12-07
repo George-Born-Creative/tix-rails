@@ -1,0 +1,74 @@
+# == Schema Information
+#
+# Table name: artists
+#
+#  id                      :integer          not null, primary key
+#  name                    :string(255)
+#  body                    :text
+#  description             :text
+#  url                     :string(255)
+#  myspace_url             :string(255)
+#  facebook_url            :string(255)
+#  audio_sample_url        :string(255)
+#  video_url               :string(255)
+#  twitter                 :string(255)
+#  youtube1                :text
+#  youtube2                :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  photo_file_name         :string(255)
+#  photo_content_type      :string(255)
+#  photo_file_size         :integer
+#  photo_updated_at        :datetime
+#  id_old                  :decimal(, )
+#  account_id              :integer          not null
+#  id_old_image            :integer
+#  audio_sample_title      :string(255)
+#  artist_id_old_secondary :integer
+#
+
+ # Aritst
+ellis_paul:
+  id: 1
+  name: "Ellis Paul"
+  account_id: 1
+  body: "<p>\r\n\t<span class=\"nfakPe\">Ellis</span> <span class=\"nfakPe\">Paul</span> is one of the leading voices in American songwriting. He was a principle leader in the wave of singer/songwriters that emerged from the Boston folk scene, creating a movement that revitalized the national acoustic circuit with an urban, literate, folk pop style that helped renew interest in the genre in the 1990&#39;s. His charismatic, personally authentic performance style has influenced a generation of artists away from the artifice of pop, and closer towards the realness of folk. Though he remains among the most pop-friendly of today&#39;s singer-songwriters - his songs regularly appear in hit movie and TV soundtracks - he has bridged the gulf between the modern folk sound and the populist traditions of Woody Guthrie and Pete Seeger more successfully than perhaps any of his songwriting peers.</p>\r\n<p>\r\n\tHe is a critically-acclaimed singer, songwriter, poet, and troubadour originally hailing from a potato farming family in northern Maine. He is the recipient of thirteen Boston Music Awards, second only to multi-platinum act, Aerosmith. Over the course of fifteen years, Ellis Paul has built a vast catalog of music which weds striking poetic imagery and philosophical introspection with hook-laden melodies.</p>\r\n"
+  description: nil
+  url: "http://www.ellispaul.com/"
+  myspace_url: ""
+  facebook_url: "http://www.facebook.com/#%21/pages/Ellis-Paul/9293768718"
+  audio_sample_url: "http://click.linksynergy.com/fs-bin/stat?id=*FknwilNy5I&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=http%253A%252F%252Fitunes.apple.com%252Fus%252Fartist%252Fellis%252Fid2533191%253Fuo%253D4%2526partnerId%253D30"
+  video_url: "http://www.youtube.com/user/ellispaul"
+  twitter: "http://twitter.com/ellispaulsongs"
+  youtube1: "<iframe width=\"300\" height=\"255\" src=\"http://www.youtube.com/embed/sfcTS-wCZHM\" frameborder=\"0\" allowfullscreen></iframe>"
+  youtube2: "<iframe width=\"300\" height=\"255\" src=\"http://www.youtube.com/embed/uepurGa9ZBA\" frameborder=\"0\" allowfullscreen></iframe>"
+  photo_file_name: "Ellis_Paul-z.jpg"
+  photo_content_type: "image/jpeg"
+  photo_file_size: 111005
+  id_old: 314.0
+  id_old_image: 16186
+  audio_sample_title: nil
+  artist_id_old_secondary: nil
+  
+empires:
+  id: 2
+  account_id: 1
+  name: "Empires"
+  body: "<p>Empires recently finished recording their second full length album, Garage Hymns. The band's self-produced debut album, Howl, garnered a massive amount of attention when they released it on their website back in 2008, and now, with Garage Hymns, Empires feels that they have found the sound they've been searching for all along.</p>\r<p>It's been a rapid ascent to critical acclaim for the young Empires, who came together in 2006. Howl was named one of the top five local albums of 2008 by Metromix Chicago, and Empires spent the rest of 2008 and much of 2009 building a profile locally. They sold out several of Chicago most popular music venues, including Schubas, the Beat Kitchen, and the Subterranean. Then, late in 2009, they went back into Max's studio to record again, and in 2010 they released a seven-song EP called BANG.</p>\r<p>To generate more interest in their second collection of self-produced material, the band put out BANG in the form of monthly digital singles until physically releasing a deluxe edition of the album in March of 2010, right before their first SXSW appearance. The BANG EP and their first SXSW appearance ushered in some good national attention. With the BANG EP and a raucous makeout music video for the title track keeping a lot of attention focused on them, Empires quietly began demoing the songs that would later become Garage Hymns in the summer of 2010. Then, from February to May of 2011, the Empires fan base came out in droves once again when Empires was one of sixteen bands being considered for the August cover of Rolling Stone.</p>\r<p>Hand-picked from over 1,200 artists by Rolling Stone editors to be part of the magazine's first ever \"Choose the Cover\" campaign, Empires advanced (through public voting) to one of the final four slots. Rolling Stone called Empires a \"big, multi-faceted, tower of power\" and said that \"inspired by the independent spirit of &lsquo;90s grunge, Empires' music takes the urgency and emotion of that era and reboots it for a new generation.\"</p>"
+  description: nil
+  url: "http://www.weareempires.com/"
+  myspace_url: nil
+  facebook_url: "http://www.facebook.com/weareempires"
+  audio_sample_url: "http://click.linksynergy.com/fs-bin/stat?id=*FknwilNy5I&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=http%253A%252F%252Fitunes.apple.com%252Fus%252Fartist%252Fempires%252Fid266031386%253Fuo%253D4%2526partnerId%253D30"
+  video_url: "http://www.youtube.com/weareempires"
+  twitter: "http://www.twitter.com/weareempires"
+  youtube1: "<iframe width=\"300\" height=\"255\" src=\"http://www.youtube.com/embed/oE5_maSCGxk\" frameborder=\"0\" allowfullscreen></iframe>"
+  youtube2: nil
+  photo_file_name: "Empires-y.jpg"
+  photo_content_type: "image/jpeg"
+  photo_file_size: 156253
+  id_old: 3537.0
+  id_old_image: 16665
+  audio_sample_title: nil
+  artist_id_old_secondary: nil
+ 

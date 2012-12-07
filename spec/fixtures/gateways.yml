@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: gateways
+#
+#  id           :integer          not null, primary key
+#  provider     :string(255)
+#  login        :string(255)
+#  password     :string(255)
+#  activated_at :datetime
+#  account_id   :integer
+#  mode         :string(255)
+#
+
+authorize: 
+  account_id: 1
+  id: 1
+  provider: "authorize"
+  login: "8z9G2RuzM"
+  password: "573te5kS8c245CSq"
+  activated_at: '2012-10-30 19:00:00'
+  mode: "test"

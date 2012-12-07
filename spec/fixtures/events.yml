@@ -1,0 +1,60 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id                     :integer          not null, primary key
+#  title                  :string(255)
+#  headline               :string(255)
+#  supporting_act         :text
+#  body                   :text
+#  starts_at              :datetime
+#  ends_at                :datetime
+#  chart_id               :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  headliner_id           :integer
+#  secondary_headliner_id :integer
+#  supporting_act_1       :string(255)
+#  supporting_act_2       :string(255)
+#  supporting_act_3       :string(255)
+#  info                   :text
+#  set_times              :text
+#  price_freeform         :string(255)
+#  account_id             :integer          not null
+#  chart                  :string(255)
+#  artist_id_old          :integer
+#  cat                    :string(255)
+#  announce_at            :datetime
+#  on_sale_at             :datetime
+#  off_sale_at            :datetime
+#  remove_at              :datetime
+#  buytix_url_old         :string(255)
+#  slug                   :string(255)
+#  disable_event_title    :boolean          default(FALSE)
+#  external_ticket_url    :string(255)
+#  sold_out               :boolean
+#  free_event             :boolean
+#  hide_buttons           :boolean
+#
+
+#<Event:0x007fe195250c28>
+ellis_paul:
+  id: 28
+  account_id: 1
+  chart_id: 1
+  title: "Ellis Paul"
+  body: ""
+  starts_at: '2012-12-29 19:00:00' # Fri, 16 Nov 2012 19:00:00 EST -05:00
+  headliner_id: 1
+  secondary_headliner_id: 2
+  info: "• Full dinner and drink menu available <br/>• All ages <br/>• The Lobby Bar opens at 6:30pm <br/>• General admission seating<br/>• First come, first seated"
+  set_times: "<br/> 5:30 - The new Lobby Bar opens<br/>6:30 - Doors<br/>7:30 - Ellis Paul"
+  price_freeform: "$20 "
+  cat: "adult"
+  announce_at: '2012-10-29 19:00:00'
+  on_sale_at: '2012-10-30 19:00:00'
+  off_sale_at: '2012-12-29 23:59:59'
+  remove_at: '2012-12-29 23:59:59'
+  buytix_url_old: "http://jamminjava.3dcartstores.com/product.asp?itemid=1917"
+  slug: "ellis-paul"
+  disable_event_title: true

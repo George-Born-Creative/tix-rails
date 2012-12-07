@@ -1,2 +1,44 @@
-Order #
-=@order.id
+-content_for :title do
+  ='Checkout'
+  
+-content_for :javascript_after_init do
+  :javascript
+    $(function(){
+      new Tix.Routers.FrontCheckoutRouter();
+    });
+  
+.row  
+  .span6
+  
+    -unless user_signed_in?
+      .sign-in
+        =render 'front/orders/sign_in'
+      .register.hide
+        =render 'front/orders/register'
+        
+    -else
+      %h1 Checkout
+      !="Signed in as <strong>#{@current_user.full_name}</strong> (#{@current_user.email}</strong>)"
+      
+      %hr/
+      =render 'front/orders/checkout_agent_menu' if user_signed_in?
+            
+      -if user_signed_in? && @current_user.has_at_least_role(:employee) && params[:checkout] != 'customer'
+        =render 'front/orders/checkout_agent'
+      -else
+        =render 'front/orders/checkout_customer'
+
+    .step3.step.payment.hide
+     
+  .span6
+    -if flash[:message]  
+      .warning
+        =flash[:message]
+
+    -if flash[:error]
+      .warning
+        %ul
+          =flash[:error]
+              
+    =render :partial => 'front/orders/cart', :locals => {:current_order => @current_order}
+              

@@ -23,6 +23,7 @@ end
 gem 'awesome_print'
 
 group :test, :development do 
+  # gem 'guard-rspec'
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem 'therubyracer', :platform => :ruby
   gem 'sqlite3'

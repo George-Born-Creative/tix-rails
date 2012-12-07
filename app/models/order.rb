@@ -41,6 +41,7 @@ class Order < ActiveRecord::Base
   attr_accessor :card_number, :card_verification, :card_expiration
   
   has_many :transactions, :class_name => "OrderTransaction", :order => 'created_at DESC'
+  has_many :events, :through => :tickets, :uniq => true
   
   belongs_to :agent, :class_name => "User"
   has_one :address, :as => :addressable, :dependent => :destroy

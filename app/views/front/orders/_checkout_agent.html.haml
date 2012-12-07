@@ -1,0 +1,35 @@
+=simple_form_for @current_order, :url => '/orders' do |f|
+
+  %hr/
+  .row
+    .span3
+      =f.input :deliver_tickets, :as => :boolean, :label => 'Email Tickets?'
+      =f.input :checkin_tickets, :as => :boolean, :label => 'Check In Tix?'
+
+    .span3
+      =f.input :payment_method_name, :as => :select, :label => false, :collection => { 'Cash' => 'cash', 'Square' => 'square', 'POS' => 'pos' }
+      =f.input :service_charge_override, :as => :select, :label => false, :collection => (0...10).map{|i| j=i.to_f/2; ["$#{"%0.2f" % j}", j]}
+     
+      =# select_tag 'order[payment_method_name]', options_for_select({'Door' => 'door', 'Phone' => 'phone', 'Bar' => 'bar', 'Other' => 'other' })
+      =# select_tag 'order[service_charge_override]', options_for_select( (0...10).map{|i| j=i.to_f/2; ["$#{"%0.2f" % j}", j]} ), :prompt => 'Svc'
+
+
+
+  .name-on-card
+    .row
+      .span3=f.input :first_name
+      .span3=f.input :last_name
+
+
+  .phone
+    .row
+      = f.simple_fields_for :phone do |phone_form|
+        .span3= phone_form.input :number, :label => 'Phone'
+      .span3=f.input :email
+
+  =f.input :agent_checkout, :as => :hidden, :input_html => {:value => true}
+
+  %hr/
+
+
+  =f.submit 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'

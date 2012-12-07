@@ -22,9 +22,9 @@ class Account < ActiveRecord::Base
   has_many :widgets, :dependent => :destroy
   has_many :ticket_templates, :dependent => :destroy
   has_many :customer_imports, :dependent => :destroy
-  has_many :categories, :dependent => :destroy
   has_many :carousels, :dependent => :destroy
   has_many :themes, :dependent => :destroy
+  has_many :gateways, :dependent => :destroy
   
   has_one :payment_gateway, :dependent => :destroy
   
@@ -52,5 +52,17 @@ class Account < ActiveRecord::Base
     else
       "http://#{subdomain}.localtix.com:5000/"
     end
+  end
+  def gateway
+    return nil if gateways.nil?
+    gateways.active
+  end
+  
+  def authorize_gateway
+    return nil? if gateway.blank? || gateway.login.blank? || gateway.password.blank?
+    return ActiveMerchant::Billing::AuthorizeNetGateway.new(
+        :login => gateway.login,
+        :password => gateway.password
+    )
   end
 end

@@ -36,6 +36,7 @@ class Ticket < ActiveRecord::Base
                   :area_label, :section_label, :base_price,
                   :service_charge, :event_artists, :event_starts_at,
                   :event_name_1, :event_name_1
+                  :event_name_1, :event_name_2
   
   before_save :set_attributes
   belongs_to :account

@@ -43,11 +43,16 @@ class TixLib.Views.ChartRenderView extends Backbone.View
     disableArea: (area_id)->
       # console.log 'Disabling area ' + area_id
       elem = @elemByAreaID[area_id]
-      elem.attr
-        'fill': "#333333"
+      
+      elem.attr 
+        'fill': "#111111"
+              
+      if elem.type == 'circle'
+        elem.attr
+          'fill': "#333333"
+        
       $(elem.node).unbind()
       $(elem.node).unbind('click')
-      
       
       if elem.data('enabled')
         elem.data('enabled', false)
@@ -55,9 +60,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       @hideTooltip()
       
       $('body').css('cursor', 'inherit')
-      
-      
-        
+              
     enableArea: (area_id)->
       # console.log "Enabling area " + area_id
       self = @
@@ -197,7 +200,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
           
         when 'rect' # Paper.rect(x, y, width, height, [r])
           # console.log '[SR] Rendering Rect ' + area.points
-        
+          # alert(area.id)
           raf_shape = self.paper.rect(area.x, area.y, area.width, area.height)
           #raf_shape.attr('fill', color)
             

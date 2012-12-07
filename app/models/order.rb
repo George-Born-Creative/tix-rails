@@ -22,6 +22,7 @@
 #  email                 :string(255)
 #  ip_address            :string(255)
 #  base                  :decimal(, )
+#  agent_id                :integer
 #
 
 
@@ -41,6 +42,7 @@ class Order < ActiveRecord::Base
   
   has_many :transactions, :class_name => "OrderTransaction", :order => 'created_at DESC'
   
+  belongs_to :agent, :class_name => "User"
   has_one :address, :as => :addressable, :dependent => :destroy
   has_one :phone, :as => :phonable, :dependent => :destroy
   

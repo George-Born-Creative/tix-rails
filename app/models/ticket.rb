@@ -35,17 +35,19 @@ class Ticket < ActiveRecord::Base
   attr_accessible :area, :order, :event_name,  :event_id,
                   :area_label, :section_label, :base_price,
                   :service_charge, :event_artists, :event_starts_at,
-                  :event_name_1, :event_name_1
                   :event_name_1, :event_name_2
   
-  before_save :set_attributes
+  before_save :update_service_charge  
+  before_create :set_attributes
+  
+  def log_before_save
+    puts "ticket#before_save"
+  end
+  
   belongs_to :account
-  belongs_to :order
+  belongs_to :order, :inverse_of => :tickets
+  belongs_to :event
   
-  # before_create :set_info
-  
-  # before_create :set_initial_state
-
   attr_accessor :reserved, :purchased, :checked_in
   
   belongs_to :order
@@ -63,6 +65,7 @@ class Ticket < ActiveRecord::Base
   scope :complete, lambda { joins(:order).where("orders.purchased_at < ?", Time.zone.now)}
   scope :purchased_between, lambda { |start_time, end_time| joins(:order).where('orders.purchased_at BETWEEN ? AND ?', start_time, end_time) }
   scope :checked_in, lambda { joins(:order).where("checked_in_at < ?", Time.zone.now)}
+  scope :pending_checkin, lambda { joins(:order).where("checked_in_at IS NULL")}
   
 
 
@@ -95,7 +98,7 @@ class Ticket < ActiveRecord::Base
     unless checked_in_at.nil?
       return false
     else
-      update_attribute(:checked_in_at, Time.zone.now)
+      self.update_attribute(:checked_in_at, Time.zone.now)
       return true
     end
   end
@@ -108,9 +111,9 @@ class Ticket < ActiveRecord::Base
   # Order.expired
   
   def total
-    base = self.base_price || 0
-    service = self.service_charge || 0
-    base + service
+    # base = self.base_price || 0
+    # service = self.service_charge || 0
+    self.base_price + self.service_charge
   end
     
     
@@ -122,42 +125,6 @@ class Ticket < ActiveRecord::Base
     !checked_in?
   end
     
-  def set_info
-    #puts "setting self.event_name = event.name"
-    self.event_name = event.name
-    #puts self.event_name
-    
-    #puts "setting self.event_artists = event.artists_str"
-    self.event_artists = event.artists_str
-    puts self.event_artists
-    
-    #puts "setting self.event_starts_at = area.section.chart.event.starts_at"
-    self.event_starts_at = area.section.chart.event.starts_at
-    #puts self.event_starts_at
-    
-    #puts "setting self.section_label = area.section.label"
-    self.section_label = area.section.label
-    #puts self.section_label
-    
-    #puts "setting self.area_label = self.area.label"
-    self.area_label = "#{self.area.label}"
-    #puts "self.area.label"
-    #puts self.area.label
-    #puts "self.area_label"
-    #puts self.area_label
-    
-    #puts "self.base_price = area.section.current_price."
-    self.base_price = area.section.current_price.base
-    #puts self.base_price
-    
-    #puts "self.service_charge = area.section.current_price.service"
-    self.service_charge = area.section.current_price.service
-    #puts self.service_charge
-    
-    #puts "SERVICE CHARGE IS #{self.service_charge}"
-    #puts "AREA LABEL IS #{self.area_label}"
-    
-  end
   
   # if the area label is a combo of letters and numbers, 
   # provide them in a couplet array. otherwise rtn false
@@ -172,9 +139,15 @@ class Ticket < ActiveRecord::Base
     return false
   end
   
-  private 
+  def update!
+    set_attributes
+  end  
+  
+  private
   
   def set_attributes
+    puts 'Tickets#set_attribtues invoked'
+    puts "self.order.service_charge_override = #{self.order.service_charge_override}"    
     self.account = self.order.account
     self.event_name = event.title_with_artists
     self.event_name_1 = event.title_array[0]
@@ -185,25 +158,28 @@ class Ticket < ActiveRecord::Base
     self.section_label = area.section.label
     self.area_label = area.label
     self.base_price = area.section.current_price.base
-    self.service_charge = area.section.current_price.service
+  
+  end
+  
+  
+  def update_service_charge
+   if self.service_charge_override.nil?
+      self.service_charge = area.section.current_price.service
+    else
+      self.service_charge = self.service_charge_override
+    end
   end
   
   def self.total
-    self.total_service + self.total_base
+    self.total_service + self.total_base # TODO ADD TAX?
   end
-  
   
   def self.total_service
-    sum(:service_charge) # TODO ADD TAX?
+    sum(:service_charge)
   end
-  
   
   def self.total_base
-    sum(:base_price) # TODO ADD TAX?
+    sum(:base_price)
   end
   
-  
-  
-  
-    
 end

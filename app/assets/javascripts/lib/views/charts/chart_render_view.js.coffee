@@ -45,11 +45,11 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       elem = @elemByAreaID[area_id]
       
       elem.attr 
-        'fill': "#111111"
+        'fill': "#333333"
               
       if elem.type == 'circle'
         elem.attr
-          'fill': "#333333"
+          'fill': "#666666"
         
       $(elem.node).unbind()
       $(elem.node).unbind('click')

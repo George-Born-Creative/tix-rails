@@ -57,9 +57,8 @@ class Front::OrdersController < InheritedResources::Base
               
               redirect_to '/orders/success', :notice => 'Order successful!'
             else
-              flash[:message] = 'purchase! is not true or state not complete. Errors'
-              flash[:message] += @current_order.errors.full_messages.to_s
-              flash[:message] += @current_order.credit_card.errors.full_messages.join('<br/>')
+              flash[:message] = @current_order.errors.full_messages.join('<br/>').html_safe
+              flash[:message] += @current_order.credit_card.errors.full_messages.join('<br/>').html_safe
               flash[:message] += @current_order.transactions.last.message unless @current_order.transactions.last.nil?
               # puts 'current order errors full messages'
               # @current_order.errors.full_messages

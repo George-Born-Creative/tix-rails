@@ -20,9 +20,15 @@ group :production do
   gem 'newrelic_rpm'
 end
 
-gem 'awesome_print'
 
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'awesome_print'
+end
+  
 group :test, :development do 
+  
   # gem 'guard-rspec'
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem 'therubyracer', :platform => :ruby

@@ -6,7 +6,7 @@ class TixLib.Timer
 
     @clearTimer()
     
-    console.log ['TixLib.Timer initialized with seconds_from_now=', seconds_from_now]
+    # console.log ['TixLib.Timer initialized with seconds_from_now=', seconds_from_now]
     
     # http://stackoverflow.com/questions/3733227/javascript-seconds-to-minutes-and-seconds
 

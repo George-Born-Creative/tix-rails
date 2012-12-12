@@ -27,6 +27,7 @@ window.Tix =
         self.initCart()
         self.initCartMiniView()
         self.initCartView(data)
+        self.initCartTotalsSmall()
         self.initChart()
         self.initLogin()
         if data.role == 'employee' || data.role == 'owner' || data.role == 'manager'
@@ -50,6 +51,7 @@ window.Tix =
     
   initCartMiniView: ->
     cartMiniView = new Tix.Views.CartMiniView()
+
     Tix.Cart.on 'add', -> cartMiniView.render()
     Tix.Cart.on 'remove', -> cartMiniView.render()
     
@@ -67,6 +69,18 @@ window.Tix =
     Tix.Cart.on 'add', ->
       self.timer.init(600) # 10 minutes
     
+  initCartTotalsSmall: ->
+    self = @
+    
+    console.log 'initCartTotalsSmall'
+    
+    cartTotalsSmallView = new Tix.Views.CartTotalsSmallView()
+    cartTotalsSmallView.render()
+    
+    # Tix.Cart.on 'add', -> cartTotalsSmallView.render()
+    # Tix.Cart.on 'remove', -> cartTotalsSmallView.render()
+    # Tix.Cart.on 'update', -> cartTotalsSmallView.render()
+    Tix.Cart.on 'change', -> cartTotalsSmallView.render()
     
   initCartView: (data)->
     self = @
@@ -74,7 +88,7 @@ window.Tix =
     # When cart changes, add item
     order = data.order
     if order
-      console.log ["ORDER EXISTS!", data.order] 
+      # console.log ["ORDER EXISTS!", data.order] 
       
       _.each data.order.tickets, (ticket)->
 

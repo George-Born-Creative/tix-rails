@@ -44,8 +44,7 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     $('#cart_totals_container').append(cartTotalsView.render().el)
     
     Tix.Cart.on('add', -> cartTotalsView.render() )
-    Tix.Cart.on('remove', -> cartTotalsView.render() )
-    
+    Tix.Cart.on('remove', -> cartTotalsView.render() )    
   
   
   # TODO: This is a messy system that may not survive future modification.

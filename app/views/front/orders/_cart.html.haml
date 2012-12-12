@@ -1,18 +1,6 @@
 .row
   .span3.offset3
-    %table
-      %tr
-        %td Tickets
-        %td
-          %strong= number_to_currency current_order.total_base_price
-      %tr
-        %td Service Charge
-        %td
-          %strong= number_to_currency current_order.total_service_charge
-      %tr
-        %td TOTAL
-        %td
-          %strong= number_to_currency current_order.total_total
+    #cart_totals
 
 
 

@@ -1,0 +1,13 @@
+%table
+  %tr
+    %td Tickets
+    %td
+      %strong= @cart.subtotal()
+  %tr
+    %td Service Charge
+    %td
+      %strong= @cart.service_total()
+  %tr
+    %td TOTAL
+    %td
+      %strong= @cart.total()

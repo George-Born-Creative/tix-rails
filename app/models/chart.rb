@@ -91,6 +91,9 @@ class Chart < ActiveRecord::Base
     str
   end
   
+  def has_section?(section_label)
+    !sections.find_by_label(section_label).nil?
+  end
 
   
   private

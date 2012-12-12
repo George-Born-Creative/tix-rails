@@ -57,8 +57,6 @@ class User < ActiveRecord::Base
    
   attr_accessor :full_name
 
-
-
   has_many :orders
   
   has_one :address, :as => :addressable, :dependent => :destroy
@@ -70,20 +68,26 @@ class User < ActiveRecord::Base
   def has_at_least_role(role)
     # owner manager employee customer guest
     case role
+      when :super
+        return true if (self.role == :super)
       when :owner
-        return true if (self.role == :owner)      
-      when :manager                  
-        return true if (self.role == :owner)      
-        return true if (self.role == :manager)      
-      when :employee                 
-        return true if (self.role == :owner)      
-        return true if (self.role == :manager)      
-        return true if (self.role == :employee)      
-      when :customer                 
-        return true if (self.role == :owner)      
-        return true if (self.role == :manager)      
-        return true if (self.role == :employee)      
-        return true if (self.role == :customer)      
+        return true if (self.role == :super)
+        return true if (self.role == :owner)
+      when :manager
+        return true if (self.role == :super)
+        return true if (self.role == :owner)
+        return true if (self.role == :manager)
+      when :employee
+        return true if (self.role == :owner)  
+        return true if (self.role == :super)
+        return true if (self.role == :manager)
+        return true if (self.role == :employee)
+      when :customer
+        return true if (self.role == :super)
+        return true if (self.role == :owner)
+        return true if (self.role == :manager) 
+        return true if (self.role == :employee)
+        return true if (self.role == :customer)
       else
         return false
     end

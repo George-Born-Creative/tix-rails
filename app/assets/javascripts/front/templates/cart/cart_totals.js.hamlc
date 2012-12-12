@@ -4,4 +4,4 @@
     %span.subtotal=@cart.subtotal()
   .span2
     %a.button.checkout{:href => '/orders/new', :style => 'border: 0; text-align: right !important;'} Checkout »
-
+    %a{:href => '/calendar', :style => 'font-size: .9em; color: #900;'} Continue Shopping

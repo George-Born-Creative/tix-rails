@@ -38,7 +38,27 @@
     .span5
       %h2 Seating Chart
       %p Click on the map to select your seats.
-    
+
+      %table.table.no-border
+        -# TODO: Store these section descriptions directly on the section object.
+        -# Prototyping design for now
+        -if @event.chart.has_section?('VIP')
+          %tr
+            %td
+              %strong VIP
+            %td Reserved seating in elevated, set apart area. Great views, exclusive section.
+            
+        -if @event.chart.has_section?('Premier') || @event.chart.has_section?('Seated')
+          %tr
+            %td 
+              %strong Premier
+            %td Reserved seating at one of the eight tables closest to the stage.
+        -if @event.chart.has_section?('GA') || @event.chart.has_section?('General Admission')
+          %tr
+            %td
+              %strong General Admission (GA)
+            %td All other tickets in seated rows or standing (depends on show), first come first served.        
+        
       #chart_container
         
     .span7

@@ -64,7 +64,7 @@ class Ticket < ActiveRecord::Base
   scope :cart, lambda { joins(:order).where('orders.expires_at > ? AND purchased_at IS ?', Time.zone.now, nil) }
   scope :complete, lambda { joins(:order).where("orders.purchased_at < ?", Time.zone.now)}
   scope :purchased_between, lambda { |start_time, end_time| joins(:order).where('orders.purchased_at BETWEEN ? AND ?', start_time, end_time) }
-  scope :checked_in, lambda { joins(:order).where("checked_in_at < ?", Time.zone.now)}
+  scope :checked_in, lambda { where("checked_in_at < ?", Time.zone.now) }
   scope :pending_checkin, lambda { joins(:order).where("checked_in_at IS NULL")}
   
 

@@ -50,12 +50,12 @@
         
         
           .span1
-            %h4
-              %i.icon-list-alt{:style => 'zoom: 200%'}
+            %h5
+              %i.icon-list-alt{:style => 'zoom: 100%'}
           
           .span4  
-            %h4
-              %i.icon-check{:style => 'zoom: 200%'}
+            %h5
+              %i.icon-check{:style => 'zoom: 100%'}
       
     
         %hr/
@@ -63,29 +63,28 @@
         -@events.each do |event|
           -if event.tickets.complete.count > 0
             .row
-              .span3
+              .span1
+                =event.headliner.photo(:thumb) if !event.headliner.blank? && event.headliner.photo?
+              .span4
                 %strong=event.title
-                %br/
                 =event.starts_at.to_formatted_s(:shorty)
                 %br/
                 %br/
               .span1
-                %h1=event.tickets.complete.count
-              .span1
-                %h1=event.tickets.checked_in.count
-              .span1
+                ="#{event.tickets.checked_in.count} / #{event.tickets.complete.count}"
+                %span{:style => 'color: #ccc'}
+                  ="#{(event.tickets.checked_in.count.to_f / event.tickets.complete.count.to_f * 100).to_i}%"
+
+              .span3
                 -if event.tickets.complete.count > 0
                   %span.badge.badge-inverse=link_to 'Guestlist', "/manager/reports/event_guestlist/#{event.id}"
                 -else
                   &nbsp;
-              .span1
                 -if event.tickets.complete.count > 0
                   %span.badge.badge-info=link_to 'Sales', "/manager/reports/event_sales/#{event.id}"
                 -else
                   &nbsp;
-              .span1
                 %span.badge.badge-warning=link_to 'Edit', edit_event_path(event)
-              .span1
                 %span.badge.badge-success=link_to 'View', front_event_path(event)
  
         

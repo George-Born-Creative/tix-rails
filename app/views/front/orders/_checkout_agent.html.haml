@@ -8,7 +8,7 @@
 
       .span3
         =f.input :payment_method_name, :as => :select, :label => false, :include_blank => 'Payment Method...', :collection => { 'Cash' => 'cash', 'Square' => 'square', 'POS' => 'pos' }
-        =f.input :service_charge_override, :as => :select, :label => false, :include_blank => 'Service Charge...',  :collection => (0...10).map{|i| j=i.to_f/2; ["$#{"%0.2f" % j}", j]}
+        =f.input :service_charge_override, :as => :select, :label => false, :include_blank => 'Service Charge...',  :collection => (0...10).map{|i| j=i.to_f/2; ["$#{"%0.2f" % j} / ticket", j]}
      
     .name-on-card
       .row
@@ -25,6 +25,5 @@
     =f.input :agent_checkout, :as => :hidden, :input_html => {:value => true}
 
     %hr/
-
 
     =f.submit 'Place Order »', :class => 'btn btn-large', :style => 'font-size: 22px; padding: 8px'

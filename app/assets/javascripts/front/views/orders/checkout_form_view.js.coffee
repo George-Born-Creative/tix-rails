@@ -6,20 +6,32 @@ class Tix.Views.CheckoutFormView extends Backbone.View
     'keyup input[type="email"]' : 'inputKeyup'
     
     'change #order_service_charge_override': 'serviceChargeOverride'
+    
   initialize: ->
     
+    @initLabels()
     _.bindAll(this)
 
     console.log 'Tix.Views.CheckoutFormView initialized'
     
+    setInterval @initLabels, 500 # needed to catch autocomplete
+      
+  initLabels: ->
+    self = this
+    @$el.find('input[type="text"], input[type="email"]').each (i, input)->
+      self.setLabelVisibility( $( input ) )
+    
   inputKeyup: (e)->
     $input = $(e.currentTarget)
-    
-    if $input.val().length > 0
-      $input.parent().find('label').css('display', 'none')
-    else
-      $input.parent().find('label').css('display', 'block')
+    @setLabelVisibility($input)
       
+    
+  setLabelVisibility: ($input) ->
+    $label = $input.parent().find('label')
+      
+    new_val = if $input.val().length > 0  then 'none' else 'block'
+    $label.css('display', new_val)
+    
   
   $('.checkout-form input')
     

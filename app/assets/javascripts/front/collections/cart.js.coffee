@@ -4,15 +4,35 @@ class Tix.Collections.Cart extends Backbone.Collection
   
   initialize: ->
     _.bindAll this, 'total'
+    
+    
     self = this
     
-    self.on 'remove', @removeSeat
-     
+    # @serviceChargeOverrideAmount
+    
+    self.on 'remove', @removeSeat     
+  
+  serviceChargeOverride: (amnt)->
+    # console.log ['serviceChargeOverride(val) called', amnt ]
+    
+    _.each @models, (seat)->
+      
+      # Remember original service charge before adjusting
+      if typeof seat.get('orig_service') == 'undefined'
+        seat.set('orig_service', seat.get('service') )
+      
+      if amnt == false # remove override if it exists
+        seat.set('service', seat.get('orig_service') )
+      else
+        seat.set('service', parseFloat( amnt ))
+        
+        
+      
   removeSeat: (seat)->
     
-    console.log ['Pre Remove Seat', Tix.Cart]
+    # console.log ['Pre Remove Seat', Tix.Cart]
     Tix.Cart.remove(seat)
-    console.log ['Post Remove Seat', Tix.Cart]
+    # console.log ['Post Remove Seat', Tix.Cart]
     console.log seat
     
     $.ajax
@@ -21,7 +41,7 @@ class Tix.Collections.Cart extends Backbone.Collection
       dataType: 'json'
 
       success: (data)->
-        console.log('removeSeat ajax Success' + data)
+        # console.log('removeSeat ajax Success' + data)
         
 
   addSeat: (data)->
@@ -37,13 +57,11 @@ class Tix.Collections.Cart extends Backbone.Collection
       service: data.section.current_price.service
       tax: data.section.current_price.tax
         
-    console.log 'Add Seat'
-    console.log seat
-    console.log seat.url()
+    # console.log 'Add Seat'
+    # console.log seat
+    # console.log seat.url()
     
-    
-        
-    
+  
     @push(seat)
     
     $.ajax
@@ -51,17 +69,13 @@ class Tix.Collections.Cart extends Backbone.Collection
       url: seat.url()
       success: (data)->
         alert('Success' + data)
-
-         
-    
-    
-    
+        
   subtotal: -> @_sumFormatted('base')
-  service_total: -> @_sumFormatted('service')
+  service_total: ->  @_sumFormatted('service')
   tax_total: -> @_sumFormatted('tax')
   
   total: ->
-    return Tix.utils.formatCurrency( @_sum('base') + @_sum('service') + @_sum('tax'), 0)
+    return Tix.utils.formatCurrency( @_sum('base') + @_sum('service') + @_sum('tax'), 2)
     
   _sum: (propName)->
     return _.reduce @models, (memo, seat)->
@@ -72,4 +86,4 @@ class Tix.Collections.Cart extends Backbone.Collection
     , 0
     
   _sumFormatted: (propName)->
-    return Tix.utils.formatCurrency(@_sum(propName), 0)
+    return Tix.utils.formatCurrency(@_sum(propName), 2)

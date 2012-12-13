@@ -6,7 +6,7 @@ class Tix.Views.CartTotalsSmallView extends Backbone.View
   initialize: ->
     
   render: ->
-    console.log 'Tix.Views.CartTotalsSmallView.render() '
+    # console.log 'Tix.Views.CartTotalsSmallView.render() '
     if typeof Tix.Cart != 'undefined'
       @$el.html( @template( { cart: Tix.Cart } ) )
     @

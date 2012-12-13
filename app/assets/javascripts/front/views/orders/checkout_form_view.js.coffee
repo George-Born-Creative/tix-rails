@@ -4,18 +4,30 @@ class Tix.Views.CheckoutFormView extends Backbone.View
   events: 
     'keyup input[type="text"]' : 'inputKeyup'
     'keyup input[type="email"]' : 'inputKeyup'
-    
+
     'change #order_service_charge_override': 'serviceChargeOverride'
     
   initialize: ->
     
     @initLabels()
+
     _.bindAll(this)
 
-    console.log 'Tix.Views.CheckoutFormView initialized'
+    # console.log 'Tix.Views.CheckoutFormView initialized'
     
     setInterval @initLabels, 500 # needed to catch autocomplete
-      
+  
+    $('form.edit_order').on('submit', @formSubmit)
+    
+  formSubmit: (e)->
+    # console.log 'formSubmit'
+    $('input[type="submit"]')
+      .attr('disabled', 'disabled')
+      .css('backgroud', '#333')
+      .val('Processing...')
+    
+    # TODO add validations
+  
   initLabels: ->
     self = this
     @$el.find('input[type="text"], input[type="email"]').each (i, input)->
@@ -38,7 +50,7 @@ class Tix.Views.CheckoutFormView extends Backbone.View
   render: ->
   
   serviceChargeOverride: (e)->
-    console.log 'serviceChargeOverride'
+    # console.log 'Tix.Views.CheckoutFormView#serviceChargeOverride()'
     $select = $(e.currentTarget)
     val = $select.val()
     if val != ''

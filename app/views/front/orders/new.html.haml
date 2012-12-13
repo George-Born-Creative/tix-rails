@@ -16,10 +16,17 @@
       .register.hide
         =render 'front/orders/register'
         
+        
     -else
       %h1 Checkout
       !="Signed in as <strong>#{@current_user.full_name}</strong> (#{@current_user.email}</strong>)"
       
+      .row
+        .span6
+          %p.countdown
+            You have 
+            %strong.time 
+            to complete your purchase.
       %hr
       -if user_signed_in? && @current_user.has_at_least_role(:employee)
         =render 'front/orders/checkout_agent_menu' if user_signed_in?
@@ -40,6 +47,6 @@
       .warning
         %ul
           =flash[:error]
-              
+        
     =render :partial => 'front/orders/cart', :locals => {:current_order => @current_order}
               

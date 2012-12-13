@@ -72,7 +72,7 @@ window.Tix =
   initCartTotalsSmall: ->
     self = @
     
-    console.log 'initCartTotalsSmall'
+    # console.log 'initCartTotalsSmall'
     
     cartTotalsSmallView = new Tix.Views.CartTotalsSmallView()
     cartTotalsSmallView.render()

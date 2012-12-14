@@ -3,46 +3,95 @@
 
 
 
+.span8.offset2
+  .widget
 
-.widget
-  .widget-header
-    %h3 
-      Totals for Day
-  .widget-content
-    %table.table
-      %thead
-        %td Base
-        %td Service
-        %td Total
-      %tr
-        %td=number_to_currency@orders.sum('base')
-        %td=number_to_currency@orders.sum('service_charge')
-        %td=number_to_currency@orders.sum('total')
-        
-
-%p
-  Coming soon to this report
-  %ul
-    %li Totals by Event for day
-    %li Totals by Origin (web, box office)
-    %li Totals by Location (web, box office)
-    %li Totals by Agent (employees)
+  .widget
+    .widget-header
+      %h3 Events sold today
+    .widget-content
+      
+      -#h[t.event.title] = {:id => nil, :count => 0, :base => 0.0, :service => 0.0, :total => 0.0 } if h[t.event.title].blank?
+      
+      %table.table
+        %thead
+          %th Title
+          %th Tix Sold
+          %th Base
+          %th Service
+          %th Total
+          
+        %tfoot
+          %td
+          %td=@orders.count
+          %td=number_to_currency @orders.sum('base')
+          %td=number_to_currency @orders.sum('service_charge')
+          %td=number_to_currency @orders.sum('total')
+          
+        -@orders.complete.uniq_event_sales.each do |title, event|
+          %tr
+            %td=link_to title, event_path(:id => event[:id])
+            %td=event[:count]
+            
+            %td= number_to_currency event[:base]
+            %td= number_to_currency event[:service]
+            %td= number_to_currency event[:total]
+            
+            
+            
+            
+  .widget
+    .widget-header
+      %h3 By Method
+    .widget-content
+      TODO Currently this is not scoped to current day
+      %table.table
+        %thead
+          %th Payment Method
+          %th Order Total
+        -@orders.unscoped.select('payment_method_name, sum(total) as total').group('payment_method_name').each do |order|
+          %tr
+            %td=order.payment_method_name
+            %td=number_to_currency order.total
+            
+      
+  .widget
+    .widget-header
+      %h3 By Origin
+    .widget-content
+      * TODO: Ensure pmt methods are being tracked per order and scoped per day
+      %table.table
+        %thead
+          %th
+          %th
+        -@orders.unscoped.select('payment_origin_name, sum(total) as total').group('payment_origin_name').each do |order|
+          %tr
+            %td=order.payment_origin_name
+            %td=number_to_currency order.total
+            
+  .widget
+    .widget-header
+      %h3 Coming Soon
+    .widget-content
+      %p
+        %ul
+          %li Totals by Agent (employees)
     
 
 
--# 
-  .widget
-    .widget-header
-      %h3 
-        Sales by Event 
-    .widget-content
-      %table.table
-        %thead
-          %td
-          %td
-          %td
-        -h = {}
-        =ap @orders.map { |o| h[o.events] = {:count = }, ] }.flatten.uniq.each do |event|
-          -#%tr
-          -#%td=event.name
+  -# 
+    .widget
+      .widget-header
+        %h3 
+          Sales by Event 
+      .widget-content
+        %table.table
+          %thead
+            %td
+            %td
+            %td
+          -h = {}
+          =ap @orders.map { |o| h[o.events] = {:count = }, ] }.flatten.uniq.each do |event|
+            -#%tr
+            -#%td=event.name
         

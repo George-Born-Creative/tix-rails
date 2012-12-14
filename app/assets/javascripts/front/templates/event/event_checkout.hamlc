@@ -19,4 +19,4 @@
 
 .clear
 
-%a.button.checkout.large{:href => '#/checkout'} Checkout »
+%a.button.checkout.large{:href => '/orders/new'} Checkout »

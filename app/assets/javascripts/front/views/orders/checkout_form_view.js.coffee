@@ -11,11 +11,13 @@ class Tix.Views.CheckoutFormView extends Backbone.View
     
     @initLabels()
 
+    @initSelects()
+    
     _.bindAll(this)
 
     # console.log 'Tix.Views.CheckoutFormView initialized'
     
-    setInterval @initLabels, 500 # needed to catch autocomplete
+    # setInterval @initLabels, 2000 # need repeated checks to catch autocomplete
   
     $('form.edit_order').on('submit', @formSubmit)
     
@@ -28,6 +30,15 @@ class Tix.Views.CheckoutFormView extends Backbone.View
     
     # TODO add validations
   
+  initSelects: ->
+
+            
+              
+            
+        
+      
+    
+      
   initLabels: ->
     self = this
     @$el.find('input[type="text"], input[type="email"]').each (i, input)->
@@ -39,6 +50,8 @@ class Tix.Views.CheckoutFormView extends Backbone.View
       
     
   setLabelVisibility: ($input) ->
+    new_val = if $input.val().length > 0  then 'none' else 'block'
+    
     $label = $input.parent().find('label')
       
     new_val = if $input.val().length > 0  then 'none' else 'block'

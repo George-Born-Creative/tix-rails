@@ -8,4 +8,9 @@ class Front::EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
   
+  def chart
+    @event = @current_account.events.find(params[:id])
+    @chart = @event.chart
+  end
+  
 end

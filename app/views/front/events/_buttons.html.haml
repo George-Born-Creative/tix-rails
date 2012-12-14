@@ -17,7 +17,7 @@
   
   -# ELSIF EVENT IS ON SALE AND CHART IS NOT BLANK
 -elsif event.on_sale? && ( ! event.chart.blank? )
-  %a.btn.btn-large.buy_tix{:href => front_chart_path(event.chart)} Buy Tickets
+  %a.btn.btn-large.buy_tix{:href => front_chart_path(event)} Buy Tickets
   
 -else
   %a.btn.btn-large{:href =>  detail_page_link} On Sale Soon

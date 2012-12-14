@@ -2,8 +2,8 @@ class Front::ChartsController < ApplicationController
 
   
   def show
-    @chart = @current_account.charts.find(params[:id])
-    @event = @chart.event
+    @event = @current_account.events.find(params[:id])
+    @chart = @event.chart
   end
   
 end

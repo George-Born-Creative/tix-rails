@@ -29,10 +29,12 @@ Tix::Application.routes.draw do
   resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
   resources :phones, :as => "front_phones",  :controller => 'Front::Phones'
   
-  resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
+  # resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
+  get '/events/:id/seats' => 'Front::Charts#show', :as => 'front_chart'
+  
   
   
   match '/page/:slug', :action => :show, :controller => 'Front::Pages'

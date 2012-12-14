@@ -122,7 +122,6 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         offTop  = e.pageY  - $('#chart_container').offset().top  + 550
         offLeft = if offLeft >= 200 then offLeft - 130 else offLeft
         
-        if self.mode != 'front'
           offTop -= 60
           
         $('#tooltip')
@@ -134,7 +133,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
     showTooltip: (text)->
       unless window.tix_over
         $('#tooltip')
-          .fadeIn('fast')
+          .show()
           .html(text)
           .css('z-index', '5000')
           

@@ -122,8 +122,6 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         offTop  = e.pageY  - $('#chart_container').offset().top  + 550
         offLeft = if offLeft >= 200 then offLeft - 130 else offLeft
         
-          offTop -= 60
-          
         $('#tooltip')
           .css
             "left" : offLeft

@@ -14,6 +14,7 @@ class TicketMailer < ActionMailer::Base
         :to      => get_email,
         :from    => 'Jammin\' Java <tickets@jamminjava.com>'
       )
+      @order.update_attribute(:tickets_delivered_at, Time.zone.now )
   end
   
   private

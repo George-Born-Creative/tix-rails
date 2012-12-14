@@ -8,7 +8,7 @@ module EventsHelper
     code =  /embed\/([a-zA-Z0-9-_]+)/.match(embed_url)
     
     unless code.nil? || code[1].nil?
-      "<iframe width='#{opts[:width]}' height='#{opts[:height]}' src='http://www.youtube.com/embed/#{code[1]}' frameborder='0' allowfullscreen></iframe>".html_safe
+      "<iframe width='#{opts[:width]}' height='#{opts[:height]}' src='https://www.youtube.com/embed/#{code[1]}' frameborder='0' allowfullscreen></iframe>".html_safe
     end
   end
    

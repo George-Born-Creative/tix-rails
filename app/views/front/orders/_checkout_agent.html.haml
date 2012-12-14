@@ -23,6 +23,7 @@
         .span3=f.input :email
 
     =f.input :agent_checkout, :as => :hidden, :input_html => {:value => true}
+    =f.input :payment_origin_name, :as => :hidden, :input_html => {:value => 'kiosk'}
 
     %hr/
 

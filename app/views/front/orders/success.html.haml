@@ -32,7 +32,106 @@
               .site-signature
                 -# TODO paramaterize this
                 =image_tag '/images/jj-brindley-bros-signature.png', :style => 'margin-top: 10px'
+      :css
+        .order-success .receipt {
+            color: #aaa;
+            margin-top: 30px
+            background: #222;
+            border: 1px solid #555;
+            font-size: 12px;
+            padding: 10px;
+            display: inline-block;
+        }
+        table {
+        }
+      .receipt
+        
+        .span9
+          .row
+            .span8
+              %h2 Order Summary
+            .span1
+              =link_to 'Print »', "/orders/#{@order.id}/tickets"
+      
+          %table.table
+            -@order.tickets.each do |ticket|
+              %tr
+                %td= link_to ticket.event_name, front_event_path(ticket.event)
+                %td= ticket.section.label
+                %td= ticket.area.label
+                %td= number_to_currency ticket.base_price
+                %td= number_to_currency ticket.service_charge
+                %td= number_to_currency ticket.total
+            %tfoot
+              %td
+                %strong Total
+              %td
+              %td
+              %td=number_to_currency @order.base
+              %td=number_to_currency @order.service_charge
+              %td=number_to_currency @order.total
+            
+          .row
+            .span3
+              -if @order.user
+                %dl
+                  -unless @order.user.blank?
+                    %dt Placed by
+                    %dd=@order.user.full_name 
+
+                  -unless @order.email.blank?
+                    %dt Email
+                    %dd=@order.email
+
+                  -unless @order.address.blank?
+                    %dt Billing Address
+                    %dd= @order.address.address
+                
+                  -unless @order.phone.number.blank?
+                    %dt Phone
+                    %dd= @order.phone.number 
+                
+                -if @order.agent
+                  %dt Agent
+                  %dd= @order.agent.full_name
+              
+            .span3
+              -t = @order.transactions.success.first
+              %dl
+                %dt Order ID
+                %dd="##{t.order_id}"
           
-      %p
+                %dt Amount Charged
+                %dd=number_to_currency (t.amount/100)
+      
+                -unless t.success.nil?
+                  %dt Success?
+                  %dd=t.success ? 'yes' : 'no'
+                
+                -unless t.authorization.nil?
+                  %dt Auth
+                  %dd=t.authorization 
+              
+            .span3
+              %dl
+                -unless t.message.blank?
+                  %dt Message
+                  %dd=t.message
+      
+                -unless t.params.blank?
+                  %dt Transaction ID
+                  %dd=t.params[:transaction_id.to_s]
+      
+                %dt Transaction Time
+                %dd=t.created_at.in_time_zone.to_formatted_s(:jammin_java)
+              
+                %dt Method
+                %dd=t.meth.titleize
+      
+                %dt Location
+                %dd=t.origin.titleize
+                
+                %dt Placed from
+                %dd=@order.ip_address
 
     -#render :partial => 'tickets/tickets', :locals => {:tickets => @order.tickets, :show_artwork => false}

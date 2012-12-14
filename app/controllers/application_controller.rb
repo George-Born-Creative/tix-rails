@@ -9,9 +9,12 @@ class ApplicationController < ActionController::Base
   
   private
 
-
   def set_current_account
-    @current_account = Account.find_by_subdomain!(request.subdomains.first)
+    redirect_to 'http://tix.thinio.com' if request.subdomain.first.empty? 
+    @current_account = Account.find_by_subdomain(request.subdomains.first)
+    if @current_account.nil?
+      raise ActionController::RoutingError.new("Account '#{request.subdomains.first}' Not Found")
+    end
   end
 
   def layout
@@ -20,7 +23,7 @@ class ApplicationController < ActionController::Base
     elsif request.fullpath.slice(0,8) == '/manager'
       "manager"
     elsif request.fullpath.slice(0,6) == '/admin'
-      "admin"
+      "application"
     else
      "application"
     end  
@@ -155,7 +158,6 @@ class ApplicationController < ActionController::Base
     end
     
     if session[:order_id].nil?  
-      @current_order = @current_account.orders.create!
       @current_order = @current_account.orders.create!( :ip_address => request.remote_ip)
       session[:order_id] ||= @current_order.id  
     end    
@@ -165,6 +167,7 @@ class ApplicationController < ActionController::Base
   def clear_completed_order
     if @current_order.complete?
       order_path = front_order_path(@current_order)
+      session[:success_order_id] = session[:order_id]
       session[:order_id] = nil
       redirect_to '/orders/success'
     end

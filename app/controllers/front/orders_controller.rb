@@ -7,7 +7,7 @@ class Front::OrdersController < InheritedResources::Base
   before_filter :set_current_order
   before_filter :ensure_order, :only => [:new, :create]
   before_filter :authenticate_user!, :except => [:add_to_cart, :remove_from_cart, :new, :create]
-    
+
   def show
     @order = @current_user.orders.where(:id => params[:id]).first
     
@@ -21,13 +21,33 @@ class Front::OrdersController < InheritedResources::Base
   end
   
   def new
-    # @current_order = @current_order
+    prefill_fields
+  end
+  
+  def prefill_fields
+    # Only pre fill fields for customer checkout
+    
+    unless @current_user.nil? || @current_user.has_at_least_role(:employee)
+      if @current_order.address.nil?
+        @current_order.build_address(@current_user.address.attributes.except('id','created_at', 'updated_at'))
+      end  
+
+      if @current_order.phone.nil?
+        @current_order.build_phone(@current_user.phone.attributes.except('id','created_at', 'updated_at'))
+      end  
+
+      @current_order.first_name ||= @current_user.first_name
+      @current_order.last_name ||= @current_user.last_name
+      @current_order.email ||= @current_user.email
+    end
+    
     @current_order.build_address if @current_order.address.nil?
     @current_order.build_phone if @current_order.phone.nil?
+    
+      
   end
   
   def create
-
      # @order = @current_order
      
      if params[:order][:agent_checkout]
@@ -42,9 +62,15 @@ class Front::OrdersController < InheritedResources::Base
      
      parse_date! 
      
-     params[:order].keys.each do |key|
-       @current_order.update_attribute(key, params[:order][key] )
-     end
+     prefill_fields
+     
+     @current_order.update_attributes(params[:order])
+     # @current_order.address_attributes = params[:order][:address_attributes]
+     # @current_order.phone_attributes = params[:order][:phone_attributes]
+     
+     #params[:order].keys.each do |key|
+     #   @current_order.update_attribute(key, params[:order][key] )
+     #end
 
       redirect_path = params[:order][:agent_checkout] ? '/orders/new' : '/orders/new?checkout=customer'
       
@@ -107,6 +133,11 @@ class Front::OrdersController < InheritedResources::Base
   end
   
   def success
+    if session[:success_order_id].nil?
+      redirect_to '/orders/new', :message => 'Please complete your order first'
+    else    
+      @order = @current_account.orders.find( session[:success_order_id] )
+    end    
   end
 
   def remove_from_cart # POST /orders/remove_from_cart/:area_id 
@@ -140,7 +171,6 @@ class Front::OrdersController < InheritedResources::Base
  
   def collection
      @orders ||= end_of_association_chain.complete.order('purchased_at DESC') # ensure complete orders only
-  
   end
 
   def begin_of_association_chain
@@ -151,7 +181,6 @@ class Front::OrdersController < InheritedResources::Base
     if @current_order.tickets.count == 0
       redirect_to '/page/calendar', :notice => 'You have no items in your Shopping Cart!'
     end
-    
   end
   
   

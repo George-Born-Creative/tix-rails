@@ -288,8 +288,8 @@ class Order < ActiveRecord::Base
   end
   
   def all_tickets_checked_in?
-    self.tickets.each{ |t| return true if t.checked_in? }
-    false
+    self.tickets.each{ |t| return false unless t.checked_in? }
+    true
   end
 
   # Convienience method for getting order expiration in seconds

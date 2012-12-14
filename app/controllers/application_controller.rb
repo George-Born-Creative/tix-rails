@@ -156,6 +156,7 @@ class ApplicationController < ActionController::Base
     
     if session[:order_id].nil?  
       @current_order = @current_account.orders.create!
+      @current_order = @current_account.orders.create!( :ip_address => request.remote_ip)
       session[:order_id] ||= @current_order.id  
     end    
     @current_order

@@ -5,7 +5,7 @@ module EventsHelper
     
     opts.reverse_merge!(defaults)
     
-    code =  /embed\/([a-zA-Z0-9-]+)/.match(embed_url)
+    code =  /embed\/([a-zA-Z0-9-_]+)/.match(embed_url)
     
     unless code.nil? || code[1].nil?
       "<iframe width='#{opts[:width]}' height='#{opts[:height]}' src='http://www.youtube.com/embed/#{code[1]}' frameborder='0' allowfullscreen></iframe>".html_safe

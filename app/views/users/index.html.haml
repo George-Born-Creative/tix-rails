@@ -13,7 +13,7 @@
 
           .stat
             %h4 Logged in 30 days
-            %span.value= number_with_delimiter(2400, :delimeter => ',')
+            %span.value= number_with_delimiter(@users.where('last_sign_in_at < ?', (Date.today - 30)).count, :delimeter => ',')
 
           .stat
             %h4 All Time Sales
@@ -35,7 +35,6 @@
         %td Last Name
         %td Account Balance
         %td Total sales
-        %td Role
       
         %td Action
       
@@ -50,7 +49,6 @@
           %td= u.last_name
           %td= u.total_sales
           %td= number_to_currency u.balance
-          %td= u.role.to_s.titleize
           %td
-            %a.button{:href => user_path(u)} Edit »
+            %a.button{:href => user_path(u)} Open »
           /%td=link_to 'User password', new_user_password_path + '?user_email=' + u.email 

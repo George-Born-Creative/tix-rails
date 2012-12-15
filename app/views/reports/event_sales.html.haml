@@ -7,14 +7,14 @@
           %br/
           =event.starts_at.to_formatted_s(:date_slashes)
           %strong
-            ="(#{event.tickets.checked_in.count}/#{event.tickets.count})"
+            ="(#{event.tickets.checked_in.count}/#{event.tickets.complete.count})"
           %br/
     
     
   .span8
     .row
     .widget-content
-      %h3 
+      %h2 
         Sales for
         =@event.name
     
@@ -58,17 +58,18 @@
               -@event.chart.sections.seatable.each do |section|
                 %tr
                   %td=section.label
-                  %td=section.areas.reduce(0){|memo, a| memo += a.max_tickets}
-                  %td=section.areas.reduce(0){|memo, a| memo += a.tickets.complete.count}
-                  %td=section.areas.reduce(0){|memo, a| memo += a.inventory}
-                  %td=section.areas.reduce(0){|memo, a| memo += a.tickets.checked_in.count}
+                  %td=section.areas.map(&:max_tickets).sum
+                  %td=section.areas.map{ |a| a.tickets.complete.count }.sum
+                  %td=section.areas.map(&:inventory).sum
+                  %td=section.areas.map{ |a| a.tickets.checked_in.count }.sum
             %tfoot
               %tr
-                %td
-                %td
-                %td
-                %td
-                %td
+                %td Total
+                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.max_tickets }.sum }.sum
+                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.complete.count }.sum }.sum
+                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.inventory }.sum }.sum
+                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.checked_in.count }.sum }.sum
+
 
       .widget
         .widget-header
@@ -77,23 +78,35 @@
           %table.table.table-bordered.table-striped
             %thead
               %tr
-                %td Name
+                %td Last
+                %td First
                 %td Agent
-                
                 %td Label
                 %td Section
                 %td Total
                 %td Purchased At
                 %td Checked in?
-            -@event.tickets.complete.order('purchased_at DESC').each do |ticket|
+                
+            -@event.tickets.complete.order('last_name DESC, id DESC').each do |ticket|
               %tr
-                %td=ticket.order.user.full_name unless ticket.order.nil? || ticket.order.user.nil?
+                %td
+                  -unless ticket.order.nil? || ticket.order.user.nil?
+                    =link_to ticket.order.user.last_name, user_path(ticket.order.user)
+                %td
+                  -unless ticket.order.nil? || ticket.order.user.nil?
+                    =link_to ticket.order.user.first_name, user_path(ticket.order.user)
+                
                 %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
                 %td=ticket.area.label
                 %td=ticket.section.label
                 %td=number_to_currency ticket.base_price
-                %td=ticket.order.purchased_at.to_formatted_s(:jammin_java)
-                %td=ticket.checked_in? ? 'checked in' : ''
+                %td=ticket.order.purchased_at.to_formatted_s(:short)
+                %td
+                  %div{:class => "checkin-link-#{ticket.id}"}
+                    -if ticket.checked_in?
+                      yes
+                    -else
+                      =link_to 'no', ticket_checkin_path(ticket), :remote => true
               
               
   

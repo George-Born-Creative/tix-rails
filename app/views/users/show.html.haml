@@ -1,69 +1,109 @@
+:css
+  dd {
+    margin-bottom: 15px;
+  }
 .row
-  .span4
-    %img{:src => @user.gravatar_url, :width => '300px'}
-  
-  .span8
-    .row
-      %h1= @user.full_name
-
-      .span4
-        .rpfole
-          %p=@user.email
-          %p=@user.role.to_s.titleize
-  
-
-      .span4
-        .widget
-          .widget-header
-            %h3="#{@user.first_name}'s Orders + Tickets"
-          .widget-content
-            -if @user.orders.empty?
-              %em
-                =@user.first_name
-                hasn't placed an order yet.
-            -else
-              -@user.orders.each do |order|
-                Order placed 
-                %strong=order.created_at.to_formatted_s(:jammin_java)
-                
-                .well
-                  Price: 
-                  =number_to_currency(order.total_base_price)
-                  Service: 
-                  =number_to_currency(order.total_service_charge)
-                  %strong
-                    Total: 
-                    =number_to_currency(order.total)
-                  
-                  
-                %ul
-                  -order.tickets.collect{ |ticket| ticket.event.name }.uniq.each do |event_name|
-                    %li=event_name
-                  
-                
+  .span3
+    .widget
+      .widget-header
+        %h3=@user.role.to_s.titleize
+      .widget-content
+    
+        %dl
+          %dt Name
+          %dd=@user.full_name
       
-        .widget
-          .widget-header
-            %h3="#{@user.first_name}'s Address"
-          .widget-content
-            -if @user.address.nil?
-              %em
-                =@user.first_name
-                doesn't have any addresses saved
+          -if @user.address
+            %dt Address
+            %dd=@user.address.address 
+            
+          -if @user.phone
+            %dt Phone
+            %dd=@user.phone.number
+      
+          %dt Last Signed In
+          -if @user.last_sign_in_at
+            %dd=distance_of_time_in_words_to_now(@user.last_sign_in_at) + " ago"
+          -else
+            %dd User has never signed in.
+      
+          -# %dt Account Balance
+          -#%dd $0.00
+          
+          %hr/
+          
+          
+          %dt Lifetime spending as customer
+          %dd=number_to_currency( total = @user.orders.complete.sum('total') )
+          
+          %dt Lifetime orders placed
+          %dd=(count = @user.orders.complete.count)
+          
+          %dt Lifetime abandoned carts
+          %dd=(@user.orders.with_state(:cart).count)
+          
+          -if count > 0
+            %dt Avg Order Size
+            %dd= number_to_currency (total / count)
+          
+          
+          
+          -if @user.has_at_least_role(:employee)
+            -agent_orders = @current_account.orders.complete.where(:agent_id => @user.id)
+          
+            %hr/
+          
+            %dt Lifetime orders by agent
+            %dd=agent_orders.count
+          
+            %dt Lifetime $ ring as agent
+            
+            -if agent_orders.count > 0
+              %dd=number_to_currency agent_orders.sum('total')
             -else
-              %ul
-                %li=link_to @user.address.address, '#'
-                
-        .widget
-          .widget-header
-            %h3="#{@user.first_name}'s Saved Payment Options"
-          .widget-content
-            %em
-              =@user.first_name
-              doesn't have any payment options saved
-
-                
-                
+              %dd $0.00
+          
           
       
+  .span9
+    .widget
+      .widget-content
+        =render :partial => 'orders/list', :locals => {:orders => @user.orders.order('purchased_at desc').complete}
+
+-#
+  # == Schema Information
+  #
+  # Table name: users
+  #
+  #  id                     :integer          not null, primary key
+  #  email                  :string(255)      default(""), not null
+  #  encrypted_password     :string(255)      default(""), not null
+  #  reset_password_token   :string(255)
+  #  reset_password_sent_at :datetime
+  #  remember_created_at    :datetime
+  #  sign_in_count          :integer          default(0)
+  #  current_sign_in_at     :datetime
+  #  last_sign_in_at        :datetime
+  #  current_sign_in_ip     :string(255)
+  #  last_sign_in_ip        :string(255)
+  #  created_at             :datetime         not null
+  #  updated_at             :datetime         not null
+  #  account_id             :integer          not null
+  #  first_name             :string(255)
+  #  middle_name            :string(255)
+  #  last_name              :string(255)
+  #  salutation             :string(255)
+  #  title                  :string(255)
+  #  role                   :string(255)      default("customer")
+  #  balance                :decimal(8, 2)    default(0.0), not null
+  #  confirmation_token     :string(255)
+  #  confirmed_at           :datetime
+  #  confirmation_sent_at   :datetime
+  #  unconfirmed_email      :string(255)
+  #  failed_attempts        :integer          default(0)
+  #  unlock_token           :string(255)
+  #  locked_at              :datetime
+  #  authentication_token   :string(255)
+  #  newsletter_opt_in      :boolean          default(FALSE)
+  #
       

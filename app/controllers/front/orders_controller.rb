@@ -57,6 +57,8 @@ class Front::OrdersController < InheritedResources::Base
        params[:order][:card_purchase] = true     
        params[:order][:deliver_tickets] = true
        params[:order][:payment_method_name] = 'card'
+       params[:order][:payment_origin_name] = 'web'
+       
      end
      
      

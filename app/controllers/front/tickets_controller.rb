@@ -7,8 +7,12 @@ class Front::TicketsController < ApplicationController
   def checkin
     @ticket = @current_account.tickets.find(params[:id])   
     @success = @ticket.checkin!  
-    redirect_to request.referer
-       
+    respond_to do |format|
+      format.html {
+        redirect_to request.referer
+      }
+      format.js {}
+    end
   end
  
  

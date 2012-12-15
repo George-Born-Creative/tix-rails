@@ -1,0 +1,25 @@
+%table.table
+  %thead
+    %th Order number
+    %th Order Date
+    %th Order Time
+    
+    %th Event(s)
+    %th Qty
+    %th Total
+    %th Where?
+  %tbody
+    -orders.each do |order|
+      %tr
+        %td=link_to order.id, order_path(order)
+        %td
+          =link_to (dashes = order.purchased_at.to_date.to_formatted_s(:date_dashes)), "/manager/reports/sales_over_time?day=#{dashes}"
+        %td=order.purchased_at.to_formatted_s(:time) if order.purchased_at
+        %td
+          -order.events.uniq.each do |event|
+            =link_to event.title, "/manager/reports/event_sales/#{event.id}"
+        %td=order.tickets.count
+        %td=number_to_currency order.total
+        %td Online
+-if orders.count == 0
+  %em No orders yet.

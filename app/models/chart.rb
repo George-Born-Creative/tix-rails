@@ -35,6 +35,7 @@ class Chart < ActiveRecord::Base
   DEFAULT_BACKGROUND_COLOR = '#000000'
   belongs_to :account
   has_many :sections, :dependent => :destroy#, :order => 'index ASC'
+  has_many :areas, :through => :sections, :inverse_of => :chart
   
   has_one :event
   

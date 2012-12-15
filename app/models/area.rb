@@ -32,11 +32,8 @@ class Area < ActiveRecord::Base
                   :reservations, :text
   
   belongs_to :section
-  #before_destroy :ensure_no_tickets
-  
   #alias_attribute :inventory, :max_tickets
-  validates_inclusion_of :type, :in => %w( circle rect polygon text )
-  # validates_presence_of :label
+  has_many :tickets
   
   validates_inclusion_of :type, :in => %w( circle rect polygon text )  
   

@@ -72,11 +72,9 @@ class Order < ActiveRecord::Base
   state_machine :initial => :cart do
     
       puts   ''
-
-      block.call
-      puts   ''
     end
     # around_transition do |order, transition, block|
+    #   puts   ''
     #   puts   '#######'
     #   puts   " ####### START from #{transition.from} to #{transition.to}"
     # 

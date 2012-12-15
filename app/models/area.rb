@@ -32,15 +32,13 @@ class Area < ActiveRecord::Base
                   :reservations, :text
   
   belongs_to :section
-  has_many :tickets  
-  
   #before_destroy :ensure_no_tickets
   
   #alias_attribute :inventory, :max_tickets
-  
   validates_inclusion_of :type, :in => %w( circle rect polygon text )
   # validates_presence_of :label
   
+  validates_inclusion_of :type, :in => %w( circle rect polygon text )  
   
   def ticketable?
     self.inventory > 0
@@ -49,7 +47,6 @@ class Area < ActiveRecord::Base
   def inventory
     self.max_tickets - self.tickets.cart.count - self.tickets.complete.count
   end
-
   
   private
   

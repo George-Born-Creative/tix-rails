@@ -71,8 +71,6 @@ class Order < ActiveRecord::Base
   
   state_machine :initial => :cart do
     
-      puts   ''
-    end
     # around_transition do |order, transition, block|
     #   puts   ''
     #   puts   '#######'

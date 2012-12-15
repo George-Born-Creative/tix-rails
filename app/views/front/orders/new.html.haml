@@ -24,8 +24,8 @@
       .row
         .span6
           %p.countdown
-            You have 
-            %strong.time 
+            You have
+            %strong.time
             to complete your purchase.
       %hr
       -if user_signed_in? && @current_user.has_at_least_role(:employee)

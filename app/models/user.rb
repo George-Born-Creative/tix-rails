@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name,  :middle_name, :last_name, :salutation, :title,
                   :role, :account_id, :phone, :newsletter_opt_in, :accept_terms_conditions
+ 
+  # http://rubydoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
+  # Reset token with every save
+  before_save :reset_authentication_token
    
   attr_accessor :full_name
 
@@ -118,9 +122,7 @@ class User < ActiveRecord::Base
   def gravatar_url
     "http://www.gravatar.com/avatar/#{self.email_hash}.jpg"
   end
-    
-  
-  
+
   def avatar_url # runs too slow without some kind of caching
     #default_url = "#{root_url}images/guest.png"
     #gravatar_id = Digest::MD5.hexdigest(self.email.downcase)

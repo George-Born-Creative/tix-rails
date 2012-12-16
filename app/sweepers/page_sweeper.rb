@@ -8,5 +8,4 @@ class PageSweeper < ActionController::Caching::Sweeper
   # def after_save(page)
   #   expire_fragment '/page/' + page.slug
   # end
-  
 end

@@ -1,5 +1,11 @@
 Tix::Application.routes.draw do
 
+  
+  scope '/admin' do
+    match '/', :controller => :admin, :action => :index
+    resources :accounts  
+  end
+
   match '/manager', :controller => :manager, :action => :index
   match '/static/:action', :controller => 'Front::Static'
   
@@ -112,11 +118,6 @@ Tix::Application.routes.draw do
     
   end
   
-  scope '/admin' do
-    match '/', :controller => :admin, :action => :index, :via => :post,  :constraints => {:area_id => /^\d/}
-    resources :accounts  
-  end
-    
   match '/', :controller => 'Front::Pages', :action => :show
   match '/:slug', :action => :show, :controller => 'Front::Pages', :as =>  "front_pages"
   resources :pages, :only => [:show], :controller => 'Front::Pages'

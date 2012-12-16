@@ -32,7 +32,7 @@ class ReportsController < ApplicationController
   end
   
   def sales_over_time
-    @day = params[:day]
+    @day = Date.strptime( params[:day], "%Y-%m-%d" )
     @orders = @current_account.orders.purchased_on_date( params[:day] )
   end
   

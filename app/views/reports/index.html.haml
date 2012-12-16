@@ -21,14 +21,6 @@
 
 .row
   .span3
-      .widget-header
-        %h3 Business Days
-      .widget-content
-        %span.badge=link_to 'Wk', '#'
-        %span.badge=link_to 'Mon', '#'
-        %hr/
-    
-          -day = Time.zone.today - i
     =render 'day_nav'
 
   .span9
@@ -71,11 +63,7 @@
 
               .span3
                 -if event.tickets.complete.count > 0
-                  %span.badge.badge-inverse=link_to 'Guestlist', "/manager/reports/event_guestlist/#{event.id}"
-                -else
-                  &nbsp;
-                -if event.tickets.complete.count > 0
-                  %span.badge.badge-info=link_to 'Sales', "/manager/reports/event_sales/#{event.id}"
+                  %span.badge.badge-info=link_to 'Details', "/manager/reports/event_sales/#{event.id}"
                 -else
                   &nbsp;
                 %span.badge.badge-warning=link_to 'Edit', edit_event_path(event)

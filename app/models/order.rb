@@ -143,7 +143,7 @@ class Order < ActiveRecord::Base
   
   def set_defaults
     @card_purchase = false if @card_purchase.nil?
-    self.deliver_tickets = false if self.deliver_tickets.nil?
+    self.deliver_tickets = false if self.attributes.keys.include?(:deliver_tickets) && self.deliver_tickets.nil?
     @checkin_tickets = false if @checkin_tickets.nil?
     @notify_agents = true if @notify_agents.nil?
   end
@@ -177,7 +177,7 @@ class Order < ActiveRecord::Base
   end
   
   scope :expired, lambda { where("expires_at < ? AND purchased_at IS ?", Time.zone.now, nil ) }
-  scope :cart, lambda { where("expires_at >= ? AND purchased_at IS ?", Time.zone.now, nil) }
+  # scope :cart, lambda { where("expires_at >= ? AND purchased_at IS ?", Time.zone.now, nil) }
   scope :complete, lambda { where("purchased_at < ?", Time.zone.now) }
   scope :purchased_between, lambda { |start_time, end_time| where(:purchased_at => (start_time...end_time)) }
   
@@ -333,6 +333,29 @@ class Order < ActiveRecord::Base
   
   # Class methods
   
+  def self.payment_method_totals
+    complete
+    .except(:order)
+    .select('payment_method_name, sum(total) as total')
+    .group('payment_method_name')
+  end
+  
+  def self.payment_origin_totals
+    complete
+    .except(:order)
+    .select('payment_origin_name, sum(total) as total')
+    .group('payment_origin_name')
+  end
+  
+  def self.agent_totals
+    complete
+    .except(:order)
+    .select('orders.agent_id, users.first_name, users.last_name, users.id, sum(orders.total) as total')
+    .joins('INNER JOIN users ON users.id = orders.agent_id')
+    .group('orders.agent_id, users.first_name, users.id')
+    
+  end
+  
   def self.total
     sum('total')
   end
@@ -345,23 +368,45 @@ class Order < ActiveRecord::Base
   
   def self.purchased_today
     today = Time.zone.now
-    purchased_between(today.beginning_of_day, today.end_of_day)
+    purchased_on_date(today)
   end
   
   def self.purchased_yesterday
     yesterday = Time.zone.now - 1.day
-    purchased_between(yesterday.beginning_of_day, yesterday.end_of_day)
+    purchased_on_date(yesterday)
   end
   
   def self.purchased_on_date(date) # e.g. 2012-10-15 for Oct 15th
-    d = DateTime.strptime(date, "%Y-%m-%d")
-    purchased_between(d.beginning_of_day, d.end_of_day).order('purchased_at desc')
+
+    unless date.class == ActiveSupport::TimeWithZone
+      date = DateTime.strptime(date, "%Y-%m-%d").to_date
+    end
+    
+    purchased_between(date.beginning_of_day, date.end_of_day).order('purchased_at desc')
   end
   
   def self.purchased_this_week
     start_time = (Time.zone.now - 1.week).beginning_of_day
     end_time = Time.zone.now
     purchased_between(start_time, end_time)
+  end
+  
+  def self.uniq_event_sales # returns hash of titles by array
+    # TODO Write an ActiveRecord or Arel query for this
+    h = {}
+    self.scoped.each do |order| 
+      order.tickets.each do |t|
+        h[t.event.title] = {:id => nil, :count => 0, :base => 0.0, :service => 0.0, :total => 0.0 } if h[t.event.title].blank?
+        
+        h[t.event.title][:id] = t.event.id if h[t.event.title][:id].blank?
+        h[t.event.title][:count] += 1
+        h[t.event.title][:base] += t.base_price
+        h[t.event.title][:service] += t.service_charge
+        h[t.event.title][:total] += t.total
+        
+      end
+    end
+    h
   end
   
   
@@ -377,6 +422,12 @@ class Order < ActiveRecord::Base
     )
    end
    
+   
+  def self.with_state(state)
+    scoped.where('state = ?', state)
+  end
+  
+  
   private
   
   def set_expires_at!
@@ -403,7 +454,9 @@ class Order < ActiveRecord::Base
      puts  "validate_card: card messages"
      
      credit_card.errors.full_messages.each do |message|
-       puts  message
+       # TODO figure out how to push these onto the Order error object
+       # Currently pulling them in directly in Front::OrderController
+
        self.errors[:base] << message
        self.errors.add(:base,  message)
      end
@@ -411,7 +464,7 @@ class Order < ActiveRecord::Base
    end
    true
   end
-
+  
    
 
   #

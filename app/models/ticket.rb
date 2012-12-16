@@ -146,8 +146,8 @@ class Ticket < ActiveRecord::Base
   private
   
   def set_attributes
-    puts 'Tickets#set_attribtues invoked'
-    puts "self.order.service_charge_override = #{self.order.service_charge_override}"    
+    # puts 'Tickets#set_attribtues invoked'
+    # puts "self.order.service_charge_override = #{self.order.service_charge_override}"    
     self.account = self.order.account
     self.event_name = event.title_with_artists
     self.event_name_1 = event.title_array[0]

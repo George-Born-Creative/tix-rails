@@ -33,7 +33,7 @@ class Address < ActiveRecord::Base
   alias_attribute :zip, :postal_code
 
   def address
-   "#{address_line_1} #{address_line_2}, #{locality}, #{admin_area}, #{country}"
+   "#{address_line_1} #{address_line_2}, #{locality}, #{admin_area}, #{country} #{zip}"
   end
 end
 

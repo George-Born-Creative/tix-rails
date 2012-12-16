@@ -10,13 +10,13 @@ class Tix.Views.CheckoutFormView extends Backbone.View
   initialize: ->
     
     @initLabels()
-
     @initSelects()
     
     _.bindAll(this)
 
     # console.log 'Tix.Views.CheckoutFormView initialized'
     
+    # performance issues... spinning up my cpu?
     # setInterval @initLabels, 2000 # need repeated checks to catch autocomplete
   
     $('form.edit_order').on('submit', @formSubmit)
@@ -54,11 +54,10 @@ class Tix.Views.CheckoutFormView extends Backbone.View
     
     $label = $input.parent().find('label')
       
-    new_val = if $input.val().length > 0  then 'none' else 'block'
     $label.css('display', new_val)
     
   
-  $('.checkout-form input')
+  
     
   render: ->
   

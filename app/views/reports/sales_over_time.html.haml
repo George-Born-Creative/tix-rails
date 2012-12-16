@@ -1,97 +1,113 @@
-%h1=@day
-
-
-
-
-.span8.offset2
-  .widget
-
-  .widget
-    .widget-header
-      %h3 Events sold today
-    .widget-content
+.row
+  .span4
+    =render('day_nav')
+  
+  .span8
+    .row
+      .span3
+        %h3=link_to "« #{@day-1}", "/manager/reports/sales_over_time?day=#{@day-1}"
+      .span3
+        %h3=@day
+      .span2
+        %h3=link_to "#{@day+1} »", "/manager/reports/sales_over_time?day=#{@day+1}"
       
-      -#h[t.event.title] = {:id => nil, :count => 0, :base => 0.0, :service => 0.0, :total => 0.0 } if h[t.event.title].blank?
-      
-      %table.table
-        %thead
-          %th Title
-          %th Tix Sold
-          %th Base
-          %th Service
-          %th Total
-          
-        %tfoot
-          %td
-          %td=@orders.count
-          %td=number_to_currency @orders.sum('base')
-          %td=number_to_currency @orders.sum('service_charge')
-          %td=number_to_currency @orders.sum('total')
-          
-        -@orders.complete.uniq_event_sales.each do |title, event|
-          %tr
-            %td=link_to title, event_path(:id => event[:id])
-            %td=event[:count]
-            
-            %td= number_to_currency event[:base]
-            %td= number_to_currency event[:service]
-            %td= number_to_currency event[:total]
-            
-            
-            
-            
-  .widget
-    .widget-header
-      %h3 By Method
-    .widget-content
-      TODO Currently this is not scoped to current day
-      %table.table
-        %thead
-          %th Payment Method
-          %th Order Total
-        -@orders.unscoped.select('payment_method_name, sum(total) as total').group('payment_method_name').each do |order|
-          %tr
-            %td=order.payment_method_name
-            %td=number_to_currency order.total
-            
-      
-  .widget
-    .widget-header
-      %h3 By Origin
-    .widget-content
-      * TODO: Ensure pmt methods are being tracked per order and scoped per day
-      %table.table
-        %thead
-          %th
-          %th
-        -@orders.unscoped.select('payment_origin_name, sum(total) as total').group('payment_origin_name').each do |order|
-          %tr
-            %td=order.payment_origin_name
-            %td=number_to_currency order.total
-            
-  .widget
-    .widget-header
-      %h3 Coming Soon
-    .widget-content
-      %p
-        %ul
-          %li Totals by Agent (employees)
     
-
-
-  -# 
     .widget
       .widget-header
-        %h3 
-          Sales by Event 
+        %h3 Events sold today
       .widget-content
+      
+        -#h[t.event.title] = {:id => nil, :count => 0, :base => 0.0, :service => 0.0, :total => 0.0 } if h[t.event.title].blank?
+      
         %table.table
           %thead
-            %td
-            %td
-            %td
-          -h = {}
-          =ap @orders.map { |o| h[o.events] = {:count = }, ] }.flatten.uniq.each do |event|
-            -#%tr
-            -#%td=event.name
-        
+            %th Title
+            %th Tix Sold
+            %th Base
+            %th Service
+            %th Total
+          
+          %tfoot
+            %td Total
+            %td= @orders.reduce(0){|memo,o| memo += o.tickets.count}
+            %td=number_to_currency @orders.sum('base')
+            %td=number_to_currency @orders.sum('service_charge')
+            %td=number_to_currency @orders.sum('total')
+          
+          -@orders.complete.uniq_event_sales.each do |title, event|
+            %tr
+              %td=link_to title, "/manager/reports/event_sales/#{event[:id]}"
+              %td= event[:count]
+              %td= number_to_currency event[:base]
+              %td= number_to_currency event[:service]
+              %td= number_to_currency event[:total]
+            
+            
+    .row   
+      .span4
+        .widget
+          .widget-header
+            %h3 By Method of Payment
+          .widget-content
+            %table.table
+              %thead
+                %th Payment Method
+                %th Order Total
+              -@orders.payment_method_totals.each do |order|
+                %tr
+                  %td=order.payment_method_name
+                  %td=number_to_currency order.total
+              
+      .span4      
+        .widget
+          .widget-header
+            %h3 By Origin of Sale
+          .widget-content
+            %table.table
+              %thead
+                %th{:width => 100} Origin
+                %th 
+              -@orders.payment_origin_totals.each do |order|
+                %tr
+                  %td=order.payment_origin_name
+                  %td=number_to_currency order.total
+            
+    .widget
+      .widget-header
+        %h3 By Agent
+      .widget-content
+
+        %table.table
+          %thead
+            %th
+            %th
+            %th
+          %tbody
+            =#@orders.agent_totals.to_sql
+            -@orders.agent_totals.each do |agent_order|
+              %td=agent_order.last_name
+              %td=agent_order.first_name
+              %td= number_to_currency agent_order.total
+                  
+                  
+
+    .widget
+      .widget-header
+        %h3 All Orders
+      .widget-content
+        %table.table
+          -@orders.each do |order|
+            %tr
+              %td= order.purchased_at.to_formatted_s(:shorty)
+              %td= "#{order.user.full_name if order.user}#{order.agent.full_name if order.agent}"
+              %td= "#{order.payment_origin_name}/#{order.payment_method_name}"
+              %td= number_to_currency order.total
+              %td
+            -order.tickets.each do |ticket|
+              %tr.hide
+                %td
+                %td= ticket.event.name
+                %td= ticket.section_label
+                %td= ticket.area_label
+                %td= ticket.checked_in? ? 'yes' : 'no'
+              

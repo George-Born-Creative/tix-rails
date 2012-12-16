@@ -1,19 +1,13 @@
 class Front::PagesController < ApplicationController
   # cache_sweeper :page_sweeper
   
-  #caches_action :show, :expires_in => 1.hour#, :cache_path => { :page => params[:slug] }
   
-  # GET /pages
-  # GET /pages.json
-  def index
-    @page = @current_account.pages.find_by_slug('home')
-    respond_to do |format|
-      format.html { render(:layout => 'sidebar_right', :action => :show) } # show.html.erb
-    end
-  end
+  caches_action :show, :expires_in => 15.minutes, :cache_path => proc {
+    "/page/#{params[:slug]}"
+  }
+  
 
-  # GET /pages/1
-  # GET /pages/1.json
+  
   def show
 
     slug = params[:slug] || 'home'

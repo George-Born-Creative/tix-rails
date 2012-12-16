@@ -4,12 +4,6 @@ class Front::EventsController < ApplicationController
     "/events/#{params[:slug]}"
   }
   
-  caches_action :chart, :expires_in => 1.minute, :cache_path => proc {
-    "/events/#{params[:slug]}/seats"
-  }
-  
-  
-  
   def index
     render :text => params[:id]
   end
@@ -18,9 +12,5 @@ class Front::EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
   
-  def chart
-    @event = @current_account.events.find(params[:id])
-    @chart = @event.chart
-  end
   
 end

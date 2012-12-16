@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 group :assets do
   gem 'sass'
@@ -30,7 +30,6 @@ group :test, :development do
   
   # gem 'guard-rspec'
   # gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-  gem 'therubyracer', :platform => :ruby
   gem 'sqlite3'
   gem 'railroady' # uml generation (http://railroady.prestonlee.com/) #rake diagram:all
   gem 'rspec-rails', "~> 2.6" 

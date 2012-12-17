@@ -18,7 +18,6 @@ Tix::Application.routes.draw do
   
   post '/users/user_env' => 'Front::Users#user_env'
   post '/users/login_env' => 'Front::Users#login_env'
-  get '/users/my_account' => 'Front::Users#my_account'
   
   devise_for :users, :controllers => {:registrations => "registrations"}
   

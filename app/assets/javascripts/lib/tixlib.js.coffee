@@ -30,6 +30,14 @@ window.TixLib =
     $('a[href="#"]').click (e)->
       e.preventDefault()
     
+    
+  # getCSRFToken: ->
+  #   $.getJSON '/tokens.json', (response)->
+  #     $("meta[name='csrf-token']").attr('content', response.token)
+  #     $("meta[name='csrf-param']").attr('content', response.param)
+  #     TixLib.Dispatcher.trigger('CSRFAvailable')
+ 
+      
   
   init: ->
     # http://railscasts.com/episodes/340-datatables?view=asciicast
@@ -37,3 +45,4 @@ window.TixLib =
     @openExternalLinksInNewWindow()
     @dontJumpOnBlankAnchors()
     @setupAjax()
+    # @getCSRFToken()

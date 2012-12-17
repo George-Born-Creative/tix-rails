@@ -1,9 +1,9 @@
 class Front::PagesController < ApplicationController
   # cache_sweeper :page_sweeper
   
-  }
 
   
+
   def show
 
     slug = params[:slug] || 'home'

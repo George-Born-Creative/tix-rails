@@ -6,6 +6,7 @@ class ChartsController < ApplicationController
   # GET /charts.json
   def index
     @charts = @current_account.charts.order('created_at desc')
+    
     respond_with @charts
   end
 
@@ -13,7 +14,8 @@ class ChartsController < ApplicationController
   # GET /charts/1.json
   def show
     @chart = @current_account.charts.find(params[:id])
-
+    @sections = Section.where(:chart_id => @chart.id).includes(:areas)
+    
     respond_with @chart
   end
 

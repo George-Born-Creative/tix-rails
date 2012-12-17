@@ -11,9 +11,8 @@ node :event_starts_at do |chart|
 end
 
 
-child (:sections) do |chart|
+child @sections => :sections do |c|
   attributes :id, :label, :seatable, :color
-
 
   node :current_price do |section|
     section.current_price

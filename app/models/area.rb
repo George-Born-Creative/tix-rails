@@ -32,6 +32,7 @@ class Area < ActiveRecord::Base
                   :reservations, :text
   
   belongs_to :section
+
   has_many :tickets
   
   validates_inclusion_of :type, :in => %w( circle rect polygon text )  
@@ -43,6 +44,7 @@ class Area < ActiveRecord::Base
   def inventory
     self.max_tickets - self.tickets.cart.count - self.tickets.complete.count
   end
+
   
   private
   

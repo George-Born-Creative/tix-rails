@@ -60,7 +60,7 @@ class Account < ActiveRecord::Base
   
   def authorize_gateway
     return nil? if gateway.blank? || gateway.login.blank? || gateway.password.blank?
-    return ActiveMerchant::Billing::AuthorizeNetGateway.new(
+    @authorize_gateway ||= ActiveMerchant::Billing::AuthorizeNetGateway.new(
         :login => gateway.login,
         :password => gateway.password
     )

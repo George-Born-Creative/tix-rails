@@ -18,7 +18,7 @@ class Front::PagesController < ApplicationController
         format.json { render json: @page }
       else
         format.html { not_found }# 404 }
-        format.json { render json: @page.errors, status: :unprocessable_entity }
+        format.json { render json: '404', status: :unprocessable_entity }
       end
     end
   end

@@ -2,13 +2,18 @@
 #
 # Table name: accounts
 #
-#  id         :integer          not null, primary key
-#  subdomain  :string(255)      not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                      :integer          not null, primary key
+#  subdomain               :string(255)      not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  email_order_report_to   :string(255)
+#  email_daily_report_to   :string(255)
+#  email_weekly_report_to  :string(255)
+#  email_monthly_report_to :string(255)
 #
 
 class Account < ActiveRecord::Base
+  has_many :domains, :class_name => 'AccountDomain', :inverse_of => :account, :dependent => :destroy
   has_many :users, :dependent => :destroy
   has_many :artists, :dependent => :destroy
   has_many :charts, :dependent => :destroy
@@ -25,7 +30,7 @@ class Account < ActiveRecord::Base
   has_many :carousels, :dependent => :destroy
   has_many :themes, :dependent => :destroy
   has_many :gateways, :dependent => :destroy
-  
+    
   attr_accessible :subdomain, 
           :email_order_report_to, :email_daily_report_to, :email_weekly_report_to,
           :email_monthly_report_to

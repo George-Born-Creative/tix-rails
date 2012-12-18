@@ -16,8 +16,8 @@ class WidgetPlacement < ActiveRecord::Base
   attr_accessible :index, :sidebar_id, :widget_id
   
   belongs_to :account
-  belongs_to :widget
-  belongs_to :sidebar
+  belongs_to :widget, :touch => true
+  belongs_to :sidebar, :touch => true
   
   alias_attribute :position, :index
   

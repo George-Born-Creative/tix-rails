@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218174054) do
+ActiveRecord::Schema.define(:version => 20121218194444) do
 
   create_table "account_domains", :force => true do |t|
     t.string   "domain",     :null => false
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.integer  "artist_id_old_secondary"
   end
 
+  add_index "artists", ["account_id"], :name => "index_artists_on_account_id"
+
   create_table "carousel_items", :force => true do |t|
     t.string   "title"
     t.string   "caption"
@@ -122,6 +124,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "carousels", ["account_id"], :name => "index_carousels_on_account_id"
 
   create_table "charts", :force => true do |t|
     t.string   "name"
@@ -144,6 +148,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.string   "background_color"
     t.boolean  "master",                 :default => false
   end
+
+  add_index "charts", ["account_id"], :name => "index_charts_on_account_id"
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -172,6 +178,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
   end
+
+  add_index "customer_imports", ["account_id"], :name => "index_customer_imports_on_account_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -224,6 +232,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.boolean  "hide_buttons"
   end
 
+  add_index "events", ["account_id"], :name => "index_events_on_account_id"
+
   create_table "events_supporting_acts", :force => true do |t|
     t.integer "event_id"
     t.integer "artist_id"
@@ -237,6 +247,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.integer  "account_id"
     t.string   "mode"
   end
+
+  add_index "gateways", ["account_id"], :name => "index_gateways_on_account_id"
 
   create_table "images", :force => true do |t|
     t.string   "title"
@@ -252,6 +264,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.integer  "imageable_id"
     t.string   "imageable_type"
   end
+
+  add_index "images", ["account_id"], :name => "index_images_on_account_id"
 
   create_table "order_transactions", :force => true do |t|
     t.integer  "order_id"
@@ -299,6 +313,7 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.datetime "tickets_delivered_at"
   end
 
+  add_index "orders", ["account_id"], :name => "index_orders_on_account_id"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "pages", :force => true do |t|
@@ -311,6 +326,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.datetime "updated_at", :null => false
     t.decimal  "sidebar_id"
   end
+
+  add_index "pages", ["account_id"], :name => "index_pages_on_account_id"
 
   create_table "phones", :force => true do |t|
     t.datetime "created_at"
@@ -365,6 +382,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "sidebars", ["account_id"], :name => "index_sidebars_on_account_id"
+
   create_table "single_seats", :force => true do |t|
     t.string  "label"
     t.decimal "x",                :default => 0.0, :null => false
@@ -402,6 +421,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.datetime "background_image_updated_at"
   end
 
+  add_index "themes", ["account_id"], :name => "index_themes_on_account_id"
+
   create_table "ticket_templates", :force => true do |t|
     t.string   "label"
     t.string   "meta"
@@ -414,6 +435,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
   end
+
+  add_index "ticket_templates", ["account_id"], :name => "index_ticket_templates_on_account_id"
 
   create_table "tickets", :force => true do |t|
     t.decimal  "price"
@@ -436,6 +459,8 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.string   "event_name_2"
     t.decimal  "service_charge_override"
   end
+
+  add_index "tickets", ["account_id"], :name => "index_tickets_on_account_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                                :default => "",         :null => false
@@ -469,6 +494,7 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.boolean  "newsletter_opt_in",                                    :default => false
   end
 
+  add_index "users", ["account_id"], :name => "index_users_on_account_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["first_name"], :name => "index_users_on_first_name"
   add_index "users", ["last_name"], :name => "index_users_on_last_name"
@@ -503,5 +529,7 @@ ActiveRecord::Schema.define(:version => 20121218174054) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "widgets", ["account_id"], :name => "index_widgets_on_account_id"
 
 end

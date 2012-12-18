@@ -31,7 +31,7 @@ class Area < ActiveRecord::Base
                   :type, :max_tickets,
                   :reservations, :text
   
-  belongs_to :section
+  belongs_to :section, :touch => true
 
   has_many :tickets
   

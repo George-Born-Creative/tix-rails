@@ -1,5 +1,4 @@
 Tix::Application.routes.draw do
-
   
   scope '/admin' do
     match '/', :controller => :admin, :action => :index

@@ -34,4 +34,12 @@ class Gateway < ActiveRecord::Base
     end
   end
   
+  def authorize_net
+     return nil? if blank? || login.blank? || password.blank?
+     @authorize_gateway ||= ActiveMerchant::Billing::AuthorizeNetGateway.new(
+         :login => login,
+         :password => password
+     )
+   end
+  
 end

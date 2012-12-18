@@ -22,8 +22,6 @@ class ApplicationController < ActionController::Base
     end
     
     # 2. A subdomain of (thintix or localtix).com
-    
-    
     unless current_url.scan(/thintix.com|localtix.com:5000$/).empty?
       @current_account = Account.find_by_subdomain(request.subdomains.first)
       return unless @current_account.nil?
@@ -31,7 +29,6 @@ class ApplicationController < ActionController::Base
     # 3. A customer's custom domain name
     
     else
-      puts "AccountDomain.find_by_domain(#{current_url})"
       @current_account = AccountDomain.find_by_domain(current_url).account
       return unless @current_account.nil?
     end

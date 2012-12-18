@@ -203,13 +203,9 @@ class Order < ActiveRecord::Base
       puts self.errors.full_messages
       return false 
     end
+  
+    gateway = self.account.gateway.authorize_net
     
-    # # puts   "PURCHASE with card in amount:"
-    # # puts   price_in_cents
-
-
-
-    gateway = self.account.authorize_gateway
     response = gateway.purchase(price_in_cents, credit_card, purchase_options)
     transactions.create!(:action => "purchase", 
                          :amount => price_in_cents, 

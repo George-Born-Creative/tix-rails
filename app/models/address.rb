@@ -17,7 +17,7 @@
 #
 
 class Address < ActiveRecord::Base
-  belongs_to :addressable, :polymorphic => true
+  belongs_to :addressable, :polymorphic => true , :touch => true
   has_one :user, :as => :addressable
   
   

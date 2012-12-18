@@ -73,9 +73,8 @@ describe "Order system" do
 
   it 'should have a valid gateway' do
     @account.gateway.should_not be nil
-    @account.authorize_gateway.class.should_not be nil
-    @account.authorize_gateway.class.should be ActiveMerchant::Billing::AuthorizeNetGateway
-
+    @account.gateway.authorize_net.class.should_not be nil
+    @account.gateway.authorize_net.class.should be ActiveMerchant::Billing::AuthorizeNetGateway
   end
 
 

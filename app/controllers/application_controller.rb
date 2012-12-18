@@ -10,11 +10,34 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_account
-    redirect_to 'http://tix.thinio.com' if request.subdomain.first.empty? 
-    @current_account = Account.find_by_subdomain(request.subdomains.first)
-    if @current_account.nil?
-      raise ActionController::RoutingError.new("Account '#{request.subdomains.first}' Not Found")
+    # Cases
+    
+    current_url = "#{request.host}:#{request.port}"
+    
+    # 1. Requesting a root level company domain. Redirect to thinio.com
+    
+    if ['thintix.com', 'localtix.com:5000'].include? current_url
+      redirect_to 'http://thinio.com'
+      return
     end
+    
+    # 2. A subdomain of (thintix or localtix).com
+    
+    
+    unless current_url.scan(/thintix.com|localtix.com:5000$/).empty?
+      @current_account = Account.find_by_subdomain(request.subdomains.first)
+      return unless @current_account.nil?
+    
+    # 3. A customer's custom domain name
+    
+    else
+      puts "AccountDomain.find_by_domain(#{current_url})"
+      @current_account = AccountDomain.find_by_domain(current_url).account
+      return unless @current_account.nil?
+    end
+
+    # If nothing has been found, 404
+    raise ActionController::RoutingError.new("'#{current_url}' not found in ThinTix ")
   end
 
   def layout

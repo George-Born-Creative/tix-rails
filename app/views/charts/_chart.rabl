@@ -11,7 +11,7 @@ node :event_starts_at do |chart|
 end
 
 
-child @sections => :sections do |c|
+child :sections_incl_areas => :sections do |chart|
   attributes :id, :label, :seatable, :color
 
   node :current_price do |section|

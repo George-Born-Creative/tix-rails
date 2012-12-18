@@ -95,6 +95,10 @@ class Chart < ActiveRecord::Base
   def has_section?(section_label)
     !sections.find_by_label(section_label).nil?
   end
+  
+  def sections_incl_areas
+    sections.includes(:areas)
+  end
 
   
   private

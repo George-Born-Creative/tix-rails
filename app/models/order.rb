@@ -423,6 +423,9 @@ class Order < ActiveRecord::Base
     scoped.where('state = ?', state)
   end
   
+  def reset_expires_at!
+    set_expires_at!
+  end
   
   private
   

@@ -12,24 +12,24 @@ class ApplicationController < ActionController::Base
   def set_current_account
     # Cases
     
-    current_url = "#{request.host}:#{request.port}"
+    current_host = "#{request.host}"
     
     # 1. Requesting a root level company domain. Redirect to thinio.com
     
-    if ['thintix.com', 'localtix.com:5000'].include? current_url
+    if ['thintix.com', 'localtix.com'].include? current_host
       redirect_to 'http://thinio.com'
       return
     end
     
     # 2. A subdomain of (thintix or localtix).com
-    unless current_url.scan(/thintix.com|localtix.com:5000$/).empty?
+    unless current_host.scan(/thintix.com|localtix.com/).empty?
       @current_account = Account.find_by_subdomain(request.subdomains.first)
       return unless @current_account.nil?
     
     # 3. A customer's custom domain name
     
     else
-      @current_account = AccountDomain.find_by_domain(current_url).account
+      @current_account = AccountDomain.find_by_domain(current_host).account
       return unless @current_account.nil?
     end
 

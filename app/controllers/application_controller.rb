@@ -16,13 +16,13 @@ class ApplicationController < ActionController::Base
     
     # 1. Requesting a root level company domain. Redirect to thinio.com
     
-    if ['thintix.com', 'localtix.com'].include? current_host
+    if ['thintix.com', 'localtix.com', 'litetix.com'].include? current_host
       redirect_to 'http://thinio.com'
       return
     end
     
     # 2. A subdomain of (thintix or localtix).com
-    unless current_host.scan(/thintix.com|localtix.com/).empty?
+    unless current_host.scan(/thintix.com|localtix.com|litetix.com/).empty?
       @current_account = Account.find_by_subdomain(request.subdomains.first)
       return unless @current_account.nil?
     

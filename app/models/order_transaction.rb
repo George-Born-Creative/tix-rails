@@ -23,10 +23,10 @@ class OrderTransaction < ActiveRecord::Base
   attr_accessible :action, :amount, :response, :meth, :origin, :success
   
   METH = [:cash, :card, :square, :check, :pos, :other]
-  ORIGINS = [:web, :agent]
+  ORIGINS = [:web, :agent, :kiosk]
   
-  validate :meth, :inclusion => {:in => METH}
-  validate :origin, :inclusion => {:in => ORIGINS}
+  # validates :meth, :inclusion => {:in => METH}
+  # validates :origin, :inclusion => {:in => ORIGINS}
   
   scope :success, lambda { where("success = ?", true)}
   scope :fail, lambda { where("success = ?", false)}

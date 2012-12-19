@@ -204,6 +204,7 @@ class Order < ActiveRecord::Base
       return false 
     end
   
+    mode = self.account.gateway.mode
     gateway = self.account.gateway.authorize_net
     
     response = gateway.purchase(price_in_cents, credit_card, purchase_options)
@@ -211,7 +212,8 @@ class Order < ActiveRecord::Base
                          :amount => price_in_cents, 
                          :response => response,
                          :meth => 'card',
-                         :origin => 'web')
+                         :origin => 'web',
+                         :gateway_mode => mode)
     
     puts "RESPONSE.success?"
     puts response.success?

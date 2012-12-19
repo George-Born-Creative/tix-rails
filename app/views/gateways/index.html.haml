@@ -2,6 +2,10 @@
 
 =link_to 'New Gateway', new_gateway_path
 
+%h2 
+  Currently in 
+  =@current_account.gateway.test_mode? ? 'TEST' : 'LIVE'
+  mode
 
 %table.table
   -@gateways.order('id asc').each do |gateway|
@@ -15,7 +19,7 @@
         -if @current_account.gateways.active.id == gateway.id 
           Active
         -else
-          =link_to 'Activate!', gateway_path(gateway) + '/activate', :class => 'btn', :method => :post
+          =link_to 'Activate!', gateway_path(gateway) + '/activate', :class => 'btn btn-primary', :method => :post
       %td=link_to 'Edit!', edit_gateway_path(gateway) , :class => 'btn'
     
   

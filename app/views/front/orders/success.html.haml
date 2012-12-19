@@ -113,6 +113,10 @@
                 -unless t.authorization.nil?
                   %dt Auth
                   %dd=t.authorization 
+                  
+                -unless t.gateway_mode.blank?
+                  %dt Mode
+                  %dd=t.gateway_mode
               
             .span3
               %dl

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218194444) do
+ActiveRecord::Schema.define(:version => 20121219230850) do
 
   create_table "account_domains", :force => true do |t|
     t.string   "domain",     :null => false
@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20121218194444) do
     t.datetime "updated_at",    :null => false
     t.string   "meth"
     t.string   "origin"
+    t.string   "gateway_mode"
   end
 
   add_index "order_transactions", ["meth"], :name => "index_order_transactions_on_meth"

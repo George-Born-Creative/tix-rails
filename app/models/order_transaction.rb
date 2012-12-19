@@ -20,7 +20,7 @@ class OrderTransaction < ActiveRecord::Base
   belongs_to :order
   serialize :params
   
-  attr_accessible :action, :amount, :response, :meth, :origin, :success
+  attr_accessible :action, :amount, :response, :meth, :origin, :success, :gateway_mode
   
   METH = [:cash, :card, :square, :check, :pos, :other]
   ORIGINS = [:web, :agent, :kiosk]

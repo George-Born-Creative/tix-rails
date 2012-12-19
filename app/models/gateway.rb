@@ -13,7 +13,8 @@
 
 class Gateway < ActiveRecord::Base
   belongs_to :account
-  attr_accessible :provider, :login, :password, :account, :mode, :activated_at
+  attr_accessible :provider, :login, :password, :pass,
+    :account, :mode, :activated_at
   
   PROVIDERS = [:authorize]
   MODES = [:test, :live]
@@ -23,6 +24,8 @@ class Gateway < ActiveRecord::Base
   
   scope :active_gateways, where("activated_at is NOT NULL").order('activated_at DESC')
 
+  alias_attribute :pass, :password
+  
   def activate!
     update_attribute(:activated_at, Time.zone.now)
   end

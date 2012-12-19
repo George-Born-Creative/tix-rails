@@ -1,0 +1,6 @@
+=simple_form_for @gateway do |f|
+  =f.input :provider, :collection => ['authorize'], :include_blank => false
+  =f.input :login
+  =f.input :pass
+  =f.input :mode, :collection => ['live', 'test'], :include_blank => false
+  =f.submit

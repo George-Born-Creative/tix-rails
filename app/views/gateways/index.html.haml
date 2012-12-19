@@ -1,0 +1,33 @@
+%h1 Card Gateways
+
+=link_to 'New Gateway', new_gateway_path
+
+
+%table.table
+  -@gateways.order('id asc').each do |gateway|
+    %tr
+      %td=gateway.id
+      %td=gateway.provider
+      %td=gateway.login
+      %td=gateway.password
+      %td=gateway.mode
+      %td
+        -if @current_account.gateways.active.id == gateway.id 
+          Active
+        -else
+          =link_to 'Activate!', gateway_path(gateway) + '/activate', :class => 'btn', :method => :post
+      %td=link_to 'Edit!', edit_gateway_path(gateway) , :class => 'btn'
+    
+  
+  
+  
+  
+-# 
+  #  id           :integer          not null, primary key
+  #  provider     :string(255)
+  #  login        :string(255)
+  #  password     :string(255)
+  #  activated_at :datetime
+  #  account_id   :integer
+  #  mode         :string(255)
+  #

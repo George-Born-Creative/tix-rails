@@ -16,11 +16,11 @@ class Gateway < ActiveRecord::Base
   attr_accessible :provider, :login, :password, :pass,
     :account, :mode, :activated_at
   
-  PROVIDERS = [:authorize]
+  # PROVIDERS = [:authorize]
   MODES = [:test, :live]
   
-  validate :provider, :inclusion => {:in => PROVIDERS}
-  validate :mode, :inclusion => {:in => MODES}
+  # validates :provider, :inclusion => {:in => Gateway::PROVIDERS}
+  validates :mode, :inclusion => {:in => Gateway::MODES}
   
   scope :active_gateways, where("activated_at is NOT NULL").order('activated_at DESC')
 
@@ -39,10 +39,21 @@ class Gateway < ActiveRecord::Base
   
   def authorize_net
      return nil? if blank? || login.blank? || password.blank?
-     @authorize_gateway ||= ActiveMerchant::Billing::AuthorizeNetGateway.new(
-         :login => login,
-         :password => password
-     )
+     
+     if test_mode?
+       ActiveMerchant::Billing::Base.mode = :test
+       return ActiveMerchant::Billing::AuthorizeNetGateway.new(
+           :login => login, :password => password, :test => true )
+     else
+       ActiveMerchant::Billing::Base.mode = :production
+       return ActiveMerchant::Billing::AuthorizeNetGateway.new(
+            :login => login, :password => password )
+     end
+       
+   end
+   
+   def test_mode?
+     self.mode == :test
    end
   
 end

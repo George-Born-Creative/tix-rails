@@ -7,7 +7,7 @@
     %h2
       =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.events-view, .layout-sidebar', 'data-target' => '.events-view-grid'
       =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.events-view', 'data-target' => '.events-view-list, .layout-sidebar'
-      
+  
 %hr/
 
 .events-view.events-view-list
@@ -15,7 +15,7 @@
     .span9
 
       -events.each do |event|
-        
+    
         .item
           .row
             .span2
@@ -24,19 +24,19 @@
               -else
                 =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
                 =#image_tag('http://placehold.it/300x230', :width => '100%') 
-        
+    
             .span7
               .starts-at=event.starts_at.to_formatted_s(:jammin_java)
-              
-              =render :partial => 'front/events/event_title', :locals => {:event => event}
-              
-                
           
+              =render :partial => 'front/events/event_title', :locals => {:event => event}
+          
+            
+      
               .controls
                 =render :partial => 'front/events/buttons', :locals => {:event => event, :show_event_info => true  }
         %hr.red-thin
-        
-      
+    
+  
 
 .row
   .span12
@@ -55,7 +55,7 @@
                   .artists=event.artists_str
                   .starts-at=event.starts_at.to_formatted_s(:jammin_java)
                   =event.price_freeform
-        
+    
 -content_for :javascript do
   :javascript
     $(function(){
@@ -63,10 +63,10 @@
         e.preventDefault();
           klass = $(this).data('class');
           target = $(this).data('target');
-        
+    
           $(klass).hide();
           $(target).fadeIn('fast');
 
       })
     });
-  
+

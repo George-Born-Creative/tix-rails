@@ -11,15 +11,10 @@ Tix::Application.routes.draw do
   get '/tickets/:id/checkin' => 'Front::Tickets#checkin', :as => 'ticket_checkin'
   get '/orders/:id/checkin' => 'Front::Orders#checkin_tickets!', :as => 'order_checkin'
   
-  # resources :pages, :path => '/', :controller => 'Front::Pages', :as => "front_pages", :only => [:show, :index]
-  
-  # root :to => "pages#show", :controller => 'Front::Pages'
-  
   post '/users/user_env' => 'Front::Users#user_env'
   post '/users/login_env' => 'Front::Users#login_env'
   
   devise_for :users, :controllers => {:registrations => "registrations"}
-  
   resources :users, :controller => 'Front::Users', :as => 'front_users'
   
   get '/orders/success' => 'Front::Orders#success'
@@ -27,22 +22,19 @@ Tix::Application.routes.draw do
   match '/orders/add_to_cart/:area_id', :controller => 'Front::Orders', :action => 'add_to_cart'
   match '/orders/remove_from_cart/:area_id', :controller => 'Front::Orders', :action => 'remove_from_cart'
   put '/orders', :controller => 'Front::Orders', :action => 'create'
-  
   resources :orders, :as => "front_orders", :controller => 'Front::Orders'
   
   resources :addresses, :as => "front_addresses", :controller => 'Front::Addresses'
   resources :phones, :as => "front_phones",  :controller => 'Front::Phones'
   
-  # resources :charts, :as => "front_charts", :only => [:show], :controller => 'Front::Charts'
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
+
   resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
   get '/events/:id/seats' => 'Front::Charts#show', :as => 'front_chart'
   
-  
-  
-  match '/page/:slug', :action => :show, :controller => 'Front::Pages'
-  match '/page/:id/edit', :action => :edit, :controller => 'Pages'
+  # For Jammin' Java redirects
+  match '/home/events/:id' => redirect("/events/%{id}") #:action => :show, :controller => 'Front::Events'
     
   scope '/manager' do
    get '/reports' => 'reports#index'
@@ -50,6 +42,8 @@ Tix::Application.routes.draw do
    get '/reports/event_sales/:event_id' => 'reports#event_sales'
    get '/reports/sales_over_time' => 'reports#sales_over_time'
 
+    resources :gateways
+    post '/gateways/:id/activate' => 'gateways#activate'
     
     
     resources :carousels do

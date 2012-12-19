@@ -181,7 +181,7 @@ class Front::OrdersController < InheritedResources::Base
   
   def ensure_order
     if @current_order.tickets.count == 0
-      redirect_to '/page/calendar', :notice => 'You have no items in your Shopping Cart!'
+      redirect_to '/', :notice => 'You have no items in your Shopping Cart!'
     end
   end
   

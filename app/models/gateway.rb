@@ -17,10 +17,12 @@ class Gateway < ActiveRecord::Base
     :account, :mode, :activated_at
   
   # PROVIDERS = [:authorize]
-  MODES = [:test, :live]
+  MODES = ['test', 'live']
   
   # validates :provider, :inclusion => {:in => Gateway::PROVIDERS}
   validates :mode, :inclusion => {:in => Gateway::MODES}
+  validates :login, :pass, :presence => true
+  
   
   scope :active_gateways, where("activated_at is NOT NULL").order('activated_at DESC')
 
@@ -53,7 +55,7 @@ class Gateway < ActiveRecord::Base
    end
    
    def test_mode?
-     self.mode == :test
+     self.mode == 'test'
    end
   
 end

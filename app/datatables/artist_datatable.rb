@@ -22,7 +22,7 @@ private
   def data
     artists.map do |artist|      
       [
-        link_to(image_tag(artist.photo(:thumb)), artist),
+        (link_to(image_tag(artist.photo(:thumb)), artist) if artist.photo?),
         artist.name,
         (!artist.twitter.blank? ? link_to(' Twitter ', artist.twitter) : nil ),
         (!artist.facebook_url.blank? ? link_to(' Facebook ', artist.facebook_url) : nil),

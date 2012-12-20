@@ -1,12 +1,16 @@
 -content_for :title do
-  =@page.title.titleize
+  -cache ['v1', @page, 'title'] do
+    =@page.title.titleize
 
 -content_for :content_nine do
   -if @page.slug == 'home'
-    =raw render_shortcodes('[carousel name=&quot;home&quot;]')
-    
+    -cache ['v1', @page, 'carousel'] do
+      =raw render_shortcodes('[carousel name=&quot;home&quot;]')
+  
+  -# Dont cache here because underlying models may update
+  -# Instead perform per-model caching in helpers using partials
+   
   -if @page && @page.body
-    -#cache("/page/#{@page.slug}" ) do 
     =raw render_shortcodes( @page.body )
     %br/
   
@@ -20,6 +24,8 @@
           =event.set_times_formatted.html_safe unless event.set_times.blank?
           %br/
     %br/
+  
+  ="<!-- v1 #{@page.sidebar.cache_key} -->".html_safe
   
   -cache ['v1', @page.sidebar] do
     =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

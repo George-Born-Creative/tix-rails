@@ -45,13 +45,6 @@ class Artist < ActiveRecord::Base
   belongs_to :account  
   
   has_attached_file :photo,
-    :storage => :s3,
-    :bucket => ENV['S3_BUCKET_NAME'],
-    :s3_credentials => {
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-    },
-    :s3_protocol => :https,
     :styles => { :large => "600x600>", :medium => "300x300>", :thumb => "100x100>" },
     :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
         

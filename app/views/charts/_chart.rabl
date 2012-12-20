@@ -53,18 +53,26 @@ child :sections_incl_areas => :sections do |chart|
     end
   end
   
-  child(:areas) do 
+  child(:areas) do
     attributes :id, :type, :x, :y, :polypath, :label, :stack_order,
     :cx, :cy, :r, :width, :height, :points, :transform,
-    :max_tickets, :label, :inventory, :text
+    :max_tickets, :label, :text
     
-    node :tickets_reserved_count do |area|
-      area.tickets.cart.count
+    node :inventory do |area|
+      unless @inventories.nil?
+        @inventories[area.id] # Use optimized area inventory
+      else
+        area.inventory
+      end
     end
     
-    node :tickets_purchased_count do |area|
-      area.tickets.complete.count
-    end
+    # node :tickets_reserved_count do |area|
+    #   area.tickets.cart.count
+    # end
+    # 
+    # node :tickets_purchased_count do |area|
+    #   area.tickets.complete.count
+    # end
     
     # node :tickets_checked_in_count do |area|
     #   area.tickets.with_state(:checked_in).count

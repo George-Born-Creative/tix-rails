@@ -100,6 +100,68 @@ class Chart < ActiveRecord::Base
     sections.includes(:areas)
   end
 
+  # CLASS METHODS
+
+  def self.inventories_optimized_query(chart_id)
+    res = ActiveRecord::Base.connection.execute("""SELECT 
+      areas.id as area_id,
+      areas.label as area_label,
+      areas.max_tickets as max_tickets,
+      orders.purchased_at,
+      orders.expires_at,
+      orders.state
+
+    FROM sections
+
+    LEFT OUTER JOIN areas
+    ON areas.section_id = sections.id
+
+    LEFT OUTER JOIN charts
+    ON sections.chart_id = charts.id
+
+    LEFT OUTER JOIN tickets
+    ON tickets.area_id = areas.id
+
+    LEFT OUTER JOIN orders
+    ON tickets.order_id = orders.id
+
+    WHERE charts.id = '#{chart_id}'""")
+  end
+  
+  
+  # An optimized query to get inventory via max_tickets adjustments
+  
+  def self.inventories_optimized(chart_id)
+    res = self.inventories_optimized_query(chart_id)
+    inventories = {}
+    res.each do |row|
+      area_id = row['area_id'].to_i
+      max_tickets = row['max_tickets'].to_i
+      
+      inventories[area_id] = max_tickets if inventories[area_id].nil?
+      
+      if row['state'] == 'complete' || 
+        (row['state'] == 'cart' && 
+          row['expires_at'].to_time.in_time_zone > (Time.now - Order::LIFESPAN)
+        )
+        
+        inventories[area_id] = inventories[area_id] - 1
+      
+      end
+      
+    end
+    inventories
+  end
+  
+
+
+
+
+
+
+
+
+
   
   private
   def set_default_background_color

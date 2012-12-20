@@ -42,13 +42,8 @@ class Area < ActiveRecord::Base
   end
   
   def inventory
-    self.max_tickets - self.tickets.cart.count - self.tickets.complete.count
+    max_tickets - tickets.cart.count - tickets.complete.count
   end
-
   
   private
-  
-  
-
-    
 end

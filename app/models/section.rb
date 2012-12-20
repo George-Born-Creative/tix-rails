@@ -55,8 +55,6 @@ class Section < ActiveRecord::Base
     price_model = Price.create( :base => 10.00, :service => 3.00)  
   end
   
-  
-  
   def _day_of?(time) # check if time falls between  
     time > DateTime.now.in_time_zone(Time.zone).beginning_of_day &&
     time <= DateTime.now.in_time_zone(Time.zone).end_of_day

@@ -26,7 +26,7 @@
 -# @event.off_sale_at            :datetime
 -# @event.remove_at              :datetime
 
--cache @event do
+-cache ['v1', @event, 'detail_page'] do
   -content_for :title do
     =@event.name + ' » Events'
   

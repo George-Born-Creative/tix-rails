@@ -29,11 +29,7 @@ class Image < ActiveRecord::Base
   acts_as_taggable_on :tags
    
   has_attached_file :file,
-    :storage => :s3,
-    :bucket => ENV['S3_BUCKET_NAME'],
-    :s3_credentials => S3_CREDENTIALS,
     :styles => { :large => "680x360#", :thumb => "100x100#" },
-    :s3_protocol => :https,
     :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
 
   Paperclip.interpolates :account_subdomain do |attachment, style|

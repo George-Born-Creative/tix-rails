@@ -1,9 +1,5 @@
 class Front::PagesController < ApplicationController
   # cache_sweeper :page_sweeper
-  
-  caches_action :show, :expires_in => 1.minute, :cache_path => proc {
-    "page/#{params[:slug]}"
-  }
     
   def show
     slug = params[:slug] || 'home'

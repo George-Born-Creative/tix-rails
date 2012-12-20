@@ -1,10 +1,8 @@
--unless @current_account.themes.active_theme.nil?
-  -if @current_account.themes.active_theme.background_image?
-    :css
-      body {
-        background: url(#{@current_account.themes.active_theme.background_image(:original)}) top center no-repeat;
-      }
-  
+-if theme.background_image?
   :css
-  
-    #{@current_account.themes.active_theme.css_doc.html_safe}
+    body {
+      background: url(#{@current_account.themes.active_theme.background_image(:original)}) top center no-repeat;
+    }
+
+:css
+  #{theme.css_doc.html_safe}

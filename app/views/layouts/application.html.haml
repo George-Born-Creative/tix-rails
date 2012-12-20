@@ -9,7 +9,6 @@
       Jammin' Java
     = stylesheet_link_tag    "application", :media => "all"
     = csrf_meta_tags
-    =raw '<!-- current subdomain ' + @current_account.subdomain + '-->'
     :css
       [class^="icon-"],[class*=" icon-"] {
         background-image:url("../img/glyphicons-halflings.png")
@@ -17,7 +16,9 @@
       .icon-white{background-image:url("../img/glyphicons-halflings-white.png");}
       
       
-    =render 'front/shared/theme'
+    -unless (theme = @current_account.themes.active_theme).nil?
+      -cache ['v1', theme] do
+        =render :partial => 'front/shared/theme', :locals => { :theme => theme }
   
   
   %body

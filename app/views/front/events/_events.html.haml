@@ -1,72 +1,9 @@
-.row
-  .span6
-    -# TODO add this in as a shortcode option
-    -#unless %h1 Upcoming Shows
-  .span3.hide
-    View As:
-    %h2
-      =link_to 'GRID', '#', :class => 'hide-other', 'data-class' => '.events-view, .layout-sidebar', 'data-target' => '.events-view-grid'
-      =link_to 'LIST', '#', :class => 'hide-other', 'data-class' => '.events-view', 'data-target' => '.events-view-list, .layout-sidebar'
-  
-%hr/
-
 .events-view.events-view-list
   .row
     .span9
-
       -events.each do |event|
-    
-        .item
-          .row
-            .span2
-              -if (event.headliner && event.headliner.photo?)
-                =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
-              -else
-                =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
-                =#image_tag('http://placehold.it/300x230', :width => '100%') 
-    
-            .span7
-              .starts-at=event.starts_at.to_formatted_s(:jammin_java)
-          
-              =render :partial => 'front/events/event_title', :locals => {:event => event}
-          
-            
-      
-              .controls
-                =render :partial => 'front/events/buttons', :locals => {:event => event, :show_event_info => true  }
-        %hr.red-thin
+        -cache ['v1', event] do
+          =render :partial => 'front/events/event', :locals => { :event => event }
     
   
-
-.row
-  .span12
-    .events-view.events-view-grid.hide
-      -events.in_groups_of(3, false) do |events|
-        .row
-          -events.each do |event|
-            .item
-              .span4{:style => 'margin-bottom: -130px;', :onclick => "location.href='/events/#{event.id}'"}
-                -if event.headliner
-                  =image_tag(event.headliner.photo, :width => '100%') 
-                -else
-                  =image_tag('http://placehold.it/300x230', :width => '100%') 
-                .meta.well
-                  .event-name=link_to event.title, front_event_path(event)
-                  .artists=event.artists_str
-                  .starts-at=event.starts_at.to_formatted_s(:jammin_java)
-                  =event.price_freeform
-    
--content_for :javascript do
-  :javascript
-    $(function(){
-      $('.hide-other').click(function(e){
-        e.preventDefault();
-          klass = $(this).data('class');
-          target = $(this).data('target');
-    
-          $(klass).hide();
-          $(target).fadeIn('fast');
-
-      })
-    });
 

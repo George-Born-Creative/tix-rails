@@ -1,0 +1,20 @@
+
+.item
+  .row
+    .span2
+      -if (event.headliner && event.headliner.photo?)
+        =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
+      -else
+        =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
+        =#image_tag('http://placehold.it/300x230', :width => '100%') 
+
+    .span7
+      .starts-at=event.starts_at.to_formatted_s(:jammin_java)
+  
+      =render :partial => 'front/events/event_title', :locals => {:event => event}
+  
+    
+
+      .controls
+        =render :partial => 'front/events/buttons', :locals => {:event => event, :show_event_info => true  }
+%hr.red-thin

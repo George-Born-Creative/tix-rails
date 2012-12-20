@@ -33,12 +33,15 @@ class Artist < ActiveRecord::Base
                   :image, :myspace_url, :twitter, :url, :video_url, 
                   :youtube1, :youtube2, :name, :body, :id_old, :photo,
                   :id_old_image, :audio_sample_title
+                  
+
 
   has_many :headliners, :class_name => 'Events'
   has_many :secondary_headliners, :class_name => 'Events'
   
   # has_and_belongs_to_many :events
   
+  before_save :touch_events
   belongs_to :account  
   
   has_attached_file :photo,
@@ -51,8 +54,7 @@ class Artist < ActiveRecord::Base
     :s3_protocol => :https,
     :styles => { :large => "600x600>", :medium => "300x300>", :thumb => "100x100>" },
     :path =>  ":account_subdomain/:class/:attachment/:id_partition/:style/:filename"
-    
-    
+        
     Paperclip.interpolates :account_subdomain do |attachment, style|
       attachment.instance.account.subdomain
     end
@@ -69,6 +71,13 @@ class Artist < ActiveRecord::Base
     
     def to_paired_hash
       {:id => self.id, :name => self.name }
+    end
+    
+    def touch_events
+      # TODO touch secondary artists
+      account.events.where('headliner_id = ? OR secondary_headliner_id = ?', id, id).each do |event|
+        event.touch
+      end
     end
 
 end

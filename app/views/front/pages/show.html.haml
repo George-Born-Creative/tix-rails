@@ -21,4 +21,5 @@
           %br/
     %br/
   
-  =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}
+  -cache ['v1', @page.sidebar] do
+    =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

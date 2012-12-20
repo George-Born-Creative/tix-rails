@@ -16,7 +16,5 @@ class Carousel < ActiveRecord::Base
   has_many :carousel_items#, :class_name => 'CarouselItem'
   
   validates_uniqueness_of :slug, :scope => :account_id
-  
-  
-  
+      
 end

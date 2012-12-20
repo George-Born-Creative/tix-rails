@@ -21,11 +21,20 @@ class CarouselItem < ActiveRecord::Base
   
   has_one :image, :as => :imageable
   
+  before_save :touch_pages
+  
   accepts_nested_attributes_for :image, :allow_destroy => true
   
   # def expired?
   #   Time.zone.now < self.expired_at 
   # end
+  
+  def touch_pages
+    # TODO -- currently touches page with home slug only. 
+    #         create a method to specify which pages should be re-cached
+    # account.pages.each{|page| page.touch}
+    account.pages.find_by_slug('home').touch
+  end
   
 end
 

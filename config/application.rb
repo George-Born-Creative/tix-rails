@@ -19,6 +19,7 @@ module Tix
     config.force_ssl = false
     config.time_zone = 'Eastern Time (US & Canada)'
     config.assets.paths << Rails.root.join("app", "assets", "lib")
+    config.exceptions_app = self.routes
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

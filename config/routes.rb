@@ -1,5 +1,9 @@
 Tix::Application.routes.draw do
   
+  match '/404', :to => 'errors#not_found'
+  match '/422', :to => 'errors#server_error'
+  match '/500', :to => 'errors#server_error'
+  
   scope '/admin' do
     match '/', :controller => :admin, :action => :index
     resources :accounts  
@@ -114,6 +118,7 @@ Tix::Application.routes.draw do
   match '/:slug', :action => :show, :controller => 'Front::Pages', :as =>  "front_pages"
   resources :pages, :only => [:show], :controller => 'Front::Pages'
   
+  # rack_error_handler = ActionDispatch::PublicExceptions.new('public/')
   
   
 end

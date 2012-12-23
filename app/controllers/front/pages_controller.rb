@@ -10,7 +10,7 @@ class Front::PagesController < ApplicationController
         format.html { render :layout => 'sidebar_right' } # show.html.erb
         format.json { render json: @page }
       else
-        format.html { not_found }# 404 }
+        format.html { raise ActionController::RoutingError.new('Not Found')  }# 404 }
         format.json { render json: '404', status: :unprocessable_entity }
       end
     end

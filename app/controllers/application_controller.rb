@@ -54,9 +54,9 @@ class ApplicationController < ActionController::Base
     request.fullpath.slice(0,8) == '/manager'
   end
   
-  def not_found
-    raise ActionController::RoutingError.new('Not Found')
-  end
+  # def not_found
+  #   raise ActionController::RoutingError.new('Not Found')
+  # end
   
   def after_sign_in_path_for(resource)
     # if resource.is_a?(User) && resource.has_at_least_role(:employee)

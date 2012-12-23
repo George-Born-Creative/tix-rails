@@ -1,5 +1,4 @@
 Tix::Application.configure do
-  # config.action_controller.consider_all_requests_local = false
   config.action_controller.perform_caching = true
   
   # Settings specified here will take precedence over those in config/application.rb
@@ -14,7 +13,7 @@ Tix::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
@@ -47,10 +46,6 @@ Tix::Application.configure do
   Pusher.secret = ENV['PUSHER_SECRET']
   
   config.action_mailer.default_url_options = {:host => 'http://localhost:5000'}
-  
-  config.after_initialize do
-    ActiveMerchant::Billing::Base.mode = :test 
-  end
   
   config.action_mailer.smtp_settings = {
     :address   => "smtp.mandrillapp.com",

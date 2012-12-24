@@ -1,11 +1,10 @@
 %h2 Sign in
-%br/
+
 = form_tag( user_session_path, :id => 'user_sign_in') do
   %h5 What is your email address?
   = text_field_tag 'user[email]', attr_or_nil(:user_email), :placeholder =>  'you@email.com', :required => true, :tabindex => 1
+  
   %h5 Do you have a Jammin' Java password?
-
-  %br/
   =radio_button_tag 'new_customer', 'no', false, :style => 'float: left'
   =label_tag 'new_customer_no', 'No, I am a new customer.',  :style => 'float: left; margin-left: 15px'
   

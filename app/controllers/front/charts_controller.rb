@@ -2,6 +2,9 @@ class Front::ChartsController < ApplicationController
   
   def show
     @event = @current_account.events.find(params[:id])
+    
+    not_found unless @event.announced? && @event.on_sale?
+    
     @chart = @event.chart
     @inventories = Chart.inventories_optimized(@chart.id)
     if @current_order.tickets.count == 0

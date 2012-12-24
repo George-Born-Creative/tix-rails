@@ -105,11 +105,6 @@ class ApplicationController < ActionController::Base
   end
   
   
-  
-  # unless Rails.application.config.consider_all_requests_local
-  #    rescue_from Exception, with: lambda { |exception| render_error 500, exception }
-  #    rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception| render_error 404, exception }
-  #  end
 
   
   
@@ -125,18 +120,16 @@ class ApplicationController < ActionController::Base
     return true
   end
   
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+  
   private
   
   def manager_page?
     request.fullpath.slice(0,8) == '/manager'
   end
   
-  def render_error(status, exception)
-    respond_to do |format|
-      format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
-      format.all { render nothing: true, status: status }
-    end
-  end
   
   def set_current_order_if_front
     set_current_order() unless manager_path? # only set the current order if front end

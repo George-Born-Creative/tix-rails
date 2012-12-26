@@ -46,6 +46,7 @@ Tix::Application.routes.draw do
   match '/home/main/faq' => redirect("/faq") 
   match '/home/main/contact' => redirect("/contact") 
   match '/home/lobbybar' => redirect("/lobby-bar") 
+  match '/home/main/about' => redirect("/about") 
     
   scope '/manager' do
    get '/reports' => 'reports#index'

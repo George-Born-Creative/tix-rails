@@ -29,11 +29,13 @@ class Front::OrdersController < InheritedResources::Base
     
     unless @current_user.nil? || @current_user.has_at_least_role(:employee)
       if @current_order.address.nil?
-        @current_order.build_address(@current_user.address.attributes.except('id','created_at', 'updated_at'))
+        @current_order.build_address
+        # @current_order.build_address(@current_user.address.attributes.except('id','created_at', 'updated_at'))
       end  
 
       if @current_order.phone.nil?
-        @current_order.build_phone(@current_user.phone.attributes.except('id','created_at', 'updated_at'))
+        @current_order.build_phone
+        # @current_order.build_phone(@current_user.phone.attributes.except('id','created_at', 'updated_at'))
       end  
 
       @current_order.first_name ||= @current_user.first_name

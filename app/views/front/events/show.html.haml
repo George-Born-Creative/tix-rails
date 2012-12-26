@@ -26,10 +26,11 @@
 -# @event.off_sale_at            :datetime
 -# @event.remove_at              :datetime
 
--cache ['v1', @event, 'detail_page'] do
-  -content_for :title do
+-content_for :title do
+  -cache ['v1', @event, 'title'] do
     =@event.name + ' » Events'
   
+-cache ['v1', @event, 'detail_page'] do
   .event-detail-page
     .row
       .span7

@@ -21,7 +21,7 @@ class Front::OrdersController < InheritedResources::Base
   end
   
   def new
-    # prefill_fields
+    prefill_fields
   end
   
   def prefill_fields

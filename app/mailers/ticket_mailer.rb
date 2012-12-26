@@ -1,7 +1,8 @@
 class TicketMailer < ActionMailer::Base
 
   DEV_EMAIL = 'shaun@squiid.com'
-  
+  BOX_OFFICE_EMAIL = 'tickets@jamminjava.com'
+ 
   add_template_helper(ApplicationHelper)
 
   def send_tickets(account_id, order_id)
@@ -12,7 +13,8 @@ class TicketMailer < ActionMailer::Base
       mail(
         :subject => subject,
         :to      => get_email,
-        :from    => 'Jammin\' Java <tickets@jamminjava.com>'
+        :from    => 'Jammin\' Java <tickets@jamminjava.com>',
+        :bcc => get_bcc_email
       )
       @order.update_attribute(:tickets_delivered_at, Time.zone.now )
   end
@@ -22,6 +24,8 @@ class TicketMailer < ActionMailer::Base
   def get_email
     ENV['RAILS_ENV'] == 'production' ? @order.email : DEV_EMAIL
   end
-  
 
+  def get_bcc_email
+    ENV['RAILS_ENV'] == 'production' ? BOX_OFFICE_EMAIL : DEV_EMAIL
+  end
 end

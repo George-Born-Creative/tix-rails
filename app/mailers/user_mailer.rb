@@ -1,7 +1,8 @@
 class UserMailer < ActionMailer::Base
 
   DEV_EMAIL = 'shaun@squiid.com'
-  
+
+   
   add_template_helper(ApplicationHelper)
 
   def send_welcome_email(user_id)
@@ -12,7 +13,7 @@ class UserMailer < ActionMailer::Base
     mail(
       :subject => subject,
       :to      => get_email,
-      :from    => 'Jammin\' Java<memberservices@jamminjava.com>'
+      :from    => 'Jammin\' Java<tickets@jamminjava.com>',
     )
   end
 
@@ -21,6 +22,7 @@ class UserMailer < ActionMailer::Base
   def get_email
     ENV['RAILS_ENV'] == 'production' ? @user.email : DEV_EMAIL
   end
+
 
 
 end

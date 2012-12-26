@@ -42,7 +42,7 @@ Tix::Application.routes.draw do
   match '/home/kids-events/list' => redirect("/kids-shows") 
   match '/home/kids-events/:id' => redirect("/events/%{id}")
   match '/home/main/home' => redirect("/") 
-  match '/home/main/list' => redirect("/calendar") 
+  match '/home/events/list' => redirect("/calendar") 
   match '/home/main/faq' => redirect("/faq") 
   match '/home/main/contact' => redirect("/contact") 
   match '/home/lobbybar' => redirect("/lobby-bar") 

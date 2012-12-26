@@ -30,7 +30,6 @@ private
     customers.map do |customer|
       
       [
-        '',
         customer.first_name,
         customer.last_name,
         number_to_currency(customer.balance),

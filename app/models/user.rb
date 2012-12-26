@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
   
   
   validates_inclusion_of :role, :in => ROLES.map{|r| r.to_sym}
-  validates :accept_terms_conditions, :acceptance => true
+  # validates :accept_terms_conditions, :acceptance => true
   
   
   def role

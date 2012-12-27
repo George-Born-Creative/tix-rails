@@ -13,11 +13,11 @@
 
           .stat
             %h4 Sales Today
-            %span.value= number_to_currency @current_account.orders.purchased_today.sum('total').to_s
+            %span.value= number_to_currency( @current_account.orders.purchased_today.sum('total').to_s, :precision => 0)
 
           .stat
             %h4 Sales All Time
-            %span.value= number_to_currency @current_account.orders.sum('total').to_s
+            %span.value= number_to_currency( @current_account.orders.sum('total').to_s, :precision => 0 )
 
 .row
   .span3

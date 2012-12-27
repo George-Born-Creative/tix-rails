@@ -6,7 +6,7 @@
   .span3
     .widget
       .widget-header
-        %h3=@user.role.to_s.titleize
+        %h3 User Info
       .widget-content
     
         %dl
@@ -63,8 +63,21 @@
             -else
               %dd $0.00
           
-          
+    -#
       
+      .widget
+        .widget-content
+          %dl
+            %dt
+              Role
+            %dd
+              =simple_form_for @user do |f|
+                =@user.role
+                -unless @user.role == 'super'
+                  =f.input :role, :as => :select, :label => false, :include_blank => false, :collection => %w(owner employee customer)
+                  =f.submit
+  
+  
   .span9
     .widget
       .widget-content

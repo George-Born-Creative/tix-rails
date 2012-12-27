@@ -1,23 +1,24 @@
-.row
-  .span12
-    .widget.big-stats-container
-      .widget-content
-        #big_stats.cf
-          .stat
-            %h4 Number of Customers
-            %span.value=number_with_delimiter( @current_account.users.with_role( :customer).count,  :delimiter => ',')
-
-          .stat
-            %h4 Logged in Now
-            %span.value 24
-
-          .stat
-            %h4 Logged in 30 days
-            %span.value= number_with_delimiter(@users.where('last_sign_in_at < ?', (Date.today - 30)).count, :delimeter => ',')
-
-          .stat
-            %h4 All Time Sales
-            %span.value=number_to_currency 0#Order.total
+-#
+  .row
+    .span12
+      .widget.big-stats-container
+        .widget-content
+          #big_stats.cf
+            .stat
+              %h4 Number of Customers
+              %span.value=number_with_delimiter( @current_account.users.with_role( :customer).count,  :delimiter => ',')
+        
+            .stat
+              %h4 Logged in Now
+              %span.value 24
+        
+            .stat
+              %h4 Logged in 30 days
+              %span.value= number_with_delimiter(@users.where('last_sign_in_at < ?', (Date.today - 30)).count, :delimeter => ',')
+        
+            .stat
+              %h4 All Time Sales
+              %span.value=number_to_currency 0#Order.total
 
 .row
   
@@ -30,12 +31,11 @@
   .widget.widget-table.action-table
     %table#customers.table.table-striped.table-bordered.display{:data => {:source => users_url(format: 'json') }}
       %thead
-        %td 
         %td First Name
         %td Last Name
         %td Account Balance
         %td Total sales
-      
+        %td Role
         %td Action
       
       

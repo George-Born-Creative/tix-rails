@@ -9,10 +9,15 @@ class Front::OrdersController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:add_to_cart, :remove_from_cart, :new, :create]
 
   def show
-    @order = @current_user.orders.where(:id => params[:id]).first
+    if @current_user.has_at_least_role(:employee)
+      @order = @current_account.orders.where(:id => params[:id]).first
+    else
+      @order = @current_user.orders.where(:id => params[:id]).first
+    end
     
     unless @order
       redirect_to '/', :notice => "You are not authorized to access this order."
+      return
     end
     
     respond_to do |format|
@@ -141,7 +146,7 @@ class Front::OrdersController < InheritedResources::Base
       redirect_to '/orders/new', :message => 'Please complete your order first'
     else    
       @order = @current_account.orders.find( session[:success_order_id] )
-    end    
+    end
   end
 
   def remove_from_cart # POST /orders/remove_from_cart/:area_id 

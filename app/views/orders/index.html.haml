@@ -22,27 +22,22 @@
 -#             %span.value=@orders.count
 
 .span12
-
   .clear{:style => 'height: 30px'}
   %h1 Orders
   %hr/
 
   .widget.widget-table.action-table
+  
     %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
 
       %thead
         %th ID
-        %th Created
-        %th Purchased
+        %th Date
+        %th Time
         %th Total
         %th Customer
         %th # Tickets
-        %th{:width => '200'} By Section
-        %th Status
-        %th 
-
-        -#%th 
-
+        %th{:width => '200'} Show
 
       -@orders.each do |order|
         %tr
@@ -51,7 +46,10 @@
           %td=time_ago_in_words(order.purchased_at, true) +' ago'
           %td=number_to_currency( order.total ) unless order.total.blank?
           %td
-            %strong="#{order.first_name} #{order.last_name}"
+            -unless order.user.blank?
+              %strong=link_to "#{order.first_name} #{order.last_name}", user_path(order.user)
+            -else
+              ="#{order.first_name} #{order.last_name}"
             = "#{order.email}"
             
           %td= order.tickets.count
@@ -61,12 +59,12 @@
                 ="#{count}x #{event} "
       
           %td=order.state
-          %td
-            %a.btn.btn-large.button.small refund
         
           %td
             %a.btn.btn-primary.btn-large{:href => order_path(order)} view
           -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
+      
+    =paginate @orders,  :theme => 'twitter-bootstrap'
       
         
 

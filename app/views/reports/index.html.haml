@@ -13,11 +13,11 @@
 
           .stat
             %h4 Sales Today
-            %span.value= number_to_currency @current_account.orders.purchased_today.inject(0){|memo, ord| memo + ord.total }
+            %span.value= number_to_currency @current_account.orders.purchased_today.sum('total').to_s
 
           .stat
             %h4 Sales All Time
-            %span.value= number_to_currency @current_account.orders.inject(0){|memo, ord| memo + ord.total }
+            %span.value= number_to_currency @current_account.orders.sum('total').to_s
 
 .row
   .span3

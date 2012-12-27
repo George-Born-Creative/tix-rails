@@ -45,7 +45,7 @@ class Event < ActiveRecord::Base
     
   attr_accessible :title, :price_freeform, :set_times, :info, :body,
                   :headliner, :secondary_headliner, :supporting_acts,
-                  :headliner_id, :secondary_headliner_id, :supporting_acts,
+                  :headliner_id, :secondary_headliner_id, 
                   :suggestion_1, :suggestion_2, :suggestion_3,
                   :artist_id_old, :chart, :tickets, :starts_at,
                   :slug, :buytix_url_old,

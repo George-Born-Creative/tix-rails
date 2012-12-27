@@ -19,7 +19,7 @@
                               %tbody
                                 %tr{:style => "border-collapse: collapse; border-spacing: 0px; height: 20px; border: 0;"}
                                   %td{:align => "left", :bgcolor => "#FEFEFE", :height => "20", :style => "background-color: #FEFEFE;", :valign => "top", :width => "592"}
-                                    %img{:alt => "", :height => "20", :src => "http://jamminjava.localtix.com:5000/images/emails/tickets/images/clear.gif", :style => "display: block; line-height: 1; opacity: 0; padding: 0px; border: 0;", :width => "1"}/
+                                    -#%img{:alt => "", :height => "20", :src => "#", :style => "display: block; line-height: 1; opacity: 0; padding: 0px; border: 0;", :width => "1"}/
     %table{:align => "center", :bgcolor => "#FEFEFE", :cellpadding => "0", :cellspacing => "0", :style => "border-collapse: collapse; border-spacing: 0; background-color: #FEFEFE; margin: 0px 0 0; padding: 0px 0 0; border: 0;", :width => "100%"}
       %tr{:align => "center", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
         %td{:align => "center", :style => "border-collapse: collapse; border-spacing: 0; border: 0;", :valign => "top"}
@@ -46,7 +46,7 @@
                           %p{:style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; "}
                             Thank you for your ticket order! For a fast check-in, bring this email on your smartphone to the show OR simply give us your name and we’ll pull up your order. Food and drinks are available before, during, and after the show. Check out our award winning menu 
                             =succeed '.' do
-                              %a{:href => 'https://jamminjava.thintix.com/food-drink', :style => 'color: #990000;' }here
+                              %a{:href => 'https://jamminjava.com/food-drink', :style => 'color: #990000;' }here
                             Email 
                             %a{:href => 'mailto:tickets@jamminjava.com', :style => 'color: #990000; '}tickets@jamminjava.com
                             with any questions.
@@ -71,11 +71,26 @@
                           %p{:style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; "} P.S. Come early and stay late at our NEW Lobby Bar - it's open before and after the show!
                           %p{:style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; "}
                           %p{:style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; "}
-                            %a{:rel => "nofollow", :style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #990000;  line-height: px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; ", :target => "_blank", :href => 'https://jamminjava.thintix.com/orders'} Click here to login to your account at jamminjava.com
+                            %a{:rel => "nofollow", :style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #990000;  line-height: px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; ", :target => "_blank", :href => 'https://jamminjava.com/orders'} Click here to login to your account at jamminjava.com
                           %p{:style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; "}
+              
+          
+              -############# TICKET #############
               %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
                 %td{:width => "592"}
-                  -############# ARTWORK #############
+                  -@order.tickets.each do |ticket|
+                    =render :partial => 'front/orders/ticket', :locals => {:ticket => ticket}
+
+              -############# RECEIPT #############
+              %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
+                %td{:width => "592"}
+                  -@order.tickets.each do |ticket|
+                    =render :partial => 'front/orders/tickets_receipt', :locals => {:order => @order}
+
+          
+              -############# ARTWORK #############
+              %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
+                %td{:width => "592"}
                   -1.times do
                     %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border-collapse: collapse; border-spacing: 0; margin-top: 0px !important; padding-top: 0px !important; border: 0;", :width => "592"}
                       %tbody
@@ -83,39 +98,9 @@
                           %td{:align => "left", :bgcolor => "#ffffff", :height => "219", :style => "background-color: #f0f0f0; ", :valign => "top", :width => "592"}
                             %div{:style => 'margin-bottom: 10px; margin-top: 10px;'}
                               %img{:alt => "", :height => "219", :src => "https://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/107/original/jj-email-artwork.jpg", :style => "display: block; line-height: 1; padding: 0; border: 0;", :width => "592"}/
-              %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
-                %td{:width => "592"}
-                  -############# TICKET #############
-                  -@order.tickets.each do |ticket|
-                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border-collapse: collapse; border-spacing: 0; margin-top: 0px !important; padding-top: 0px !important; margin-bottom: 10px !important; border: 0;", :width => "592"}
-                      %tbody
-                        %tr{:style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
-                          %td{:align => "left", :height => "160", :valign => "top", :width => "592"}
-                            %table{:border => "0", :margin => "10", :padding => "0", :style => "vertical-align: top; margin-top: 0px !important; padding-top: 0px !important; border: 1px solid #ccc;", :width => "590"}
-                              %tr
-                                %td{:align => "left", :height => "160", :style => "vertical-align: top;", :valign => "top", :width => "450"}
-                                  %div{:style => "margin: 10px;"}
-                                    =ticket.event_starts_at.to_formatted_s(:jammin_java)
-                                    %h1{:style => "font-weight: normal; letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 23px; line-height: 28px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding-right:0; margin-bottom:0; padding-bottom:0; margin-left:0; padding-left:0; "}
-                                      =ticket.event_name_1
-                                    =ticket.event_name_2
-                                    %br/
-                                    %br/
-                                    %h1{:style => "font-weight: normal; letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 23px; line-height: 28px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; margin: 10px 0 0; padding: 0;"}
-                                      Section:
-                                      %b=ticket.section_label
-                                      -if ticket.table_seat
-                                        Table:
-                                        %b= ticket.table_seat[0]
-                                        Seat:
-                                        %b= ticket.table_seat[1]
-                                    %span.wysiwyg-color-small{:style => "color: #000000; font-size: 10px; font-family: inherit;"}
-                                      Jammin Java 227 Maple Ave E, Vienna, VA, 
-                                      %a{:href => 'http://jamminjava.com', :style => 'color: #990000; '}jamminjava.com, 
-                                      %a{:href => 'mailto:tickets@jamminjava.com', :style => 'color: #990000; '}tickets@jamminjava.com
-                                %td{:align => "left", :height => "160", :style => "vertical-align: top;", :valign => "bottom", :width => "142"}
-                                  =image_tag( qr( "https://jamminjava.thintix.com/tickets/#{ticket.id}/checkin"), :width => 150)
-                                  
+          
+             
+              -############# COPYRIGHT #############
               %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
                 %td{:width => "592"}
                   %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border-collapse: collapse; border-spacing: 0; margin-top: 0px !important; padding-top: 0px !important; border: 0;", :width => "592"}

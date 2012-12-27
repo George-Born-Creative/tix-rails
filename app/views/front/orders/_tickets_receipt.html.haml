@@ -1,0 +1,104 @@
+%table{:width => '100%', :style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding: 10px "}
+  %thead
+    %tr
+      %td 
+        %strong Event
+      %td
+        %strong Section
+      %td
+        %strong Seat
+      %td
+        %strong Base
+      %td
+        %strong Service
+      %td
+        %strong Total
+        
+  -order.tickets.each do |ticket|
+    %tr
+      %td
+        %a{:href => front_event_path(ticket.event), :style => 'color: #990000;' }= ticket.event_name
+      %td= ticket.section.label
+      %td= ticket.area.label
+      %td= number_to_currency ticket.base_price
+      %td= number_to_currency ticket.service_charge
+      %td= number_to_currency ticket.total
+  %tr
+    %td
+      %strong Total
+    %td
+    %td
+    %td=number_to_currency order.base
+    %td=number_to_currency order.service_charge
+    %td=number_to_currency order.total
+
+
+%table{:width => '100%', :style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 13px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding: 10px "}
+  %tr{:cellpadding => '10px'}
+    %td
+      -unless order.user.blank?
+        %strong= order.user.full_name
+        %br/
+
+      -unless order.email.blank?
+        ="#{order.email}"
+        %br/
+  
+
+      -unless order.address.blank?
+        = order.address.address
+        %br/
+  
+
+      -unless order.phone.number.blank?
+        = order.phone.number 
+        %br/
+        %br/
+  
+
+      -if order.agent
+        %strong Agent
+        = order.agent.full_name
+        %br/
+        %br/
+
+
+
+-order.transactions.each do |t|
+  %table{:width => '100%', :style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 10px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding: 10px "}
+    %tr
+      %td
+        -unless t.message.blank?
+          %strong Message
+          =t.message
+          %br/
+
+        -unless t.params.blank?
+          %strong Transaction ID
+          =t.params[:transaction_id.to_s]
+          %br/
+
+        %strong Transaction Time
+        =t.created_at.in_time_zone.to_formatted_s(:jammin_java)
+        %br
+      
+        %strong Amount Charged
+        =number_to_currency (t.amount/100)
+        %br/
+
+      %td
+        %strong Method
+        =t.meth.titleize
+        %br/
+        
+        %strong Card
+        AmEx (xxxx-1234)
+        %br/ 
+
+        %strong Location
+        =t.origin.titleize
+        %br/
+
+        %strong IP Address
+        =order.ip_address
+        

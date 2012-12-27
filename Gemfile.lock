@@ -106,6 +106,9 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.7.0)
     binding_of_caller (0.6.8)
+    bootstrap-kaminari-views (0.0.2)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -377,6 +380,7 @@ DEPENDENCIES
   backbone-support
   better_errors
   binding_of_caller
+  bootstrap-kaminari-views
   ckeditor (= 3.7.3)!
   codemirror-rails
   coffee-rails (~> 3.2.1)

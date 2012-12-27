@@ -14,7 +14,7 @@
   =#new_user_session_path
   =#destroy_user_session_path
   =link_to 'Logout', '/users/sign_out', :method => :delete
-  ="<!--Role: #{current_user.role}-->".html_safe
+  =#"<!--Role: #{current_user.role}-->".html_safe
 -else
   =link_to 'Sign In', new_user_session_path
   |

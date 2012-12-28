@@ -3,11 +3,11 @@
   
   %strong= current_user.email
   
-  -if current_user.has_at_least_role :employee
+  -if current_user.has_at_least_role :manager
     |
     =link_to 'Manager', '/manager'
-    | 
-  
+    
+  | 
   =link_to 'My Account', front_orders_path
   |
 

@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
      
      # Must be employee or higher
      # If not, take home
-     unless current_user.has_at_least_role(:employee)
+     unless current_user.has_at_least_role(:manager)
        redirect_to '/', :notice => 'Insufficient permissions'
        return false       
      end

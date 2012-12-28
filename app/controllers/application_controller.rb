@@ -9,10 +9,9 @@ class ApplicationController < ActionController::Base
   
   private
 
-  def set_current_account
+  def set_current_account    
     # Cases
-    
-    if request.host == 'www.jamminjava.com'
+    if request.host == 'www.jamminjava.com' || request.host == 'jamminjava.thintix.com'
       redirect_to 'https://jamminjava.com'
     end
     

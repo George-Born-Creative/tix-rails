@@ -84,8 +84,7 @@
               -############# RECEIPT #############
               %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
                 %td{:width => "592"}
-                  -@order.tickets.each do |ticket|
-                    =render :partial => 'front/orders/tickets_receipt', :locals => {:order => @order}
+                  =render :partial => 'front/orders/tickets_receipt', :locals => {:order => @order}
 
           
               -############# ARTWORK #############

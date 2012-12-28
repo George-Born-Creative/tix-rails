@@ -46,7 +46,7 @@ class Tix.Collections.Cart extends Backbone.Collection
 
   addSeat: (data)->
     # console.log "Cart.addSeat called"
-    
+    self = this
  
     seat = new Tix.Models.Seat
       section: data.section
@@ -56,19 +56,19 @@ class Tix.Collections.Cart extends Backbone.Collection
       base: data.section.current_price.base
       service: data.section.current_price.service
       tax: data.section.current_price.tax
-        
-    # console.log 'Add Seat'
-    # console.log seat
-    # console.log seat.url()
-    
-  
-    @push(seat)
     
     $.ajax
       type: 'POST'
       url: seat.url()
+      dataType: 'json'
       success: (data)->
-        alert('Success' + data)
+        self.push(seat)
+        # console.log data
+      error: (data)->
+        alert 'Oh no! Someone beat you to the punch and just nabbed this seat.\n\n Please choose another seat or try again in 10 minutes. That\'s when this seat will be released if the other party does not complete her purchase. \n\n --Jammin Java Ticketing\n     (tickets@jamminjava.com)'
+        # console.log 'error'
+        # console.log data
+
         
   subtotal: -> @_sumFormatted('base')
   service_total: ->  @_sumFormatted('service')

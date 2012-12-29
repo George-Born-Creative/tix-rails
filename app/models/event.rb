@@ -110,7 +110,6 @@ class Event < ActiveRecord::Base
   
   scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.zone.now, Time.zone.now] }}
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.zone.now, Time.zone.now] }}  
-  scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.zone.now] }}  
   scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.zone.now - 3.hours] }}  
   scope :historical, lambda {{ :conditions => ["starts_at < ?", Time.zone.now] }}  
   scope :past, lambda {{ :conditions => ["starts_at < ?", Time.zone.now] }}  

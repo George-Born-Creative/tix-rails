@@ -112,11 +112,6 @@
                     %hr/
                     
                     
-                  -[:off_sale_at, :remove_at].each do |time|
-                    %h5=time.to_s
-                    =@event.send(time).to_formatted_s(:date_y) << " " << @event.send(time).to_formatted_s(:time)
-                    
-                    %hr/
                     
 
             

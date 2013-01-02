@@ -65,9 +65,10 @@ class Front::OrdersController < InheritedResources::Base
        params[:order][:deliver_tickets] = true
        params[:order][:payment_method_name] = 'card'
        params[:order][:payment_origin_name] = 'web'
-       
+       # don't override service charge
+       # clear out if already overridden (e.g. on an error)
+       params[:order][:service_charge_override] = nil 
      end
-     
      
      parse_date! 
      

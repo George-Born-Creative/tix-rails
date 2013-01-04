@@ -68,10 +68,11 @@ class Event < ActiveRecord::Base
   end
    
   def set_supporting_act_ids
-    if self.supporting_act_ids_concat
+    unless self.supporting_act_ids_concat.blank?
       self.supporting_act_ids = self.supporting_act_ids_concat.split(',')
       self.touch
     end
+    true
   end
   
   attr_accessor :starts_at_formatted 

@@ -16,6 +16,8 @@ class Widget < ActiveRecord::Base
   has_many :widget_placements, :dependent => :destroy
   has_many :sidebars, :through => :widget_placements
   belongs_to :account
+
+  before_save :touch_sidebars
   
   attr_accessible :body, :slug, :title, :account_id, :sidebar_ids
   
@@ -24,6 +26,16 @@ class Widget < ActiveRecord::Base
   
   accepts_nested_attributes_for :sidebars
   
+  
+  private
+  
+  def touch_sidebars
+    return true if sidebars.empty?
+    sidebars.each do |sidebar|
+      sidebar.touch
+    end
+    true
+  end
   
   
 end

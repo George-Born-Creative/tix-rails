@@ -87,26 +87,27 @@
                 %td Purchased At
                 %td Checked in?
                 
-            -@event.tickets.complete.order('last_name DESC, id DESC').each do |ticket|
-              %tr
-                %td
-                  -unless ticket.order.nil? || ticket.order.user.nil?
-                    =link_to ticket.order.user.last_name, user_path(ticket.order.user)
-                %td
-                  -unless ticket.order.nil? || ticket.order.user.nil?
-                    =link_to ticket.order.user.first_name, user_path(ticket.order.user)
+            -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? OR first_name = ?', '', '']].each do |scope|
+              -@event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
+                %tr
+                  %td
+                    -unless ticket.order.nil? || ticket.order.first_name.blank?
+                      =ticket.order.last_name.titlecase
+                  %td
+                    -unless ticket.order.nil? || ticket.order.first_name.blank?
+                      =ticket.order.first_name.titlecase
                 
-                %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
-                %td=ticket.area.label
-                %td=ticket.section.label
-                %td=number_to_currency ticket.base_price
-                %td=ticket.order.purchased_at.to_formatted_s(:short)
-                %td
-                  %div{:class => "checkin-link-#{ticket.id}"}
-                    -if ticket.checked_in?
-                      yes
-                    -else
-                      =link_to 'no', ticket_checkin_path(ticket), :remote => true
+                  %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
+                  %td=ticket.area.label
+                  %td=ticket.section.label
+                  %td=number_to_currency ticket.base_price
+                  %td=ticket.order.purchased_at.to_formatted_s(:short)
+                  %td
+                    %div{:class => "checkin-link-#{ticket.id}"}
+                      -if ticket.checked_in?
+                        yes
+                      -else
+                        =link_to 'no', ticket_checkin_path(ticket), :remote => true
               
               
   

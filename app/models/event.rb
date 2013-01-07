@@ -225,7 +225,12 @@ class Event < ActiveRecord::Base
      info.gsub(/\n/, '<br/>')
    end
   
-  
+  # Append today's date onto normal timestamp-based cache key
+  # so cache resets at midnight each day. Needed so day-of
+  # pricing takes effect
+  def cache_key
+    super + "-" + Time.zone.today.strftime('%Y-%m-%d')
+  end
   
   private
   
@@ -275,6 +280,7 @@ class Event < ActiveRecord::Base
       return false
     end
   end
+  
 
   
 end

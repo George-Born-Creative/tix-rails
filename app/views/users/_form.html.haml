@@ -1,0 +1,25 @@
+.span3
+  .widget
+    .widget-content
+      =simple_form_for @user do |f|
+        %fieldset
+          =f.input :first_name
+          =f.input :middle_name
+          =f.input :last_name
+          =f.input :email
+          =f.input :role, :as => :select, :collection => User::ROLES
+  
+        %fieldset
+          =f.simple_fields_for :address do |a|
+            =a.input :address_line_1
+            =a.input :address_line_2
+            =a.input :city
+            =a.input :state
+            =a.input :zip
+      
+      
+        %fieldset
+          =f.simple_fields_for :phone do |ph|
+            =ph.input :number
+      
+        =f.submit

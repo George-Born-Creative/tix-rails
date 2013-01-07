@@ -38,9 +38,9 @@
     .span5
       %h2 Seating Chart
       %h4
-        %strong Click on the map to select your seats.
+        %strong Click on the map below to select your seats.
 
-      %table.table.no-border
+      %table.table.no-border{:style => 'color: #aaa'}
         -# TODO: Store these section descriptions directly on the section object.
         -# Prototyping design for now
         -if @event.chart.has_section?('VIP')

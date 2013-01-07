@@ -1,19 +1,14 @@
 module PagesHelper
-  
-  
-  # 1. For each shortcode
+    # 1. For each shortcode
         # Scan for code
-        # FOr each match
-        # Capture groups 
-        # Call function with prp
-        # 
-        
+        # For each match
+          # Capture groups 
+          # Call function with params/args
   
   def render_shortcodes(html)
     html = apply_events_list(html)
     html = apply_carousels(html)
   end
-  
   
   def apply_carousels(html)
    regex = /\[(carousel) name=\&[a-z]+;([a-z0-9|]+[|]?)+\&[a-z]+;\]/
@@ -27,7 +22,6 @@ module PagesHelper
     html
   end
   
-  
   def apply_events_list(html)
     #events_list_regex = /\[events_list cat=\&[a-z]+;([a-z0-9]+)\&[a-z]+;\]/
     regex = /\[(events_list) cat=\&[a-z]+;([a-z0-9|_]+[|]?)+\&[a-z]+;\]/
@@ -40,11 +34,5 @@ module PagesHelper
     end
     
     html
-    
   end
-  
-  
-  
-  
-  
 end

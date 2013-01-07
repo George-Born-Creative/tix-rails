@@ -239,9 +239,12 @@ class Event < ActiveRecord::Base
   def set_default_times # called before save
     
     # TODO: Make these into account-level settings
+    # TODO: When using .select, expecting these attrs to exist
+    # may pose a probelm. Check if attr exists first.
     
     now = Time.zone.now 
     
+    # Set default show start time to right now if its doesn't exist
     self.starts_at = Time.zone.now if self.starts_at.nil?
     
     # For now, these are always 3 hours after show start tim

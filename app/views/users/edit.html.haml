@@ -1,0 +1,7 @@
+.row
+  =render 'form'
+
+  .span9
+    .widget
+      .widget-content
+        =render :partial => 'orders/list', :locals => {:orders => @user.orders.order('purchased_at desc').complete}

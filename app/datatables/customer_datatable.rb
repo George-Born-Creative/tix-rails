@@ -30,12 +30,10 @@ private
     customers.map do |customer|
       
       [
-        customer.first_name,
-        customer.last_name,
-        number_to_currency(customer.balance),
-        number_to_currency(customer.total_sales),        
-        customer.role,
-        link_to('Edit', "/manager/users/#{customer.id.to_s}")
+        link_to(customer.first_name, "/manager/users/#{customer.id.to_s}"),
+        link_to(customer.last_name, "/manager/users/#{customer.id.to_s}"),
+        link_to(customer.email, "/manager/users/#{customer.id.to_s}"),
+        number_to_currency(customer.total_sales)     
       ]
     end
   end

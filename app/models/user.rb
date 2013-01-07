@@ -53,7 +53,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name,  :middle_name, :last_name, :salutation, :title,
-                  :role, :account_id, :phone, :newsletter_opt_in, :accept_terms_conditions
+                  :role, :account_id, :phone, :newsletter_opt_in, :accept_terms_conditions,
+                  :address_attributes, :phone_attributes
  
   # http://rubydoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
   # Reset token with every save
@@ -66,6 +67,8 @@ class User < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
   has_one :phone, :as => :phonable, :dependent => :destroy
   
+  accepts_nested_attributes_for :address, :phone
+
   has_many :tickets, :through => :orders
   belongs_to :account
   
@@ -154,7 +157,7 @@ class User < ActiveRecord::Base
            :select => 'sum(balance)'
            )
     end
-  
+
   end
   
   

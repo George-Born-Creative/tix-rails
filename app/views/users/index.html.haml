@@ -1,31 +1,20 @@
 
-
-.row
-  
-  .span8
-    %h1 Customer Relationship Manager
-    
-  .span8.last
-    =#link_to 'Import Customers as CSV', new_customer_import_path, :class => "button"
-
+.span8.offset2
+  %h1 Customers
   .widget.widget-table.action-table
     %table#customers.table.table-striped.table-bordered.display{:data => {:source => users_url(format: 'json') }}
       %thead
-        %td 
         %td First Name
         %td Last Name
-        %td Account Balance
+        %td Email
         %td Total sales
-      
-        %td Action
-      
-      
+    
       -@users.each do |u|
         %tr
           %td
             %a{:href => user_path(u)}
             %img{:src => u.gravatar_url}
-      
+    
           %td{:valign => 'middle' }= u.first_name
           %td= u.last_name
           %td= u.total_sales

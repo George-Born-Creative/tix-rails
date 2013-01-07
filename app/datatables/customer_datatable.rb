@@ -49,8 +49,7 @@ private
     if params[:sSearch].present?
       customers = @account.users
                           .with_role(:customer)
-                          .where("last_name ILIKE :search OR first_name like :search OR email like :search",  search: "%#{params[:sSearch]}%")
-                          .page(page).per(per_page)
+                          .where("lower(first_name || ' ' || last_name || ' ' || email) ILIKE :search",  search: "%#{params[:sSearch]}%")
                           .order("#{sort_column} #{sort_direction}").page(page).per(per_page)
                           
     else

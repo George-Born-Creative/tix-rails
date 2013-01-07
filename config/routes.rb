@@ -53,6 +53,8 @@ Tix::Application.routes.draw do
    get '/reports/event_guestlist/:event_id' => 'reports#event_guestlist'
    get '/reports/event_sales/:event_id' => 'reports#event_sales'
    get '/reports/sales_over_time' => 'reports#sales_over_time'
+   get '/reports/:action', :controller => 'Reports'
+   
 
     resources :gateways
     post '/gateways/:id/activate' => 'gateways#activate'

@@ -34,9 +34,9 @@ class ReportsController < ApplicationController
   def sales_over_time
     @day = Date.strptime( params[:day], "%Y-%m-%d" )
     @orders = @current_account.orders.purchased_on_date( params[:day] )
+  end  
+  
+  def most_valuable_customers
+    @customers = User.most_valuable_customers(:account_id => @current_account.id)
   end
-  
-  
-  
-  
 end

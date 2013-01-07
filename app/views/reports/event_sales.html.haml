@@ -1,8 +1,17 @@
 .row
   .span3{:style => 'text-align: left'}
-    -@current_account.events.all.each do |event|
+  
+    %a{:class => 'btn', :href => 'javascript:;', :data => { :action => 'toggle-visibility', :off_selector => '.historical', :on_selector => '.current' }}
+      Current
+    %a{:class => 'btn', :href => 'javascript:;', :data => { :action => 'toggle-visibility', :off_selector => '.current', :on_selector => '.historical' }}
+      Historical
+      
+    %hr/
+  
+    -@current_account.events.order('starts_at ASC').each do |event|
       -if event.tickets.complete.count > 0
-        %a{:href => "/manager/reports/event_sales/#{event.id}", :style => 'background-color: white; display: block; margin-bottom: 3px; border: 1px solid #ccc; padding: 4px' }
+        -klass = event.starts_at < Time.zone.now ? 'historical' : 'current'
+        %a{:class => klass, :href => "/manager/reports/event_sales/#{event.id}", :style => 'background-color: white; display: block; margin-bottom: 3px; border: 1px solid #ccc; padding: 4px' }
           =event.name
           %br/
           =event.starts_at.to_formatted_s(:date_slashes)
@@ -92,7 +101,10 @@
                 %tr
                   %td
                     -unless ticket.order.nil? || ticket.order.first_name.blank?
-                      =ticket.order.last_name.titlecase
+                      -if ticket.order.user
+                        =link_to ticket.order.last_name.titlecase, user_path(ticket.order.user)
+                      -else
+                        =ticket.order.last_name.titlecase
                   %td
                     -unless ticket.order.nil? || ticket.order.first_name.blank?
                       =ticket.order.first_name.titlecase
@@ -100,7 +112,7 @@
                   %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
                   %td=ticket.area.label
                   %td=ticket.section.label
-                  %td=number_to_currency ticket.base_price
+                  %td=link_to number_to_currency(ticket.base_price), order_path(ticket.order)
                   %td=ticket.order.purchased_at.to_formatted_s(:short)
                   %td
                     %div{:class => "checkin-link-#{ticket.id}"}

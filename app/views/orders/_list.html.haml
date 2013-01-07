@@ -8,6 +8,15 @@
     %th Qty
     %th Total
     %th Where?
+  %tfoot
+    %td
+    %td
+    %td 
+    %td
+    %td
+    %td= number_to_currency orders.sum('total')
+    %td
+    
   %tbody
     -orders.each do |order|
       %tr

@@ -1,0 +1,20 @@
+.row
+  .span8.offset2
+    .widget
+      .widget-content
+        %h1 Most Valuable Customers
+    
+        =link_to '« back', '/manager/reports'
+    
+        %table.table
+          %thead
+            %th
+            %th
+            %th
+          -@customers.each do |customer|
+            %tr
+              %td=link_to customer['id'], user_path(customer['id'])
+              %td=link_to customer['first_name'], user_path(customer['id'])
+              %td=link_to customer['last_name'], user_path(customer['id'])
+              %td=link_to customer['email'], user_path(customer['id'])
+              %td=number_to_currency customer['sum']

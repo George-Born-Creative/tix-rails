@@ -151,17 +151,33 @@ class User < ActiveRecord::Base
   end
   
   
-  class << 
-    def total_balance
-      find(:all, 
-           :select => 'sum(balance)'
-           )
-    end
-
+  def self.total_balance
+    find(:all, 
+         :select => 'sum(balance)'
+         )
   end
   
-  
+  def self.most_valuable_customers(opts={})
+    raise 'Most valuable customers requires an account ID' if opts[:account_id].blank?
     
-  
+    opts.reverse_merge!({
+      :limit => 100
+    })
+    
+    # Sanitize. TODO escape the fragment properly
+    opts[:limit] = opts[:limit].to_i
+        
+    query = """SELECT users.id, users.first_name, users.last_name, users.email, sum(orders.total)
+    FROM users
+    RIGHT OUTER JOIN orders
+    ON orders.user_id = users.id OR orders.agent_id = users.id
+    WHERE users.account_id = #{opts[:account_id]}
+    GROUP BY users.id, users.last_name, users.first_name
+    HAVING sum(orders.total) > 0
+    ORDER BY sum(orders.total) DESC
+    LIMIT #{opts[:limit]}"""
+
+    res = ActiveRecord::Base.connection.execute(query)  
+  end
   
 end

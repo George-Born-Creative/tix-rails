@@ -16,7 +16,7 @@ window.TixMgr =
     @initDatatables()
     @initColorPicker()
     @initSVGHover()
-    
+    @initToggler()
     _.templateSettings = 
       interpolate : /\{\{(.+?)\}\}/g
   
@@ -65,7 +65,7 @@ window.TixMgr =
           bServerSide: true
           sAjaxSource: $('#customers').data('source')
           'aoColumnDefs': [
-            { "bSortable": false, "aTargets": [ 3] } # these corespond to the events table columns
+            { "bSortable": false, "aTargets": [ 3 ] } # these corespond to the events table columns
           ]
         
       }).addClass('display')
@@ -85,6 +85,16 @@ window.TixMgr =
   initNav: ->
     activeurl = window.location.pathname
     $('a[href="'+activeurl+'"]').parent('li').addClass('active')
+    
+  initToggler: ->
+    $('a[data-action="toggle-visibility"]').click ->
+      console.log 'toggle visibility clicked'
+      
+      on_selector = $(this).data('on_selector')
+      off_selector = $(this).data('off_selector')
+      
+      $(on_selector).show()
+      $(off_selector).hide()
     
     
 Number::formatMoney = (c, d, t) ->

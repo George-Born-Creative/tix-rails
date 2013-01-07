@@ -23,7 +23,7 @@
   .span3
     =render 'day_nav'
 
-  .span9
+  .span6
     .widget
       .widget-header
         %h3 By Show
@@ -34,40 +34,47 @@
             %span.badge=link_to 'Historical', '/manager/reports?time=historical'
         
         
-          .span1
-            %h5
-              %i.icon-list-alt{:style => 'zoom: 100%'}
-          
-          .span4  
-            %h5
-              %i.icon-check{:style => 'zoom: 100%'}
-      
-    
         %hr/
   
         -@events.each do |event|
           -if event.tickets.complete.count > 0
             .row
-              .span1
-                =event.headliner.photo(:thumb) if !event.headliner.blank? && event.headliner.photo?
-              .span4
-                %strong=event.title
-                =event.starts_at.to_formatted_s(:shorty)
+              .span3
+                %strong=link_to event.title, "/manager/reports/event_sales/#{event.id}"
+                =event.starts_at.to_formatted_s(:jammin_java_short)
                 %br/
                 %br/
+                
               .span1
                 ="#{event.tickets.checked_in.count} / #{event.tickets.complete.count}"
                 %br/
                 %span{:style => 'color: #ccc'}
                   ="#{(event.tickets.checked_in.count.to_f / event.tickets.complete.count.to_f * 100).to_i}%"
 
-              .span3
-                -if event.tickets.complete.count > 0
-                  %span.badge.badge-info=link_to 'Details', "/manager/reports/event_sales/#{event.id}"
-                -else
-                  &nbsp;
+              .span1
                 %span.badge.badge-warning=link_to 'Edit', edit_event_path(event)
                 %span.badge.badge-success=link_to 'View', front_event_path(event)
  
-        
+  .span3
+    .widget
+      .widget-header
+        %h3 Customers & Orders
+      .widget-content
+        =link_to "Most Valuable Customers »", '/manager/reports/most_valuable_customers'
+        %hr/
+        %ul.no-list-style
+          %h4 Order Stream
+          -@current_account.orders.complete.order('purchased_at DESC').limit(50).each do |order|
+            %li
+              -if order.user
+                =link_to "#{order.first_name} #{order.last_name}", user_path(order.user_id)
+              -elsif order.agent
+                =link_to "#{order.agent.first_name} #{order.agent.last_name}", user_path(order.agent_id)
+              ="#{order.tickets.count}x"
+              for 
+              =link_to "#{number_to_currency order.total}", order_path(order)
+              %br/
+              =distance_of_time_in_words_to_now(order.purchased_at) + ' ago'
+              %br/
+              %br/
           

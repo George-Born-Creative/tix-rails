@@ -41,10 +41,6 @@ class Ticket < ActiveRecord::Base
   before_save :update_service_charge  
   before_create :set_attributes
   
-  def log_before_save
-    puts "ticket#before_save"
-  end
-  
   belongs_to :account
   belongs_to :order, :inverse_of => :tickets
   belongs_to :event

@@ -20,3 +20,5 @@
 .env
 dump.rdb
 deploy.sh
+
+stash

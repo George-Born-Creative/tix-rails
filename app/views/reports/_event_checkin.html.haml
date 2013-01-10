@@ -28,7 +28,7 @@
           %td Purchased At
           %td Checked in?
           
-      -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? OR first_name = ?', '', '']].each do |scope|
+      -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? AND first_name = ?', '', '']].each do |scope|
         -event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
           %tr
             %td.last_name

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 
 group :assets do
   gem 'sass'
@@ -81,7 +81,7 @@ gem 'redis'
 gem "moonshado-sms"
 #gem 'postmark-rails', '>= 0.4.1'
 
-gem 'devise'
+gem 'devise', '~> 2.1.2'
 #gem 'cancan'
 
 # gem 'backbone-forms-rails', :git => 'git@github.com:env/backbone-forms-rails.git'

@@ -1,0 +1,37 @@
+.widget
+  .widget-content
+    %input#checkin_search.input{:type => 'text', :placeholder => 'type to filter', :style => 'font-size: 20px; padding: 15px 3px 8px'}
+    %table#checkin.table.table-bordered.table-striped
+      %thead
+        %tr
+          %td Last
+          %td First
+          %td Agent
+          %td Label
+          %td Section
+          %td Total
+          %td Purchased At
+          %td Checked in?
+          
+      -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? OR first_name = ?', '', '']].each do |scope|
+        -event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
+          %tr
+            %td.last_name
+              -unless ticket.order.nil? || ticket.order.first_name.blank?
+                -if ticket.order.user
+                  =link_to ticket.order.last_name.titlecase, user_path(ticket.order.user)
+                -else
+                  =ticket.order.last_name.titlecase
+            %td
+              -unless ticket.order.nil? || ticket.order.first_name.blank?
+                =ticket.order.first_name.titlecase
+          
+            %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
+            %td=ticket.area.label
+            %td=ticket.section.label
+            %td=link_to number_to_currency(ticket.base_price), order_path(ticket.order)
+            %td=ticket.order.purchased_at.to_formatted_s(:short)
+            %td
+              %div{:class => "checkin-link-#{ticket.id}"}
+                -klass = ticket.checked_in? ? '' : 'btn-warning'
+                =link_to '<i class="btn-icon-only icon-ok"></i>'.html_safe, ticket_checkin_toggle_path(ticket), :remote => true, :class => "btn btn-large #{klass}"

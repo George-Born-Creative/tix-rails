@@ -19,6 +19,9 @@ window.TixMgr =
     @initToggler()
     _.templateSettings = 
       interpolate : /\{\{(.+?)\}\}/g
+      
+    @initReportingEventSearch()
+    @initCheckinSearch()
   
   startChartRouter: (data)->
     chart = new Backbone.NestedModel(data.chart)
@@ -96,7 +99,16 @@ window.TixMgr =
       $(on_selector).show()
       $(off_selector).hide()
     
-    
+  initReportingEventSearch: ->
+    if $('.events-list-nav').length
+      $('input#event_menu_search').liveSearch('.events-list-nav', '.event', 'a')
+      
+  initCheckinSearch: ->
+    if $('table#checkin tbody').length
+      $('input#checkin_search').liveSearch('table#checkin tbody', 'tr', '.last_name')
+
+
+
 Number::formatMoney = (c, d, t) ->
   n = this
   c = (if isNaN(c = Math.abs(c)) then 2 else c)

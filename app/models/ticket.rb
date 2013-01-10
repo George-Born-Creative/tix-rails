@@ -100,6 +100,18 @@ class Ticket < ActiveRecord::Base
     end
   end
   
+  def checkin_toggle!
+    if checked_in_at.nil?
+      puts 'Setting to now'
+      self.update_attribute(:checked_in_at, Time.zone.now)
+      return true
+    else
+      puts 'Setting to nil'
+      self.update_attribute(:checked_in_at, nil)
+      return false
+    end
+  end
+  
   def event
     area.section.chart.event
   end

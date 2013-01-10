@@ -29,6 +29,8 @@
 //= require codemirror/modes/css
 //= require codemirror/jquery.codemirror.js
 //= require ckeditor/init
+//=require jquery.livesearch/quicksilver.js
+//=require jquery.livesearch/jquery.livesearch.js
 
 // require_tree ./lib/templates
 //= require ./lib/tixlib

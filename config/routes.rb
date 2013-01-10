@@ -13,6 +13,7 @@ Tix::Application.routes.draw do
   match '/static/:action', :controller => 'Front::Static'
   
   get '/tickets/:id/checkin' => 'Front::Tickets#checkin', :as => 'ticket_checkin'
+  get '/tickets/:id/checkin_toggle' => 'Front::Tickets#checkin_toggle', :as => 'ticket_checkin_toggle'
   get '/orders/:id/checkin' => 'Front::Orders#checkin_tickets!', :as => 'order_checkin'
   
   post '/users/user_env' => 'Front::Users#user_env'
@@ -53,6 +54,7 @@ Tix::Application.routes.draw do
    get '/reports/event_guestlist/:event_id' => 'reports#event_guestlist'
    get '/reports/event_sales/:event_id' => 'reports#event_sales'
    get '/reports/sales_over_time' => 'reports#sales_over_time'
+   get '/reports/checkin/:event_id' => 'reports#checkin'
    get '/reports/:action', :controller => 'Reports'
    
 

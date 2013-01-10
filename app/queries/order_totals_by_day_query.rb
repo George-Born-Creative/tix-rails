@@ -8,7 +8,7 @@ class OrderTotalsByDayQuery
   end
   
   def exec
-    res = ActiveRecord::Base.connection.execute( sanitized_query )
+    res = ActiveRecord::Base.connection.execute( query_sanitized )
     postprocess_query(res)
   end
   
@@ -24,7 +24,7 @@ class OrderTotalsByDayQuery
     end
   end
   
-  def sanitized_query
+  def query_sanitized
     ActiveRecord::Base.send(:sanitize_sql_array, query_array)
   end
   
@@ -32,7 +32,7 @@ class OrderTotalsByDayQuery
     # > Time.zone.formatted_offset
     # => "-05:00" 
     # > Time.zone.formatted_offset[-5,5]
-    # => "-05:00"
+    # => "05:00"
     
     tz = "#{Time.zone.formatted_offset}"[-5,5]
     dir = "#{Time.zone.formatted_offset}"[0] == '-' ? '-' : '+' 

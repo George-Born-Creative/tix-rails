@@ -1,22 +1,17 @@
 .row
-  .span4
+  .span3
     =render('day_nav')
   
-  .span8
-    .row
-      .span3
-        %h3=link_to "« #{@day-1}", "/manager/reports/sales_over_time?day=#{@day-1}"
-      .span3
-        %h3=@day
-      .span2
-        %h3=link_to "#{@day+1} »", "/manager/reports/sales_over_time?day=#{@day+1}"
-      
-    
+  .span7
     .widget
-      .widget-header
-        %h3 Events sold today
       .widget-content
-      
+        .widget-header
+          .span2
+            %h3=link_to "« #{@day-1}", "/manager/reports/sales_over_time?day=#{@day-1}"
+          .span2
+            %h3=@day
+          .span2
+            %h3=link_to "#{@day+1} »", "/manager/reports/sales_over_time?day=#{@day+1}"
         -#h[t.event.title] = {:id => nil, :count => 0, :base => 0.0, :service => 0.0, :total => 0.0 } if h[t.event.title].blank?
       
         %table.table
@@ -44,7 +39,7 @@
             
             
     .row   
-      .span4
+      .span3
         .widget
           .widget-header
             %h3 By Method of Payment
@@ -58,7 +53,7 @@
                   %td=order.payment_method_name
                   %td=number_to_currency order.total
               
-      .span4      
+      .span3    
         .widget
           .widget-header
             %h3 By Origin of Sale

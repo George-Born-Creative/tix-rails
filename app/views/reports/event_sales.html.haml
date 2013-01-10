@@ -1,36 +1,17 @@
 .row
-  .span3{:style => 'text-align: left'}
-  
-    %a{:class => 'btn', :href => 'javascript:;', :data => { :action => 'toggle-visibility', :off_selector => '.historical', :on_selector => '.current' }}
-      Current
-    %a{:class => 'btn', :href => 'javascript:;', :data => { :action => 'toggle-visibility', :off_selector => '.current', :on_selector => '.historical' }}
-      Historical
-      
-    %hr/
-  
-    -@current_account.events.order('starts_at ASC').each do |event|
-      -if event.tickets.complete.count > 0
-        -klass = event.starts_at < Time.zone.now ? 'historical' : 'current'
-        %a{:class => klass, :href => "/manager/reports/event_sales/#{event.id}", :style => 'background-color: white; display: block; margin-bottom: 3px; border: 1px solid #ccc; padding: 4px' }
-          =event.name
-          %br/
-          =event.starts_at.to_formatted_s(:date_slashes)
-          %strong
-            ="(#{event.tickets.checked_in.count}/#{event.tickets.complete.count})"
-          %br/
-    
-    
-  .span8
-    .row
+  .span3
+    =render :partial => 'event_menu', :locals => {:action => 'event_sales'}
+          
+  .span7
     .widget-content
       %h2 
         Sales for
         =@event.name
-    
+      =link_to 'Checkin customers for this event', "/manager/reports/checkin/#{@event.id}"
       .span3
         %h5 Show Time
         %h4=@event.starts_at.to_formatted_s(:shorty)
-      .span4
+      .span3
         %h5 Report Run Time
         %h4=Time.zone.now.to_formatted_s(:shorty)
         %br/
@@ -55,6 +36,7 @@
         .widget-header
           %h3 By Section
         .widget-content
+
           %table.table.table-bordered.table-striped
             %thead
               %tr
@@ -80,49 +62,6 @@
                 %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.checked_in.count }.sum }.sum
 
 
-      .widget
-        .widget-header
-          %h3 By Tickets
-        .widget-content
-          %table.table.table-bordered.table-striped
-            %thead
-              %tr
-                %td Last
-                %td First
-                %td Agent
-                %td Label
-                %td Section
-                %td Total
-                %td Purchased At
-                %td Checked in?
-                
-            -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? OR first_name = ?', '', '']].each do |scope|
-              -@event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
-                %tr
-                  %td
-                    -unless ticket.order.nil? || ticket.order.first_name.blank?
-                      -if ticket.order.user
-                        =link_to ticket.order.last_name.titlecase, user_path(ticket.order.user)
-                      -else
-                        =ticket.order.last_name.titlecase
-                  %td
-                    -unless ticket.order.nil? || ticket.order.first_name.blank?
-                      =ticket.order.first_name.titlecase
-                
-                  %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
-                  %td=ticket.area.label
-                  %td=ticket.section.label
-                  %td=link_to number_to_currency(ticket.base_price), order_path(ticket.order)
-                  %td=ticket.order.purchased_at.to_formatted_s(:short)
-                  %td
-                    %div{:class => "checkin-link-#{ticket.id}"}
-                      -if ticket.checked_in?
-                        yes
-                      -else
-                        =link_to 'no', ticket_checkin_path(ticket), :remote => true
-              
-              
-  
       .widget
         .widget-header
           %h3 Unsold

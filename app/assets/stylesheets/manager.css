@@ -1,9 +1,9 @@
-//*= require bootstrap/fonts.css
-//*= require bootstrap/font-awesome.css
 //*= require bootstrap/bootstrap
 //*= require bootstrap/bootstrap-responsive
 //*= require bootstrap/base-admin.css
 //*= require bootstrap/base-admin-responsive.css
+//*= require bootstrap/fonts.css
+//*= require bootstrap/font-awesome.css
 //= require ../lib/jquery.minicolors/jquery.miniColors
 //= require ../lib/bootstrap/datepicker/css/datepicker
 //= require ../lib/bootstrap/timepicker/css/timepicker

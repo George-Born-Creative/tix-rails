@@ -14,7 +14,7 @@ Tix::Application.routes.draw do
   
   get '/tickets/:id/checkin' => 'Front::Tickets#checkin', :as => 'ticket_checkin'
   get '/tickets/:id/checkin_toggle' => 'Front::Tickets#checkin_toggle', :as => 'ticket_checkin_toggle'
-  get '/orders/:id/checkin' => 'Front::Orders#checkin_tickets!', :as => 'order_checkin'
+  get '/tickets/:id/checkin_toggle_order' => 'Front::Tickets#checkin_toggle_order', :as => 'ticket_checkin_toggle_order'
   
   post '/users/user_env' => 'Front::Users#user_env'
   post '/users/login_env' => 'Front::Users#login_env'

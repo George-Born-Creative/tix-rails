@@ -18,14 +18,18 @@ class Front::TicketsController < ApplicationController
   def checkin_toggle
     @ticket = @current_account.tickets.find(params[:id])
     @checked_in = @ticket.checkin_toggle!
-    
     respond_to do |format|
-      format.html {
-        redirect_to '/'
-      }
       format.js {}
     end
+  end
+  
+  def checkin_toggle_order
+    @ticket = @current_account.tickets.find(params[:id])
+    @statuses = @ticket.checkin_toggle_order!
     
+    respond_to do |format|
+      format.js {}
+    end
   end
  
  

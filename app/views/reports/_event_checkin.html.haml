@@ -26,8 +26,11 @@
           %td Section
           %td Total
           %td Purchased At
-          %td Checked in?
-          
+          %td Order
+          %td Ticket
+      
+      -order_set = Set.new
+      
       -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? AND first_name = ?', '', '']].each do |scope|
         -event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
           %tr
@@ -46,7 +49,16 @@
             %td=ticket.section_label
             %td=link_to number_to_currency(ticket.base_price), order_path(ticket.order)
             %td=ticket.order.purchased_at.to_formatted_s(:short)
+            
+            %td
+              -unless order_set.include? ticket.order_id
+                -order_set.add ticket.order_id
+                %div{:class => "order-checkin-link-#{ticket.order.id}"}
+                  =link_to '<i class="btn-icon-only icon-ok"></i>'.html_safe, ticket_checkin_toggle_order_path(ticket), :remote => true, :class => "btn"
+
             %td
               %div{:class => "checkin-link-#{ticket.id}"}
                 -klass = ticket.checked_in? ? 'btn-warning' : ''
-                =link_to '<i class="btn-icon-only icon-ok"></i>'.html_safe, ticket_checkin_toggle_path(ticket), :remote => true, :class => "btn btn-large #{klass}"
+                =link_to '<i class="btn-icon-only icon-ok"></i>'.html_safe, ticket_checkin_toggle_path(ticket), :remote => true, :class => "btn #{klass}"
+            
+           

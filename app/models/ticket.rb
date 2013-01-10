@@ -112,6 +112,17 @@ class Ticket < ActiveRecord::Base
     end
   end
   
+  def checkin_toggle_order!
+    statuses = {}
+    order.tickets.each do |ticket|
+      if ticket.event_id == self.event_id
+        ticket.checkin_toggle!
+        statuses[ticket.id] = ticket.checked_in?
+      end
+    end
+    statuses
+  end
+  
   def event
     area.section.chart.event
   end

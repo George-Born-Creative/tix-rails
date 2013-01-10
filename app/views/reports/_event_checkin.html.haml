@@ -1,4 +1,9 @@
 .widget
+  .widget-header
+    %h3
+      =@event.name
+      ="//"
+      =@event.starts_at.to_formatted_s(:jammin_java)
   .widget-content
     %input#checkin_search.input{:type => 'text', :placeholder => 'type to filter', :style => 'font-size: 20px; padding: 15px 3px 8px'}
     %table#checkin.table.table-bordered.table-striped

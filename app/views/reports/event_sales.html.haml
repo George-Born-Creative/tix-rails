@@ -3,15 +3,21 @@
     =render :partial => 'event_menu', :locals => {:action => 'event_sales'}
           
   .span7
-    .widget-content
-      %h2 
-        Sales for
+    .widget-header
+      %h3 
+        Sales:
         =@event.name
-      =link_to 'Checkin customers for this event', "/manager/reports/checkin/#{@event.id}"
-      .span3
+        ="//"
+        =@event.starts_at.to_formatted_s(:jammin_java)
+    .widget-content
+      .span2
+        %br/
+        %br/
+        =link_to 'Checkin Customers', "/manager/reports/checkin/#{@event.id}", :class => 'btn'
+      .span2
         %h5 Show Time
         %h4=@event.starts_at.to_formatted_s(:shorty)
-      .span3
+      .span2
         %h5 Report Run Time
         %h4=Time.zone.now.to_formatted_s(:shorty)
         %br/

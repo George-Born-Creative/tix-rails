@@ -15,7 +15,7 @@ class EventSalesAggregatesQuery
   def postprocess_query(res)
     return res.map do |row|
       {
-        :starts_at => DateTime.parse( row['starts_at'] ),
+        :starts_at => DateTime.parse( row['starts_at'] ).in_time_zone,
         :title => row['title'],
         :id => row['id'],
         :tickets_sold => row['tickets_sold'].to_i,

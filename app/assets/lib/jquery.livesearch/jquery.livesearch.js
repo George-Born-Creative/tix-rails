@@ -9,7 +9,6 @@ jQuery.fn.liveSearch = function(list, selectorToToggle, selectorToSearchOn){
     			return jQuery(this).find(selectorToSearchOn).text().toLowerCase();
     		});
 		
-		console.log([rows, cache]);
 		
 		this
 			.keyup(filter).keyup()

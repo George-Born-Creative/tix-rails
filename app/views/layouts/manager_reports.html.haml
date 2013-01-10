@@ -1,33 +1,16 @@
 -content_for :content do
-  .row.hide
-    .span12
-      .widget.big-stats-container
-        .widget-content
-          #big_stats.cf
-            .stat
-              %h4 Today
-              %span.value{:style => 'font-size: 2.3em;'}=Time.zone.today
-
-            .stat
-              %h4 Sales Today
-              %span.value= number_to_currency( @current_account.orders.purchased_today.sum('total').to_s, :precision => 0)
-              
-            .stat
-              %h4 Current Events
-              %span.value=@current_account.events.count
-
-
-            .stat
-              -cache ['v1', 'sales_all_time'], :expires_in => 1.day do
-                %h4 Sales All Time
-                %span.value= number_to_currency( @current_account.orders.sum('total').to_s, :precision => 0 )
-
   .row
     .span2
       .widget
         .widget-content
           
           %ul.nav.nav-list.affix
+            
+            %li 
+              %a.active{:href => '/manager/reports'}
+                %i.icon-chevron-right
+                Overview
+            
             %li 
               %a.active{:href => '/manager/reports/event_sales'}
                 %i.icon-chevron-right

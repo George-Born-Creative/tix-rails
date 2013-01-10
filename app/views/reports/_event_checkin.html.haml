@@ -1,7 +1,7 @@
 .widget
   .widget-header
     %h3
-      =@event.name
+      =@event.name.truncate(50)
       ="//"
       =@event.starts_at.to_formatted_s(:jammin_java)
   .widget-content
@@ -42,7 +42,6 @@
                 =ticket.order.first_name.titlecase
           
             %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
-            %td=ticket.area.label
             %td=ticket.area_label
             %td=ticket.section_label
             %td=link_to number_to_currency(ticket.base_price), order_path(ticket.order)

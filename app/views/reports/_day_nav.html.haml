@@ -1,6 +1,8 @@
 .widget
   .widget-content
-
-    -OrderTotalsByDayQuery.new(@current_account.id).exec.each do |row|
+    -totals = OrderTotalsByDayQuery.new(@current_account.id).exec
+    
+    =totals.slice(1).each do |row|
       =link_to "#{row[:date]} (#{row[:count]} #{number_to_currency row[:total]})", "/manager/reports/sales_over_time?day=#{row[:date]}"
       %br/
+      

@@ -5,7 +5,17 @@
       ="//"
       =@event.starts_at.to_formatted_s(:jammin_java)
   .widget-content
-    %input#checkin_search.input{:type => 'text', :placeholder => 'type to filter', :style => 'font-size: 20px; padding: 15px 3px 8px'}
+    .row
+      .span3
+        %input#checkin_search.input{:type => 'text', :placeholder => 'type to filter', :style => 'font-size: 20px; padding: 15px 3px 8px'}
+      .span3
+        =link_to 'Event Report', "/manager/reports/event_sales/#{event.id}", :class => 'btn'
+
+        %p{:style => 'color: #aaa'} 
+          Note: 
+          %span{:style => 'color: orange'} orange 
+          means checked in
+      
     %table#checkin.table.table-bordered.table-striped
       %thead
         %tr
@@ -38,5 +48,5 @@
             %td=ticket.order.purchased_at.to_formatted_s(:short)
             %td
               %div{:class => "checkin-link-#{ticket.id}"}
-                -klass = ticket.checked_in? ? '' : 'btn-warning'
+                -klass = ticket.checked_in? ? 'btn-warning' : ''
                 =link_to '<i class="btn-icon-only icon-ok"></i>'.html_safe, ticket_checkin_toggle_path(ticket), :remote => true, :class => "btn btn-large #{klass}"

@@ -229,7 +229,8 @@ class Event < ActiveRecord::Base
   # so cache resets at midnight each day. Needed so day-of
   # pricing takes effect
   def cache_key
-    super + "-" + Time.zone.today.strftime('%Y-%m-%d')
+    on_sale_str = on_sale? ? 'on_sale' : 'off_sale'
+    [super, Time.zone.today.strftime('%Y-%m-%d'), on_sale_str].join('-')
   end
   
   private

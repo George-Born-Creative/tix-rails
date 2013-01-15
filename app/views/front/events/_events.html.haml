@@ -2,6 +2,4 @@
   .row
     .span9
       -events.each do |event|
-        -cache ['v1', event] do
-          -#="<!-- cache v1 #{event.cache_key}-->".html_safe
-          =render :partial => 'front/events/event', :locals => { :event => event }
+        =render :partial => 'front/events/event', :locals => { :event => event }

@@ -30,89 +30,88 @@
   -cache ['v1', @event, 'title'] do
     =@event.name + ' » Events'
   
--cache ['v1', @event, 'detail_page'] do
-  .event-detail-page
-    .row
-      .span7
-        -unless @event.headliner.blank? || !@event.headliner.photo?
-          =image_tag(@event.headliner.photo(:original), :width => '100%')
-      .span5
-        .event-info
-          %p.starts-at=@event.starts_at.to_formatted_s :jammin_java
-          -if @event.chart
-            -# TODO: Event should have chart
-            %p.current-prices=@event.current_prices_str
+.event-detail-page
+  .row
+    .span7
+      -unless @event.headliner.blank? || !@event.headliner.photo?
+        =image_tag(@event.headliner.photo(:original), :width => '100%')
+    .span5
+      .event-info
+        %p.starts-at=@event.starts_at.to_formatted_s :jammin_java
+        -if @event.chart
+          -# TODO: Event should have chart
+          %p.current-prices=@event.current_prices_str
+      
+        =render :partial => 'event_title', :locals => {:event => @event}
+  
+  
+      .set-times
+        -unless @event.set_times.empty?
+          %p=@event.set_times_formatted.html_safe
+    
+          %p After the show -- The lobby bar stays open!
+  
+      .controls
+        =render :partial => 'front/events/buttons', :locals => {:event => @event, :context => :detail }
+    
+
+  .row
+    .span7
+  
+      -unless @event.body.blank?
+        =@event.body.html_safe
+  
+      .artist-bios
+        %h1 Bios
+
+        -unless @event.headliner.blank?
+          .headliner
+            %h3= @event.headliner.name
+            =raw @event.headliner.body.html_safe
         
-          =render :partial => 'event_title', :locals => {:event => @event}
+            =artist_social_bar(@event.headliner)   
     
     
-        .set-times
-          -unless @event.set_times.empty?
-            %p=@event.set_times_formatted.html_safe
+        -unless @event.secondary_headliner.blank?
+          .secondary-headliner
+            %hr.red-thin
+    
+            /Secondary Headliner
+    
+            %h3= @event.secondary_headliner.name
+            =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
+    
+            =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank?
+            =artist_social_bar(@event.secondary_headliner)   
+    
+    
+        -unless @event.supporting_acts.blank?
+          %hr.red-thin
+          -@event.supporting_acts.each do |artist|
+            .supporting-act
+              =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
+    
+              %h3= artist.name
+              =artist.body.html_safe unless artist.body.blank?
       
-            %p After the show -- The lobby bar stays open!
-    
-        .controls
-          =render :partial => 'front/events/buttons', :locals => {:event => @event, :context => :detail }
+              =artist_social_bar( artist )
       
-
-    .row
-      .span7
-    
-        -unless @event.body.blank?
-          =@event.body.html_safe
-    
-        .artist-bios
-          %h1 Bios
-
-          -unless @event.headliner.blank?
-            .headliner
-              %h3= @event.headliner.name
-              =raw @event.headliner.body.html_safe
-          
-              =artist_social_bar(@event.headliner)   
-      
-      
-          -unless @event.secondary_headliner.blank?
-            .secondary-headliner
               %hr.red-thin
       
-              /Secondary Headliner
-      
-              %h3= @event.secondary_headliner.name
-              =image_tag(@event.secondary_headliner.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if @event.secondary_headliner.photo?
-      
-              =@event.secondary_headliner.body.html_safe unless @event.secondary_headliner.body.blank?
-              =artist_social_bar(@event.secondary_headliner)   
-      
-      
-          -unless @event.supporting_acts.blank?
-            %hr.red-thin
-            -@event.supporting_acts.each do |artist|
-              .supporting-act
-                =image_tag(artist.photo(:medium), :style => 'float:left; padding: 10px 20px 10px 0') if artist.photo?
-      
-                %h3= artist.name
-                =artist.body.html_safe unless artist.body.blank?
-        
-                =artist_social_bar( artist )
-        
-                %hr.red-thin
-        
 
-      .span5
-        .additional-info
-          -unless @event.info.blank?
-            %h2 Additional Info
-            %hr.red
-            %p=@event.info_formatted.html_safe unless @event.info.blank?
-            %hr.red
-        .videos
-      
-          - unless (@event.headliner.blank? || @event.headliner.youtube1.blank?)
-            %h2 Videos
-            =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') 
+    .span5
+      .additional-info
+        -unless @event.info.blank?
+          %h2 Additional Info
+          %hr.red
+          %p=@event.info_formatted.html_safe unless @event.info.blank?
+          %hr.red
+      .videos
+    
+        - unless (@event.headliner.blank? || @event.headliner.youtube1.blank?)
+          %h2 Videos
+          =youtube_resize( @event.headliner.youtube1 , :width => '100%', :height => '300') 
 
-          - unless (@event.secondary_headliner.blank? || @event.secondary_headliner.youtube1.blank?)
-            =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300')
+        - unless (@event.secondary_headliner.blank? || @event.secondary_headliner.youtube1.blank?)
+          =youtube_resize( @event.secondary_headliner.youtube1 , :width => '100%', :height => '300')
       

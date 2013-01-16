@@ -15,7 +15,7 @@
 
 class CarouselItem < ActiveRecord::Base
   attr_accessible :title, :caption, :link, :image, :expires_at, :index, :carousel, :image_attributes
-  belongs_to :carousel
+  belongs_to :carousel, :touch => true
   
   delegate :account, :to => :carousel
   

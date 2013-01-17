@@ -1,9 +1,6 @@
 class OrdersController < InheritedResources::Base
   respond_to :json, :html
 
-  
-
-  
   def tickets
     @tickets = Order.find(params[:id]).tickets
     
@@ -13,6 +10,24 @@ class OrdersController < InheritedResources::Base
     end
   end
   
+  def resend_tickets
+    @email = params[:email]
+    @order = Order.find(params[:id])
+    
+    if @email.nil?
+      @response = "Email cannot be blank."
+    elsif @order.nil?
+      @response = "Order ##{params[:id]} not found."
+    else
+      @order.deliver_tickets!(@email)
+      @response = "Tickets were emailed to #{@email}"
+    end
+    
+    respond_to do |format|
+      format.js {  }
+    end
+    
+  end
   
   protected
   

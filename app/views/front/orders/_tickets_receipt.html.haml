@@ -67,7 +67,7 @@
 
 
 
--order.transactions.each do |t|
+-unless (t=order.transactions.success.last).nil?
   %table{:width => '100%', :style => "letter-spacing: normal; word-spacing: 0px; text-shadow: none; color: #000000; font-size: 10px; line-height: 17px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;  margin-top:0; padding-top:0; margin-right:0; padding: 10px "}
     %tr
       %td
@@ -84,7 +84,7 @@
         %strong Transaction Time
         =t.created_at.in_time_zone.to_formatted_s(:jammin_java)
         %br
-      
+    
         %strong Amount Charged
         =number_to_currency (t.amount/100)
         %br/
@@ -93,7 +93,7 @@
         %strong Method
         =t.meth.titleize
         %br/
-        
+      
         -# %strong Card
         -# AmEx (xxxx-1234)
         -# %br/ 
@@ -104,4 +104,4 @@
 
         %strong IP Address
         =order.ip_address
-        
+      

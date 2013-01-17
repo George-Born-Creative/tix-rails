@@ -90,13 +90,13 @@
               -############# ARTWORK #############
               %tr{:align => "left", :style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
                 %td{:width => "592"}
-                  -1.times do
+                  -unless (artwork = @order.account.ticket_templates.first).nil?
                     %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border-collapse: collapse; border-spacing: 0; margin-top: 0px !important; padding-top: 0px !important; border: 0;", :width => "592"}
                       %tbody
                         %tr{:style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
                           %td{:align => "left", :bgcolor => "#ffffff", :height => "219", :style => "background-color: #f0f0f0; ", :valign => "top", :width => "592"}
                             %div{:style => 'margin-bottom: 10px; margin-top: 10px;'}
-                              %img{:alt => "", :height => "219", :src => "https://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/107/original/jj-email-artwork.jpg", :style => "display: block; line-height: 1; padding: 0; border: 0;", :width => "592"}/
+                              %img{:alt => "", :height => "219", :src => artwork.file(:original), :style => "display: block; line-height: 1; padding: 0; border: 0;", :width => "592"}/
           
              
               -############# COPYRIGHT #############

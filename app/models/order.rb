@@ -297,9 +297,9 @@ class Order < ActiveRecord::Base
     '%.0f' % ( expires_at - Time.now )
   end
   
-  def deliver_tickets!
+  def deliver_tickets!(email_override=nil)
     # # puts   'Order.deliver_tickets! called' 
-    TicketMailer.delay.send_tickets(self.account.id, self.id)
+    TicketMailer.delay.send_tickets(self.account.id, self.id, email_override)
   end
 
   def price_in_cents

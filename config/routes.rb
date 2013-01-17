@@ -82,6 +82,8 @@ Tix::Application.routes.draw do
     
     resources :orders
     get '/orders/:id/tickets' => 'orders#tickets'
+    post '/orders/:id/resend_tickets' => 'orders#resend_tickets'
+    
     
     resources :charts
     get '/charts/:id/clone_for_event/:event_id' => 'charts#clone_for_event'

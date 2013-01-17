@@ -12,9 +12,13 @@
 .row
   .span1
     %h2 Tickets
-  .span2.offset1{:style => 'position: relative; float: right'}
-    =link_to 'Tickets<i class="icon icon-tags"></i>'.html_safe, "/manager/orders/#{order.id}/tickets", :class => 'btn btn-large'
-  
+.row
+  .span5
+    =form_tag "/manager/orders/#{order.id}/resend_tickets.js", :remote => true, :style => 'float: left' do
+      =text_field_tag 'email', @order.email
+      =submit_tag "Resend Tickets", :class => 'btn'
+      =link_to 'View Tickets', "/orders/#{order.id}/tickets", :class => 'btn'
+    
 %hr/
 
 %table.table.table-striped

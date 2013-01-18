@@ -15,7 +15,8 @@
     =raw render_shortcodes( @page.body )
     %br/
   
-=content_for :sidebar do 
+=content_for :sidebar do
+  
   -if  @page && @page.slug == 'home'
     .today
       =image_tag('https://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/050/medium/today-1.png?1351803066',  width: '100%')
@@ -25,7 +26,9 @@
           %br/
     %br/
   
-  ="<!-- v1 #{@page.sidebar.cache_key} -->".html_safe
-  
+  %hr.red/
+  =form_tag '/search', :method => 'get' do
+    =text_field_tag 'q', '', :placeholder => 'Search...', :style => 'width: 160px; margin-right: 10px; float: left;'
+    =submit_tag '?', :style => 'margin: 0'
   -cache ['v1', @page.sidebar] do
     =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

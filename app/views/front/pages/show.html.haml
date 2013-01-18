@@ -4,8 +4,9 @@
 
 -content_for :content_nine do
   -if @page.slug == 'home'
-    -cache ['v1', @page, 'carousel'] do
-      =raw render_shortcodes('[carousel name=&quot;home&quot;]')
+    -@carousel = @current_account.carousels.find_by_slug('home')
+    -cache ['v1', @carousel, 'home'] do
+      =raw render_carousel @carousel
   
   -# Dont cache here because underlying models may update
   -# Instead perform per-model caching in helpers using partials
@@ -13,7 +14,6 @@
   -if @page && @page.body
     =raw render_shortcodes( @page.body )
     %br/
-  
   
 =content_for :sidebar do 
   -if  @page && @page.slug == 'home'

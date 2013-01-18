@@ -16,7 +16,7 @@ module PagesHelper
     html.gsub!(regex) do |match|
       slug = $2
       @carousel = Carousel.find_by_slug(slug)
-      render(:partial => 'carousels/carousel_full', :locals => {:carousel => @carousel })
+      render_carousel( @carousel )
     end
 
     html
@@ -30,9 +30,12 @@ module PagesHelper
       cats = $2.split('|').map{|c| c.to_sym}
        @events = @current_account.events.cat(cats).current.announced.order('starts_at ASC')  
       render(:partial => 'front/events/events', :locals => {:events => @events})
-
     end
     
     html
+  end
+     
+  def render_carousel(carousel)
+    render(:partial => 'carousels/carousel_full', :locals => {:carousel => carousel })
   end
 end

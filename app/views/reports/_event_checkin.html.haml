@@ -17,17 +17,6 @@
           means checked in
       
     %table#checkin.table.table-bordered.table-striped
-      %thead
-        %tr
-          %td Last
-          %td First
-          %td Agent
-          %td Label
-          %td Section
-          %td Total
-          %td Purchased At
-          %td Order
-          %td Ticket
       
       -order_set = Set.new
       
@@ -35,20 +24,17 @@
         -event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
           %tr
             %td.last_name
+              -name = "#{ticket.order.last_name}, #{ticket.order.first_name}".titlecase
+            
               -unless ticket.order.nil? || ticket.order.first_name.blank?
                 -if ticket.order.user
-                  =link_to ticket.order.last_name.titlecase, user_path(ticket.order.user)
+                  =link_to name, user_path(ticket.order.user)
+                  
                 -else
-                  =ticket.order.last_name.titlecase
-            %td
-              -unless ticket.order.nil? || ticket.order.first_name.blank?
-                =ticket.order.first_name.titlecase
+                  =name
           
-            %td=ticket.order.agent.first_name unless ticket.order.nil? || ticket.order.agent.nil?
-            %td=ticket.area_label
-            %td=ticket.section_label
-            %td=link_to number_to_currency(ticket.base_price), order_path(ticket.order)
-            %td=ticket.order.purchased_at.to_formatted_s(:short)
+            %td="#{ticket.area_label} / #{ticket.section_label}"
+            %td=link_to number_to_currency(ticket.base_price, :precision => 0), order_path(ticket.order)
             
             %td
               -unless order_set.include? ticket.order_id

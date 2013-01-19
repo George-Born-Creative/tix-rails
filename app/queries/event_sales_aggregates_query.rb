@@ -1,5 +1,7 @@
 class EventSalesAggregatesQuery
   
+  # TODO This query is wrong and should be replaced. Outer join is not appropriate
+  
   def initialize(account_id)
     @account_id = account_id
     
@@ -38,10 +40,10 @@ class EventSalesAggregatesQuery
       SELECT 
       	events.id, 
       	events.title, 
-          events.starts_at, 
+        events.starts_at, 
       	count(tickets) as tickets_sold, 
       	count(case when tickets.checked_in_at IS NOT NULL then 1 end) AS tickets_checked_in,
-          sum(tickets.base_price) + sum(tickets.service_charge) as tickets_total
+        sum(tickets.base_price) + sum(tickets.service_charge) as tickets_total
       FROM events
       LEFT OUTER JOIN tickets
       ON tickets.event_id = events.id

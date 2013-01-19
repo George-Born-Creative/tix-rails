@@ -5,7 +5,6 @@ class ReportsController < ApplicationController
   before_filter :populate_event_totals, :only => [:index, :event_sales]
   
   def index
-    @event_totals = EventSalesAggregatesQuery.new(@current_account.id).exec
   end
   
   def event_guestlist

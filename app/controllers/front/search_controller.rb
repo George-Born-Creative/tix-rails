@@ -5,7 +5,7 @@ class Front::SearchController < ApplicationController
     @query = params[:q]
     
     unless @query.blank?
-      @events = @current_account.events.current.announced.where('title @@ to_tsquery(?)', "%#{@query}%")
+      @events = @current_account.events.current.announced.where('title @@ ?', "%#{@query}%")
     end
     
     respond_to do |format|

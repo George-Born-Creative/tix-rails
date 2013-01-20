@@ -61,7 +61,7 @@ class EventSalesTotalsQuery
       WHERE orders.purchased_at IS NOT null
       AND orders.account_id = #{@account_id}
       GROUP BY event_id, event_title, events.starts_at, day_of
-      ORDER BY event_id ASC
+      ORDER BY event_starts_at ASC
       
     }
   end

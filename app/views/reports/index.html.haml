@@ -16,6 +16,6 @@
             %span.value=@current_account.events.count
 
           .stat
-            -cache ['v1', 'sales_all_time'], :expires_in => 1.day do
+            -cache ['v1', 'sales_all_time'], :expires_in => 1.hour do
               %h4 Sales All Time
               %span.value= number_to_currency( @current_account.orders.sum('total').to_s, :precision => 0 )

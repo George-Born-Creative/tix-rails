@@ -1,0 +1,20 @@
+-content_for :sidebar do
+  =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @sidebar}
+  
+  
+-content_for :content_nine do
+  .row
+    =form_tag '/search', :method => 'get' do |f|
+      .span3
+        =text_field_tag 'q', params[:q], :placeholder => 'Search...', :style => 'font-size: 15px; padding: 10px 5px;'
+      .span4
+        =submit_tag 'submit', :class => 'btn', :style => 'margin: 0'
+
+  %hr.red-thin
+  
+  -if @events.nil?
+    Type a term to search.
+  -elsif @events.blank?
+    No results found
+  -else
+    =render(:partial => 'front/events/events', :locals => {:events => @events})

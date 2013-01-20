@@ -48,11 +48,14 @@ Tix::Application.routes.draw do
   match '/home/main/contact' => redirect("/contact") 
   match '/home/lobbybar' => redirect("/lobby-bar") 
   match '/home/main/about' => redirect("/about") 
-    
+  
+  get '/search/' => 'Front::Search#index'
+  
   scope '/manager' do
    get '/reports' => 'reports#index'
    get '/reports/event_guestlist/:event_id' => 'reports#event_guestlist'
    get '/reports/event_sales/:event_id' => 'reports#event_sales'
+   get '/reports/event_totals' => 'reports#event_totals'
    get '/reports/sales_over_time' => 'reports#sales_over_time'
    get '/reports/checkin/:event_id' => 'reports#checkin'
    get '/reports/:action', :controller => 'Reports'

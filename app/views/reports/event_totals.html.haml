@@ -1,0 +1,28 @@
+.row
+  .span3
+    =render :partial => 'event_menu', :locals => {:action => 'event_sales'}
+          
+  .span7
+    .widget-header
+      %h3 Totals by Event
+    .widget-content
+      -# %input#event_sales_totals_search{:type => 'text', :placeholder => 'type to filter'}
+    
+      %table.table#event_totals
+        -uniq_events = Set.new
+        -@events.each do |event|
+          %tr{:style => (event[:day_of] ? '' : 'border-top: 10px solid #ddd')}
+            -unless uniq_events.include?(event[:event_id])
+              -uniq_events.add(event[:event_id])
+            
+              %td
+                =link_to event[:event_title], "/manager/reports/event_sales/#{event[:event_id]}"
+                %br/
+                =event[:event_starts_at].to_formatted_s(:jammin_java)
+            -else
+              %td
+            %td=event[:day_of] ? 'Day Of' : 'Presale'
+            %td=number_to_currency event[:total_base_price], :precision => 0
+            %td=number_to_currency event[:total_service_charge], :precision => 0
+            %td=number_to_currency event[:total], :precision => 0
+              

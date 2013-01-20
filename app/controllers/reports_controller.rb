@@ -1,17 +1,18 @@
 class ReportsController < ApplicationController
   respond_to :json, :html
   layout 'manager_reports'
-
-  before_filter :populate_event_totals, :only => [:index, :event_sales]
   
   def index
-    @event_totals = EventSalesAggregatesQuery.new(@current_account.id).exec
   end
   
   def event_guestlist
     @event = @current_account.events.find(params[:event_id])
     @orders = @current_account.orders.complete.joins(:tickets).where('tickets.event_id = ?', params[:event_id])
     @tickets = @current_account.tickets.complete.where('tickets.event_id = ?', params[:event_id])
+  end
+    
+  def event_totals
+    @events = EventSalesTotalsQuery.new(@current_account.id).exec
   end
   
   def event_sales
@@ -42,8 +43,5 @@ class ReportsController < ApplicationController
   
   private
   
-  def populate_event_totals
-    
-  end
   
 end

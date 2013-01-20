@@ -57,9 +57,7 @@
             -unless order.events_uniq_with_counts.blank?
               -order.events_uniq_with_counts.each do |event,count|
                 ="#{count}x #{event} "
-      
-          %td=order.state
-        
+              
           %td
             %a.btn.btn-primary.btn-large{:href => order_path(order)} view
           -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'

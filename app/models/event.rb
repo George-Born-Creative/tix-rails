@@ -68,7 +68,11 @@ class Event < ActiveRecord::Base
   end
    
   def set_supporting_act_ids
-    self.supporting_act_ids = self.supporting_act_ids_concat.split(',')
+    unless supporting_act_ids_concat.nil?
+      self.supporting_act_ids = self.supporting_act_ids_concat.split(',')
+    else
+      self.supporting_act_ids = nil
+    end
     self.touch
     true
   end

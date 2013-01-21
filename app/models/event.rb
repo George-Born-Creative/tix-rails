@@ -163,20 +163,6 @@ class Event < ActiveRecord::Base
     prices
   end
   
-  def current_prices_str
-    return nil if self.chart.nil?
-    
-    #return self.chart.sections.seatable.order('label ASC').to_sql
-    str = self.chart.sections.seatable.order('label DESC').reduce('') do |memo, section|
-      base = "%.2f" % section.current_price.base
-      base = base[0..-4] if base[-3,3] == '.00' # convert 10.00 to 10 otherwise full
-      memo += "#{section.label} $#{base} / " 
-    end
- 
-    str[0..-3] # return string without trailing slash
-  end
-  
-  
   # e.g. "Some Artist + Some Other Artist + Some Third Arits"
   def artists_str
     headliners_str + supporting_acts_str

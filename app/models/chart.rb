@@ -100,6 +100,7 @@ class Chart < ActiveRecord::Base
     sections.includes(:areas)
   end
 
+
   # CLASS METHODS
 
   def self.inventories_optimized_query(chart_id)
@@ -153,7 +154,7 @@ class Chart < ActiveRecord::Base
     inventories
   end
   
-
+ 
 
 
 

@@ -40,7 +40,7 @@
         %p.starts-at=@event.starts_at.to_formatted_s :jammin_java
         -if @event.chart
           -# TODO: Event should have chart
-          %p.current-prices=@event.current_prices_str
+          %p.current-prices=@event.chart.decorate.prices_str
       
         =render :partial => 'event_title', :locals => {:event => @event}
   

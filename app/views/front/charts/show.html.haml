@@ -20,7 +20,7 @@
     
       =render :partial => 'front/events/event_title', :locals => {:event => @event}
       
-      %p.small=@event.current_prices_str
+      %p.small=@chart.prices_str
 
     
     .span4
@@ -43,18 +43,18 @@
       %table.table.no-border{:style => 'color: #aaa'}
         -# TODO: Store these section descriptions directly on the section object.
         -# Prototyping design for now
-        -if @event.chart.has_section?('VIP')
+        -if @chart.has_section?('VIP')
           %tr
             %td
               %strong VIP
             %td Reserved seating in elevated, set apart area. Great views, exclusive section.
             
-        -if @event.chart.has_section?('Premier') || @event.chart.has_section?('Seated')
+        -if @chart.has_section?('Premier') || @chart.has_section?('Seated')
           %tr
             %td 
               %strong Premier
             %td Reserved seating at one of the eight tables closest to the stage.
-        -if @event.chart.has_section?('GA') || @event.chart.has_section?('General Admission')
+        -if @chart.has_section?('GA') || @chart.has_section?('General Admission')
           %tr
             %td
               %strong General Admission (GA)

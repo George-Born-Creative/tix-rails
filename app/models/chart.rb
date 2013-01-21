@@ -100,6 +100,9 @@ class Chart < ActiveRecord::Base
     sections.includes(:areas)
   end
 
+  def copy
+    dup( :except => :master, :include => [:sections => [:dayof_price, :presale_price, :areas]] )
+  end
 
   # CLASS METHODS
 

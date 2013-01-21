@@ -1,79 +1,71 @@
-.row
-  .span3
-    =render :partial => 'event_menu', :locals => {:action => 'event_sales'}
-          
-  .span7
-    .widget-header
-      %h3 
-        Sales:
-        =@event.name
-        ="//"
-        =@event.starts_at.to_formatted_s(:jammin_java)
-    .widget-content
-      .span2
-        %br/
-        %br/
-        =link_to 'Checkin Customers', "/manager/reports/checkin/#{@event.id}", :class => 'btn'
-      .span2
-        %h5 Show Time
-        %h4=@event.starts_at.to_formatted_s(:shorty)
-      .span2
-        %h5 Report Run Time
-        %h4=Time.zone.now.to_formatted_s(:shorty)
-        %br/
+.widget
+  .widget-header
+    %h3 
+      Sales:
+      =@event.name
+      ="//"
+      =@event.starts_at.to_formatted_s(:jammin_java)
+  .widget-content
+    .span3
+      %h5 Show Time
+      %h4=@event.starts_at.to_formatted_s(:shorty)
+    .span3
+      %h5 Report Run Time
+      %h4=Time.zone.now.to_formatted_s(:shorty)
+      %br/
+      
+    .widget
+      .widget-header
+        %h3 Grand Total
+      .widget-content
         
-      .widget
-        .widget-header
-          %h3 Grand Total
-        .widget-content
-          
 
-          %table.table.table-bordered.table-striped
-            %thead
-              %td Base Price
-              %td Service Charge
-              %td Total
+        %table.table.table-bordered.table-striped
+          %thead
+            %td Base Price
+            %td Service Charge
+            %td Total
+          %tr
+            %td=number_to_currency @event.tickets.complete.total_base
+            %td=number_to_currency @event.tickets.complete.total_service
+            %td=number_to_currency @event.tickets.complete.total
+
+    .widget
+      .widget-header
+        %h3 By Section
+      .widget-content
+
+        %table.table.table-bordered.table-striped
+          %thead
             %tr
-              %td=number_to_currency @event.tickets.complete.total_base
-              %td=number_to_currency @event.tickets.complete.total_service
-              %td=number_to_currency @event.tickets.complete.total
-
-      .widget
-        .widget-header
-          %h3 By Section
-        .widget-content
-
-          %table.table.table-bordered.table-striped
-            %thead
+              %td Section
+              %td Max Tickets
+              %td Sold
+              %td Available
+              %td Checked In
+          %tbody
+            -@event.chart.sections.seatable.each do |section|
               %tr
-                %td Section
-                %td Max Tickets
-                %td Sold
-                %td Available
-                %td Checked In
-            %tbody
-              -@event.chart.sections.seatable.each do |section|
-                %tr
-                  %td=section.label
-                  %td=section.areas.map(&:max_tickets).sum
-                  %td=section.areas.map{ |a| a.tickets.complete.count }.sum
-                  %td=section.areas.map(&:inventory).sum
-                  %td=section.areas.map{ |a| a.tickets.checked_in.count }.sum
-            %tfoot
-              %tr
-                %td Total
-                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.max_tickets }.sum }.sum
-                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.complete.count }.sum }.sum
-                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.inventory }.sum }.sum
-                %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.checked_in.count }.sum }.sum
+                %td=section.label
+                %td=section.areas.map(&:max_tickets).sum
+                %td=section.areas.map{ |a| a.tickets.complete.count }.sum
+                %td=section.areas.map(&:inventory).sum
+                %td=section.areas.map{ |a| a.tickets.checked_in.count }.sum
+          %tfoot
+            %tr
+              %td Total
+              %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.max_tickets }.sum }.sum
+              %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.complete.count }.sum }.sum
+              %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.inventory }.sum }.sum
+              %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.checked_in.count }.sum }.sum
 
 
-      .widget
-        .widget-header
-          %h3 Unsold
-        .widget-content
-          -@event.chart.sections.seatable.each do |section|
-            %h5= section.label
-            -section.areas.reject{|area| area.inventory < 1}.each do |a|
-              -a.inventory.times do 
-                =a.label
+    .widget
+      .widget-header
+        %h3 Unsold
+      .widget-content
+        -@event.chart.sections.seatable.each do |section|
+          %h5= section.label
+          -section.areas.reject{|area| area.inventory < 1}.each do |a|
+            -a.inventory.times do 
+              =a.label

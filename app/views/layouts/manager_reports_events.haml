@@ -1,0 +1,14 @@
+-content_for :content do
+  .row
+    .span2
+      =render :template => 'reports/reports_nav'
+    .span3
+      =render :partial => 'event_menu', :locals => {:action => 'event_sales'}
+
+    .span7
+      -unless @event.nil?
+        =render :partial => 'reports/event_nav', :locals => {:event => @event }
+        
+      =yield
+
+=render :template => 'layouts/manager'

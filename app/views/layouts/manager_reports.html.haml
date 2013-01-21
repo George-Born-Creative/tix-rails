@@ -1,30 +1,7 @@
 -content_for :content do
   .row
     .span2
-      .widget
-        .widget-content
-          
-          %ul.nav.nav-list.affix
-            
-            %li 
-              %a.active{:href => '/manager/reports'}
-                Overview
-            
-            %li 
-              %a.active{:href => '/manager/reports/event_totals'}
-                Events
-              
-            %li 
-              %a{:href => '/manager/reports/sales_over_time'}
-                Time
-              
-            %li 
-              %a{:href => '/manager/reports/checkin'}
-                Checkin
-            
-            %li 
-              %a{:href => '/manager/reports/most_valuable_customers'}
-                Customers
+      =render :template => 'reports/reports_nav'
 
     =yield
 =render :template => 'layouts/manager'

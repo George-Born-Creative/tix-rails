@@ -1,80 +1,46 @@
 =content_for :javascript do
   :javascript
     TixMgr.startEventEditRouter()
-  
-.row
-  .span12
-    .widget.big-stats-container
-      .widget-content
-        #big_stats.cf
-          .stat
-            %h4 Total Tickets Sold
-            %span.value=link_to @event.tickets.complete.count, "/manager/reports/event_guestlist/#{@event.id}"
-
-          .stat
-            %h4 Sold Tickets Checked in
-            %span.value=#@event.tickets.checked_in.count
-
-          .stat
-            %h4 Min Ticket Price
-            -unless @event.current_prices_arr.nil?
-              %span.value=number_to_currency @event.current_prices_arr.min
-
-          .stat
-            %h4 Max ticket Price
-            -unless @event.current_prices_arr.nil?
-              %span.value=number_to_currency @event.current_prices_arr.max
             
+:css
+  a.accordion-toggle {
+    font-size: 1.5em
+  }
+    
 
 .row
   =simple_form_for @event, :multipart => true do |f|
     .span8
       .widget
-        .widget-header
-          %i.icon-pushpin
-          %h3 Edit Event
-      
-        .widget-content
-    
-      
-          .row
-            .span8
-              .control-group
-                %label.control-label
-                .controls
-                  =f.input :title, :input_html => { :style => 'width: 90%; font-size: 30px; height: 40px'}
-                  =f.input :slug, :input_html => { :style => 'width: 90%; '}
-                  
-                  =f.input :disable_event_title#, :as => :checkbox
-      
-          .row
-            .span8
-              .control-group
-                %label.control-label
-                .controls
-                  =f.input :body, :as => :ckeditor, :toolbar => 'easy',  :input_html => { :style => 'width: 100%', :height => '700'}
-        
-        
-    
-    .span4
-      .widget.widget-plain
-        .widget-content
-
-          =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
-
-          =link_to '+ New Event', new_event_path, :class => 'btn btn-large btn-support-contact'
-          
-          -if @event.id
-            =link_to 'Preview', front_event_path(@event) + '?preview=yes', :class => 'btn btn-large btn-support-contact'
-            =link_to 'Delete', event_path(@event), :method => :delete, :confirm => "Are you sure?", :class => 'btn btn-large btn-support-contact btn btn-danger'
-            
-
-       
-      .widget
         .widget-content
           #event_edit_accordion.accordion
-          
-          
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseTitle"}
+                  Title
+              #collapseTitle.accordion-body.collapse
+                .accordion-inner
+                  .control-group
+                    %label.control-label
+                      .controls
+                        =f.input :title, :input_html => { :style => 'width: 90%; font-size: 30px; height: 40px'}
+                        =f.input :slug, :input_html => { :style => 'width: 90%; '}
+            
+                        =f.input :disable_event_title#, :as => :checkbox
+  
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseBody"}
+                  Page
+              #collapseBody.accordion-body.collapse
+                .accordion-inner
+                  .control-group
+                    %label.control-label
+                    .controls
+                      =f.input :body, :as => :ckeditor, :toolbar => 'easy',  :input_html => { :style => 'width: 100%', :height => '700'}
+
+                  
+
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseZero"}
@@ -82,7 +48,7 @@
               #collapseZero.accordion-body.collapse
                 .accordion-inner
                   =f.input :cat, :as => :select, :collection => Event::CATEGORIES, :prompt => '- choose a category - ', :label => 'Category'
-          
+  
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
@@ -90,8 +56,8 @@
               #collapseOne.accordion-body.collapse
                 .accordion-inner
                   =render :partial => 'artist_controls', :locals => {:event => @event}
-                  
-                  
+          
+          
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-parent" => "#event_edit_accordion", "data-toggle" => "collapse", :href => "#collapseTwo"}
@@ -105,16 +71,12 @@
                   .yesno
                     %span On Sale?
                     =@event.on_sale? ? 'Yes' : 'No'
-                    
-                  
+            
+          
                   -(Event::TIMES).each do |time|
                     =render :partial => 'datetime_control', :locals => { :field => time }
                     %hr/
-                    
-                    
-                    
-
-            
+          
             
             .accordion-group
               .accordion-heading
@@ -148,4 +110,39 @@
                   =f.input :hide_buttons, :label => "Private Party?" #, :as => :checkbox
                   
                   
+
+    .span4
+      .widget.widget-plain
+        .widget-content
+          =link_to 'Sales Totals', "/manager/reports/event_sales/#{@event.id}", :class => 'btn'
+          =link_to 'Checkin', "/manager/reports/checkin/#{@event.id}", :class => 'btn'
           
+          .row
+            .span1
+              %h4 Sold
+              %h3=@event.tickets.complete.count
+            .span1
+              %h4 In Cart
+              %h3=@event.tickets.cart.count
+            .span1
+              %h4 Chk'd In
+              %h3=@event.tickets.checked_in.count
+            .span1
+              %h4 Pending
+              %h3=@event.tickets.pending_checkin.count
+              
+            
+             
+          
+      .widget.widget-plain
+        .widget-content
+
+          =f.button :submit, 'Save',:class => 'btn btn-large btn-warning btn-support-ask', :style => 'width: 100%' #artist_path(@artist), :method => :post, :class => 'btn btn-large btn-warning btn-support-ask'
+
+          =link_to '+ New Event', new_event_path, :class => 'btn btn-large btn-support-contact'
+
+          -if @event.id
+            =link_to 'Preview', front_event_path(@event) + '?preview=yes', :class => 'btn btn-large btn-support-contact'
+            =link_to 'Delete', event_path(@event), :method => :delete, :confirm => "Are you sure?", :class => 'btn btn-large btn-support-contact btn btn-danger'
+
+

@@ -4,15 +4,10 @@ class ReportsController < ApplicationController
   
   def index
   end
-  
-  def event_guestlist
-    @event = @current_account.events.find(params[:event_id])
-    @orders = @current_account.orders.complete.joins(:tickets).where('tickets.event_id = ?', params[:event_id])
-    @tickets = @current_account.tickets.complete.where('tickets.event_id = ?', params[:event_id])
-  end
     
   def event_totals
     @events = EventSalesTotalsQuery.new(@current_account.id).exec
+    render :layout => 'manager_reports_events'
   end
   
   def event_sales
@@ -21,6 +16,7 @@ class ReportsController < ApplicationController
       params[:event_id] = @current_event.id
     end
     @event = @current_account.events.find(params[:event_id])
+    render :layout => 'manager_reports_events'
   end
   
   def sales_over_time
@@ -39,6 +35,8 @@ class ReportsController < ApplicationController
       params[:event_id] = @current_event.id
     end
     @event = @current_account.events.find(params[:event_id])
+    render :layout => 'manager_reports_events'
+    
   end
   
   private

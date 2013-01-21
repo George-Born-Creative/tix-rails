@@ -53,7 +53,6 @@ Tix::Application.routes.draw do
   
   scope '/manager' do
    get '/reports' => 'reports#index'
-   get '/reports/event_guestlist/:event_id' => 'reports#event_guestlist'
    get '/reports/event_sales/:event_id' => 'reports#event_sales'
    get '/reports/event_totals' => 'reports#event_totals'
    get '/reports/sales_over_time' => 'reports#sales_over_time'

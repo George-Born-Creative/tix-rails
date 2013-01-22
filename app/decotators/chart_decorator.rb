@@ -15,7 +15,7 @@ class ChartDecorator < Draper::Decorator
   end
 
   def all_prices_str
-    ["<strong>Presale</strong> ", gen_prices_str( :presale_price  ), 
+    ["<strong>Adv</strong> ", gen_prices_str( :presale_price  ), 
      "<br/><strong>Day Of</strong> ", gen_prices_str( :dayof_price )]
      .join('')
      .strip

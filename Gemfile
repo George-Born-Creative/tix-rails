@@ -16,9 +16,13 @@ end
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'static'
 
 group :production do
-  gem 'pg'
   gem 'newrelic_rpm'
 end
+
+gem 'pg'
+# Support tsvectors https://github.com/bengler/ar-tsvectors
+gem 'ar-tsvectors', :require => 'activerecord_tsvectors'
+
 
 group :development do
   gem "better_errors"

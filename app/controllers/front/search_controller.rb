@@ -5,7 +5,14 @@ class Front::SearchController < ApplicationController
     @query = params[:q]
     
     unless @query.blank?
-      @events = @current_account.events.current.announced.where('title @@ ?', "%#{@query}%")
+      query_arr = @query.split(' ')
+      
+      @events = @current_account
+        .events
+        .current
+        .announced
+        .with_all_search_keywords(query_arr)
+        .order_by_search_keywords_rank(query_arr)
     end
     
     respond_to do |format|

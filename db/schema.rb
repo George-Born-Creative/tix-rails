@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219230850) do
+ActiveRecord::Schema.define(:version => 20130123193252) do
 
   create_table "account_domains", :force => true do |t|
     t.string   "domain",     :null => false
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(:version => 20121219230850) do
     t.boolean  "sold_out"
     t.boolean  "free_event"
     t.boolean  "hide_buttons"
+    t.text     "search_keywords"
   end
 
   add_index "events", ["account_id"], :name => "index_events_on_account_id"

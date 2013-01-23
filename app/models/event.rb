@@ -53,13 +53,16 @@ class Event < ActiveRecord::Base
                   :announce_at, :on_sale_at, :starts_at, :off_sale_at, :remove_at,
                   :supporting_acts, :supporting_act_ids, :supporting_act_ids_concat,
                   :disable_event_title, :external_ticket_url, :sold_out, :free_event,
-                  :hide_buttons
+                  :hide_buttons, :search_keywords
                   
   attr_accessor :supporting_act_ids_concat
   
     
   before_save :set_supporting_act_ids
+  ts_vector :search_keywords
+  
   before_save :set_default_times
+  before_save :cache_search_keywords
 
   validates_uniqueness_of :slug, :scope => :account_id
   # http://rubydoc.info/github/norman/friendly_id/master/FriendlyId/Slugged
@@ -203,6 +206,28 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def debug_strings
+    puts 'event #' + id.to_s
+    puts ""
+    
+    puts "headliners_str"
+    puts headliners_str
+    puts ""
+    
+    puts "supporting_acts_str"
+    puts supporting_acts_str
+    puts ""
+    
+    puts "artists_str"
+    puts artists_str
+    puts ""
+    
+    puts "title_with_artists"
+    puts title_with_artists
+    puts ""
+    
+  end
+  
   def set_times_formatted
     return nil if self.set_times.blank?
     set_times.gsub(/\n/, '<br/>')
@@ -221,7 +246,16 @@ class Event < ActiveRecord::Base
     [super, Time.zone.today.strftime('%Y-%m-%d'), on_sale_str].join('-')
   end
   
-  private
+  def cache_search_keywords
+    self.search_keywords = search_keywords_arr
+  end
+  
+  def search_keywords_arr
+    return [] if title_array.blank?
+    title_array.join(' ').downcase.gsub(/[^0-9a-z ]/i, '').split(' ')
+  end
+  
+private
   
   def _day_of?(time) # check if time falls between  
     # midnight today and
@@ -252,9 +286,7 @@ class Event < ActiveRecord::Base
     end
     
   end
-    
   
-  private 
   def future?(time)
     ( time.to_i - Time.zone.now.to_i ) > 0
   end

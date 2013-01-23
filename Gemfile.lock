@@ -84,6 +84,8 @@ GEM
       rails (~> 3.0)
     annotate (2.5.0)
       rake
+    ar-tsvectors (0.0.2)
+      activerecord (>= 3.0)
     arel (3.0.2)
     awesome_print (1.1.0)
     aws-s3 (0.6.3)
@@ -378,6 +380,7 @@ DEPENDENCIES
   activemerchant
   acts-as-taggable-on (~> 2.3.1)
   annotate (>= 2.5.0)
+  ar-tsvectors
   awesome_print
   aws-s3
   aws-sdk (~> 1.3.4)

@@ -29,8 +29,8 @@
 
     %hr.red/
     
-    =form_tag '/search', :method => 'get' do
-      =text_field_tag 'q', '', :placeholder => 'Search...', :style => 'width: 160px; margin-right: 10px; float: left;'
-      =submit_tag '?', :style => 'margin: 0', :name => nil
+  =form_tag '/search', :method => 'get' do
+    =text_field_tag 'q', '', :placeholder => 'Search...', :style => 'width: 160px; margin-right: 10px; float: left;'
+    =submit_tag '?', :style => 'margin: 0', :name => nil
   -cache ['v1', @page.sidebar] do
     =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

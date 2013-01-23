@@ -57,8 +57,6 @@ class Event < ActiveRecord::Base
                   
   attr_accessor :supporting_act_ids_concat
   
-    
-  before_save :set_supporting_act_ids
   ts_vector :search_keywords
   
   before_save :set_default_times
@@ -68,16 +66,6 @@ class Event < ActiveRecord::Base
   # http://rubydoc.info/github/norman/friendly_id/master/FriendlyId/Slugged
   def should_generate_new_friendly_id?
     new_record?
-  end
-   
-  def set_supporting_act_ids
-    unless supporting_act_ids_concat.nil?
-      self.supporting_act_ids = self.supporting_act_ids_concat.split(',')
-    else
-      self.supporting_act_ids = nil
-    end
-    self.touch
-    true
   end
   
   attr_accessor :starts_at_formatted 
@@ -97,6 +85,7 @@ class Event < ActiveRecord::Base
   
   
   validates_presence_of :starts_at
+  validates_presence_of :account_id
   validates_uniqueness_of :slug, :scope => :account_id, :allow_nil => true
   
   before_destroy :check_tickets

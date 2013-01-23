@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   respond_to :json, :html
   
   before_filter :populate_artists
+  before_filter :set_supporting_acts, :only => [:create, :update]
   
   # GET /events
   # GET /events.json
@@ -97,6 +98,15 @@ class EventsController < ApplicationController
   end
   
   private
+  
+  def set_supporting_acts
+    if params[:event][:supporting_act_ids_concat].blank?
+      params[:event][:supporting_act_ids] = [] 
+    else
+      params[:event][:supporting_act_ids] = params[:event][:supporting_act_ids_concat].split(',')
+    end
+    true
+  end
   
   def populate_artists
     @artist_options = @current_account.artists.order('name asc').all.collect {|a| [a.name, a.id] }

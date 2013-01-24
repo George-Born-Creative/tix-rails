@@ -119,17 +119,17 @@
           
           .row
             .span1
+              %h4 In Carts
+              %h3=@event.tickets.cart.count
+            .span1
               %h4 Sold
               %h3=@event.tickets.complete.count
             .span1
-              %h4 In Cart
-              %h3=@event.tickets.cart.count
+              %h4 Pending
+              %h3=@event.tickets.pending_checkin.count
             .span1
               %h4 Chk'd In
               %h3=@event.tickets.checked_in.count
-            .span1
-              %h4 Pending
-              %h3=@event.tickets.pending_checkin.count
               
             
              

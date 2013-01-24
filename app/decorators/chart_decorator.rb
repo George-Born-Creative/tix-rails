@@ -11,25 +11,15 @@ class ChartDecorator < Draper::Decorator
   
   def current_prices_str
     return nil if model.nil?
-    gen_prices_str( :dayof_price )
+    h.render :partial => 'front/charts/prices', :locals => {:price => gen_prices_str( :dayof_price ) }
+    
   end
 
   def all_prices_str
     # TODO factor this out into a partial
-    [
-      "<span class='price-list'>",
-      "<span class='advance'><strong>Adv</strong> ",
-       gen_prices_str( :presale_price  ), 
-       '</span>',
-       "<br/>",
-       "<span class='day-of'><strong>Day Of</strong> ", 
-       gen_prices_str( :dayof_price ), 
-       '</span>',
-       '</span>'
-      ]
-     .join('')
-     .strip
-     .html_safe
+    h.render( :partial => 'front/charts/prices', 
+      :locals => {:dayof => gen_prices_str(:dayof_price), 
+                  :advance => gen_prices_str(:presale_price)})
   end
   
 private 

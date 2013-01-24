@@ -1,0 +1,16 @@
+%span.event-prices
+  -if local_assigns.has_key? :advance
+    %span.price.advance
+      %strong Adv
+      =advance.html_safe
+    %br/
+
+  -if local_assigns.has_key? :dayof
+    %span.price.day-of
+      %strong Day Of
+      =dayof.html_safe
+      
+  -if local_assigns.has_key? :price
+    %span.price
+      =price.html_safe
+  

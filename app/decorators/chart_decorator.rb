@@ -15,8 +15,18 @@ class ChartDecorator < Draper::Decorator
   end
 
   def all_prices_str
-    ["<strong>Adv</strong> ", gen_prices_str( :presale_price  ), 
-     "<br/><strong>Day Of</strong> ", gen_prices_str( :dayof_price )]
+    # TODO factor this out into a partial
+    [
+      "<span class='price-list'>",
+      "<span class='advance'><strong>Adv</strong> ",
+       gen_prices_str( :presale_price  ), 
+       '</span>',
+       "<br/>",
+       "<span class='day-of'><strong>Day Of</strong> ", 
+       gen_prices_str( :dayof_price ), 
+       '</span>',
+       '</span>'
+      ]
      .join('')
      .strip
      .html_safe

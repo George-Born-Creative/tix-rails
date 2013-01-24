@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123193252) do
+ActiveRecord::Schema.define(:version => 20130124193813) do
 
   create_table "account_domains", :force => true do |t|
     t.string   "domain",     :null => false

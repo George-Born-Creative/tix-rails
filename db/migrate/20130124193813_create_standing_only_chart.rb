@@ -22,6 +22,7 @@ class CreateStandingOnlyChart < ActiveRecord::Migration
   end
 
   def down
-    raise ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration20130124193813
   end
 end
+

@@ -47,9 +47,9 @@ private
     
     labels = [ 
       { text: 'J', x: 58, y: 320, type: "text" },
-      { text: 'K', x: 112, y: 345, type: "text" },
+      { text: 'K', x: 110, y: 345, type: "text" },
       { text: 'L', x: 58, y: 395, type: "text" },
-      { text: 'M', x: 112, y: 427, type: "text" }
+      { text: 'M', x: 111, y: 429, type: "text" }
     ]
     
     create_areas(foreground, labels)

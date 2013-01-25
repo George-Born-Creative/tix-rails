@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124193813) do
+ActiveRecord::Schema.define(:version => 20130125172117) do
 
   create_table "account_domains", :force => true do |t|
     t.string   "domain",     :null => false
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(:version => 20130124193813) do
   end
 
   add_index "accounts", ["subdomain"], :name => "index_accounts_on_subdomain", :unique => true
+
+  create_table "acts", :force => true do |t|
+    t.integer "artist_id"
+    t.integer "event_id"
+    t.integer "account_id"
+    t.string  "label"
+    t.boolean "major",      :default => false, :null => false
+    t.integer "index",      :default => 0,     :null => false
+  end
+
+  add_index "acts", ["account_id"], :name => "by_account_id"
+  add_index "acts", ["artist_id"], :name => "by_artist_id"
+  add_index "acts", ["event_id"], :name => "by_event_id"
 
   create_table "addresses", :force => true do |t|
     t.datetime "created_at"

@@ -96,7 +96,8 @@
                         %tr{:style => "border-collapse: collapse; border-spacing: 0; border: 0;"}
                           %td{:align => "left", :bgcolor => "#ffffff", :height => "219", :style => "background-color: #f0f0f0; ", :valign => "top", :width => "592"}
                             %div{:style => 'margin-bottom: 10px; margin-top: 10px;'}
-                              %img{:alt => "", :height => "219", :src => artwork.file(:original), :style => "display: block; line-height: 1; padding: 0; border: 0;", :width => "592"}/
+                              %a{:href => "#{artwork.meta}?src=ticket-email-ad" }
+                                %img{:alt => "", :height => "219", :src => artwork.file(:original), :style => "display: block; line-height: 1; padding: 0; border: 0;", :width => "592"}/
           
              
               -############# COPYRIGHT #############

@@ -8,7 +8,8 @@
       .span3
         =text_field_tag 'q', params[:q], :placeholder => 'Search...', :style => 'font-size: 15px; padding: 10px 5px;'
       .span4
-        =submit_tag 'submit', :class => 'btn', :style => 'margin: 0', :name => nil
+        %button{:type => "submit", :style => 'margin: 0; padding: 10px 20px', :name => nil }
+          %i.icon-white.icon-search
 
   %hr.red-thin
   

@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130124193813) do
   end
 
   add_index "addresses", ["address_line_1"], :name => "index_addresses_on_address_line_1"
+  add_index "addresses", ["addressable_id", "addressable_type"], :name => "by_addressable_id_and_type"
   add_index "addresses", ["postal_code"], :name => "index_addresses_on_postal_code"
 
   create_table "area_seats", :force => true do |t|
@@ -344,6 +345,7 @@ ActiveRecord::Schema.define(:version => 20130124193813) do
   end
 
   add_index "phones", ["number"], :name => "index_phones_on_number"
+  add_index "phones", ["phonable_id", "phonable_type"], :name => "by_phonable_id_and_type"
 
   create_table "prices", :force => true do |t|
     t.string   "label"
@@ -463,6 +465,7 @@ ActiveRecord::Schema.define(:version => 20130124193813) do
   end
 
   add_index "tickets", ["account_id"], :name => "index_tickets_on_account_id"
+  add_index "tickets", ["order_id"], :name => "by_order_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                                :default => "",         :null => false
@@ -522,6 +525,8 @@ ActiveRecord::Schema.define(:version => 20130124193813) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "widget_placements", ["widget_id", "sidebar_id"], :name => "by_widget_and_sidebar"
 
   create_table "widgets", :force => true do |t|
     t.string   "slug"

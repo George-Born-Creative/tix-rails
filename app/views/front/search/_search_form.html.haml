@@ -1,0 +1,14 @@
+-if local_assigns[:small] == true
+  -# SMALL
+  =form_tag '/search', :method => 'get' do
+    =text_field_tag 'q', '', :placeholder => 'Search...', :style => 'width: 160px; margin-right: 10px; float: left;'
+    %button{:type => "submit", :style => 'margin: 0', :name => nil }
+      %i.icon-white.icon-search
+-else
+  -# LARGE
+  =form_tag '/search', :method => 'get' do |f|
+    .span3
+      =text_field_tag 'q', params[:q], :placeholder => 'Search...', :style => 'font-size: 15px; padding: 10px 5px;'
+    .span4
+      %button{:type => "submit", :style => 'margin: 0; padding: 10px 20px', :name => nil }
+        %i.icon-white.icon-search

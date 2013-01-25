@@ -29,9 +29,7 @@
 
     %hr.red/
     
-  =form_tag '/search', :method => 'get' do
-    =text_field_tag 'q', '', :placeholder => 'Search...', :style => 'width: 160px; margin-right: 10px; float: left;'
-    %button{:type => "submit", :style => 'margin: 0', :name => nil }
-      %i.icon-white.icon-search
+  =render :partial => 'front/search/search_form', :locals => {:small => true}
+  
   -cache ['v1', @page.sidebar] do
     =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}

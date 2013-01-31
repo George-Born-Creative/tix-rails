@@ -54,7 +54,7 @@ end
 gem 'turbo-sprockets-rails3'
 
 # environment
-gem 'thin'
+gem 'unicorn'
 
 ## accessories 
 # gem 'phony' # formatting phone number

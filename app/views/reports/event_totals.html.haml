@@ -20,4 +20,5 @@
         %td=number_to_currency event[:total_base_price], :precision => 0
         %td=number_to_currency event[:total_service_charge], :precision => 0
         %td=number_to_currency event[:total], :precision => 0
+        %td="#{event[:tickets_checked_in]}/#{event[:tickets_sold]}"
           

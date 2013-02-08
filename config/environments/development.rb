@@ -54,12 +54,6 @@ Tix::Application.configure do
     :password  => ENV["MANDRILL_PASSWORD"]
   }
   
-  config.after_initialize do
-    Moonshado::Sms.configure do |config|
-      config.production_environment = false
-    end
-  end
-  
   
   
 end

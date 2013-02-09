@@ -13,4 +13,4 @@
   -elsif @events.blank?
     No results found
   -else
-    =render(:partial => 'front/events/events', :locals => {:events => @events})
+    =render(:partial => 'front/events/events', :locals => {:events => @events, :search => params[:q]})

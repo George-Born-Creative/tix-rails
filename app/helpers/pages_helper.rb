@@ -29,7 +29,7 @@ module PagesHelper
     html.gsub!(regex) do |match|
       cats = $2.split('|').map{|c| c.to_sym}
       @events = @current_account.events.cat(cats).current.announced.order('starts_at ASC')  
-      render(:partial => 'front/events/events', :locals => {:events => @events})
+      render(:partial => 'front/events/events', :locals => {:events => @events, :cats => cats})
     end
     
     html

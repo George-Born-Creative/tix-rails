@@ -1,7 +1,7 @@
 .events-view.events-view-list
   .row
     .span9
-      -cache ['events_whole_list'], :expires_in => 1.minute do 
+      -cache ['events_whole_list', local_assigns[:cats]], :expires_in => 1.minute do 
         -events.each do |event|
           -cache ['v1', event, 'event_list'], :expires_in => 1.minute do 
             =render :partial => 'front/events/event', :locals => { :event => event }

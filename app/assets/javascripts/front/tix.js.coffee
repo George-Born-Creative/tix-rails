@@ -17,8 +17,6 @@ window.Tix =
 
     TixLib.init()
     
-    
-    
     $.ajax 
       url: '/users/user_env'
       type: 'post'
@@ -30,12 +28,17 @@ window.Tix =
         self.initCartTotalsSmall()
         self.initChart()
         self.initLogin()
+        self.initCarousels()
         if data.role == 'employee' || data.role == 'owner' || data.role == 'manager'
           self.initEditButtons()
   
   initEditButtons: ->
     $('.admin-button').fadeIn()
     
+  initCarousels: ->
+    $('#myCarousel').carousel({
+      interval: 5000
+    })
     
   initLogin: ->
     $.ajax 

@@ -66,7 +66,7 @@ gem 'draper', '~> 1.0'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
-gem 'ckeditor', "3.7.3", :git => 'https://github.com/galetahub/ckeditor.git'
+gem 'ckeditor', "4.0.2", :git => 'https://github.com/galetahub/ckeditor.git'
 
 # messaging
 gem 'pusher'

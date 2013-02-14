@@ -4,12 +4,12 @@ class Tix.Routers.FrontChartRouter extends Support.SwappingRouter
     '': 'index'
     
   initialize: (data)->
-    # console.log "new Tix.Routers.FrontChartRouter() initialized"
+    console.log "new Tix.Routers.FrontChartRouter() initialized"
     
     @event_starts_at = data.chart.event_starts_at
     @event_name = data.chart.event_name
     
-    @chart = new Backbone.NestedModel(Tix.Chart)
+    @chart = new Backbone.Model(Tix.Chart)
     
     @listenForClicks()
     # @setupCart()

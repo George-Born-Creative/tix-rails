@@ -60,7 +60,6 @@ gem "backbone-support"
 gem 'sass-rails' # if running rails 3.1 or greater
 gem 'compass-rails'
 gem 'simple_form'
-gem 'phone', :git => 'https://github.com/carr/phone.git'
 gem 'draper', '~> 1.0'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'jquery-datatables-rails'

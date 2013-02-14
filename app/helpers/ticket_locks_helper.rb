@@ -1,2 +1,0 @@
-module TicketLocksHelper
-end

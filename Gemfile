@@ -56,7 +56,6 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'backbone-on-rails'
 gem 'skeleton-rails'
-gem 'stamp'
 gem "backbone-support"
 gem 'sass-rails' # if running rails 3.1 or greater
 gem 'compass-rails'

@@ -364,7 +364,6 @@ DEPENDENCIES
   friendly_id (~> 4.0.1)
   haml-rails
   haml_coffee_assets
-  has_scope
   inherited_resources
   jquery-datatables-rails
   jquery-rails

@@ -82,7 +82,6 @@ gem 'aws-s3'
 gem 'activemerchant'
 gem 'paper_trail', :git => 'https://github.com/airblade/paper_trail.git'
 gem 'inherited_resources'
-gem 'has_scope'
 gem "friendly_id", "~> 4.0.1"
 gem "squeel"
 gem 'codemirror-rails'

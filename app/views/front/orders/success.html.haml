@@ -28,7 +28,7 @@
           -if @current_user.has_at_least_role(:employee)
             %h3 Agent Options
             %ul
-              -@current_account.orders.complete.where('agent_id = ?', @current_user.id).last.events.each do |event|
+              -@order.events.each do |event|
                 %li=link_to "#{event.name}", "/manager/reports/event_sales/#{event.id}"
       
       =render :partial => 'front/orders/receipt', :locals => {:order => @order}

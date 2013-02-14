@@ -85,7 +85,6 @@ gem 'inherited_resources'
 gem 'has_scope'
 gem "friendly_id", "~> 4.0.1"
 gem "squeel"
-gem 'forgery' 
 gem 'codemirror-rails'
 gem 'time_zone_ext'
 gem 'kaminari' # pagination

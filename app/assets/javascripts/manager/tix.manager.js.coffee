@@ -100,8 +100,18 @@ window.TixMgr =
       $(off_selector).hide()
     
   initReportingEventSearch: ->
-    if $('.events-list-nav').length
-      $('input#event_menu_search').liveSearch('.events-list-nav', '.event', 'a')
+    $nav = $('.events-list-nav')
+    $search = $('input#event_menu_search')
+    if $nav.length
+      $search.liveSearch('.events-list-nav', '.event', 'a')
+      
+      $search.on 'keyup', ->
+        if $(this).val().length > 0
+          $nav.show()
+        else
+          $nav.hide()
+      
+      
       
   initCheckinSearch: ->
     if $('table#checkin tbody').length

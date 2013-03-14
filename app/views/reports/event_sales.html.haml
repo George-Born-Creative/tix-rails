@@ -60,12 +60,12 @@
               %td=@event.chart.sections.seatable.map{|s| s.areas.map{|a| a.tickets.checked_in.count }.sum }.sum
 
 
-    .widget
-      .widget-header
-        %h3 Unsold
-      .widget-content
-        -@event.chart.sections.seatable.each do |section|
-          %h5= section.label
-          -section.areas.reject{|area| area.inventory < 1}.each do |a|
-            -a.inventory.times do 
-              =a.label
+    -#.widget
+    -#  .widget-header
+    -#    %h3 Unsold
+    -#  .widget-content
+    -#    -@event.chart.sections.seatable.each do |section|
+    -#      %h5= section.label
+    -#      -section.areas.reject{|area| area.inventory < 1}.each do |a|
+    -#        -a.inventory.times do 
+    -#          =a.label

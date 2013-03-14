@@ -1,11 +1,11 @@
 -content_for :content do
   .row
-    .span2
-      =render :template => 'reports/reports_nav'
     .span3
-      =render :partial => 'event_menu', :locals => {:action => 'event_sales'}
+      =render :template => 'reports/reports_nav'
 
-    .span7
+      =render :partial => 'event_menu', :locals => {:action => params[:action]}
+
+    .span9
       -unless @event.nil?
         =render :partial => 'reports/event_nav', :locals => {:event => @event }
         

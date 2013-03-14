@@ -1,7 +1,7 @@
 %div{:style => 'text-align: left; font-size: 12px; line-height: 11px'}
   .widget
     .widget-content
-      %input#event_menu_search{:type => 'text', :placeholder => 'type to filter'}
+      %input#event_menu_search{:type => 'text', :placeholder => 'type to filter events'}
       .events-list-nav
         -EventSalesAggregatesQuery.new(@current_account.id).exec.each do |row|
           .event{:data => { :tickets_checked_in => row[:tickets_checked_in], :tickets_total => row[:tickets_total] }}

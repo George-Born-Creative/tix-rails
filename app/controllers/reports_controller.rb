@@ -39,6 +39,12 @@ class ReportsController < ApplicationController
     
   end
   
+  def guestlist
+    @event = @current_account.events.find(params[:event_id])
+    
+    render :layout => 'manager_reports_events'
+  end
+  
   private
   
   

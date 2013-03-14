@@ -1,0 +1,37 @@
+.widget
+  .widget-header
+    %h3
+      =@event.name.truncate(50)
+      ="//"
+      =@event.starts_at.to_formatted_s(:jammin_java)
+  .widget-content
+    .row
+      .span3
+        %input#checkin_search.input{:type => 'text', :placeholder => 'type to filter', :style => 'font-size: 20px; padding: 15px 3px 8px'}
+      .span3
+        =link_to 'Event Report', "/manager/reports/event_sales/#{@event.id}", :class => 'btn'
+
+        %p{:style => 'color: #aaa'} 
+          Note: 
+          %span{:style => 'color: orange'} orange 
+          means checked in
+      
+    %table#checkin.table.table-bordered.table-striped
+      -order_set = Set.new
+      -[[ 'last_name != ? OR first_name != ?', '', ''], ['last_name = ? AND first_name = ?', '', '']].each do |scope|
+        -@event.tickets.complete.where(scope).order('lower(last_name), lower(first_name) ASC, id DESC').each do |ticket|
+          %tr
+            %td.last_name
+              -name = "#{ticket.order.last_name}, #{ticket.order.first_name}".titlecase
+      
+              -unless ticket.order.nil? || ticket.order.first_name.blank?
+                -if ticket.order.user
+                  =link_to name, user_path(ticket.order.user)
+            
+                -else
+                  =name
+            %td.email=ticket.order.email
+            %td.phone=ticket.order.phone.number unless ticket.order.phone.blank?
+            %td="#{ticket.area_label} / #{ticket.section_label}"
+            %td=link_to number_to_currency(ticket.base_price, :precision => 0), order_path(ticket.order)
+      

@@ -2,6 +2,7 @@
   .widget-content
     =link_to 'Sales', "/manager/reports/event_sales/#{event.id}", :class => 'btn'
     =link_to 'Checkin Tickets', "/manager/reports/checkin/#{event.id}", :class => 'btn'
+    =link_to 'Guestlist', "/manager/reports/guestlist/#{event.id}", :class => 'btn'
     =link_to 'Edit Event', edit_event_path(event), :class => 'btn'
     =link_to 'Sell Tickets', front_event_path(event), :class => 'btn'
     =link_to 'Preview Page', front_event_path(event), :class => 'btn'

@@ -1,18 +1,18 @@
 .artist-social-links
   -unless artist.url.blank?
-    =link_to 'Official Site', artist.url
+    =link_to 'Official Site', artist.url, :target => '_blank'
 
   -unless artist.twitter.blank?
-    =link_to 'Twitter', artist.twitter
+    =link_to 'Twitter', artist.twitter, :target => '_blank'
  
   -unless artist.facebook_url.blank?
-    =link_to 'Facebook', artist.facebook_url
+    =link_to 'Facebook', artist.facebook_url, :target => '_blank'
 
   -unless artist.video_url.blank?
-    =link_to 'Videos', artist.video_url
+    =link_to 'Videos', artist.video_url, :target => '_blank'
 
   -unless artist.audio_sample_url.blank?
-    =link_to 'Audio', artist.audio_sample_url
+    =link_to 'Audio', artist.audio_sample_url, :target => '_blank'
 
   -unless artist.myspace_url.blank?
-    =link_to 'Myspace', artist.myspace_url
+    =link_to 'Myspace', artist.myspace_url, :target => '_blank'

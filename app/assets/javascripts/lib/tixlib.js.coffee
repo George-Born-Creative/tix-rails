@@ -11,7 +11,7 @@ window.TixLib =
   
   openExternalLinksInNewWindow: ->
     # http://css-tricks.com/snippets/jquery/open-external-links-in-new-window/
-    $("a[href^='http://']").each ->
+    $("a[href^='http://'], a[href^='https://']").each ->
       a = new RegExp("/" + window.location.host + "/")
       unless a.test(@href)
         $(this).click (event) ->

@@ -13,14 +13,16 @@
               =link_to 'Widgets', widgets_path, :class => 'btn'
               %br/
               
-        .span4
+        .span3
           .widget
             .widget-content
-              =f.input :sidebar_id, :label => '', :collection => (Sidebar.all.collect {|s| [s.title,s.id] }), :selected => (@page.sidebar.id if @page.sidebar)
+              =f.input :sidebar_id, :label => '', :collection => (Sidebar.all.collect {|s| [s.title,s.id] }), :selected => (@page.sidebar.id if @page.sidebar), :include_blank => 'None'
 
               -if @page.sidebar
                 =link_to "Edit #{@page.sidebar.title}", edit_sidebar_path(  @page.sidebar), :class => 'btn'
 
+        .span3
+          
   .row
     .span9
       .widget

@@ -48,6 +48,7 @@ end
 # parsing
 gem 'nokogiri'
 gem 'fastercsv'
+gem 'json', '>= 1.7.7'
 
 # views / front end
 gem 'rabl'

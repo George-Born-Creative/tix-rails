@@ -180,6 +180,8 @@ class Order < ActiveRecord::Base
   # scope :cart, lambda { where("expires_at >= ? AND purchased_at IS ?", Time.zone.now, nil) }
   scope :complete, lambda { where("purchased_at < ?", Time.zone.now) }
   scope :purchased_between, lambda { |start_time, end_time| where(:purchased_at => (start_time...end_time)) }
+  scope :search, lambda { |q| where("lower(first_name || ' ' || last_name || ' ' || email || ' ' || id) ILIKE :q",  q: "%#{q}%") }
+  
   
   # def purchase!
   #   return false unless self.valid?

@@ -23,46 +23,79 @@
 
 .span12
   .clear{:style => 'height: 30px'}
-  %h1 Orders
-  %hr/
-
-  .widget.widget-table.action-table
-  
-    %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
-
-      %thead
-        %th ID
-        %th Date
-        %th Time
-        %th Total
-        %th Customer
-        %th # Tickets
-        %th{:width => '200'} Show
-
-      -@orders.each do |order|
-        %tr
-          %td='#' + order.id.to_s
-          %td=order.created_at.to_s :short_ordinal
-          %td=time_ago_in_words(order.purchased_at, true) +' ago'
-          %td=number_to_currency( order.total ) unless order.total.blank?
-          %td
-            -unless order.user.blank?
-              %strong=link_to "#{order.first_name} #{order.last_name}", user_path(order.user)
-            -else
-              ="#{order.first_name} #{order.last_name}"
-            = "#{order.email}"
-            
-          %td= order.tickets.count
-          %td
-            -unless order.events_uniq_with_counts.blank?
-              -order.events_uniq_with_counts.each do |event,count|
-                ="#{count}x #{event} "
-              
-          %td
-            %a.btn.btn-primary.btn-large{:href => order_path(order)} view
-          -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
+  =#@sql
+  .row
+    .widget
+      .widget-content
+        :css
+          input, select {
+            width: 100%;
+          }
       
-    =paginate @orders,  :theme => 'twitter-bootstrap'
+        =form_tag '/manager/orders', :method => :get do
+          .span2
+            =label_tag 'q', 'Search'
+            =text_field_tag :q, params[:q], :placeholder => 'Search by name, email, or order ID' 
+          .span2
+            =label_tag 'per', 'Per Page'
+            =select_tag 'per', options_for_select([10,25,50,100,250], params[:per]) 
+          .span2
+            =label_tag 'from', 'From Date'
+            =text_field_tag 'from', params[:from], :placeholder => "mm/dd/yyyy"
+          .span2
+            =label_tag 'to', 'To Date'
+            =text_field_tag 'to', params[:to],:placeholder => "mm/dd/yyyy"
+          .span2
+            =label_tag 'Sort'
+            =radio_button_tag 'date_sort', 'desc', (params[:date_sort] == 'desc')
+            New
+            =radio_button_tag 'date_sort', 'asc', (params[:date_sort] != 'desc')
+            Old
+        
+          .span1
+            =label_tag 'submit', ''
+            =submit_tag 'Search', :class => 'btn btn-large btn-primary'
+      
+  
+  .widget.widget-table.action-table
+    .widget-content
+  
+      %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
+
+        %thead
+          %th ID
+          %th{style: 'min-width: 130px'} Date
+          %th{style: 'min-width: 75px'} Time
+          %th Total
+          %th Customer
+          %th # Tickets
+          %th Show
+          %th
+
+        -@orders.each do |order|
+          %tr
+            %td=link_to '#' + order.id.to_s, order_path(order)
+            %td=link_to order.created_at.to_s(:short_ordinal), "/manager/orders?date_sort=asc&from=#{order.created_at.to_s(:date_slashes)}"
+            %td=order.created_at.to_s :time
+            %td=number_to_currency( order.total ) unless order.total.blank?
+            %td
+              -unless order.user.blank?
+                %strong=link_to "#{order.first_name} #{order.last_name}", user_path(order.user)
+              -else
+                ="#{order.first_name} #{order.last_name}"
+              = "<br/>#{order.email}".html_safe
+            
+            %td= order.tickets.count
+            %td
+              -unless order.events_uniq_with_counts.blank?
+                -order.events_uniq_with_counts.each do |event,count|
+                  ="#{count}x #{event} "
+              
+            %td
+              %a.btn{:href => order_path(order)} view
+            -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
+      
+      =paginate @orders,  :theme => 'twitter-bootstrap'
       
         
 

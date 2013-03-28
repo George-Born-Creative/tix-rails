@@ -20,18 +20,17 @@
 -#           .stat
 -#             %h4 Average Order Size
 -#             %span.value=@orders.count
-
-.span12
-  .clear{:style => 'height: 30px'}
-  =#@sql
-  .row
+.row
+  .span12
+    .clear{:style => 'height: 30px'}
+    =#@sql
     .widget
       .widget-content
         :css
           input, select {
             width: 100%;
           }
-      
+    
         =form_tag '/manager/orders', :method => :get do
           .span2
             =label_tag 'q', 'Search'
@@ -51,51 +50,52 @@
             New
             =radio_button_tag 'date_sort', 'asc', (params[:date_sort] != 'desc')
             Old
-        
+      
           .span1
             =label_tag 'submit', ''
             =submit_tag 'Search', :class => 'btn btn-large btn-primary'
       
+.row
+  .span12
+    .widget.widget-table.action-table
+      .widget-content
   
-  .widget.widget-table.action-table
-    .widget-content
-  
-      %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
+        %table#orders.table.table-striped.table-bordered.display{:data => {:source => orders_url(format: 'json') }}
 
-        %thead
-          %th ID
-          %th{style: 'min-width: 130px'} Date
-          %th{style: 'min-width: 75px'} Time
-          %th Total
-          %th Customer
-          %th # Tickets
-          %th Show
-          %th
+          %thead
+            %th ID
+            %th{style: 'min-width: 130px'} Date
+            %th{style: 'min-width: 75px'} Time
+            %th Total
+            %th Customer
+            %th # Tickets
+            %th Show
+            %th
 
-        -@orders.each do |order|
-          %tr
-            %td=link_to '#' + order.id.to_s, order_path(order)
-            %td=link_to order.created_at.to_s(:short_ordinal), "/manager/orders?date_sort=asc&from=#{order.created_at.to_s(:date_slashes)}"
-            %td=order.created_at.to_s :time
-            %td=number_to_currency( order.total ) unless order.total.blank?
-            %td
-              -unless order.user.blank?
-                %strong=link_to "#{order.first_name} #{order.last_name}", user_path(order.user)
-              -else
-                ="#{order.first_name} #{order.last_name}"
-              = "<br/>#{order.email}".html_safe
+          -@orders.each do |order|
+            %tr
+              %td=link_to '#' + order.id.to_s, order_path(order)
+              %td=link_to order.created_at.to_s(:short_ordinal), "/manager/orders?date_sort=asc&from=#{order.created_at.to_s(:date_slashes)}"
+              %td=order.created_at.to_s :time
+              %td=number_to_currency( order.total ) unless order.total.blank?
+              %td
+                -unless order.user.blank?
+                  %strong=link_to "#{order.first_name} #{order.last_name}", user_path(order.user)
+                -else
+                  ="#{order.first_name} #{order.last_name}"
+                = "<br/>#{order.email}".html_safe
             
-            %td= order.tickets.count
-            %td
-              -unless order.events_uniq_with_counts.blank?
-                -order.events_uniq_with_counts.each do |event,count|
-                  ="#{count}x #{event} "
+              %td= order.tickets.count
+              %td
+                -unless order.events_uniq_with_counts.blank?
+                  -order.events_uniq_with_counts.each do |event,count|
+                    ="#{count}x #{event} "
               
-            %td
-              %a.btn{:href => order_path(order)} view
-            -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
+              %td
+                %a.btn{:href => order_path(order)} view
+              -#%td=link_to 'destroy', order_path(order), :confirm => "U sure, bro?", :method => :delete, :class => 'btn'
       
-      =paginate @orders,  :theme => 'twitter-bootstrap'
+        =paginate @orders,  :theme => 'twitter-bootstrap'
       
         
 

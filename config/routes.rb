@@ -39,6 +39,7 @@ Tix::Application.routes.draw do
   get '/events/:id/seats' => 'Front::Charts#show', :as => 'front_chart'
   
   # For Jammin' Java redirects
+  match '/blog' => redirect("http://musicmakeslifebetter.net") 
   match '/home/events/list' => redirect("/calendar") 
   match '/home/events/:id' => redirect("/events/%{id}")
   match '/home/kids-events/list' => redirect("/kids-shows") 

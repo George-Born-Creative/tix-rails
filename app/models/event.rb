@@ -62,7 +62,11 @@ class Event < ActiveRecord::Base
   before_save :set_default_times
   before_save :cache_search_keywords
 
-  validates_uniqueness_of :slug, :scope => :account_id
+  validates :slug, :uniqueness => { :scope => :account_id, 
+                                    :message => 'Must be unique' }
+  validates :slug, :format => { :with => /^[A-Za-z0-9&:!_-]+$/, 
+                                :message => 'Only letters, numbers, dashes allowed' }
+                                
   # http://rubydoc.info/github/norman/friendly_id/master/FriendlyId/Slugged
   def should_generate_new_friendly_id?
     new_record?

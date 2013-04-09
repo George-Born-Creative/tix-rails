@@ -10,6 +10,12 @@
 
 .row
   =simple_form_for @event, :multipart => true do |f|
+    -if @event.errors.any?
+      .span8
+        .alert
+          %ul
+            -@event.errors.full_messages.each do |msg|
+              %li=msg
     .span8
       .widget
         .widget-content
@@ -22,11 +28,11 @@
                 .accordion-inner
                   .control-group
                     %label.control-label
-                      .controls
-                        =f.input :title, :input_html => { :style => 'width: 90%; font-size: 30px; height: 40px'}
-                        =f.input :slug, :input_html => { :style => 'width: 90%; '}
-            
-                        =f.input :disable_event_title#, :as => :checkbox
+                    .controls
+                      =f.input :title, :input_html => { :style => 'width: 90%; font-size: 30px; height: 40px'}
+                      =f.input :slug, :input_html => { :style => 'width: 90%; '}, error_html: {class: 'alert alert-error'}
+          
+                      =f.input :disable_event_title#, :as => :checkbox
   
             .accordion-group
               .accordion-heading

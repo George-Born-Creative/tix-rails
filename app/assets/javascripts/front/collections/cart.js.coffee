@@ -33,7 +33,7 @@ class Tix.Collections.Cart extends Backbone.Collection
     # console.log ['Pre Remove Seat', Tix.Cart]
     Tix.Cart.remove(seat)
     # console.log ['Post Remove Seat', Tix.Cart]
-    console.log seat
+    # console.log seat
     
     $.ajax
       type: 'POST'

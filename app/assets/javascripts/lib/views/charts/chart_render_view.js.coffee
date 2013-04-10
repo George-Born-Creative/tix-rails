@@ -94,9 +94,11 @@ class TixLib.Views.ChartRenderView extends Backbone.View
         self.hideTooltip()
         $('body').css('cursor', 'inherit')
         
-      .click (shape)->
+      .bind 'touchstart', (shape)->
         TixLib.Dispatcher.trigger('areaClick', {area: area, section: section} )
-      
+      .bind 'click', (event)->
+        $(event.target).trigger('touchstart')
+        
       
       
     setupTooltip: ->
@@ -118,9 +120,9 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       .text('')
       
       $(document).mousemove (e)->
-        offLeft = e.pageX  -  $('#chart_container').offset().left + 290
-        offTop  = e.pageY  - $('#chart_container').offset().top  + 550
-        offLeft = if offLeft >= 200 then offLeft - 130 else offLeft
+        offLeft = e.pageX  -  $('#chart_container').offset().left + 50
+        offTop  = e.pageY  - $('#chart_container').offset().top  + 650
+        # offLeft = if offLeft >= 200 then offLeft - 200 else offLeft
         
         $('#tooltip')
           .css

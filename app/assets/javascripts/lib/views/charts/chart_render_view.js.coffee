@@ -8,14 +8,18 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       @setupEvents()
       @setBySectionID = {} # map Raphaël Set to Rails Section ID
       @elemByAreaID = {} # map of Raphaël elements to Tix area IDs
+
       @textElements = []
       @setupTooltip()
       @render()
       
     render: ->
       #console.log 'ChartRenderView.render() invoked'
+      
       @setChartBackgroundColor( @chartdata.get('background_color') )
+      
       @paper = Raphael('chart_container',  500, 700);
+      
       self = this
       
       _.each @chartdata.get('sections'), (section)->
@@ -35,111 +39,66 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
       # console.log @elemByAreaID
       
-    # Disables an element by its area_id
+      
     disableArea: (area_id)->
       # console.log 'Disabling area ' + area_id
       elem = @elemByAreaID[area_id]
-      @disableElementFills(elem)
-      @unbindElement(elem)
-      elem.data('enabled', false) if elem.data('enabled')
-
-      @hideTooltip()
-      @setElementEnabled(elem, 'enabled')
       
-    
-    # Enables an element with area_id
-    enableArea: (area_id)->
-      
-      self = @
-      elem = @elemByAreaID[area_id]
-      
-      return unless elem
-      return if elem.data('enabled')
-        
-      # console.log "Enabling area " + area_id
-      self = @
-      elem = @elemByAreaID[area_id]
-      if elem
-        @bindElement(elem)
-        @enableElementFills(elem)
-        elem.data('enabled', true)
-      
-      
-    
-    enableElementFills: (elem)->
-      
-      section = elem.data('section')
-      area = elem.data('area')
-      
-      color = if area.type == 'text' then '#ffffff' else section.color
-      elem.attr('fill', color)
-      
-    disableElementFills: (elem)->
       elem.attr 
         'fill': "#333333"
               
       if elem.type == 'circle'
         elem.attr
           'fill': "#666666"
-          
-    unbindElement: (elem)->
-      $(elem.node).unbind('click touchend touchstart mouseenter mouseleave')
+        
       $(elem.node).unbind()
+      $(elem.node).unbind('click')
       
-    bindElement: (elem)->
-      self = this
-      # return if element is already enabled
-      # return unless @elementEnabled(elem)
-      # set as enabled
+      if elem.data('enabled')
+        elem.data('enabled', false)
+
+      @hideTooltip()
       
-      # grab section and area
+      $('body').css('cursor', 'inherit')
+              
+    enableArea: (area_id)->
+      # console.log "Enabling area " + area_id
+      self = @
+      elem = @elemByAreaID[area_id]
+      # Only enabled if not enabled already 
+      # the case whenever (area inventory > 1 )
+      if !elem.data('enabled')
+        elem.data('enabled', true)
+      else
+        # console.log "Element already enabled"
+        return
+      
       section = elem.data('section')
       area = elem.data('area')
-      
       color = if area.type == 'text' then '#ffffff' else section.color
       
       elem.attr('fill', color)
       
-      $(elem.node)
-        .bind 'touchend mouseleave', ->
-          # hide tooltop
-          self.hideTooltip()
+      $(elem.node).mouseenter ->
         
-        .bind 'click', (event)->
-          $(event.target).trigger('touchstart') # show 
+        tmpl = _.template("<strong>{{ section_label.toUpperCase() }}  </strong>{{ area_label }} ")
+        rendered = tmpl
+          section_label: section.label
+          area_label: area.label
           
-        .bind 'mouseenter', ->
-          # just show tooltip
-          self.renderAndShowTooltip(area, section)
-      
-        .bind 'touchstart', (event)->
-          # show tooltip :
-          self.renderAndShowTooltip(area, section)
-          # add to cart:
-          self.triggerAreaClick(area, section)
-      
-      
-    elementEnabled: (elem)->
-      elem.data('enabled') == true
-      
-    setElementEnabled: (elem)-> # returns true on success, false on failure.
-      elem.data('enabled', true) # success
+        #console.log rendered
+        self.showTooltip( rendered )
+        $('body').css('cursor', 'pointer')
+        
+      .mouseleave ->
+        self.hideTooltip()
+        $('body').css('cursor', 'inherit')
+        
+      .click (shape)->
+        TixLib.Dispatcher.trigger('areaClick', {area: area, section: section} )
       
       
-    triggerAreaClick: (area, section)->
-      TixLib.Dispatcher.trigger('areaClick', { area: area, section: section } )
       
-      
-    renderAndShowTooltip: (area, section)->
-      self = this
-      tmpl = _.template("<strong>{{ section_label.toUpperCase() }}  </strong>{{ area_label }} ")
-      rendered = tmpl
-        section_label: section.label
-        area_label: area.label
-
-      self.showTooltip( rendered )
-      $('body').css('cursor', 'pointer')
-    
     setupTooltip: ->
       self = this
       tip = $('<div id="tooltip"></div>')
@@ -181,7 +140,6 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       
     hideTooltip: ->
       $('#tooltip').hide()
-      $('body').css('cursor', 'inherit')
       window.tix_over = false
     
       
@@ -217,8 +175,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
       _.each section.areas, (area)->
         self.renderArea(area, section)
         
-    renderArea: (area, section)-> 
-
+    renderArea: (area, section)->
       self = @
       color = if (section.color == undefined || section.color == null || section.color == '') then '#000000' else section.color
       # console.log 'Rendering area color ' + color
@@ -236,7 +193,7 @@ class TixLib.Views.ChartRenderView extends Backbone.View
           #console.log '[SR] Rendering Area Circle ' + area.cx, area.cy, area.r
           raf_shape = self.paper.circle(area.cx, area.cy, area.r)
           #raf_shape.attr('fill', color)
-          raf_shape.attr('r', 7)
+          raf_shape.attr('r', 6)
           
         when 'rect' # Paper.rect(x, y, width, height, [r])
           # console.log '[SR] Rendering Rect ' + area.points

@@ -29,6 +29,7 @@ gem 'delayed_job_active_record'
 gem "delayed_job_web"
 
 group :development do
+  gem 'railroady' # erd generation (http://railroady.prestonlee.com/) # rake diagram:all
   gem "better_errors"
   gem "binding_of_caller"
   gem 'awesome_print'

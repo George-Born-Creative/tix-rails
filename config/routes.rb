@@ -35,7 +35,7 @@ Tix::Application.routes.draw do
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
 
-  get '/events' => redirect('/shows')
+  get '/events' => redirect('/shows'), :as => 'old_events'
   get '/events/:id' => redirect('/shows/%{id}')
   get '/events/:id/seats' => redirect('/shows/%{id}/seats')
   
@@ -74,7 +74,7 @@ Tix::Application.routes.draw do
       resources :carousel_items#, :as => :items
     end
     
-    resources :events
+    resources :events, :as => 'events'
     
     match '/', :controller => :manager, :action => :index
     

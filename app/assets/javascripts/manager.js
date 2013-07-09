@@ -1,4 +1,3 @@
-//= require jquery
 //= require ../lib/jquery.svg/jquery-1.7.2
 //= require jquery_ujs
 //= require jquery.ui.sortable

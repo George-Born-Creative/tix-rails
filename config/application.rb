@@ -14,7 +14,6 @@ module Tix
   class Application < Rails::Application
     config.assets.initialize_on_precompile = false
     config.assets.precompile += ['manager.js', 'manager.css']
-    config.assets.precompile += Ckeditor.assets
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
     config.force_ssl = false
     config.time_zone = 'Eastern Time (US & Canada)'

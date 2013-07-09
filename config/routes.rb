@@ -36,8 +36,8 @@ Tix::Application.routes.draw do
   mount Ckeditor::Engine => "/ckeditor"
 
   get '/events' => redirect('/shows')
-  get '/event/:id' => redirect('/shows/%{id}')
-  get '/events/:id/seats(/)' => redirect('/shows/%{id}/seats')
+  get '/events/:id' => redirect('/shows/%{id}')
+  get '/events/:id/seats' => redirect('/shows/%{id}/seats')
   
   resources :shows, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
   get '/shows/:id/seats' => 'Front::Charts#show', :as => 'front_chart'

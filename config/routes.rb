@@ -35,12 +35,8 @@ Tix::Application.routes.draw do
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount Ckeditor::Engine => "/ckeditor"
 
-  get '/events' => redirect('/shows'), :as => 'old_events'
-  get '/events/:id' => redirect('/shows/%{id}')
-  get '/events/:id/seats' => redirect('/shows/%{id}/seats')
-  
-  resources :shows, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
-  get '/shows/:id/seats' => 'Front::Charts#show', :as => 'front_chart'
+  resources :events, :as => 'front_events', :only => [:index, :show], :controller => 'Front::Events'
+  get '/events/:id/seats' => 'Front::Charts#show', :as => 'front_chart'
   
   # For Jammin' Java redirects
   match '/blog' => redirect("http://musicmakeslifebetter.net") 
@@ -52,7 +48,11 @@ Tix::Application.routes.draw do
   match '/home/main/faq' => redirect("/faq") 
   match '/home/main/contact' => redirect("/contact") 
   match '/home/lobbybar' => redirect("/lobby-bar") 
-  match '/home/main/about' => redirect("/about") 
+  match '/home/main/about' => redirect("/about")   
+  match '/shows' => redirect('/events')
+  match '/shows/:id' => redirect('/events/%{id}')
+  match '/shows/:id/seats' => redirect('/events/%{id}/seats')
+
   
   get '/search/' => 'Front::Search#index'
   

@@ -87,6 +87,7 @@ GEM
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
+    bumbler (0.1.4)
     chunky_png (1.2.6)
     ckeditor (4.0.4)
       mime-types
@@ -356,6 +357,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-kaminari-views
+  bumbler
   ckeditor
   codemirror-rails
   coffee-rails (~> 3.2.1)

@@ -1,17 +1,15 @@
 .item
   .row
     .span2
-      -cache ['v1', event, 'headliner_photo'] do 
-        -if (event.headliner && event.headliner.photo?)
-          =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
-        -else
-          =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
-          =#image_tag('http://placehold.it/300x230', :width => '100%') 
+      -if (event.headliner && event.headliner.photo?)
+        =link_to( image_tag(event.headliner.photo(:medium), :width => '100%'), front_event_path(event))
+      -else
+        =link_to( image_tag('http://placehold.it/300x230', :width => '100%'), front_event_path(event))
+        =#image_tag('http://placehold.it/300x230', :width => '100%') 
 
     .span7
-      -cache ['v1', event, 'event_time_and_title'] do 
-        .starts-at=event.starts_at.to_formatted_s(:jammin_java)
-        =render :partial => 'front/events/event_title', :locals => {:event => event}
+      .starts-at=event.starts_at.to_formatted_s(:jammin_java)
+      =render :partial => 'front/events/event_title', :locals => {:event => event}
 
       .controls
         -# TODO: cache this safely respecting times

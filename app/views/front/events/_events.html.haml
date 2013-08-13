@@ -3,5 +3,4 @@
     .span9
       -cache ['events_whole_list', local_assigns[:cats], local_assigns[:search]], :expires_in => 1.minute do 
         -events.each do |event|
-          -cache ['v1', event, 'event_list'], :expires_in => 1.minute do 
-            =render :partial => 'front/events/event', :locals => { :event => event }
+          =Rails.cache.read(event.cache_key + '_event_cache_job')

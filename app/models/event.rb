@@ -231,14 +231,6 @@ class Event < ActiveRecord::Base
      info.gsub(/\n/, '<br/>')
    end
   
-  # Append today's date onto normal timestamp-based cache key
-  # so cache resets at midnight each day. Needed so day-of
-  # pricing takes effect
-  def cache_key
-    on_sale_str = on_sale? ? 'on_sale' : 'off_sale'
-    [super, Time.zone.today.strftime('%Y-%m-%d'), on_sale_str].join('-')
-  end
-  
   def cache_search_keywords
     self.search_keywords = search_keywords_arr
   end

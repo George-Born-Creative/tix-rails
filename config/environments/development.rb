@@ -39,6 +39,7 @@ Tix::Application.configure do
   
   require 'pusher'  
   
+  config.assets.debug = false
   config.cache_store = :dalli_store
     
   Pusher.app_id = ENV['PUSHER_APP_ID']
@@ -53,6 +54,15 @@ Tix::Application.configure do
     :user_name => ENV["MANDRILL_USERNAME"],
     :password  => ENV["MANDRILL_PASSWORD"]
   }
+  
+  config.dev_tweaks.autoload_rules do
+    # keep :all
+
+    skip '/favicon.ico'
+    skip :assets
+    skip :xhr
+    keep :forced
+  end
   
   
   

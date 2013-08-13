@@ -64,6 +64,7 @@ Tix::Application.configure do
     keep :forced
   end
   
+  Rails.application.routes.default_url_options[:host] = 'jamminjava.localtix.com:5000'
   
   
 end

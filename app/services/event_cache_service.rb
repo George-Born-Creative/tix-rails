@@ -1,7 +1,6 @@
 class EventCacheService
   include RenderAnywhere
-  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
-  
+   
   def initialize(event_id)
     @event = Event.find(event_id)
   end

@@ -83,7 +83,7 @@ Tix::Application.configure do
     :user_name => ENV["MANDRILL_USERNAME"],
     :password  => ENV["MANDRILL_PASSWORD"]
   }
-  # …
   
+  Rails.application.routes.default_url_options[:host] = 'jamminjava.com'
   
 end

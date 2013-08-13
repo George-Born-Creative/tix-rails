@@ -69,6 +69,8 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
 gem 'ckeditor'
+gem  'render_anywhere', :require => false
+
 
 # messaging
 gem 'pusher'
@@ -94,3 +96,6 @@ gem 'codemirror-rails'
 gem 'time_zone_ext'
 gem 'kaminari' # pagination
 gem 'deep_cloneable'
+
+gem 'rails-dev-tweaks', '~> 0.6.1'
+gem "dotenv", "~> 0.8.0"

@@ -134,6 +134,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
+    dotenv (0.8.0)
     draper (1.0.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -242,6 +243,9 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails-dev-tweaks (0.6.1)
+      actionpack (~> 3.1)
+      railties (~> 3.1)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -255,6 +259,8 @@ GEM
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
+    render_anywhere (0.0.4)
+      rails (>= 3.0.7)
     request_store (1.0.5)
     responders (0.9.3)
       railties (~> 3.1)
@@ -360,6 +366,7 @@ DEPENDENCIES
   delayed_job_active_record
   delayed_job_web
   devise (~> 2.1.2)
+  dotenv (~> 0.8.0)
   draper (~> 1.0)
   execjs
   factory_girl_rails
@@ -386,7 +393,9 @@ DEPENDENCIES
   rabl
   railroady
   rails (= 3.2.13)
+  rails-dev-tweaks (~> 0.6.1)
   redis
+  render_anywhere
   resque_spec
   rspec-rails (~> 2.6)
   sass

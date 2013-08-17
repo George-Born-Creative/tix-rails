@@ -1,0 +1,18 @@
+-cache @page do
+  .row
+    .span9
+      .layout-content
+        -@carousel = @current_account.carousels.find_by_slug('home')
+        =render partial: 'carousels/carousel_full', locals: {carousel: @carousel }
+        =raw render_shortcodes( @page.body )
+
+    .span3
+      .layout-sidebar
+        .today
+          =image_tag('https://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/050/medium/today-1.png?1351803066',  width: '100%')
+          .set-times
+            -@current_account.events.announced.today.order('starts_at ASC').each do |event|
+              =event.set_times_formatted.html_safe unless event.set_times.blank?
+              %br/
+        %br/
+        =render partial: 'sidebars/sidebar', locals: {sidebar: @page.sidebar}

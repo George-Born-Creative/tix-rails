@@ -1,41 +1,13 @@
--content_for :title do
-  -cache ['v1', @page, 'title'] do
-    =@page.title.titleize
+-cache @page do
+  .row
+    -if @page.sidebar.blank?
+      .span12
+        =raw render_shortcodes( @page.body )
+    -else
+      .span9
+        .layout-content
+          =raw render_shortcodes( @page.body )
 
--if @page.sidebar.blank?
-  -content_for :content_twelve do
-    -if @page && @page.body
-      =raw render_shortcodes( @page.body )
-      %br/
--else
-  -content_for :content_nine do
-    -if @page.slug == 'home'
-      -@carousel = @current_account.carousels.find_by_slug('home')
-      -cache ['v1', @carousel, 'home'] do
-        =raw render_carousel @carousel
-  
-    -# Dont cache here because underlying models may update
-    -# Instead perform per-model caching in helpers using partials
-   
-    -if @page && @page.body
-      =raw render_shortcodes( @page.body )
-      %br/
-  
-  =content_for :sidebar do
-  
-    -if  @page && @page.slug == 'home'
-      .today
-        =image_tag('https://s3.amazonaws.com/thintix_production/jamminjava/ckeditor/pictures/data/000/000/050/medium/today-1.png?1351803066',  width: '100%')
-        .set-times
-          -@current_account.events.announced.today.order('starts_at ASC').each do |event|
-            =event.set_times_formatted.html_safe unless event.set_times.blank?
-            %br/
-      %br/
-  
-
-      %hr.red/
-    
-    =render :partial => 'front/search/search_form', :locals => {:small => true}
-  
-    -cache ['v1', @page.sidebar] do
-      =render :partial => 'sidebars/sidebar', :locals => {:sidebar => @page.sidebar}
+      .span3
+        .layout-sidebar
+          =render partial: 'sidebars/sidebar', locals: {sidebar: @page.sidebar

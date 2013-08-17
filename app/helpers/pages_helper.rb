@@ -7,19 +7,6 @@ module PagesHelper
   
   def render_shortcodes(html)
     html = apply_events_list(html)
-    html = apply_carousels(html)
-  end
-  
-  def apply_carousels(html)
-   regex = /\[(carousel) name=\&[a-z]+;([a-z0-9|]+[|]?)+\&[a-z]+;\]/
-
-    html.gsub!(regex) do |match|
-      slug = $2
-      @carousel = Carousel.find_by_slug(slug)
-      render_carousel( @carousel )
-    end
-
-    html
   end
   
   def apply_events_list(html)
@@ -29,13 +16,9 @@ module PagesHelper
     html.gsub!(regex) do |match|
       cats = $2.split('|').map{|c| c.to_sym}
       @events = @current_account.events.cat(cats).current.announced.order('starts_at ASC')  
-      render(:partial => 'front/events/events', :locals => {:events => @events, :cats => cats})
+      render(:partial => 'front/events/events', locals: {events: @events, cats: cats})
     end
     
     html
-  end
-     
-  def render_carousel(carousel)
-    render(:partial => 'carousels/carousel_full', :locals => {:carousel => carousel })
   end
 end

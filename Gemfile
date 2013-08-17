@@ -32,19 +32,19 @@ group :development do
   gem 'railroady' # erd generation (http://railroady.prestonlee.com/) # rake diagram:all
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'awesome_print'
+  # gem 'awesome_print'
   gem 'annotate', ">=2.5.0"
-  gem 'bumbler'
+  # gem 'bumbler'
 end
   
 group :test, :development do 
-  gem 'sqlite3'
+  # gem 'sqlite3'
   gem 'rspec-rails', "~> 2.6" 
-  gem 'cucumber'
+  # gem 'cucumber'
   gem "factory_girl_rails"
-  gem 'shoulda-matchers'
+  # gem 'shoulda-matchers'
   gem 'foreman'
-  gem 'resque_spec'
+  # gem 'resque_spec'
 end
 
 # parsing

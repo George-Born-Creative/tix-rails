@@ -35,16 +35,9 @@ Tix::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
-  
-  require 'pusher'  
-  
   config.assets.debug = false
+  
   config.cache_store = :dalli_store
-    
-  Pusher.app_id = ENV['PUSHER_APP_ID']
-  Pusher.key = ENV['PUSHER_KEY']
-  Pusher.secret = ENV['PUSHER_SECRET']
   
   config.action_mailer.default_url_options = {:host => 'http://localhost:5000'}
   
@@ -56,11 +49,9 @@ Tix::Application.configure do
   }
   
   config.dev_tweaks.autoload_rules do
-    # keep :all
-
-    skip '/favicon.ico'
-    skip :assets
+    keep :all
     skip :xhr
+    skip :assets
     keep :forced
   end
   

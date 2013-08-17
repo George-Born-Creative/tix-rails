@@ -60,7 +60,7 @@ gem 'haml-rails'
 gem 'backbone-on-rails'
 gem 'skeleton-rails'
 gem 'stamp'
-gem "backbone-support"
+gem 'backbone-support'
 gem 'sass-rails' # if running rails 3.1 or greater
 gem 'compass-rails'
 gem 'simple_form'
@@ -70,7 +70,7 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
 gem 'ckeditor'
-gem  'render_anywhere', :require => false
+gem 'render_anywhere', :require => false
 gem 'multi_fetch_fragments'
 
 # messaging

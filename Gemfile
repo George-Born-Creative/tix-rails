@@ -71,10 +71,10 @@ gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
 gem 'ckeditor'
 gem  'render_anywhere', :require => false
-
+gem 'multi_fetch_fragments'
 
 # messaging
-gem 'pusher'
+# gem 'pusher'
 gem 'dalli'
 
 # key value store

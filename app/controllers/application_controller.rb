@@ -188,9 +188,5 @@ class ApplicationController < ActionController::Base
       redirect_to '/orders/success'
     end
   end
-  
-  
-
-
 
 end

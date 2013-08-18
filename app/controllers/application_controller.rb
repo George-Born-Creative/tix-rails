@@ -10,18 +10,19 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_account    
-    # Cases
     if request.host == 'www.jamminjava.com' || request.host == 'jamminjava.thintix.com'
       redirect_to 'https://jamminjava.com'
     end
-    
+        
     current_host = "#{request.host}"
     current_url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
-    @current_account = AccountDomain.find_by_domain(current_host).account
-  
-    if @current_account.nil?
-      not_found(:url => current_url)
+    
+    if (account_domain = AccountDomain.find_by_domain(current_host)).nil?
+      not_found(:url => current_url) 
+      return
     end
+    
+    @current_account = account_domain.account
     
   end
 

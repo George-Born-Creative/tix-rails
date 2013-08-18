@@ -56,8 +56,8 @@ class Account < ActiveRecord::Base
       "http://#{subdomain}.localtix.com:5000/"
     when 'staging'
       "https://#{subdomain}.litetix.com/"
-    when 'prod'
-      "https://#{domains.first.domain}"
+    else
+      "https://#{domains.first.domain}/"
     end
   end
   

@@ -98,5 +98,8 @@ gem 'time_zone_ext'
 gem 'kaminari' # pagination
 gem 'deep_cloneable'
 
+#http
+gem "typhoeus"
+
 gem 'rails-dev-tweaks', '~> 0.6.1'
 gem "dotenv", "~> 0.8.0"

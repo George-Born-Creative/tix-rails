@@ -74,7 +74,7 @@ Tix::Application.routes.draw do
       resources :carousel_items#, :as => :items
     end
     
-    resources :events, :as => 'events'
+    resources :events
     
     match '/', :controller => :manager, :action => :index
     

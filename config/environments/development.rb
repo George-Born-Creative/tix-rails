@@ -1,4 +1,8 @@
 Tix::Application.configure do
+  require 'dotenv'
+  Dotenv.load
+  $stdout.sync = true
+  
   config.action_controller.perform_caching = true
   
   # Settings specified here will take precedence over those in config/application.rb

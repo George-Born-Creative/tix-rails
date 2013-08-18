@@ -16,28 +16,13 @@ class ApplicationController < ActionController::Base
     end
     
     current_host = "#{request.host}"
-    
-    # 1. Requesting a root level company domain. Redirect to thinio.com
-    
-    if ['thintix.com', 'localtix.com', 'litetix.com'].include? current_host
-      redirect_to 'http://thinio.com'
-      return
+    current_url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
+    @current_account = AccountDomain.find_by_domain(current_host).account
+  
+    if @current_account.nil?
+      not_found(:url => current_url)
     end
     
-    # 2. A subdomain of (thintix or localtix).com
-    unless current_host.scan(/thintix.com|localtix.com|litetix.com/).empty?
-      @current_account = Account.find_by_subdomain(request.subdomains.first)
-      return unless @current_account.nil?
-    
-    # 3. A customer's custom domain name
-    
-    else
-      @current_account = AccountDomain.find_by_domain(current_host).account
-      return unless @current_account.nil?
-    end
-
-    # If nothing has been found, 404
-    raise ActionController::RoutingError.new("'#{current_url}' not found in ThinTix ")
   end
 
   def layout
@@ -52,42 +37,21 @@ class ApplicationController < ActionController::Base
     end  
   end
 
-
   def manager_path?
     request.fullpath.slice(0,8) == '/manager'
   end
   
-  # def not_found
-  #   raise ActionController::RoutingError.new('Not Found')
-  # end
-  
   def after_sign_in_path_for(resource)
-    # if resource.is_a?(User) && resource.has_at_least_role(:employee)
-    #   '/manager'
-    # else
-    #   super
-    # end
     if params.has_key?(:after_sign_in_path) 
       params[:after_sign_in_path]
     else
       super
     end
       
-    
   end
-  
-  # def after_sign_in_path_for(resource)                                                                                                                      
-  #   sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')                                            
-  #   if request.referer == sign_in_url                                                                                                                    
-  #     super                                                                                                                                                 
-  #   else                                                                                                                                                    
-  #     stored_location_for(resource) || request.referer || root_path                                                                                         
-  #   end                                                                                                                                                     
-  # end
-  
-  
+
   def authenticate_admin!
-     # Pass if this isn't the manager page
+     # We only need ao authenticate manager paths
      return true unless manager_path?
      
      # User must be signed in. 
@@ -123,8 +87,14 @@ class ApplicationController < ActionController::Base
     return true
   end
   
-  def not_found
-    raise ActionController::RoutingError.new('Not Found')
+  def not_found(opts={})
+    options = {
+      message: 'Not Found.'
+    }.reverse_merge(opts)
+  
+    message = "#{options[:message]} #{options[:url]}"
+    
+    raise ActionController::RoutingError.new(message)
   end
   
   private

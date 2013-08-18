@@ -1,0 +1,1 @@
+Delayed::Job.enqueue PageCacheWarmingJob.new(1)

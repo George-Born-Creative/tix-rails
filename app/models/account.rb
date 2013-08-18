@@ -50,11 +50,14 @@ class Account < ActiveRecord::Base
     
   end
   
-  def root_url(prod=true) # [PROD=true, DEV=f]
-    if prod
-      "https://#{subdomain}.thintix.com/"
-    else
+  def host
+    case ENV['RAILS_ENV'] 
+    when 'development'
       "http://#{subdomain}.localtix.com:5000/"
+    when 'staging'
+      "http://#{subdomain}.litetix.com/"
+    when 'prod'
+      domains.first
     end
   end
   

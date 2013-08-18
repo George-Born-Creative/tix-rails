@@ -7,11 +7,11 @@ class Front::PagesController < ApplicationController
       unless @page.nil?
         # format.html { render text: @page.cache_key }
         format.html do
-          template = @page.slug == 'home' ? 'show_home' : 'home' 
+          template = @page.slug == 'home' ? 'show_home' : 'show' 
           render template
         end
       else
-        format.html { raise ActionController::RoutingError.new('Not Found')  } # 404
+        format.html { not_found  } # 404
       end
     end
   end
@@ -19,10 +19,10 @@ class Front::PagesController < ApplicationController
   protected
   
   def bust_cache
-    if params[:bust_cache] == 'yes'
+    if params[:bust_cache] == 'yes' and not @page.nil?
       cache_key = 'views/' + @page.cache_key
       Rails.cache.delete cache_key
-      logger.debug "Busting cache #{cache_key}" 
+      Rails.logger.debug "Busting cache #{cache_key}" 
     end
   end
   

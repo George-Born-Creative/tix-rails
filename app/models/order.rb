@@ -299,7 +299,7 @@ class Order < ActiveRecord::Base
   end
   
   def deliver_tickets!(email_override=nil)
-    # # puts   'Order.deliver_tickets! called' 
+    puts   'Order.deliver_tickets! called' 
     TicketMailer.delay.send_tickets(self.account.id, self.id, email_override)
   end
 

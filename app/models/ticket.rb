@@ -25,7 +25,7 @@
 #
 
 # Ticket
-# Connects an Order to a Set
+# Connects an Order to a Seat
 # Has three states: reserved, purchased, checked in
 
 # Reserved: a ticket has been added to a cart 

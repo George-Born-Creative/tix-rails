@@ -17,15 +17,12 @@
 #
 
 class Section < ActiveRecord::Base
-  belongs_to :chart
-  belongs_to :account
   
   before_save :add_default_prices
   
   has_many :areas, :dependent => :destroy
-  # has_many :prices, :dependent => :destroy
-  
-  
+  belongs_to :chart
+  belongs_to :account
   belongs_to :presale_price, :dependent => :destroy, :class_name => 'Price', :foreign_key => 'presale_price_id'
   belongs_to :dayof_price, :dependent => :destroy, :class_name => 'Price', :foreign_key => 'dayof_price_id'
   
@@ -43,7 +40,6 @@ class Section < ActiveRecord::Base
     _day_of?(self.chart.event.starts_at) ? 'Day Of' : 'Presale'
   end
   
-
   private
   
   def add_default_prices

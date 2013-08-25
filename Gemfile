@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+#ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 
@@ -11,6 +12,35 @@ group :assets do
   # gem 'less'
   gem 'jquery-ui-rails'
   gem 'bootstrap-kaminari-views'
+end
+
+group :test, :development do 
+  gem 'rspec-rails', "~> 2.6" 
+  gem "factory_girl_rails"
+  gem "dotenv", "~> 0.8.0"
+
+  # gem 'sqlite3'
+  # gem 'cucumber'
+  # gem 'shoulda-matchers'
+  # gem 'resque_spec'
+end
+
+group :development do
+  gem 'railroady' # erd generation (http://railroady.prestonlee.com/) # rake diagram:all
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'annotate', ">=2.5.0"
+  gem 'foreman'
+  gem 'rails-dev-tweaks', '~> 0.6.1'
+  # gem 'awesome_print'
+  # gem 'bumbler'
+end
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
 end
 
 group :production do
@@ -28,24 +58,6 @@ gem 'ar-tsvectors', :require => 'activerecord_tsvectors'
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
 
-group :development do
-  gem 'railroady' # erd generation (http://railroady.prestonlee.com/) # rake diagram:all
-  gem "better_errors"
-  gem "binding_of_caller"
-  # gem 'awesome_print'
-  gem 'annotate', ">=2.5.0"
-  # gem 'bumbler'
-end
-  
-group :test, :development do 
-  # gem 'sqlite3'
-  gem 'rspec-rails', "~> 2.6" 
-  # gem 'cucumber'
-  gem "factory_girl_rails"
-  # gem 'shoulda-matchers'
-  gem 'foreman'
-  # gem 'resque_spec'
-end
 
 # parsing
 gem 'nokogiri'
@@ -100,6 +112,3 @@ gem 'deep_cloneable'
 
 #http
 gem "typhoeus"
-
-gem 'rails-dev-tweaks', '~> 0.6.1'
-gem "dotenv", "~> 0.8.0"

@@ -32,11 +32,11 @@ describe Area do
   end
   
   it "should create a circle" do
-    Area.create(:label => 'A5', :x => 15.0, :y => 15.0).should be_valid
+    Area.create(type: 'circle', label: 'A5', x: 15.0, y: 15.0).should be_valid    
   end
   
   it "should create a polygon" do
-    Area.create(:label => 'General Admission', :polypath => 'A123B').should be_valid
+    Area.create(type: 'polygon', label: 'General Admission', polypath: 'A123B').should be_valid
   end
   
   it "should create a square" do 

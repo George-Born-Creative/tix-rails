@@ -7,7 +7,7 @@ ENV['RACK_ENV'] = 'test'
 describe ChartParser do
   before :all do
     @chart_parser = Tix::ChartParser.new('./spec/fixtures/chart.svg', 'jamminjava')
-  end  
+  end
     
   it "should initialize and provide correct account" do
     @chart_parser.account.subdomain.should eq 'jamminjava'
@@ -16,6 +16,5 @@ describe ChartParser do
   it "should create 4 sections" do
     @chart_parser.parse()
   end
-  
   
 end

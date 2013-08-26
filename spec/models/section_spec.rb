@@ -20,15 +20,8 @@ require 'spec_helper'
 
 describe Section do
 
-  it "should create" do
-    @account = mock_model("Account", :subdomain => 'squiid')
-    @chart = mock_model("Chart", :name => 'Seated Room', :account_id => @account.id)
-    @section = Section.create({
-      :chart_id => @chart.id,
-      :label => 'VIP',
-      :default_base_price => 10.00,
-      :default_service_charge => 3.00
-    })
+  pending "should create" do
+    
   end
   
   

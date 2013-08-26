@@ -1,7 +1,7 @@
 require 'spec_helper'
 require './app/lib/tix'
 
-describe Tix::Importer do
+describe Tix::CSVImporter do
   
   it "should create model given csv and class" do
     user = mock_model("Model")

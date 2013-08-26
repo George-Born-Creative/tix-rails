@@ -11,8 +11,8 @@
 # Each enqueued job destroys existing 
 # jobs of same type.
 # 
-# 3. The test DB won't always have schema at this stage
-#    so don't try and enqueue delayed job in the test env
+# 3. rake:db:migrate initializes rails and wont have schema
+#    so don't try and enqueue delayed job in the test env.
 
 if not ENV['RAILS_ENV'] == 'test'
   Delayed::Job.enqueue PageCacheWarmingJob.new(1) # hardcoded account#1 

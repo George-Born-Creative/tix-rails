@@ -2,7 +2,6 @@ require 'spec_helper'
 
 require './app/lib/tix/chart_parser'
 require 'ostruct'
-ENV['RACK_ENV'] = 'test'
 
 describe ChartParser do
   before :all do

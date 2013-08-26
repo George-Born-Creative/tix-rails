@@ -42,7 +42,7 @@
 class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
-    
+  attr_accessor :starts_at_formatted 
   attr_accessible :title, :price_freeform, :set_times, :info, :body,
                   :headliner, :secondary_headliner, :supporting_acts,
                   :headliner_id, :secondary_headliner_id, 
@@ -54,74 +54,67 @@ class Event < ActiveRecord::Base
                   :supporting_acts, :supporting_act_ids, :supporting_act_ids_concat,
                   :disable_event_title, :external_ticket_url, :sold_out, :free_event,
                   :hide_buttons, :search_keywords
-                  
+  
+  accepts_nested_attributes_for :supporting_acts
+  
   attr_accessor :supporting_act_ids_concat
   
   ts_vector :search_keywords
   
-  before_save :set_default_times
-  before_save :cache_search_keywords
-
-  validates :slug, :uniqueness => { :scope => :account_id, 
-                                    :message => 'Must be unique' }
-  validates :slug, :format => { :with => /^[A-Za-z0-9&:!_-]+$/, 
-                                :message => 'Only letters, numbers, dashes allowed' }
-                                
-  # http://rubydoc.info/github/norman/friendly_id/master/FriendlyId/Slugged
-  def should_generate_new_friendly_id?
-    new_record?
-  end
-  
-  attr_accessor :starts_at_formatted 
-  
+  ################
+  # CONSTANTS
+  ################
   TIMES = [:announce_at, :on_sale_at, :starts_at]#, :off_sale_at, :remove_at]
   CATEGORIES = [:adult, :kids, :kids_weekday, :lobby, :brindley]
   
-  
+  ################
+  # ALIASES & DELEGATES
+  ################  
   alias_attribute :name, :title
-  
   delegate :photo, :to => :headliner # :allow_nil => true
   alias :image :photo  
   
-  # TODO: Validates Timeliness
-  # https://github.com/adzap/validates_timeliness
-  # attr_accessible :ends_at, :headline, :body, :image_uri, :image_thumb_ur
-  
-  
+  ################
+  # VALIDATORS
+  ################
   validates_presence_of :starts_at
-  validates_presence_of :account_id
-  validates_uniqueness_of :slug, :scope => :account_id, :allow_nil => true
+  validates_presence_of :account_id  
+  validates :slug, :uniqueness => { :scope => :account_id, 
+                                    :message => 'Must be unique' }, 
+                   :format => { :with => /^[A-Za-z0-9&:!_-]+$/, 
+                                :message => 'Only letters, numbers, dashes allowed' }
   
-  before_destroy :check_tickets
+  ################
+  # HOOKS 
+  ################
+  before_destroy :ensure_no_tickets_exist
+  before_save :set_default_times
+  before_save :cache_search_keywords
   
+  ################
+  # ASSOCIATIONS
+  ################
   belongs_to :chart, :autosave => true, :dependent => :destroy
-  has_many :tickets
-  has_many :orders, :through => :tickets, :uniq => true
-  
   belongs_to :account
   belongs_to :headliner, :class_name => 'Artist'
   belongs_to :secondary_headliner, :class_name => 'Artist'
   has_and_belongs_to_many :supporting_acts, :class_name => 'Artist', :join_table => 'events_supporting_acts'
-  accepts_nested_attributes_for :supporting_acts
-  
   has_many :categories, :as => :categorizable
-  validates_inclusion_of :cat, :in => CATEGORIES.map{|c| c.to_s}.join(' '), :allow_nil => true
+  has_many :tickets
+  has_many :orders, :through => :tickets, :uniq => true
   
+  ################
+  # SCOPES
+  ################
   scope :announced, lambda {{ :conditions => ["announce_at < ? AND remove_at > ?", Time.zone.now, Time.zone.now] }}
   scope :on_sale, lambda {{ :conditions => ["on_sale_at < ? AND off_sale_at > ?", Time.zone.now, Time.zone.now] }}  
   scope :current, lambda {{ :conditions => ["starts_at >= ?", Time.zone.now - 5.hours] }}  
   scope :historical, lambda {{ :conditions => ["starts_at < ?", Time.zone.now] }}  
   scope :past, lambda {{ :conditions => ["starts_at < ?", Time.zone.now] }}  
-
-  scope :today, lambda {{ :conditions => ["starts_at BETWEEN ? AND ?", Time.zone.today.beginning_of_day, Time.zone.today.end_of_day ] }}  
-  
-  
+  scope :today, lambda {{ :conditions => ["starts_at BETWEEN ? AND ?", Time.zone.today.beginning_of_day, Time.zone.today.end_of_day ] }}    
   scope :cat, lambda { |*cats| {
     :conditions => ['cat IN (?)', cats.flatten.map{|c| c.to_s} ]
   }}
-
-
-
 
   def announced?
     now = Time.zone.now
@@ -147,7 +140,6 @@ class Event < ActiveRecord::Base
     future? self.starts_at
   end
 
-  
   def day_of? # is today within 24 hours of midnight of the start price
     _day_of? self.starts_at
   end
@@ -163,26 +155,25 @@ class Event < ActiveRecord::Base
     prices
   end
   
-  # e.g. "Some Artist + Some Other Artist + Some Third Arits"
-  def artists_str
+  ################
+  # STRINGS
+  ################
+  
+  def artists_str # e.g. "Some Artist + Some Other Artist + Some Third Arits"
     headliners_str + supporting_acts_str
   end
-  
+
   def headliners_str
     str = ""
     str = self.headliner.name unless self.headliner.nil?
     str += " + #{self.secondary_headliner.name}" unless self.secondary_headliner.nil?
     str
   end
-  
+
   def supporting_acts_str
-    str = ""
-    unless self.supporting_acts.empty?
-      str = self.supporting_acts.inject("") {|memo, artist| memo += " + #{artist.name}" }
-    end
-    str
+    self.supporting_acts.inject("") {|memo, artist| memo += " + #{artist.name}" }
   end
-  
+
   def title_array # Returns the first and second headlines
     if self.disable_event_title
       return [ headliners_str, supporting_acts_str ]
@@ -190,7 +181,7 @@ class Event < ActiveRecord::Base
       return [ title, headliners_str + supporting_acts_str ]
     end
   end
-  
+
   def title_with_artists
     if self.disable_event_title
       artists_str
@@ -198,27 +189,11 @@ class Event < ActiveRecord::Base
       "#{(self.title + " ") unless self.title.blank?}#{artists_str unless self.artists_str.blank?}"
     end
   end
-  
+
   def debug_strings
-    puts 'event #' + id.to_s
-    puts ""
-    
-    puts "headliners_str"
-    puts headliners_str
-    puts ""
-    
-    puts "supporting_acts_str"
-    puts supporting_acts_str
-    puts ""
-    
-    puts "artists_str"
-    puts artists_str
-    puts ""
-    
-    puts "title_with_artists"
-    puts title_with_artists
-    puts ""
-    
+    ['headliners_str', 'supporting_acts_str', 'artists_str', 'title_with_artists', 'id.to_s'].reduce("") do |out, str|
+      out += "#{str} \n #{eval(str)}\n\n"
+    end
   end
   
   def set_times_formatted
@@ -239,7 +214,12 @@ class Event < ActiveRecord::Base
     return [] if title_array.blank?
     title_array.join(' ').downcase.gsub(/[^0-9a-z ]/i, '').split(' ')
   end
-  
+
+  # http://rubydoc.info/github/norman/friendly_id/master/FriendlyId/Slugged
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
 private
   
   def _day_of?(time) # check if time falls between  
@@ -280,7 +260,7 @@ private
     ( ( time.to_i - Time.zone.now.to_i ) / 60 / 60 / 24) + 1
   end
 
-  def check_tickets
+  def ensure_no_tickets_exist
     unless self.tickets.empty?
       errors[:base] << "Cannot delete event that has tickets" 
       return false

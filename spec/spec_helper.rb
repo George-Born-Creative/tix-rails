@@ -1,5 +1,4 @@
-ENV["RAILS_ENV"] = 'test'
-ENV['RACK_ENV'] = 'test'
+ENV["RAILS_ENV"] = ENV["RACK_ENV"] = 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'

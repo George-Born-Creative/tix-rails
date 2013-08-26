@@ -17,6 +17,7 @@ end
 group :test, :development do 
   gem 'rspec-rails', "~> 2.6" 
   gem "factory_girl_rails"
+  gem 'faker'
   gem "dotenv", "~> 0.8.0"
   # gem 'sqlite3'
   # gem 'cucumber'
@@ -31,12 +32,12 @@ group :development do
   gem 'annotate', ">=2.5.0"
   gem 'foreman'
   gem 'rails-dev-tweaks', '~> 0.6.1'
+  gem 'wirble'
   # gem 'awesome_print'
   # gem 'bumbler'
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'

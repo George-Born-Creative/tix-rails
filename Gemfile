@@ -18,7 +18,6 @@ group :test, :development do
   gem 'rspec-rails', "~> 2.6" 
   gem "factory_girl_rails"
   gem "dotenv", "~> 0.8.0"
-
   # gem 'sqlite3'
   # gem 'cucumber'
   # gem 'shoulda-matchers'
@@ -41,6 +40,11 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'spork'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  
 end
 
 group :production do
@@ -110,5 +114,5 @@ gem 'time_zone_ext'
 gem 'kaminari' # pagination
 gem 'deep_cloneable'
 
-#http
+# http
 gem "typhoeus"

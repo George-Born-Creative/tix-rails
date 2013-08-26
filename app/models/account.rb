@@ -36,7 +36,7 @@ class Account < ActiveRecord::Base
           :email_monthly_report_to
   
   
-  validates_uniqueness_of :subdomain
+  validates :subdomain, uniqueness: true, presence: true
   
   def random(model_name) # as sym
       

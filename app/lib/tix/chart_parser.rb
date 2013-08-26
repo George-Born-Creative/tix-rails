@@ -14,6 +14,8 @@ module Tix
   class ChartParser
     SEATABLE_SECTION_ID = 'Sections'
   
+    attr_accessor :account
+    
     def initialize(file, account_subdomain)
       @file = file
       
@@ -46,7 +48,7 @@ module Tix
            area.x = coords[1]
            area.y = coords[2]
            area.text = elem.inner_text
-           #puts "TEXT: #{elem.inner_text} X: #{area.x} Y: #{area.y}"
+           #Rails.logger.debug  "TEXT: #{elem.inner_text} X: #{area.x} Y: #{area.y}"
          when 'rect'
            area.x = elem.attr 'x'
            area.y = elem.attr 'y'
@@ -65,7 +67,7 @@ module Tix
     def parse_section(css, stack_index, seatable=false)
       
       section_name = css.split('#')[-1]
-      puts "   Section: #{section_name}  Active: #{seatable.to_s} "
+      Rails.logger.debug  "   Section: #{section_name}  Active: #{seatable.to_s} "
       ActiveRecord::Base.silence do
         section = @chart.sections.create( :label => section_name,
                                           :seatable => seatable,
@@ -76,7 +78,7 @@ module Tix
 
         @loaded_file.css("#{css} circle, #{css} text, #{css} rect, #{css} polygon").each do |elem|
           area_hash = parse_area(elem)
-          puts "     #{area_hash[:type]} (Area)"
+          Rails.logger.debug  "     #{area_hash[:type]} (Area)"
           section.update_attributes(:color => area_hash[:color]) if section.color.blank?
           area_hash.delete :color
           section.areas.create( area_hash )
@@ -87,7 +89,7 @@ module Tix
         
         
         
-        puts "Section color is #{section.color}"
+        Rails.logger.debug  "Section color is #{section.color}"
         
         
         
@@ -115,7 +117,7 @@ module Tix
                                     )
   
                                     
-      puts "Creating Chart #{@chart.name}"
+      Rails.logger.debug  "Creating Chart #{@chart.name}"
       
       # Sections
       idx = 0
@@ -159,9 +161,9 @@ module Tix
 
     def pretty_print_array_of_strings(array_of_strings)
       unless error_free?
-        array_of_strings.each { |msg| puts msg }
+        array_of_strings.each { |msg| Rails.logger.debug  msg }
       else
-        puts "No messages"
+        Rails.logger.debug  "No messages"
       end
     end
     
